@@ -1,0 +1,25 @@
+version: '2'
+services:
+    hamsa_web:
+        depends_on:
+            - hamsa_db
+        build: hamsa-server/.
+        image: hap/hamsa-server
+        ports:
+            - "8080:80"
+            - "8443:443"
+        volumes:
+            - ../web-app/:/var/www/html/
+        env_file: database.env
+        links:
+            - "hamsa_db:database"
+
+
+    hamsa_db:
+        image: postgres:alpine
+        ports:
+            - "5432:5432"
+        volumes:
+            - ./hamsa-db-initialization:/docker-entrypoint-initdb.d
+        restart: always
+        env_file: database.env

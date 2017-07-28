@@ -1,0 +1,30 @@
+2017-07-28 21:03:45,739 CRIT Supervisor running as root (no user in config file)
+2017-07-28 21:03:45,748 INFO supervisord started with pid 1
+2017-07-28 21:03:46,751 INFO spawned: 'nginx' with pid 7
+2017-07-28 21:03:46,754 INFO spawned: 'php-fpm' with pid 8
+2017-07-28 21:03:47,848 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2017-07-28 21:03:47,848 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2017-07-28 21:07:17,570 WARN received SIGTERM indicating exit request
+2017-07-28 21:07:17,576 INFO waiting for nginx, php-fpm to die
+2017-07-28 21:07:18,579 INFO stopped: php-fpm (exit status 0)
+2017-07-28 21:07:18,657 INFO stopped: nginx (exit status 0)
+2017-07-28 21:11:02,177 CRIT Supervisor running as root (no user in config file)
+2017-07-28 21:11:02,184 INFO supervisord started with pid 1
+2017-07-28 21:11:03,188 INFO spawned: 'nginx' with pid 8
+2017-07-28 21:11:03,193 INFO spawned: 'php-fpm' with pid 9
+2017-07-28 21:11:04,273 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2017-07-28 21:11:04,274 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2017-07-28 21:18:54,710 WARN received SIGTERM indicating exit request
+2017-07-28 21:18:54,717 INFO waiting for nginx, php-fpm to die
+2017-07-28 21:18:54,723 INFO stopped: php-fpm (exit status 0)
+2017-07-28 21:18:54,800 INFO stopped: nginx (exit status 0)
+2017-07-28 21:21:37,524 CRIT Supervisor running as root (no user in config file)
+2017-07-28 21:21:37,532 INFO supervisord started with pid 1
+2017-07-28 21:21:38,539 INFO spawned: 'nginx' with pid 7
+2017-07-28 21:21:38,550 INFO spawned: 'php-fpm' with pid 8
+2017-07-28 21:21:39,606 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2017-07-28 21:21:39,608 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2017-07-28 21:22:03,449 WARN received SIGTERM indicating exit request
+2017-07-28 21:22:03,454 INFO waiting for nginx, php-fpm to die
+2017-07-28 21:22:04,461 INFO stopped: php-fpm (exit status 0)
+2017-07-28 21:22:04,540 INFO stopped: nginx (exit status 0)
