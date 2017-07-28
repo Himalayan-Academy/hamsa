@@ -7,12 +7,12 @@ $app->post('/test', function($request, $response, $args) {
     $uploadedFiles = $request->getUploadedFiles();
 
     if (isset($uploadedFiles["file"])) {   
-        $uploadedFiles["file"]->moveTo("/mnt/c/Users/soapdog/kauai/hamsa/slim/public/images/uploads/test.jpg");
+        $uploadedFiles["file"]->moveTo("/tmp/test.jpg");
 
         //
-        $reader = \PHPExif\Reader\Reader::factory(\PHPExif\Reader\Reader::TYPE_NATIVE);
+        $reader = \PHPExif\Reader\Reader::factory(\PHPExif\Reader\Reader::TYPE_EXIFTOOL);
 
-        $exif = $reader->read("/mnt/c/Users/soapdog/kauai/hamsa/slim/public/images/uploads/test.jpg");
+        $exif = $reader->read("/tmp/test.jpg");
 
         $data = $exif->getData();
     } else {
