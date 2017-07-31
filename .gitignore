@@ -1,3 +1,4 @@
-/vendor/
-/logs/*
+hamsa-server/vendor/
+hamsa-server/logs/*
 !/logs/README.md
+hamsa-server/cache/
