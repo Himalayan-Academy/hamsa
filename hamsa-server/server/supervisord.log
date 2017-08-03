@@ -174,3 +174,33 @@
 2017-07-31 18:33:48,693 INFO waiting for nginx, php-fpm to die
 2017-07-31 18:33:48,707 INFO stopped: php-fpm (exit status 0)
 2017-07-31 18:33:48,809 INFO stopped: nginx (exit status 0)
+2017-08-02 19:16:04,505 CRIT Supervisor running as root (no user in config file)
+2017-08-02 19:16:04,514 INFO supervisord started with pid 1
+2017-08-02 19:16:05,521 INFO spawned: 'nginx' with pid 7
+2017-08-02 19:16:05,533 INFO spawned: 'php-fpm' with pid 8
+2017-08-02 19:16:06,691 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2017-08-02 19:16:06,692 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2017-08-02 21:39:21,392 WARN received SIGTERM indicating exit request
+2017-08-02 21:39:21,424 INFO waiting for nginx, php-fpm to die
+2017-08-02 21:39:21,441 INFO stopped: php-fpm (exit status 0)
+2017-08-02 21:39:21,570 INFO stopped: nginx (exit status 0)
+2017-08-02 21:53:31,555 CRIT Supervisor running as root (no user in config file)
+2017-08-02 21:53:31,563 INFO supervisord started with pid 1
+2017-08-02 21:53:32,569 INFO spawned: 'nginx' with pid 7
+2017-08-02 21:53:32,584 INFO spawned: 'php-fpm' with pid 8
+2017-08-02 21:53:33,632 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2017-08-02 21:53:33,633 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2017-08-02 21:59:10,404 WARN received SIGTERM indicating exit request
+2017-08-02 21:59:10,405 INFO waiting for nginx, php-fpm to die
+2017-08-02 21:59:10,416 INFO stopped: php-fpm (exit status 0)
+2017-08-02 21:59:10,496 INFO stopped: nginx (exit status 0)
+2017-08-03 14:26:17,527 CRIT Supervisor running as root (no user in config file)
+2017-08-03 14:26:17,535 INFO supervisord started with pid 1
+2017-08-03 14:26:18,541 INFO spawned: 'nginx' with pid 8
+2017-08-03 14:26:18,545 INFO spawned: 'php-fpm' with pid 9
+2017-08-03 14:26:19,801 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2017-08-03 14:26:19,802 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2017-08-03 16:00:13,326 WARN received SIGTERM indicating exit request
+2017-08-03 16:00:13,341 INFO waiting for nginx, php-fpm to die
+2017-08-03 16:00:13,350 INFO stopped: php-fpm (exit status 0)
+2017-08-03 16:00:13,450 INFO stopped: nginx (exit status 0)

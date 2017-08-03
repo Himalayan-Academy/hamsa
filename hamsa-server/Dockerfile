@@ -25,11 +25,13 @@ COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Configure cronjobs
 COPY cronjobs/backup-db.sh /etc/periodic/daily/backup-db.sh
-COPY cronjobs/syncronize-db.sh /etc/periodic/15min/syncronize-db.sh
+COPY cronjobs/synchronize-db.sh /etc/periodic/15min/synchronize-db.sh
 
 # Add application
 RUN mkdir -p /var/www/html
 RUN mkdir -p /var/www/backups
+RUN mkdir -p /var/www/images
+
 
 WORKDIR /var/www/html
 

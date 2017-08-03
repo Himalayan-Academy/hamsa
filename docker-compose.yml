@@ -10,6 +10,7 @@ services:
             - "8443:443"
         volumes:
             - ./hamsa-server/server/:/var/www/html/
+            - ./images/:/var/www/images
         env_file: database.env
         links:
             - "hamsa_db:database"

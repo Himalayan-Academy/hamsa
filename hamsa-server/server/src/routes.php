@@ -24,20 +24,6 @@ $app->post('/test', function($request, $response, $args) {
 
 $app->get('/dbtest', function($request, $response, $args) {
 
-    $dbname = getenv("POSTGRES_DB");
-    $dbpassword = getenv("POSTGRES_PASSWORD");
-    $dbuser = getenv("POSTGRES_USER");
-
-    ORM::configure("pgsql:host=database;dbname=${dbname}");
-    ORM::configure('username', $dbuser);
-    ORM::configure('password', $dbpassword);
-    ORM::configure('id_column_overrides', array(
-        'image' => 'image_id',
-        'collection' => 'collection_id',
-        'tag' => 'tag_id',
-        'artist' => 'artist_id'
-    ));
-
     $data = ORM::for_table('image')->find_array();
     
     return $this->renderer->render($response, 'test.phtml', $data);

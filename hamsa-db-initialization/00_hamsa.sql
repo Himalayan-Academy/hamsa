@@ -8,6 +8,7 @@ CREATE TABLE image (
     width smallint,
     height smallint,
     metadata jsonb NOT NULL,
+    checksum text,
     date_modified timestamp without time zone NOT NULL,
     file_missing boolean NOT NULL,
     mime character varying(50)
