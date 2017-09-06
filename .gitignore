@@ -3,3 +3,4 @@ hamsa-server/logs/*
 !/logs/README.md
 hamsa-server/cache/
 images/
+.idea

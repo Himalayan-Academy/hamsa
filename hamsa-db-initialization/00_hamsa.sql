@@ -51,3 +51,32 @@ CREATE TABLE account (
     email varchar(255) NOT NULL,
     password varchar(255) NOT NULL
 );
+
+--
+-- image tag
+--
+CREATE TABLE tag_image (
+  image_id int REFERENCES image (image_id) ON UPDATE CASCADE ON DELETE CASCADE ,
+  tag_id int REFERENCES tag (tag_id) ON UPDATE CASCADE ,
+  CONSTRAINT tag_image_pkey PRIMARY KEY (tag_id, image_id)
+);
+
+
+--
+-- collection tag
+--
+CREATE TABLE tag_collection (
+  collection_id int REFERENCES collection (collection_id) ON UPDATE CASCADE ON DELETE CASCADE ,
+  tag_id int REFERENCES tag (tag_id) ON UPDATE CASCADE ,
+  CONSTRAINT tag_collection_pkey PRIMARY KEY (tag_id, collection_id)
+);
+
+
+--
+-- artist tag
+--
+CREATE TABLE tag_artist (
+  artist_id int REFERENCES artist (artist_id) ON UPDATE CASCADE ON DELETE CASCADE ,
+  tag_id int REFERENCES tag (tag_id) ON UPDATE CASCADE ,
+  CONSTRAINT tag_artist_pkey PRIMARY KEY (tag_id, artist_id)
+);
