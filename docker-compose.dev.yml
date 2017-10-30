@@ -9,7 +9,7 @@ services:
             - "8080:80"
             - "8443:443"
         volumes:
-            - ./hamsa-server/server/:/var/www/html/
+            - ./hamsa-api/server/:/var/www/html/
             - ./images/:/var/www/images
         env_file: database.env
         links:
