@@ -9,7 +9,7 @@ services:
             - "8080:80"
             - "8443:443"
         volumes:
-            - ./hamsa-api/server/:/var/www/html/
+            - ./hamsa-server/server/:/var/www/html/
             - ./images/:/var/www/images
         env_file: database.env
         links:
@@ -32,7 +32,9 @@ services:
         image: hap/hamsa-admin
         ports:
           - "3000:3000"
+          - "10001:10001"
         volumes:
           - ./hamsa-admin:/usr/src/app
         links:
           - "hamsa_api:api"
+        command: npm run dev

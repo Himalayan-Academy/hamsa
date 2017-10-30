@@ -1,6 +1,6 @@
-hamsa-server/vendor/
-hamsa-server/logs/*
+hamsa-api/vendor/
+hamsa-api/logs/*
 !/logs/README.md
-hamsa-server/cache/
+hamsa-api/cache/
 images/
 .idea
