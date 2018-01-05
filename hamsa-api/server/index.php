@@ -80,6 +80,9 @@ try {
                 'type' => Type::listOf($imageType),
                 'resolve' => function ($root, $args) {
                     $images = image_get_all();
+                    $images = array_filter($images, function($image) {
+                        return file_exists($image["path"]);
+                    });
                     return $images;
                 }
             ]
