@@ -10,7 +10,7 @@ services:
             - "8443:443"
         volumes:
             - ./hamsa-api/server/:/var/www/html/
-            - ./images/:/var/www/images
+            - ./images/:/var/www/html/images
         env_file: database.env
         links:
             - "hamsa_db:database"
@@ -24,15 +24,3 @@ services:
             - ./hamsa-database:/docker-entrypoint-initdb.d
         restart: always
         env_file: database.env
-
-    hamsa_admin:
-        depends_on:
-          - hamsa_api
-        build: hamsa-admin/.
-        image: hap/hamsa-admin
-        ports:
-          - "3000:3000"
-        volumes:
-          - ./hamsa-admin:/usr/src/app
-        links:
-          - "hamsa_api:api"

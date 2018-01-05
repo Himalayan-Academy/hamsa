@@ -14,6 +14,17 @@ require __DIR__ . '/../vendor/autoload.php';
 // Load database configuration
 require __DIR__ . '/../src/database.php';
 
+use \Eventviva\ImageResize;
+
+function cacheMultipleVersionsOfImage($path, $md5) {
+    $thumb_path = "/var/www/html/images/_cache/${md5}.thumb.jpg";
+    $image = new ImageResize($path);
+    $image->quality_jpg = 75;
+    $image->resizeToWidth(300);
+    $image->save($thumb_path);
+    echo "Saving thumb to ${thumb_path}\n";
+}
+
 
 function insertRecordForImage($path, $md5, $exif) {
     $record = ORM::for_table('image')->create();
@@ -43,7 +54,7 @@ function recordNeedsUpdate($path, $md5) {
     $record = ORM::for_table('image')->where("path", $path)->find_one();
 
     if ($record) {
-        echo "$path ===> {$record->checksum}  / $md5";
+        echo "$path ===> {$record->checksum}  / $md5\n";
         if ($record->checksum !== $md5) {
             return "nothing";
         } else {
@@ -66,10 +77,12 @@ function processImage($path) {
         case "update":
             echo "update...\n";
             updateRecordForImage($path, $md5, $exifData);
+            cacheMultipleVersionsOfImage($path, $md5);
         break;
         case "insert":
             echo "insert...\n";
             insertRecordForImage($path, $md5, $exifData);
+            cacheMultipleVersionsOfImage($path, $md5);
         break;
         case "nothing":
             echo "nothing...\n";
@@ -81,7 +94,7 @@ function processImage($path) {
 
 // List all images
 
-$Directory = new RecursiveDirectoryIterator('/var/www/images/');
+$Directory = new RecursiveDirectoryIterator('/var/www/html/images/');
 $Iterator = new RecursiveIteratorIterator($Directory);
 $allImages = new RegexIterator($Iterator, '/^.+\.jpg$/i', RecursiveRegexIterator::GET_MATCH);
 
@@ -89,8 +102,11 @@ $allImages = new RegexIterator($Iterator, '/^.+\.jpg$/i', RecursiveRegexIterator
 
 foreach($allImages as $image) {
     $imageFile = $image[0];
-   
-    echo "$imageFile\n";
 
-    processImage($imageFile);
+    if (strpos($imageFile, "_cache") == false) {
+   
+        echo "$imageFile\n";
+
+        processImage($imageFile);
+    }
 }
