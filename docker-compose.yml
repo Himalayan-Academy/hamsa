@@ -19,7 +19,7 @@ services:
     hamsa_db:
         image: postgres:alpine
         ports:
-            - "5432:5432"
+            - "5432:5433"
         volumes:
             - ./hamsa-database:/docker-entrypoint-initdb.d
         restart: always

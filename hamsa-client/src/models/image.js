@@ -7,7 +7,7 @@ export const imageModel = {
     getAvailableImages: function () {
         var query = `
         query {
-            images {
+            images(limit: 200) {
                 checksum
                 path
                 thumbnail
