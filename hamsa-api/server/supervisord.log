@@ -1,0 +1,52 @@
+2018-01-02 21:11:58,077 CRIT Supervisor running as root (no user in config file)
+2018-01-02 21:11:58,091 INFO supervisord started with pid 1
+2018-01-02 21:11:59,096 INFO spawned: 'nginx' with pid 7
+2018-01-02 21:11:59,108 INFO spawned: 'php-fpm' with pid 8
+2018-01-02 21:12:00,208 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-01-02 21:12:00,208 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-01-02 21:18:03,059 WARN received SIGTERM indicating exit request
+2018-01-02 21:18:03,059 INFO waiting for nginx, php-fpm to die
+2018-01-02 21:18:03,062 INFO stopped: php-fpm (exit status 0)
+2018-01-02 21:18:03,137 INFO stopped: nginx (exit status 0)
+2018-01-02 21:18:27,589 CRIT Supervisor running as root (no user in config file)
+2018-01-02 21:18:27,595 INFO supervisord started with pid 1
+2018-01-02 21:18:28,602 INFO spawned: 'nginx' with pid 7
+2018-01-02 21:18:28,611 INFO spawned: 'php-fpm' with pid 8
+2018-01-02 21:18:29,712 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-01-02 21:18:29,714 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-01-02 22:27:49,850 WARN received SIGTERM indicating exit request
+2018-01-02 22:27:49,852 INFO waiting for nginx, php-fpm to die
+2018-01-02 22:27:49,858 INFO stopped: php-fpm (exit status 0)
+2018-01-02 22:27:49,937 INFO stopped: nginx (exit status 0)
+2018-01-02 22:37:27,739 CRIT Supervisor running as root (no user in config file)
+2018-01-02 22:37:27,749 INFO supervisord started with pid 1
+2018-01-02 22:37:28,752 INFO spawned: 'nginx' with pid 8
+2018-01-02 22:37:28,755 INFO spawned: 'php-fpm' with pid 9
+2018-01-02 22:37:30,013 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-01-02 22:37:30,014 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-01-05 01:29:03,408 CRIT Supervisor running as root (no user in config file)
+2018-01-05 01:29:03,422 INFO supervisord started with pid 1
+2018-01-05 01:29:04,426 INFO spawned: 'nginx' with pid 8
+2018-01-05 01:29:04,434 INFO spawned: 'php-fpm' with pid 9
+2018-01-05 01:29:05,680 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-01-05 01:29:05,682 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-01-05 03:47:13,748 WARN received SIGTERM indicating exit request
+2018-01-05 03:47:13,750 INFO waiting for nginx, php-fpm to die
+2018-01-05 03:47:13,755 INFO stopped: php-fpm (exit status 0)
+2018-01-05 03:47:13,848 INFO stopped: nginx (exit status 0)
+2018-01-05 03:48:19,019 CRIT Supervisor running as root (no user in config file)
+2018-01-05 03:48:19,027 INFO supervisord started with pid 1
+2018-01-05 03:48:20,030 INFO spawned: 'nginx' with pid 7
+2018-01-05 03:48:20,036 INFO spawned: 'php-fpm' with pid 8
+2018-01-05 03:48:21,083 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-01-05 03:48:21,084 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-01-05 04:59:50,494 WARN received SIGTERM indicating exit request
+2018-01-05 04:59:50,497 INFO waiting for nginx, php-fpm to die
+2018-01-05 04:59:50,502 INFO stopped: php-fpm (exit status 0)
+2018-01-05 04:59:50,576 INFO stopped: nginx (exit status 0)
+2018-01-05 05:02:26,866 CRIT Supervisor running as root (no user in config file)
+2018-01-05 05:02:26,874 INFO supervisord started with pid 1
+2018-01-05 05:02:27,877 INFO spawned: 'nginx' with pid 7
+2018-01-05 05:02:27,886 INFO spawned: 'php-fpm' with pid 8
+2018-01-05 05:02:28,936 INFO success: nginx entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2018-01-05 05:02:28,936 INFO success: php-fpm entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
