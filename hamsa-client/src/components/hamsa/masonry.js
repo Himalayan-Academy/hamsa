@@ -16,7 +16,7 @@ export const Masonry = {
         m("section.masonry", vnode.state.images.length > 0 ? vnode.state.images.map(image => {
                 console.log("thumb", image.thumbnail);
                 var t = "http://localhost:8080" + image.thumbnail;
-                return m(MasonryTile, {src: t, label: "Self God"})
+                return m(MasonryTile, {src: t, label: "Short description", checksum: image.checksum})
             })
             :
             m("h1", "Loading")

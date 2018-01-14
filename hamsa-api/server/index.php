@@ -2,7 +2,7 @@
 if (PHP_SAPI == 'cli-server') {
     // To help the built-in PHP dev server, check if the request was actually for
     // something which should probably be served as a static file
-    $url  = parse_url($_SERVER['REQUEST_URI']);
+    $url = parse_url($_SERVER['REQUEST_URI']);
     $file = __DIR__ . $url['path'];
     if (is_file($file)) {
         return false;
@@ -43,13 +43,13 @@ $imageType = new ObjectType([
     'fields' => [
         'path' => [
             'type' => Type::string(),
-            'resolve' => function($image) {
-                return str_replace("/var/www", "", $image["path"]);
+            'resolve' => function ($image) {
+                return str_replace("/var/www/html", "", $image["path"]);
             }
         ],
         'thumbnail' => [
             'type' => Type::string(),
-            'resolve' => function($image) {
+            'resolve' => function ($image) {
                 return "/images/_cache/${image['checksum']}.thumb.jpg";
             }
         ],
@@ -64,26 +64,47 @@ $imageType = new ObjectType([
 
 
 try {
-    $queryType =  new ObjectType([
+    $queryType = new ObjectType([
         'name' => 'Query',
         'fields' => [
-            'echo' => [
-                'type' => Type::string(),
-                'args' => [
-                    'message' => ['type' => Type::string()],
-                ],
-                'resolve' => function ($root, $args) {
-                    return $root['prefix'] . $args['message'];
-                }
-            ],
             'images' => [
                 'type' => Type::listOf($imageType),
+                'description' => "Queries the available images on the system",
+                'args' => [
+                    'limit' => [
+                        'type' => Type::int(),
+                        'description' => 'Limit the number of images returned',
+                        'defaultValue' => 10
+                    ],
+                    'offset' => [
+                        'type' => Type::int(),
+                        'description' => 'Offset from the start',
+                        'defaultValue' => 0
+                    ]
+
+                ],
                 'resolve' => function ($root, $args) {
-                    $images = image_get_all();
-                    $images = array_filter($images, function($image) {
+                    $images = image_get_all($args["limit"], $args["offset"]);
+                    $images = array_filter($images, function ($image) {
                         return file_exists($image["path"]);
                     });
                     return $images;
+                }
+            ],
+            'image' => [
+                'type' => $imageType,
+                'description' => "Queries for a specific image",
+                'args' => [
+                    'checksum' => [
+                        'type' => Type::string(),
+                        'description' => 'Checksum of the chose image',
+                        'defaultValue' => 10
+                    ]
+
+                ],
+                'resolve' => function ($root, $args) {
+                    $image = image_get($args["checksum"]);
+                    return $image[0];
                 }
             ]
         ],

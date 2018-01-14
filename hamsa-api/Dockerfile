@@ -31,7 +31,7 @@ COPY cronjobs/synchronize-db.sh /etc/periodic/15min/synchronize-db.sh
 # Add application
 RUN mkdir -p /var/www/html
 RUN mkdir -p /var/www/backups
-RUN mkdir -p /var/www/images
+RUN mkdir -p /var/www/html/images
 
 
 WORKDIR /var/www/html

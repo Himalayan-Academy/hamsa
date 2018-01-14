@@ -50,8 +50,10 @@ function account_get_by_email($email) {
  * Image routines
  */
 
-function image_get_all() {
+function image_get_all($limit, $offset) {
     // todo: add pagination
+
+
 
     $extract_metadata = function($value) {
         $value["metadata"] = json_decode($value["metadata"],true);
@@ -60,10 +62,37 @@ function image_get_all() {
 
     $records = ORM::for_table('image')
         ->where('file_missing', false)
+        ->limit($limit)
+        ->offset($offset)
         ->find_array();
 
     return array_map($extract_metadata, $records);
 }
+
+function image_set_missing($id, $missing) {
+    $record = ORM::for_table('image')->where('image_id', $id)->findOne();
+
+    $record->set("file_missing", !$missing);
+    $record->save();
+}
+
+
+function image_get($checksum) {
+
+    $extract_metadata = function($value) {
+        $value["metadata"] = json_decode($value["metadata"],true);
+        return $value;
+    };
+
+    $records = ORM::for_table('image')
+        ->where('file_missing', false)
+        ->where('checksum', $checksum)
+        ->limit(1)
+        ->find_array();
+
+    return array_map($extract_metadata, $records);
+}
+
 
 /**
  * Artist routines

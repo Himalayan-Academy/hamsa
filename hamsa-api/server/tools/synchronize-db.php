@@ -13,6 +13,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 // Load database configuration
 require __DIR__ . '/../src/database.php';
+require __DIR__ . '/../src/hamsa.php';
 
 use \Eventviva\ImageResize;
 
@@ -54,8 +55,8 @@ function recordNeedsUpdate($path, $md5) {
     $record = ORM::for_table('image')->where("path", $path)->find_one();
 
     if ($record) {
-        echo "$path ===> {$record->checksum}  / $md5\n";
-        if ($record->checksum !== $md5) {
+        echo "$path ===> {$record->checksum} / $md5\n";
+        if ((strcmp($record->checksum, $md5) == 0) && (file_exists($record->path))) {
             return "nothing";
         } else {
             return "update";
@@ -110,3 +111,22 @@ foreach($allImages as $image) {
         processImage($imageFile);
     }
 }
+
+// Update missing files...
+echo "check for missing files...";
+
+$records = ORM::for_table('image')
+    ->find_array();
+
+$total_missing_files = 0;
+foreach($records as $image) {
+    $path = $image["path"];
+    $exists = file_exists($path);
+    image_set_missing($image["image_id"], $exists);
+    if (!$exists) {
+        echo "File $path is missing\n";
+        $total_missing_files++;
+    }
+}
+
+echo "Total missing files: $total_missing_files\n";
