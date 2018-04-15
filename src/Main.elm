@@ -30,11 +30,12 @@ init location =
 
 
 ---- UPDATE ----
+-- todo: fix problem with changing URL to GraphQL server
 
 
 sendQueryRequest : Request Query a -> Task GraphQLClient.Error a
 sendQueryRequest request =
-    GraphQLClient.sendQuery "http://localhost:8080/graphql" request
+    GraphQLClient.sendQuery ":8080/graphql" request
 
 
 sendCollectionRequest : Cmd Msg

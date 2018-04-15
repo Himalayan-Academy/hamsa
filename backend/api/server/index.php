@@ -65,7 +65,7 @@ $metadataType = new ObjectType([
         'keywords' => [
             'type' => Type::listOf(Type::string()),
             'resolve' => function($meta) {
-                return $meta["keywords"];
+                return isset($meta["keywords"]) ? $meta["keywords"] : [""] ;
             }
         ]
     ]
