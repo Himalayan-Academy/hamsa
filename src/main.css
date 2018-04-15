@@ -1,0 +1,131 @@
+body {
+  margin: 0; }
+
+header {
+  display: flex !important;
+  align-content: start !important;
+  align-items: start !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  flex-wrap: nowrap !important;
+  background-color: #783441;
+  height: 60px;
+  font-family: sans-serif; }
+  header h1.title {
+    color: #D3A073;
+    display: inline-block;
+    font-size: 1rem;
+    padding-right: 10px;
+    margin-left: 30px; }
+  header h2.subtitle {
+    color: #F4F3F1;
+    display: inline-block;
+    font-size: 1rem; }
+  header img.hamsa-logo {
+    margin-left: 120px;
+    z-index: 9999; }
+  header img.monastery-logo {
+    margin-right: 120px;
+    z-index: 9999; }
+
+img.hamsa-logo {
+  width: 200px;
+  border: solid 0px 1px 1px 1px #fff; }
+
+img.monastery-logo {
+  width: 90px; }
+
+.hero {
+  width: 90%;
+  margin: auto; }
+  .hero figure {
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+    max-height: 400px;
+    overflow: hidden;
+    margin: 0; }
+    .hero figure img.hero {
+      max-width: 100%;
+      width: 100%; }
+    .hero figure span.label {
+      line-height: 2rem;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      padding-left: 60px;
+      width: 100%;
+      max-width: 100%;
+      opacity: 0.8;
+      background-color: #783441;
+      color: #D3A073;
+      font-family: sans-serif;
+      font-size: 1.1em;
+      padding-left: 60px;
+      position: absolute;
+      bottom: 0px;
+      left: 0px; }
+
+*, *:before, *:after {
+  box-sizing: border-box !important; }
+
+div.collection {
+  margin: auto;
+  width: 90%; }
+  div.collection h1 {
+    text-align: center; }
+
+section.masonry {
+  column-width: 15em;
+  -moz-column-width: 15em;
+  -webkit-column-width: 15em;
+  column-gap: 1em;
+  -moz-column-gap: 1em;
+  -webkit-column-gap: 1em; }
+
+div.tile {
+  display: inline-block;
+  margin: 0.25rem;
+  width: 100%;
+  background: #FFF;
+  border: solid 1px #c5c4c4; }
+  div.tile figure {
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin: 0; }
+    div.tile figure img {
+      max-width: 100%;
+      width: 100%;
+      object-fit: cover; }
+    div.tile figure p {
+      padding-left: 20px;
+      width: 100%;
+      max-width: 100%;
+      color: #000;
+      font-family: sans-serif;
+      font-weight: bold;
+      font-size: 1.1em; }
+
+img.is-single-item-display {
+  max-width: 100%; }
+
+.selectWrapper {
+  border-radius: 36px;
+  display: inline-block;
+  overflow: hidden;
+  background: #cccccc;
+  border: 1px solid #cccccc; }
+
+.selectBox {
+  width: 140px;
+  height: 40px;
+  border: 0px;
+  outline: none; }
+
+.selector-controls {
+  display: flex;
+  padding: 40px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly; }
