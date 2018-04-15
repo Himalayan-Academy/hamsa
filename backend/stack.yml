@@ -1,0 +1,34 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres:10.3-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: hamsa_pass
+      POSTGRES_USER: hamsa
+      POSTGRES_DB: hamsa
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+
+  api:
+    image: hamsa-api
+    build: api/.
+    depends_on: 
+      - db
+    environment:
+      POSTGRES_PASSWORD: hamsa_pass
+      POSTGRES_USER: hamsa
+      POSTGRES_DB: hamsa
+    restart: always
+    volumes:
+      - ./api/server/:/var/www/html/
+      - ../../images/:/var/www/html/images
+    links:
+      - "db:database"
+    ports:
+      - "8080:80"
+      - "8443:443"

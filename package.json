@@ -1,0 +1,23 @@
+{
+  "name": "hamsa",
+  "version": "1.0.0",
+  "description": "Hindu Art Museum of Spiritual Arts",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "api": "graphqelm http://localhost:8080/graphql --base HamsaApi"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-sass-chokidar": "^1.2.2"
+  },
+  "devDependencies": {
+    "graphqelm": "^3.1.11"
+  }
+}
