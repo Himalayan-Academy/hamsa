@@ -87,12 +87,12 @@ view model =
                 , Elements.Hero.view
                 , selectorView collection
                 , masonryView collection
-                , h1 [] [ text "succ" ]
+                , h1 [] [ text "successfuly loaded" ]
                 ]
 
         RemoteData.Failure _ ->
             div []
                 [ Elements.Header.view
                 , Elements.Hero.view
-                , h1 [] [ text "fail" ]
+                , h1 [] [ text "failure loading" ]
                 ]

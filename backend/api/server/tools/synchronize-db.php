@@ -68,6 +68,7 @@ function recordNeedsUpdate($path, $md5) {
 
 function processImage($path) {
     $md5 = md5_file($path);
+    $thumb_path = "/var/www/html/images/_cache/${md5}.thumb.jpg";
 
     $reader = \PHPExif\Reader\Reader::factory(\PHPExif\Reader\Reader::TYPE_EXIFTOOL);
 
@@ -78,17 +79,19 @@ function processImage($path) {
         case "update":
             echo "update...\n";
             updateRecordForImage($path, $md5, $exifData);
-            cacheMultipleVersionsOfImage($path, $md5);
         break;
         case "insert":
             echo "insert...\n";
             insertRecordForImage($path, $md5, $exifData);
-            cacheMultipleVersionsOfImage($path, $md5);
         break;
         case "nothing":
             echo "nothing...\n";
         break;
-    }  
+    }
+    
+    if (!file_exists($thumb_path)) {
+        cacheMultipleVersionsOfImage($path, $md5);
+    }
 }
 
 
