@@ -21,7 +21,7 @@ masonryTile : String -> String -> Html Msg
 masonryTile image label =
     div [ class "tile" ]
         [ figure []
-            [ img [ src ("http://localhost:8080"++ image) ] []
+            [ img [ src ("http://dev.himalayanacademy.com/:8080"++ image) ] []
             , p [] [ text label ]
             ]
         ]
