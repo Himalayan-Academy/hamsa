@@ -28,5 +28,8 @@ matchRoute : Parser (Route -> a) a
 matchRoute =
     oneOf
         [ map HomeRoute top
+        , map ArtistsRoute (s "artists")
+        , map CollectionsRoute (s "collections")
+        , map CategoriesRoute (s "categories")
         , map SingleImageRoute (s "item" </> string)
         ]

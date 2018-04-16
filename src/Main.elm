@@ -11,6 +11,7 @@ import RemoteData
 import Routing exposing (..)
 import Task exposing (Task)
 import Types exposing (..)
+import Views.Artists as Artists
 import Views.Collection as Collection
 
 
@@ -35,7 +36,7 @@ init location =
 
 sendQueryRequest : Request Query a -> Task GraphQLClient.Error a
 sendQueryRequest request =
-    GraphQLClient.sendQuery ":8080/graphql" request
+    GraphQLClient.sendQuery "http://dev.himalayanacademy.com:8080/graphql" request
 
 
 sendCollectionRequest : Cmd Msg
@@ -98,7 +99,7 @@ update msg model =
                         SingleImageRoute _ ->
                             Cmd.none
 
-                        NotFoundRoute ->
+                        _ ->
                             Cmd.none
             in
             ( { model | currentRoute = newRoute }, cmd )
@@ -137,10 +138,13 @@ view model =
         HomeRoute ->
             Collection.view model
 
+        ArtistsRoute ->
+            Artists.view model
+
         SingleImageRoute imageId ->
             notDone
 
-        NotFoundRoute ->
+        _ ->
             notDone
 
 

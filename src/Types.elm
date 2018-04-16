@@ -25,6 +25,9 @@ type alias Filter =
 
 type Route
     = HomeRoute
+    | CollectionsRoute
+    | ArtistsRoute
+    | CategoriesRoute
     | SingleImageRoute String
     | NotFoundRoute
 
