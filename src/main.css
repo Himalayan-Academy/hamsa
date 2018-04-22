@@ -110,6 +110,21 @@ div.tile {
 img.is-single-item-display {
   max-width: 100%; }
 
+.round-wrapper {
+  border-radius: 30px;
+  display: inline-block;
+  border: 2px solid red;
+  padding: 10px;
+  color: red; }
+  .round-wrapper span.title {
+    font-size: 1.1em;
+    padding-right: 20px;
+    font-family: sans-serif; }
+  .round-wrapper i.fa {
+    float: right; }
+  .round-wrapper select {
+    display: none; }
+
 .selectWrapper {
   border-radius: 36px;
   display: inline-block;
