@@ -51,7 +51,7 @@ view model =
             div []
                 [ Elements.Header.view
                 , Elements.Hero.view
-                , Selector.selectorView collection
+                , Selector.view model
                 , masonryView collection
                 ]
 

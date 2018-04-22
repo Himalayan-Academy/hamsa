@@ -13,6 +13,7 @@ import Task exposing (Task)
 import Types exposing (..)
 import Views.Artists as Artists
 import Views.Collection as Collection
+import Views.Loading as Loading
 
 
 ---- MODEL ----
@@ -31,7 +32,6 @@ init location =
 
 
 ---- UPDATE ----
--- todo: fix problem with changing URL to GraphQL server
 
 
 sendQueryRequest : Request Query a -> Task GraphQLClient.Error a
@@ -124,28 +124,26 @@ update msg model =
 ---- VIEW ----
 
 
-notDone : Html Msg
-notDone =
-    div []
-        [ img [ src "/logo.svg" ] []
-        , h1 [] [ text "This is not done!" ]
-        ]
-
-
 view : Model -> Html Msg
 view model =
     case model.currentRoute of
         HomeRoute ->
             Collection.view model
 
+        CategoriesRoute ->
+            Collection.view model
+
+        CollectionsRoute ->
+            Collection.view model
+
         ArtistsRoute ->
             Artists.view model
 
         SingleImageRoute imageId ->
-            notDone
+            Loading.view model
 
         _ ->
-            notDone
+            Loading.view model
 
 
 

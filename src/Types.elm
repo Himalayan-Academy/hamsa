@@ -36,6 +36,10 @@ type Msg
     = NoOp
     | OnLocationChange Location
     | ReceiveQueryResponse (Response CollectionModel)
+    | GoArtist String
+    | GoCollection String
+    | GoCategory String
+    | Search String
 
 
 type alias Response a =

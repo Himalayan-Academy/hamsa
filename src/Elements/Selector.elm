@@ -3,11 +3,12 @@ module Elements.Selector exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import List.Extra exposing (uniqueBy)
+import RemoteData exposing (RemoteData, WebData)
 import Types exposing (..)
 
 
-round : String -> List ( String, String ) -> Html Msg
-round title listOfOptions =
+round : String -> String -> List ( String, String ) -> Html Msg
+round selectorClass title listOfOptions =
     let
         makeOption ( label, v ) =
             case String.length v of
@@ -22,11 +23,19 @@ round title listOfOptions =
         listWithTitle =
             ( title, "" ) :: listOfOptions
     in
-    div [ class "round-wrapper" ]
+    div [ classList [ ( "round-wrapper", True ), ( selectorClass, True ) ] ]
         [ span [ class "title" ] [ text title ]
-        , i [ class "fa fa-arrow-down" ] []
+        , i [ class "fa fa-caret-down" ] []
         , select []
             (List.map makeOption listWithTitle)
+        ]
+
+
+search : Html Msg
+search =
+    div [ classList [ ( "round-wrapper", True ), ( "is-search-box", True ) ] ]
+        [ input [ class "title", placeholder "Search" ] []
+        , i [ class "fa fa-search" ] []
         ]
 
 
@@ -54,9 +63,17 @@ oldRound title listOfOptions =
         ]
 
 
-selectorView : CollectionModel -> Html Msg
-selectorView collection =
+view : Model -> Html Msg
+view model =
     let
+        collection =
+            case model.collection of
+                RemoteData.Success c ->
+                    c
+
+                _ ->
+                    []
+
         emptyArtistFilter artist =
             case artist of
                 Just a ->
@@ -81,7 +98,8 @@ selectorView collection =
                         |> Debug.log "Artist list"
     in
     div [ class "selector-controls" ]
-        [ round "Categories" []
-        , round "Artists" artistList
-        , round "Collections" []
+        [ round "is-selector-categories" "Categories" []
+        , round "is-selector-artists" "Artists" artistList
+        , round "is-selector-collections" "Collections" []
+        , search
         ]

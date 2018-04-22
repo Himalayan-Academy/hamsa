@@ -6,42 +6,9 @@ import Elements.Image as Image
 import Elements.Selector as Selector
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import List.Extra exposing (uniqueBy)
 import RemoteData
 import Types exposing (..)
-
-
-selectorView : CollectionModel -> Html Msg
-selectorView collection =
-    let
-        emptyArtistFilter artist =
-            case artist of
-                Just a ->
-                    a
-
-                Nothing ->
-                    ""
-
-        artistList =
-            case List.length collection of
-                0 ->
-                    [ ( "", "" ) ]
-
-                _ ->
-                    collection
-                        |> List.map .metadata
-                        |> List.map .artist
-                        |> List.map emptyArtistFilter
-                        |> List.filter (\i -> not <| String.isEmpty i)
-                        |> uniqueBy toString
-                        |> List.map (\i -> ( i, i ))
-                        |> Debug.log "Artist list"
-    in
-    div [ class "selector-controls" ]
-        [ Selector.round "Categories" []
-        , Selector.round "Artists" artistList
-        , Selector.round "Collections" []
-        ]
+import Views.Loading as Loading
 
 
 tileView : Image -> Html Msg
@@ -68,24 +35,16 @@ view model =
     in
     case collection of
         RemoteData.NotAsked ->
-            div []
-                [ Elements.Header.view
-                , Elements.Hero.view
-                , h1 [] [ text "not asked" ]
-                ]
+            Loading.view model
 
         RemoteData.Loading ->
-            div []
-                [ Elements.Header.view
-                , Elements.Hero.view
-                , h1 [] [ text "loading" ]
-                ]
+            Loading.view model
 
         RemoteData.Success collection ->
             div []
                 [ Elements.Header.view
                 , Elements.Hero.view
-                , selectorView collection
+                , Selector.view model
                 , masonryView collection
                 , h1 [] [ text "successfuly loaded" ]
                 ]

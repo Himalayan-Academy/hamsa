@@ -110,18 +110,39 @@ div.tile {
 img.is-single-item-display {
   max-width: 100%; }
 
+.is-selector-categories {
+  border-color: #8181bd;
+  color: #8181bd; }
+
+.is-selector-artists {
+  border-color: #a76b73;
+  color: #a76b73; }
+
+.is-selector-collections {
+  border-color: #ee9f7e;
+  color: #ee9f7e; }
+
+.is-search-box {
+  border-color: #b7bb6e;
+  color: #b7bb6e; }
+
 .round-wrapper {
   border-radius: 30px;
+  border: solid 1px;
   display: inline-block;
-  border: 2px solid red;
   padding: 10px;
-  color: red; }
+  width: 240px; }
   .round-wrapper span.title {
     font-size: 1.1em;
-    padding-right: 20px;
+    padding-left: 8px;
+    font-family: sans-serif; }
+  .round-wrapper input.title {
+    border: none;
+    padding-left: 8px;
     font-family: sans-serif; }
   .round-wrapper i.fa {
-    float: right; }
+    float: right;
+    padding-right: 8px; }
   .round-wrapper select {
     display: none; }
 
@@ -144,3 +165,9 @@ img.is-single-item-display {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly; }
+
+.loading-wrapper {
+  margin: auto;
+  color: #a76b73;
+  text-align: center;
+  padding-top: 20px; }
