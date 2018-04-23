@@ -1,7 +1,8 @@
 module Elements.Image exposing (..)
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (..)
+import Html.Styled.Events exposing (..)
 import Types exposing (..)
 
 
@@ -17,11 +18,14 @@ imageWithLabel image label =
         ]
 
 
-masonryTile : String -> String -> Html Msg
-masonryTile image label =
-    div [ class "tile" ]
+masonryTile : String -> String -> String -> Html Msg
+masonryTile image label checksum =
+    div
+        [ class "tile"
+        , onClick (SetRoute ("#/item/" ++ checksum))
+        ]
         [ figure []
-            [ img [ src ("http://dev.himalayanacademy.com:8080" ++ image) ] []
+            [ img [ src (apiURL ++ image) ] []
             , p [] [ text label ]
             ]
         ]

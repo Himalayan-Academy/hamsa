@@ -23,7 +23,9 @@ header {
     font-size: 1rem; }
   header img.hamsa-logo {
     margin-left: 120px;
-    z-index: 9999; }
+    z-index: 9999;
+    border: solid 2px #FFF;
+    border-top: 0px; }
   header img.monastery-logo {
     margin-right: 120px;
     z-index: 9999; }
@@ -171,3 +173,67 @@ img.is-single-item-display {
   color: #a76b73;
   text-align: center;
   padding-top: 20px; }
+
+.single-image-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-column-gap: 3rem;
+  color: #919191; }
+  .single-image-wrapper .metadata {
+    color: #919191; }
+    .single-image-wrapper .metadata div.divider {
+      border-bottom: solid 2px #919191;
+      height: 0; }
+    .single-image-wrapper .metadata div.dotted {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border-bottom: 2px dashed;
+      height: 0; }
+    .single-image-wrapper .metadata h3 {
+      color: #a76b73; }
+    .single-image-wrapper .metadata .author {
+      display: inline;
+      color: #a76b73;
+      font-size: 20px; }
+      .single-image-wrapper .metadata .author i {
+        padding-right: 10px; }
+      .single-image-wrapper .metadata .author h2 {
+        display: inline;
+        padding-left: 10px;
+        border-left: solid 2px #a76b73; }
+    .single-image-wrapper .metadata .categories {
+      display: block;
+      color: #919191;
+      font-size: 12px; }
+      .single-image-wrapper .metadata .categories i {
+        padding-right: 10px;
+        color: #8181bd;
+        width: 25px; }
+      .single-image-wrapper .metadata .categories h2 {
+        display: inline;
+        padding-left: 10px;
+        border-left: solid 2px #919191; }
+    .single-image-wrapper .metadata .keywords {
+      display: block;
+      color: #919191;
+      font-size: 12px; }
+      .single-image-wrapper .metadata .keywords i {
+        color: #ee9f7e;
+        padding-right: 10px;
+        width: 25px; }
+      .single-image-wrapper .metadata .keywords h2 {
+        display: inline;
+        padding-left: 10px;
+        border-left: solid 2px #919191; }
+    .single-image-wrapper .metadata .collections {
+      display: block;
+      color: #919191;
+      font-size: 12px; }
+      .single-image-wrapper .metadata .collections i {
+        color: #b7bb6e;
+        padding-right: 10px;
+        width: 25px; }
+      .single-image-wrapper .metadata .collections h2 {
+        display: inline;
+        padding-left: 10px;
+        border-left: solid 2px #919191; }

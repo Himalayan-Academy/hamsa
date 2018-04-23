@@ -1,19 +1,16 @@
 module Views.Collection exposing (view)
 
-import Elements.Header
-import Elements.Hero
 import Elements.Image as Image
-import Elements.Selector as Selector
-import Html exposing (..)
-import Html.Attributes exposing (..)
+import Elements.Loading as Loading
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (..)
 import RemoteData
 import Types exposing (..)
-import Views.Loading as Loading
 
 
 tileView : Image -> Html Msg
 tileView image =
-    Image.masonryTile image.thumbnail "hello"
+    Image.masonryTile image.thumbnail "hello" image.checksum
 
 
 masonryView : CollectionModel -> Html Msg
@@ -22,7 +19,7 @@ masonryView collection =
         [ section [ class "masonry" ]
             (List.map
                 tileView
-                collection
+                collection.images
             )
         ]
 
@@ -35,23 +32,13 @@ view model =
     in
     case collection of
         RemoteData.NotAsked ->
-            Loading.view model
+            Loading.view
 
         RemoteData.Loading ->
-            Loading.view model
+            Loading.view
 
-        RemoteData.Success collection ->
-            div []
-                [ Elements.Header.view
-                , Elements.Hero.view
-                , Selector.view model
-                , masonryView collection
-                , h1 [] [ text "successfuly loaded" ]
-                ]
+        RemoteData.Success c ->
+            masonryView c
 
         RemoteData.Failure _ ->
-            div []
-                [ Elements.Header.view
-                , Elements.Hero.view
-                , h1 [] [ text "failure loading" ]
-                ]
+            h1 [] [ text "failure loading" ]

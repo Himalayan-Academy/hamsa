@@ -1,9 +1,7 @@
 module Elements.Selector exposing (..)
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import List.Extra exposing (uniqueBy)
-import RemoteData exposing (RemoteData, WebData)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (..)
 import Types exposing (..)
 
 
@@ -39,67 +37,11 @@ search =
         ]
 
 
-oldRound : String -> List ( String, String ) -> Html Msg
-oldRound title listOfOptions =
-    let
-        makeOption ( label, v ) =
-            case String.length v of
-                0 ->
-                    option
-                        [ disabled True, selected True ]
-                        [ text title ]
-
-                _ ->
-                    option [ value v ] [ text label ]
-
-        listWithTitle =
-            ( title, "" ) :: listOfOptions
-    in
-    div [ class "selectWrapper" ]
-        [ select
-            [ class "selectBox"
-            ]
-            (List.map makeOption listWithTitle)
-        ]
-
-
 view : Model -> Html Msg
 view model =
-    let
-        collection =
-            case model.collection of
-                RemoteData.Success c ->
-                    c
-
-                _ ->
-                    []
-
-        emptyArtistFilter artist =
-            case artist of
-                Just a ->
-                    a
-
-                Nothing ->
-                    ""
-
-        artistList =
-            case List.length collection of
-                0 ->
-                    [ ( "", "" ) ]
-
-                _ ->
-                    collection
-                        |> List.map .metadata
-                        |> List.map .artist
-                        |> List.map emptyArtistFilter
-                        |> List.filter (\i -> not <| String.isEmpty i)
-                        |> uniqueBy toString
-                        |> List.map (\i -> ( i, i ))
-                        |> Debug.log "Artist list"
-    in
     div [ class "selector-controls" ]
         [ round "is-selector-categories" "Categories" []
-        , round "is-selector-artists" "Artists" artistList
+        , round "is-selector-artists" "Artists" []
         , round "is-selector-collections" "Collections" []
         , search
         ]

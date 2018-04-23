@@ -1,7 +1,7 @@
 module Elements.Header exposing (view)
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (..)
 import Types exposing (..)
 
 

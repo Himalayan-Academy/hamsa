@@ -4,15 +4,15 @@ import Elements.Header
 import Elements.Hero
 import Elements.Image as Image
 import Elements.Selector as Selector
-import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (..)
 import RemoteData
 import Types exposing (..)
 
 
 tileView : Image -> Html Msg
 tileView image =
-    Image.masonryTile image.thumbnail "hello"
+    Image.masonryTile image.thumbnail "hello" image.checksum
 
 
 masonryView : CollectionModel -> Html Msg
@@ -21,7 +21,7 @@ masonryView collection =
         [ section [ class "masonry" ]
             (List.map
                 tileView
-                collection
+                collection.images
             )
         ]
 

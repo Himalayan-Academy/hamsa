@@ -1,11 +1,12 @@
 module Elements.Hero exposing (view)
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import Types exposing (..)
 import Elements.Image exposing (imageWithLabel)
+import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (..)
+import Types exposing (..)
+
 
 view : Html Msg
 view =
-    div [class "hero"]
-      [imageWithLabel "images/MWS00SelfGod.jpg" "Self God"]
+    div [ class "hero" ]
+        [ imageWithLabel "images/MWS00SelfGod.jpg" "Self God" ]

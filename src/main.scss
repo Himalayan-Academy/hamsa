@@ -68,6 +68,8 @@ header {
   img.hamsa-logo {
     margin-left: 120px;
     z-index: 9999;
+    border: solid 2px #FFF;
+    border-top: 0px;
   }
 
   img.monastery-logo {
@@ -271,4 +273,105 @@ img.is-single-item-display {
   color: $color-ocre;
   text-align: center;
   padding-top: 20px;
+}
+
+
+.single-image-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-column-gap: 3rem;
+  color: #919191;
+
+  .metadata {
+    color: #919191;
+
+    div.divider {
+      border-bottom: solid 2px #919191; 
+      height: 0; 
+    }
+
+    div.dotted {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border-bottom: 2px dashed; 
+      height: 0; 
+    }
+
+    h3 {
+      color: $color-ocre;
+    }
+
+    .author {
+      display: inline;
+      color: $color-ocre;
+      font-size: 20px;
+
+      i {
+        padding-right: 10px;
+      }
+
+      h2 {
+        display: inline;
+        padding-left: 10px;
+        border-left: solid 2px $color-ocre
+      }
+    }
+
+    .categories {
+      display: block;
+      color: #919191;
+      font-size: 12px;
+
+      i {
+        padding-right: 10px;
+        color: $color-purple;
+        width: 25px;
+      }
+
+      h2 {
+        display: inline;
+        padding-left: 10px;
+        border-left: solid 2px #919191
+      }
+    }
+
+    .keywords {
+      display: block;
+      color: #919191;
+      font-size: 12px;
+
+      i {
+        color: $color-orange;
+        padding-right: 10px;
+        width: 25px;
+
+      }
+
+      h2 {
+        display: inline;
+        padding-left: 10px;
+        border-left: solid 2px #919191
+      }
+    }
+
+    .collections {
+      display: block;
+      color: #919191;
+      font-size: 12px;
+
+      i {
+        color: $color-green;
+        padding-right: 10px;
+        width: 25px;
+
+      }
+
+      h2 {
+        display: inline;
+        padding-left: 10px;
+        border-left: solid 2px #919191
+      }
+    }
+  }
+  
 }
