@@ -27,7 +27,7 @@ apiURL =
     if localDevelopment then
         "http://localhost:8080"
     else
-        "http://dev.himalayanacademy.com:8080"
+        "https://dev.himalayanacademy.com:8080"
 
 
 type alias Model =
