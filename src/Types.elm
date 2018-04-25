@@ -19,7 +19,7 @@ lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque v
 
 localDevelopment : Bool
 localDevelopment =
-    True
+    False
 
 
 apiURL : String
