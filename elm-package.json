@@ -3,7 +3,7 @@
     "summary": "helpful summary of your project, less than 80 characters",
     "repository": "https://github.com/user/project.git",
     "license": "BSD3",
-    "homepage": "https://dev.himalayanacademy.com/hamsa/build",
+    "homepage": "http://dev.himalayanacademy.com/hamsa/build",
     "source-directories": [
         "src"
     ],
