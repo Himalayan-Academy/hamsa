@@ -52,11 +52,10 @@ function account_get_by_email($email) {
 
 function image_get_all($limit, $offset) {
     // todo: add pagination
-
-
-
     $extract_metadata = function($value) {
-        $value["metadata"] = json_decode($value["metadata"],true);
+        if (isset($value["metadata"])) {
+            $value["metadata"] = json_decode($value["metadata"],true);
+        }
         return $value;
     };
 
@@ -64,7 +63,34 @@ function image_get_all($limit, $offset) {
         ->where('file_missing', false)
         ->limit($limit)
         ->offset($offset)
+        ->order_by_expr("CHAR_LENGTH(metadata->>'caption')")
         ->find_array();
+
+    return array_map($extract_metadata, $records);
+}
+
+
+function image_get_all_by_artist($artist, $limit, $offset) {
+    // todo: add pagination
+    $extract_metadata = function($value) {
+        if (isset($value["metadata"])) {
+            $value["metadata"] = json_decode($value["metadata"],true);
+        }
+        return $value;
+    };
+
+    $artist_record = artist_get($artist);
+
+    if (!isset($artist_record["artist_id"])) return [];
+
+    $records = ORM::for_table('image')
+        ->where('file_missing', false)
+        ->where_raw("metadata->>'author' = ?", array($artist))
+        ->limit($limit)
+        ->offset($offset)
+        ->find_array();
+
+
 
     return array_map($extract_metadata, $records);
 }
@@ -80,7 +106,9 @@ function image_set_missing($id, $missing) {
 function image_get($checksum) {
 
     $extract_metadata = function($value) {
-        $value["metadata"] = json_decode($value["metadata"],true);
+        if (isset($value["metadata"])) {
+            $value["metadata"] = json_decode($value["metadata"],true);
+        }
         return $value;
     };
 
@@ -94,18 +122,62 @@ function image_get($checksum) {
 }
 
 
+
 /**
  * Artist routines
  */
 
 
-function artist_get_all() {
-    // todo: add pagination
-    $records = ORM::for_table('image')
-        ->raw_query("select distinct metadata->>'author' as author from image where metadata->>'author' is not null")
+function artist_get_all($limit, $offset) {
+    $extract_metadata = function($value) {
+        if (isset($value["metadata"])) {
+            $value["metadata"] = json_decode($value["metadata"],true);
+        }
+        return $value;
+    };
+
+    $records = ORM::for_table('artist')
+        ->limit($limit)
+        ->offset($offset)
         ->find_array();
-    return $records;
+
+    return array_map($extract_metadata, $records);
 }
+
+
+
+function artist_get($alias) {
+
+    $extract_metadata = function($value) {
+        if (isset($value["metadata"])) {
+            $value["metadata"] = json_decode($value["metadata"],true);
+        }
+        return $value;
+    };
+
+    $records = ORM::for_table('artist')
+        ->raw_query("SELECT * FROM artist WHERE name LIKE :alias OR   jsonb_exists(artist.metadata->'aliases', :alias) LIMIT 1", array('alias' => $alias))
+        ->find_array();
+
+    if (count($records) >= 1) {    
+        $records = $records[0];
+    }
+
+    return array_map($extract_metadata, $records);
+}
+
+function artist_exists($alias) {
+    $artist = artist_get($alias);
+
+    print_r($artist);
+    if (isset($artist["artist_id"])) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 
 
 /**

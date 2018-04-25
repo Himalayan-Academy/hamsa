@@ -1,7 +1,9 @@
 module Elements.Header exposing (view)
 
+import Css exposing (..)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (..)
+import Html.Styled.Events exposing (..)
 import Types exposing (..)
 
 
@@ -25,7 +27,12 @@ monasteryLogo =
 
 view : Html Msg
 view =
-    header []
+    header
+        [ onClick (SetRoute "#/")
+        , css
+            [ cursor pointer
+            ]
+        ]
         [ logo
         , div [ class "monastery-header-text" ]
             [ h1 [ class "title" ] [ text "Himalayan Academy" ]

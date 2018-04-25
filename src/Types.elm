@@ -1,13 +1,25 @@
 module Types exposing (..)
 
+import Css exposing (..)
 import GraphQL.Client.Http as GraphQLClient
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData, WebData)
 
 
+colors =
+    { purple = hex "#8181bd"
+    , ocre = hex "#a76b73"
+    , orange = hex "#ee9f7e"
+    , green = hex "#b7bb6e"
+    , gray = hex "#919191"
+    }
+
+lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque viverra faucibus fermentum. Praesent sagittis mollis porttitor. Duis tristique eros at tempor suscipit. Cras vitae rutrum leo, non porta turpis. Curabitur gravida molestie urna non sollicitudin. Integer gravida non erat eget varius. Donec nec lacinia neque. Duis non mi ultricies, congue magna eget, congue risus. Donec congue viverra mi quis imperdiet. Nulla bibendum scelerisque posuere. In consequat, arcu eget commodo porta, dolor lorem semper massa, non venenatis diam velit a erat. Fusce maximus suscipit mi a vestibulum. Suspendisse tincidunt lorem vel augue dignissim, a pulvinar arcu ornare. Sed maximus urna vitae suscipit mollis. Morbi pretium commodo interdum. Nulla nec sem non eros tincidunt ultrices. "
+
+
 localDevelopment : Bool
 localDevelopment =
-    False
+    True
 
 
 apiURL : String
@@ -27,6 +39,8 @@ type alias Model =
     , collection : WebData CollectionModel
     , image : Maybe Image
     , error : Maybe String
+    , limit : Int
+    , offset : Int
     }
 
 
@@ -65,7 +79,7 @@ type alias CategoriesModel =
 type Route
     = HomeRoute
     | CollectionsRoute String
-    | ArtistsRoute String
+    | ArtistRoute String
     | CategoriesRoute String
     | SingleImageRoute String
     | SearchRoute String
@@ -80,6 +94,7 @@ type Msg
     | ReceiveImageResponse (Response Image)
     | Search String
     | SetRoute String
+    | GoBack
 
 
 type alias Response a =
@@ -95,6 +110,8 @@ type alias Image =
 
 
 type alias Metadata =
-    { artist : Maybe String
-    , description : Maybe String
+    { artist : String
+    , description : String
+    , keywords : List String
+    , more : List String
     }

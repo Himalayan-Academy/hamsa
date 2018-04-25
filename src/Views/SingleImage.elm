@@ -10,13 +10,29 @@ import Types exposing (..)
 
 toImageUrl : String -> String
 toImageUrl path =
-    "http://dev.himalayanacademy.com:8080" ++ path
+    apiURL ++ path
+
+
+thumbnailFromChecksum : String -> String
+thumbnailFromChecksum checksum =
+    apiURL ++ "/images/_cache/" ++ checksum ++ ".thumb.jpg"
+
+
+makeThumb : String -> Html Msg
+makeThumb checksum =
+    img
+        [ src (thumbnailFromChecksum checksum)
+        , class "more-images"
+        , css [cursor pointer]
+        , onClick (SetRoute ("#/item/" ++ checksum))
+        ]
+        []
 
 
 goBack : Html Msg
 goBack =
     div
-        [ onClick (SetRoute "#/")
+        [ onClick GoBack
         , css
             [ color (hex "#757575")
             , displayFlex
@@ -46,20 +62,10 @@ view imageId image =
         Just i ->
             let
                 description =
-                    case i.metadata.description of
-                        Just d ->
-                            d
-
-                        Nothing ->
-                            ""
+                    i.metadata.description
 
                 artist =
-                    case i.metadata.artist of
-                        Just d ->
-                            d
-
-                        Nothing ->
-                            ""
+                    i.metadata.artist
             in
             div
                 [ css
@@ -77,16 +83,6 @@ view imageId image =
                             , src (toImageUrl i.path)
                             ]
                             []
-                        
-                        ]
-                    , div
-                        [ class "metadata" ]
-                        [ div [ class "divider" ] []
-                        , h1 [] [ text "image title" ]
-                        , div [ class "author" ]
-                            [ Html.Styled.i [ class "far fa-user fa-lg" ] []
-                            , h2 [] [ text artist ]
-                            ]
                         , p
                             [ css
                                 [ fontFamilies [ "sans-serif" ]
@@ -94,6 +90,19 @@ view imageId image =
                                 ]
                             ]
                             [ text description ]
+                        ]
+                    , div
+                        [ class "metadata" ]
+                        [ div [ class "divider" ] []
+                        , h1 [] [ text "image title" ]
+                        , div
+                            [ class "author"
+                            , css [ cursor pointer ]
+                            , onClick (SetRoute <| "#/artists/" ++ artist)
+                            ]
+                            [ Html.Styled.i [ class "far fa-user fa-lg" ] []
+                            , h2 [] [ text artist ]
+                            ]
                         , div [ class "dotted" ] []
                         , div [ class "categories" ]
                             [ Html.Styled.i [ class "far fa-folder-open fa-lg" ] []
@@ -101,14 +110,17 @@ view imageId image =
                             ]
                         , div [ class "collections" ]
                             [ Html.Styled.i [ class "far fa-star fa-lg" ] []
-                            , h2 [] [ text "Collection" ]
+                            , h2 [] [ text "Collections" ]
                             ]
                         , div [ class "keywords" ]
                             [ Html.Styled.i [ class "far fa-bookmark fa-lg" ] []
-                            , h2 [] [ text "Keywords" ]
+                            , h2 []
+                                (List.map (\k -> span [] [ text (k ++ ", ") ]) i.metadata.keywords)
                             ]
                         , div [ class "dotted" ] []
                         , h3 [] [ text "More by the same artist" ]
+                        , div []
+                            (List.map makeThumb i.metadata.more)
                         ]
                     ]
                 ]

@@ -15,7 +15,7 @@ $color-search-box: $color-green;
   align-content: $alignFlex !important;
   align-items: $alignFlex !important;
   flex-direction: $typeFlex !important;
-  justify-content: $justifyFlex !important;
+  //justify-content: $justifyFlex !important;
 
   @if $wrapFlex == wrap {
       flex-wrap: wrap !important;
@@ -75,6 +75,7 @@ header {
   img.monastery-logo {
     margin-right: 120px;
     z-index: 9999;
+    margin-left: auto;
   }
 }
 
@@ -161,7 +162,7 @@ div.tile {
  margin:  0.25rem;
  width:  100%;
  background:  #FFF;
- border: solid 1px #c5c4c4;
+ //border: solid 1px #c5c4c4;
 
   figure {
     width: 100%;
@@ -281,9 +282,15 @@ img.is-single-item-display {
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   grid-column-gap: 3rem;
   color: #919191;
+  font-family: sans-serif;
 
   .metadata {
     color: #919191;
+
+    img.more-images {
+      max-width: 80px;
+      margin: 5px;
+    }
 
     div.divider {
       border-bottom: solid 2px #919191; 
@@ -301,10 +308,14 @@ img.is-single-item-display {
       color: $color-ocre;
     }
 
+    h1 {
+      font-weight: lighter;
+    }
+
     .author {
       display: inline;
       color: $color-ocre;
-      font-size: 20px;
+      font-size: 16px;
 
       i {
         padding-right: 10px;
@@ -313,7 +324,9 @@ img.is-single-item-display {
       h2 {
         display: inline;
         padding-left: 10px;
-        border-left: solid 2px $color-ocre
+        border-left: solid 2px $color-ocre;
+        font-weight: normal;
+
       }
     }
 
@@ -331,7 +344,9 @@ img.is-single-item-display {
       h2 {
         display: inline;
         padding-left: 10px;
-        border-left: solid 2px #919191
+        border-left: solid 2px #919191;
+        font-weight: normal;
+
       }
     }
 
@@ -350,7 +365,8 @@ img.is-single-item-display {
       h2 {
         display: inline;
         padding-left: 10px;
-        border-left: solid 2px #919191
+        border-left: solid 2px #919191;
+        font-weight: normal;
       }
     }
 
@@ -369,7 +385,9 @@ img.is-single-item-display {
       h2 {
         display: inline;
         padding-left: 10px;
-        border-left: solid 2px #919191
+        border-left: solid 2px #919191;
+        font-weight: normal;
+
       }
     }
   }

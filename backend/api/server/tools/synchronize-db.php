@@ -26,6 +26,31 @@ function cacheMultipleVersionsOfImage($path, $md5) {
     echo "Saving thumb to ${thumb_path}\n";
 }
 
+function insertArtistIfNeeded($exif) {
+    if (!isset($exif["author"])) return false;
+
+    $artist = $exif["author"];
+
+    if (artist_exists($artist)) {
+        return false;
+    }
+
+    $meta = array(
+        "aliases" => array($artist),
+        "description" => "lorem ipsum",
+        "photo" => ""
+    );
+
+    $record = ORM::for_table('artist')->create();
+
+    $record->set("name", $artist);
+    $record->set_expr("date_modified", 'NOW()');
+    $record->set("metadata", json_encode($meta));
+
+    $record->save();
+    echo "Inserted artists ${artist}\n";
+
+}
 
 function insertRecordForImage($path, $md5, $exif) {
     $record = ORM::for_table('image')->create();
@@ -92,6 +117,8 @@ function processImage($path) {
     if (!file_exists($thumb_path)) {
         cacheMultipleVersionsOfImage($path, $md5);
     }
+
+    insertArtistIfNeeded($exifData);
 }
 
 

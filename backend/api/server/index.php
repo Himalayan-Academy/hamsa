@@ -36,12 +36,37 @@ $artistType = new ObjectType([
     'name' => 'Artist',
     'description' => 'Artist',
     'fields' => [
-        'author' => [
+        'name' => [
             'type' => Type::string(),
             'resolve' => function($a) {
-                return $a["author"];
+                return $a["name"];
+            }
+        ],
+        'description' => [
+            'type' => Type::string(),
+            'resolve' => function($a) {
+                return $a["metadata"]["description"];
+            }
+        ],
+        'id' => [
+            'type' => Type::int(),
+            'resolve' => function($a) {
+                return $a["artist_id"];
+            }
+        ],
+        'aliases' => [
+            'type' => Type::listOf(Type::string()),
+            'resolve' => function($a) {
+                return $a["metadata"]["aliases"];
+            }
+        ],
+        'photo' => [
+            'type' => Type::listOf(Type::string()),
+            'resolve' => function($a) {
+                return $a["metadata"]["photo"];
             }
         ]
+        
     ]
 ]);
 
@@ -65,7 +90,18 @@ $metadataType = new ObjectType([
         'keywords' => [
             'type' => Type::listOf(Type::string()),
             'resolve' => function($meta) {
-                return isset($meta["keywords"]) ? $meta["keywords"] : [""] ;
+                return isset($meta["keywords"]) ? $meta["keywords"] : [] ;
+            }
+        ],
+        'more' => [
+            'type' => Type::listOf(Type::string()),
+            'resolve' => function($meta) {
+                if (!isset($meta["author"])) return [];
+                $r = image_get_all_by_artist($meta["author"], 8, 0);
+                $images = array_map(function ($image) {
+                    return $image['checksum'];
+                }, $r);
+                return $images;
             }
         ]
     ]
@@ -101,11 +137,26 @@ try {
     $queryType = new ObjectType([
         'name' => 'Query',
         'fields' => [
+
             'artists' => [
                 'type' => Type::listOf($artistType),
                 'description' => 'All artists present on the database',
+                'args' => [
+                    'limit' => [
+                        'type' => Type::int(),
+                        'description' => 'Limit the number of images returned',
+                        'defaultValue' => 10
+                    ],
+                    'offset' => [
+                        'type' => Type::int(),
+                        'description' => 'Offset from the start',
+                        'defaultValue' => 0
+                    ]
+
+                ],
                 'resolve' => function($root, $args) {
-                    return artist_get_all();
+                    $records = artist_get_all($args["limit"], $args["offset"]);
+                    return $records;
                 }
             ],
             'images' => [
@@ -121,11 +172,20 @@ try {
                         'type' => Type::int(),
                         'description' => 'Offset from the start',
                         'defaultValue' => 0
+                    ],
+                    'artist' => [
+                        'type' => Type::string(),
+                        'description' => 'Filter images by artist',
+                        'defaultValue' => ''
                     ]
 
                 ],
                 'resolve' => function ($root, $args) {
-                    $images = image_get_all($args["limit"], $args["offset"]);
+                    if ($args["artist"] == '' ) { 
+                        $images = image_get_all($args["limit"], $args["offset"]);
+                    } else {
+                        $images = image_get_all_by_artist($args["artist"], $args["limit"], $args["offset"]);
+                    }
                     $images = array_filter($images, function ($image) {
                         return file_exists($image["path"]);
                     });

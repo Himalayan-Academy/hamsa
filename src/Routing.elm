@@ -19,7 +19,7 @@ matchRoute : Parser (Route -> a) a
 matchRoute =
     oneOf
         [ map HomeRoute top
-        , map ArtistsRoute (s "artists" </> string)
+        , map ArtistRoute (s "artists" </> string)
         , map CollectionsRoute (s "collections" </> string)
         , map CategoriesRoute (s "categories" </> string)
         , map SearchRoute (s "search" </> string)

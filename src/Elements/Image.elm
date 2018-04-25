@@ -1,5 +1,6 @@
 module Elements.Image exposing (..)
 
+import Css exposing (..)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (..)
 import Html.Styled.Events exposing (..)
@@ -22,10 +23,12 @@ masonryTile : String -> String -> String -> Html Msg
 masonryTile image label checksum =
     div
         [ class "tile"
+        , css [ cursor pointer ]
         , onClick (SetRoute ("#/item/" ++ checksum))
         ]
         [ figure []
             [ img [ src (apiURL ++ image) ] []
-            , p [] [ text label ]
+
+            --, p [] [ text label ]
             ]
         ]
