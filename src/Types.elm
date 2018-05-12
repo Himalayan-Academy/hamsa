@@ -21,7 +21,7 @@ lorem =
 
 localDevelopment : Bool
 localDevelopment =
-    True
+    False
 
 
 apiURL : String
