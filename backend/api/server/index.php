@@ -8,6 +8,15 @@ if (PHP_SAPI == 'cli-server') {
         return false;
     }
 }
+/*
+select keyword, count(distinct (image_id, keyword))
+from image, jsonb_array_elements(metadata->'keywords') keyword
+group by keyword
+order by count desc;
+
+Keyword | count
+...     | ...
+*/
 
 
 header("Access-Control-Allow-Origin: *");
@@ -139,23 +148,28 @@ try {
         'fields' => [
 
             'artists' => [
-                'type' => Type::listOf($artistType),
+                'type' => Type::listOf(Type::string()),
                 'description' => 'All artists present on the database',
-                'args' => [
-                    'limit' => [
-                        'type' => Type::int(),
-                        'description' => 'Limit the number of images returned',
-                        'defaultValue' => 10
-                    ],
-                    'offset' => [
-                        'type' => Type::int(),
-                        'description' => 'Offset from the start',
-                        'defaultValue' => 0
-                    ]
-
-                ],
                 'resolve' => function($root, $args) {
-                    $records = artist_get_all($args["limit"], $args["offset"]);
+                    $func = function($e) {
+                        return $e["author"];
+                    };
+
+                    $records = artist_get_all();
+                    $records = array_map($func, $records);
+                    return $records;
+                }
+            ],
+            'keywords' => [
+                'type' => Type::listOf(Type::string()),
+                'description' => 'All keywords present on the database',
+                'resolve' => function($root, $args) {
+                    $func = function($e) {
+                        return str_replace('"', "", $e["keyword"]);
+                    };
+
+                    $records = keywords_get_all();
+                    $records = array_map($func, $records);
                     return $records;
                 }
             ],
@@ -177,15 +191,24 @@ try {
                         'type' => Type::string(),
                         'description' => 'Filter images by artist',
                         'defaultValue' => ''
+                    ],
+                    'keyword' => [
+                        'type' => Type::string(),
+                        'description' => 'Filter images by keyword',
+                        'defaultValue' => ''
                     ]
 
                 ],
                 'resolve' => function ($root, $args) {
-                    if ($args["artist"] == '' ) { 
-                        $images = image_get_all($args["limit"], $args["offset"]);
-                    } else {
+                    if ($args["artist"] !== '' ) { 
                         $images = image_get_all_by_artist($args["artist"], $args["limit"], $args["offset"]);
+                    } else if ($args["keyword"] !== '' ) {
+                        $images = image_get_all_by_keyword($args["keyword"], $args["limit"], $args["offset"]);
+                        
+                    } else {
+                        $images = image_get_all($args["limit"], $args["offset"]);
                     }
+
                     $images = array_filter($images, function ($image) {
                         return file_exists($image["path"]);
                     });

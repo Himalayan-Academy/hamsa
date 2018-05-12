@@ -23,8 +23,8 @@ header {
   header img.hamsa-logo {
     margin-left: 120px;
     z-index: 9999;
-    border: solid 2px #FFF;
-    border-top: 0px; }
+    border: solid 2px white;
+    border-top: none; }
   header img.monastery-logo {
     margin-right: 120px;
     z-index: 9999;

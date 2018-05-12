@@ -23,7 +23,7 @@ makeThumb checksum =
     img
         [ src (thumbnailFromChecksum checksum)
         , class "more-images"
-        , css [cursor pointer]
+        , css [ cursor pointer ]
         , onClick (SetRoute ("#/item/" ++ checksum))
         ]
         []
@@ -64,8 +64,28 @@ view imageId image =
                 description =
                     i.metadata.description
 
+                isArtistKeyword k =
+                    if String.contains "Artist" k then
+                        Just k
+                    else
+                        Nothing
+
+                foundArtists =
+                    List.filterMap isArtistKeyword i.metadata.keywords
+
                 artist =
-                    i.metadata.artist
+                    if String.length i.metadata.artist > 0 then
+                        i.metadata.artist
+                    else
+                        case List.head foundArtists of
+                            Just h ->
+                                h
+
+                            Nothing ->
+                                "Unknown Artist"
+
+                imageTitle =
+                    ""
             in
             div
                 [ css
@@ -94,7 +114,7 @@ view imageId image =
                     , div
                         [ class "metadata" ]
                         [ div [ class "divider" ] []
-                        , h1 [] [ text "image title" ]
+                        , h1 [] [ text imageTitle ]
                         , div
                             [ class "author"
                             , css [ cursor pointer ]
@@ -115,7 +135,7 @@ view imageId image =
                         , div [ class "keywords" ]
                             [ Html.Styled.i [ class "far fa-bookmark fa-lg" ] []
                             , h2 []
-                                (List.map (\k -> span [] [ text (k ++ ", ") ]) i.metadata.keywords)
+                                (List.map (\k -> span [ css [ cursor pointer ], onClick (SetRoute <| "#/categories/" ++ k) ] [ text (k ++ ", ") ]) i.metadata.keywords)
                             ]
                         , div [ class "dotted" ] []
                         , h3 [] [ text "More by the same artist" ]

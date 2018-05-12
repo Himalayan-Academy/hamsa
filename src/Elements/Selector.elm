@@ -1,7 +1,10 @@
 module Elements.Selector exposing (..)
 
+import Elements.Dropdown as Dropdown
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (..)
+import Html.Styled.Events exposing (onWithOptions)
+import Json.Decode as Json
 import Types exposing (..)
 
 
@@ -39,9 +42,58 @@ search =
 
 view : Model -> Html Msg
 view model =
+    let
+        artistContext =
+            { selectedItem = model.artist
+            , isOpen = model.openDropdown == ArtistDropdown
+            }
+
+        categoriesContext =
+            { selectedItem = model.category
+            , isOpen = model.openDropdown == CategoryDropdown
+            }
+    in
     div [ class "selector-controls" ]
-        [ round "is-selector-categories" "Categories" []
-        , round "is-selector-artists" "Artists" []
+        [ Dropdown.view categoriesConfig categoriesContext <| categoriesRoutesListFromCategoriesName model.categories
+        , Dropdown.view artistConfig artistContext <| artistRoutesListFromArtistName model.artists
         , round "is-selector-collections" "Collections" []
         , search
         ]
+
+
+artistConfig : Dropdown.Config Msg
+artistConfig =
+    { defaultText = "Artist"
+    , clickedMsg = Toggle ArtistDropdown
+    , itemPickedMsg = SetRoute
+    , selectorClass = "is-selector-artists"
+    }
+
+
+artistRoutesListFromArtistName : List String -> List ( String, String )
+artistRoutesListFromArtistName list =
+    List.map (\i -> ( i, "#/artists/" ++ i )) list
+
+
+categoriesConfig : Dropdown.Config Msg
+categoriesConfig =
+    { defaultText = "Categories"
+    , clickedMsg = Toggle CategoryDropdown
+    , itemPickedMsg = SetRoute
+    , selectorClass = "is-selector-categories"
+    }
+
+
+categoriesRoutesListFromCategoriesName : List String -> List ( String, String )
+categoriesRoutesListFromCategoriesName list =
+    List.map (\i -> ( i, "#/categories/" ++ i )) list
+
+
+onClick : msg -> Attribute msg
+onClick message =
+    onWithOptions
+        "click"
+        { stopPropagation = True
+        , preventDefault = False
+        }
+        (Json.succeed message)

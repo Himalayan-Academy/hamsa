@@ -14,12 +14,14 @@ colors =
     , gray = hex "#919191"
     }
 
-lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque viverra faucibus fermentum. Praesent sagittis mollis porttitor. Duis tristique eros at tempor suscipit. Cras vitae rutrum leo, non porta turpis. Curabitur gravida molestie urna non sollicitudin. Integer gravida non erat eget varius. Donec nec lacinia neque. Duis non mi ultricies, congue magna eget, congue risus. Donec congue viverra mi quis imperdiet. Nulla bibendum scelerisque posuere. In consequat, arcu eget commodo porta, dolor lorem semper massa, non venenatis diam velit a erat. Fusce maximus suscipit mi a vestibulum. Suspendisse tincidunt lorem vel augue dignissim, a pulvinar arcu ornare. Sed maximus urna vitae suscipit mollis. Morbi pretium commodo interdum. Nulla nec sem non eros tincidunt ultrices. "
+
+lorem =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque viverra faucibus fermentum. Praesent sagittis mollis porttitor. Duis tristique eros at tempor suscipit. Cras vitae rutrum leo, non porta turpis. Curabitur gravida molestie urna non sollicitudin. Integer gravida non erat eget varius. Donec nec lacinia neque. Duis non mi ultricies, congue magna eget, congue risus. Donec congue viverra mi quis imperdiet. Nulla bibendum scelerisque posuere. In consequat, arcu eget commodo porta, dolor lorem semper massa, non venenatis diam velit a erat. Fusce maximus suscipit mi a vestibulum. Suspendisse tincidunt lorem vel augue dignissim, a pulvinar arcu ornare. Sed maximus urna vitae suscipit mollis. Morbi pretium commodo interdum. Nulla nec sem non eros tincidunt ultrices. "
 
 
 localDevelopment : Bool
 localDevelopment =
-    False
+    True
 
 
 apiURL : String
@@ -32,8 +34,8 @@ apiURL =
 
 type alias Model =
     { route : Route
-    , artists : List KeyValue
-    , categories : List KeyValue
+    , artists : List String
+    , categories : List String
     , collections : List KeyValue
     , query : Maybe String
     , collection : WebData CollectionModel
@@ -41,6 +43,9 @@ type alias Model =
     , error : Maybe String
     , limit : Int
     , offset : Int
+    , artist : Maybe String
+    , category : Maybe String
+    , openDropdown : OpenDropdown
     }
 
 
@@ -87,14 +92,27 @@ type Route
     | ErrorRoute String
 
 
+type OpenDropdown
+    = AllClosed
+    | ArtistDropdown
+    | CategoryDropdown
+
+
+type alias SelectorConfiguration =
+    { artists : List String
+    , keywords : List String
+    }
+
+
 type Msg
-    = NoOp
-    | OnLocationChange Location
+    = OnLocationChange Location
     | ReceiveQueryResponse (Response (List Image))
     | ReceiveImageResponse (Response Image)
-    | Search String
+    | ReceiveSelectorConfiguration (Response SelectorConfiguration)
     | SetRoute String
     | GoBack
+    | Toggle OpenDropdown
+    | Blur
 
 
 type alias Response a =

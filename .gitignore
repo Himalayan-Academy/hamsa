@@ -18,3 +18,4 @@ elm_stuff
 vendor/
 
 DS_Store
+*.log

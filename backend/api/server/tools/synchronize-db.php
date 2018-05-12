@@ -59,6 +59,7 @@ function insertRecordForImage($path, $md5, $exif) {
     $record->set("checksum", $md5);
     $record->set_expr("date_modified", 'NOW()');
     $record->set("file_missing", false);
+    $exif["author"] = getAuthor($exif);
     $record->set("metadata", json_encode($exif));
 
     $record->save();
@@ -71,9 +72,30 @@ function updateRecordForImage($path, $md5, $exif) {
     $record->set("checksum", $md5);
     $record->set_expr("date_modified", 'NOW()');
     $record->set("file_missing", false);
+    $exif["author"] = getAuthor($exif);
     $record->set("metadata", json_encode($exif));
 
     $record->save();
+}
+
+function getAuthor($exif) {
+    if (isset($exif["author"]) && !is_null($exif["author"])) return $exif["author"];
+    
+    $reducer = function($acc, $e) {
+        if ($acc !== "") return $acc;
+        
+        if (strpos($e, 'Artist') !== false) {
+            return str_replace("Artist ","", $e);
+        }
+    };
+
+    if (isset($exif["keywords"])) {
+        $v = array_reduce($exif["keywords"], $reducer, "");
+        echo "author from keyword: $v\n";
+        return $v;
+    } else {
+        return "";
+    }
 }
 
 function recordNeedsUpdate($path, $md5) {
@@ -160,3 +182,6 @@ foreach($records as $image) {
 }
 
 echo "Total missing files: $total_missing_files\n";
+
+ORM::raw_execute("update image set metadata = metadata::jsonb || '{\"author\": \"A. Manivelu\"}' where metadata->>'author' = 'ìA. Maniveluî'");
+ORM::raw_execute("update image set metadata = metadata::jsonb || '{\"author\": \"A. Manivelu\"}' where metadata->>'author' = '“A. Manivelu”'");

@@ -3,7 +3,6 @@
     "summary": "helpful summary of your project, less than 80 characters",
     "repository": "https://github.com/user/project.git",
     "license": "BSD3",
-    "homepage": "http://dev.himalayanacademy.com/hamsa/build",
     "source-directories": [
         "src"
     ],
@@ -13,6 +12,7 @@
         "elm-lang/core": "5.0.0 <= v < 6.0.0",
         "elm-lang/html": "2.0.0 <= v < 3.0.0",
         "elm-lang/http": "1.0.0 <= v < 2.0.0",
+        "elm-lang/mouse": "1.0.1 <= v < 2.0.0",
         "elm-lang/navigation": "2.1.0 <= v < 3.0.0",
         "evancz/url-parser": "2.0.1 <= v < 3.0.0",
         "jamesmacaulay/elm-graphql": "1.8.0 <= v < 2.0.0",

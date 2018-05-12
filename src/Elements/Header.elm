@@ -11,7 +11,7 @@ logo : Html Msg
 logo =
     img
         [ class "hamsa-logo"
-        , src "images/hamsa-logo.jpg"
+        , src "images/hamsa-logo.png"
         ]
         []
 

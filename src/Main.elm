@@ -1,4 +1,4 @@
-module Main exposing (..) 
+module Main exposing (..)
 
 import Elements.Header
 import Elements.Hero
@@ -10,6 +10,7 @@ import GraphQL.Request.Builder.Arg as Arg
 import GraphQL.Request.Builder.Variable as Var
 import Html.Styled exposing (..)
 import Http exposing (decodeUri)
+import Mouse
 import Navigation exposing (Location)
 import RemoteData
 import Routing exposing (..)
@@ -35,6 +36,9 @@ init firstUrl location =
       , error = Nothing
       , limit = 20
       , offset = 0
+      , artist = Nothing
+      , category = Nothing
+      , openDropdown = AllClosed
       }
     , loadFirstUrl firstUrl
     )
@@ -63,6 +67,13 @@ sendArtistRequest artist =
         |> Task.attempt ReceiveQueryResponse
 
 
+sendCategoryRequest : String -> Cmd Msg
+sendCategoryRequest keyword =
+    sendQueryRequest
+        (categoryQueryRequest keyword)
+        |> Task.attempt ReceiveQueryResponse
+
+
 loadFirstUrl : String -> Cmd Msg
 loadFirstUrl firstUrl =
     Navigation.newUrl firstUrl
@@ -74,16 +85,43 @@ sendHomeRequest =
         |> Task.attempt ReceiveQueryResponse
 
 
+selectorQuery : Document Query SelectorConfiguration {}
+selectorQuery =
+    let
+        conf =
+            B.object SelectorConfiguration
+                |> with (field "artists" [] (list string))
+                |> with (field "keywords" [] (list string))
+    in
+    queryDocument conf
+
+
+sendSelectorConfigurationRequest : Cmd Msg
+sendSelectorConfigurationRequest =
+    let
+        selectorConfigurationRequest =
+            selectorQuery |> request {}
+    in
+    sendQueryRequest selectorConfigurationRequest
+        |> Task.attempt ReceiveSelectorConfiguration
+
+
+categoryQueryRequest : String -> Request Query (List Image)
+categoryQueryRequest keyword =
+    collectionQuery
+        |> request { artist = Nothing, keyword = Just keyword, limit = 30, offset = 0 }
+
+
 collectionQueryRequest : Request Query (List Image)
 collectionQueryRequest =
     collectionQuery
-        |> request { artist = Nothing, limit = 30, offset = 0 }
+        |> request { artist = Nothing, keyword = Nothing, limit = 30, offset = 0 }
 
 
 artistQueryRequest : String -> Request Query (List Image)
 artistQueryRequest artist =
     collectionQuery
-        |> request { artist = Just artist, limit = 30, offset = 0 }
+        |> request { artist = Just artist, keyword = Nothing, limit = 30, offset = 0 }
 
 
 imageQueryRequest : String -> Request Query Image
@@ -122,7 +160,15 @@ imageQuery =
     queryDocument queryRoot
 
 
-collectionQuery : Document Query (List Image) { vars | artist : Maybe String, limit : Int, offset : Int }
+collectionQuery :
+    Document Query
+        (List Image)
+        { vars
+            | artist : Maybe String
+            , keyword : Maybe String
+            , limit : Int
+            , offset : Int
+        }
 collectionQuery =
     let
         limitVar =
@@ -133,6 +179,9 @@ collectionQuery =
 
         artistVar =
             Var.optional "artist" .artist Var.string ""
+
+        keywordVar =
+            Var.optional "keyword" .keyword Var.string ""
 
         metadata =
             B.object Metadata
@@ -154,6 +203,7 @@ collectionQuery =
                     [ ( "limit", Arg.variable limitVar )
                     , ( "offset", Arg.variable offsetVar )
                     , ( "artist", Arg.variable artistVar )
+                    , ( "keyword", Arg.variable keywordVar )
                     ]
                     (list image)
                 )
@@ -163,12 +213,47 @@ collectionQuery =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
+    let
+        nextCmd =
+            if List.isEmpty model.artists || List.isEmpty model.categories then
+                sendSelectorConfigurationRequest
+            else
+                Cmd.none
+    in
     case msg of
+        Toggle dropdown ->
+            let
+                newOpenDropdown =
+                    if model.openDropdown == dropdown then
+                        AllClosed
+                    else
+                        dropdown
+            in
+            { model
+                | openDropdown = newOpenDropdown
+            }
+                ! []
+
         GoBack ->
-            (model, Navigation.back 1)
-            
+            ( { model
+                | openDropdown = AllClosed
+              }
+            , Navigation.back 1
+            )
+
         SetRoute url ->
-            ( model, Navigation.newUrl url )
+            ( { model
+                | openDropdown = AllClosed
+              }
+            , Navigation.newUrl url
+            )
+
+        Blur ->
+            ( { model
+                | openDropdown = AllClosed
+              }
+            , Cmd.none
+            )
 
         OnLocationChange location ->
             let
@@ -180,13 +265,39 @@ update msg model =
             in
             case newRoute of
                 HomeRoute ->
-                    ( { model | route = newRoute }, sendHomeRequest )
+                    ( { model
+                        | route = newRoute
+                        , openDropdown = AllClosed
+                      }
+                    , sendHomeRequest
+                    )
 
                 SingleImageRoute id ->
-                    ( { model | route = newRoute, image = Nothing }, sendImageRequest id )
+                    ( { model
+                        | route = newRoute
+                        , openDropdown = AllClosed
+                        , image = Nothing
+                      }
+                    , sendImageRequest id
+                    )
 
                 ArtistRoute artist ->
-                    ( { model | route = newRoute, collection = RemoteData.NotAsked }, sendArtistRequest <| Maybe.withDefault "" <| decodeUri artist )
+                    ( { model
+                        | route = newRoute
+                        , openDropdown = AllClosed
+                        , collection = RemoteData.NotAsked
+                      }
+                    , sendArtistRequest <| Maybe.withDefault "" <| decodeUri artist
+                    )
+
+                CategoriesRoute category ->
+                    ( { model
+                        | route = newRoute
+                        , openDropdown = AllClosed
+                        , collection = RemoteData.NotAsked
+                      }
+                    , sendCategoryRequest <| Maybe.withDefault "" <| decodeUri category
+                    )
 
                 _ ->
                     ( model, Cmd.none )
@@ -198,10 +309,10 @@ update msg model =
             in
             case response of
                 Ok data ->
-                    ( { model | collection = RemoteData.succeed <| CollectionModel data "" "" }, Cmd.none )
+                    ( { model | collection = RemoteData.succeed <| CollectionModel data "" "" }, nextCmd )
 
                 Err error ->
-                    ( { model | error = Just <| toString <| error }, Cmd.none )
+                    ( { model | error = Just <| toString <| error }, nextCmd )
 
         ReceiveImageResponse response ->
             let
@@ -210,13 +321,22 @@ update msg model =
             in
             case response of
                 Ok data ->
-                    ( { model | image = Just data, error = Nothing }, Cmd.none )
+                    ( { model | image = Just data, error = Nothing }, nextCmd )
+
+                Err error ->
+                    ( { model | image = Nothing, error = Just <| toString <| error }, nextCmd )
+
+        ReceiveSelectorConfiguration response ->
+            let
+                d =
+                    Debug.log "Selector stuff" response
+            in
+            case response of
+                Ok data ->
+                    ( { model | artists = data.artists, categories = data.keywords }, Cmd.none )
 
                 Err error ->
                     ( { model | image = Nothing, error = Just <| toString <| error }, Cmd.none )
-
-        _ ->
-            ( model, Cmd.none )
 
 
 
@@ -255,6 +375,20 @@ view model =
 
 
 
+-- SUBSCRIPTIONS
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    case model.openDropdown of
+        AllClosed ->
+            Sub.none
+
+        _ ->
+            Mouse.clicks (always Blur)
+
+
+
 ---- PROGRAM ----
 
 
@@ -264,5 +398,5 @@ main =
         { view = view >> toUnstyled
         , init = init
         , update = update
-        , subscriptions = always Sub.none
+        , subscriptions = subscriptions
         }

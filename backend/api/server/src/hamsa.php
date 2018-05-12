@@ -95,6 +95,7 @@ function image_get_all_by_artist($artist, $limit, $offset) {
     return array_map($extract_metadata, $records);
 }
 
+
 function image_set_missing($id, $missing) {
     $record = ORM::for_table('image')->where('image_id', $id)->findOne();
 
@@ -128,20 +129,26 @@ function image_get($checksum) {
  */
 
 
-function artist_get_all($limit, $offset) {
-    $extract_metadata = function($value) {
-        if (isset($value["metadata"])) {
-            $value["metadata"] = json_decode($value["metadata"],true);
-        }
-        return $value;
-    };
+function artist_get_all() {
+    // $extract_metadata = function($value) {
+    //     if (isset($value["metadata"])) {
+    //         $value["metadata"] = json_decode($value["metadata"],true);
+    //     }
+    //     return $value;
+    // };
 
-    $records = ORM::for_table('artist')
-        ->limit($limit)
-        ->offset($offset)
+    // $records = ORM::for_table('artist')
+    //     ->limit($limit)
+    //     ->offset($offset)
+    //     ->find_array();
+    //
+    // return array_map($extract_metadata, $records);
+
+    $records = ORM::for_table('image')
+        ->raw_query("select distinct metadata->>'author' as author from image where metadata->>'author' IS NOT NULL")
         ->find_array();
 
-    return array_map($extract_metadata, $records);
+    return $records;
 }
 
 
@@ -169,7 +176,6 @@ function artist_get($alias) {
 function artist_exists($alias) {
     $artist = artist_get($alias);
 
-    print_r($artist);
     if (isset($artist["artist_id"])) {
         return true;
     } else {
@@ -191,6 +197,33 @@ function collection_get_all() {
         ->find_array();
     return $records;
 }
+
+function keywords_get_all() {
+    $records = ORM::for_table('image')  
+        ->raw_query("select keyword, count(distinct (image_id, keyword)) from image, jsonb_array_elements(metadata->'keywords') keyword group by keyword order by count desc;")
+        ->find_array();
+
+    return $records;
+}
+
+
+
+function image_get_all_by_keyword($keyword, $limit, $offset) {
+    // todo: add pagination
+    $extract_metadata = function($value) {
+        if (isset($value["metadata"])) {
+            $value["metadata"] = json_decode($value["metadata"],true);
+        }
+        return $value;
+    };
+
+    $records = ORM::for_table('image')
+        ->raw_query("select * from image where file_missing = false and jsonb_exists(metadata->'keywords',?);", Array($keyword))
+        ->find_array();
+
+    return array_map($extract_metadata, $records);
+}
+
 
 /**
  * Tags routines
