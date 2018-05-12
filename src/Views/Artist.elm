@@ -7,9 +7,21 @@ import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (class, css, src)
 import Html.Styled.Events exposing (onClick)
 import Http exposing (decodeUri)
-import Navigation
 import RemoteData
+import String.Extra
 import Types exposing (..)
+
+
+artistImageURL : String -> String
+artistImageURL artist =
+    let
+        artistDown =
+            String.toLower artist
+
+        a =
+            String.Extra.replace " " "-" <| String.Extra.replace "." "" artistDown
+    in
+    apiURL ++ "/images/artist_portraits/" ++ a ++ ".jpg"
 
 
 goBack : Html Msg
@@ -84,12 +96,17 @@ masonryView artist collection =
             ]
             [ div
                 [ css
-                    [ width (px 300)
-                    , height (px 200)
-                    , backgroundColor colors.gray
-                    ]
+                    [ display block ]
                 ]
-                []
+                [ img
+                    [ css
+                        [ maxWidth (px 300)
+                        , margin (px 10)
+                        ]
+                    , src <| artistImageURL artist
+                    ]
+                    []
+                ]
             , p
                 [ css
                     [ color colors.gray

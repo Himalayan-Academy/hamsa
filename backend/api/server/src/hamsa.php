@@ -79,10 +79,6 @@ function image_get_all_by_artist($artist, $limit, $offset) {
         return $value;
     };
 
-    $artist_record = artist_get($artist);
-
-    if (!isset($artist_record["artist_id"])) return [];
-
     $records = ORM::for_table('image')
         ->where('file_missing', false)
         ->where_raw("metadata->>'author' = ?", array($artist))
