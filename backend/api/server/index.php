@@ -167,9 +167,25 @@ try {
                     $func = function($e) {
                         return str_replace('"', "", $e["keyword"]);
                     };
+                    $filterCollections = function($e) {
+                        if (strpos(strtolower($e['keyword']), 'collection') == false) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    };
+                    $filterArtists = function($e) {
+                        if (strpos(strtolower($e['keyword']), 'artist') == false) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    };
 
                     $records = keywords_get_all();
                     $records = array_map($func, $records);
+                    $records = array_filter($records, $filterCollections);
+                    $records = array_filter($records, $filterArtists);
                     return $records;
                 }
             ],
