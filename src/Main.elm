@@ -57,7 +57,7 @@ sendImageRequest : String -> Cmd Msg
 sendImageRequest checksum =
     sendQueryRequest
         (imageQueryRequest checksum)
-        |> Task.attempt ReceiveImageResponse
+        |> Task.attempt ReceiveImageResponse 
 
 
 sendArtistRequest : String -> Cmd Msg
