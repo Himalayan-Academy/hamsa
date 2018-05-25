@@ -164,28 +164,22 @@ try {
                 'type' => Type::listOf(Type::string()),
                 'description' => 'All keywords present on the database',
                 'resolve' => function($root, $args) {
-                    $func = function($e) {
+                    $stripQuotes = function($e) {
                         return str_replace('"', "", $e["keyword"]);
                     };
+
                     $filterCollections = function($e) {
-                        if (strpos(strtolower($e['keyword']), 'collection') == false) {
-                            return false;
-                        } else {
-                            return true;
-                        }
+                        return strpos(strtolower($e["keyword"]), 'collection') == false;
                     };
+
                     $filterArtists = function($e) {
-                        if (strpos(strtolower($e['keyword']), 'artist') == false) {
-                            return false;
-                        } else {
-                            return true;
-                        }
+                       return strpos(strtolower($e["keyword"]), 'artist') == false;
                     };
 
                     $records = keywords_get_all();
-                    $records = array_map($func, $records);
                     $records = array_filter($records, $filterCollections);
                     $records = array_filter($records, $filterArtists);
+                    $records = array_map($stripQuotes, $records);
                     return $records;
                 }
             ],
@@ -193,17 +187,21 @@ try {
                 'type' => Type::listOf(Type::string()),
                 'description' => 'All collections present on the database',
                 'resolve' => function($root, $args) {
-                    $func = function($e) {
-                        return str_replace('"', "", $e["keyword"]);
+                    $stripQuotesAndPrefix = function($e) {
+                        $r = str_replace('"', "", $e["keyword"]);
+                        $r = str_replace('Collection', "", $r);
+                        $r = str_replace('collection', "", $r);
+                        return $r;
                     };
+                   
                     $filterCollections = function($e) {
                         return strpos(strtolower($e['keyword']), 'collection') == true;
                     };
                     
 
                     $records = keywords_get_all();
-                    $records = array_map($func, $records);
                     $records = array_filter($records, $filterCollections);
+                    $records = array_map($stripQuotesAndPrefix, $records);
                     return $records;
                 }
             ],
