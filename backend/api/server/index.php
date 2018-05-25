@@ -189,6 +189,24 @@ try {
                     return $records;
                 }
             ],
+            'collections' => [
+                'type' => Type::listOf(Type::string()),
+                'description' => 'All collections present on the database',
+                'resolve' => function($root, $args) {
+                    $func = function($e) {
+                        return str_replace('"', "", $e["keyword"]);
+                    };
+                    $filterCollections = function($e) {
+                        return strpos(strtolower($e['keyword']), 'collection') == true;
+                    };
+                    
+
+                    $records = keywords_get_all();
+                    $records = array_map($func, $records);
+                    $records = array_filter($records, $filterCollections);
+                    return $records;
+                }
+            ],
             'images' => [
                 'type' => Type::listOf($imageType),
                 'description' => "Queries the available images on the system",
