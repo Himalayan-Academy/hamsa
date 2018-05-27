@@ -38,6 +38,7 @@ init firstUrl location =
       , offset = 0
       , artist = Nothing
       , category = Nothing
+      , selectedCollection = Nothing
       , openDropdown = AllClosed
       }
     , loadFirstUrl firstUrl
@@ -57,7 +58,7 @@ sendImageRequest : String -> Cmd Msg
 sendImageRequest checksum =
     sendQueryRequest
         (imageQueryRequest checksum)
-        |> Task.attempt ReceiveImageResponse 
+        |> Task.attempt ReceiveImageResponse
 
 
 sendArtistRequest : String -> Cmd Msg
@@ -92,6 +93,7 @@ selectorQuery =
             B.object SelectorConfiguration
                 |> with (field "artists" [] (list string))
                 |> with (field "keywords" [] (list string))
+                |> with (field "collections" [] (list string))
     in
     queryDocument conf
 
@@ -333,7 +335,13 @@ update msg model =
             in
             case response of
                 Ok data ->
-                    ( { model | artists = data.artists, categories = data.keywords }, Cmd.none )
+                    ( { model
+                        | artists = data.artists
+                        , categories = data.keywords
+                        , collections = data.collections
+                      }
+                    , Cmd.none
+                    )
 
                 Err error ->
                     ( { model | image = Nothing, error = Just <| toString <| error }, Cmd.none )

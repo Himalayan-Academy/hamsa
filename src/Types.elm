@@ -21,7 +21,7 @@ lorem =
 
 localDevelopment : Bool
 localDevelopment =
-    False
+    True
 
 
 apiURL : String
@@ -36,7 +36,7 @@ type alias Model =
     { route : Route
     , artists : List String
     , categories : List String
-    , collections : List KeyValue
+    , collections : List String
     , query : Maybe String
     , collection : WebData CollectionModel
     , image : Maybe Image
@@ -45,6 +45,7 @@ type alias Model =
     , offset : Int
     , artist : Maybe String
     , category : Maybe String
+    , selectedCollection : Maybe String
     , openDropdown : OpenDropdown
     }
 
@@ -96,11 +97,13 @@ type OpenDropdown
     = AllClosed
     | ArtistDropdown
     | CategoryDropdown
+    | CollectionDropdown
 
 
 type alias SelectorConfiguration =
     { artists : List String
     , keywords : List String
+    , collections : List String
     }
 
 

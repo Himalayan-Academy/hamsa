@@ -52,11 +52,16 @@ view model =
             { selectedItem = model.category
             , isOpen = model.openDropdown == CategoryDropdown
             }
+
+        collectionsContext =
+            { selectedItem = model.selectedCollection
+            , isOpen = model.openDropdown == CollectionDropdown
+            }
     in
     div [ class "selector-controls" ]
         [ Dropdown.view categoriesConfig categoriesContext <| categoriesRoutesListFromCategoriesName model.categories
         , Dropdown.view artistConfig artistContext <| artistRoutesListFromArtistName model.artists
-        , round "is-selector-collections" "Collections" []
+        , Dropdown.view collectionsConfig collectionsContext <| collectionsRoutesListFromcollectionsName model.collections
         , search
         ]
 
@@ -84,9 +89,23 @@ categoriesConfig =
     }
 
 
+collectionsConfig : Dropdown.Config Msg
+collectionsConfig =
+    { defaultText = "Collections"
+    , clickedMsg = Toggle CollectionDropdown
+    , itemPickedMsg = SetRoute
+    , selectorClass = "is-selector-collections"
+    }
+
+
 categoriesRoutesListFromCategoriesName : List String -> List ( String, String )
 categoriesRoutesListFromCategoriesName list =
     List.map (\i -> ( i, "#/categories/" ++ i )) list
+
+
+collectionsRoutesListFromcollectionsName : List String -> List ( String, String )
+collectionsRoutesListFromcollectionsName list =
+    List.map (\i -> ( i, "#/categories/Collection" ++ i )) list
 
 
 onClick : msg -> Attribute msg
