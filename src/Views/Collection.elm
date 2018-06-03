@@ -94,6 +94,21 @@ masonryView name collection potentialDescription =
                 tileView
                 collection.images
             )
+        , div
+            [ css
+                [ border3 (px 1) solid (rgb 100 100 100)
+                , textAlign center
+                , color (rgb 127 127 231)
+                , padding (px 10)
+                , marginBottom (px 10)
+                ]
+            ]
+            [ span
+                [ css [ cursor pointer ]
+                , onClick LoadMore
+                ]
+                [ text "Load More" ]
+            ]
         ]
 
 

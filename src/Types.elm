@@ -107,6 +107,7 @@ type Msg
     | Toggle OpenDropdown
     | Blur
     | DescriptionReceived (WebData String)
+    | LoadMore
 
 
 type alias Response a =

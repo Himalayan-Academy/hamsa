@@ -84,17 +84,17 @@ sendImageRequest checksum =
         |> Task.attempt ReceiveImageResponse
 
 
-sendArtistRequest : String -> Cmd Msg
-sendArtistRequest artist =
+sendArtistRequest : Int -> Int -> String -> Cmd Msg
+sendArtistRequest offset limit artist =
     sendQueryRequest
-        (artistQueryRequest artist)
+        (artistQueryRequest offset limit artist)
         |> Task.attempt ReceiveQueryResponse
 
 
-sendCategoryRequest : String -> Cmd Msg
-sendCategoryRequest keyword =
+sendCategoryRequest : Int -> Int -> String -> Cmd Msg
+sendCategoryRequest offset limit keyword =
     sendQueryRequest
-        (categoryQueryRequest keyword)
+        (categoryQueryRequest offset limit keyword)
         |> Task.attempt ReceiveQueryResponse
 
 
@@ -131,10 +131,10 @@ sendSelectorConfigurationRequest =
         |> Task.attempt ReceiveSelectorConfiguration
 
 
-categoryQueryRequest : String -> Request Query (List Image)
-categoryQueryRequest keyword =
+categoryQueryRequest : Int -> Int -> String -> Request Query (List Image)
+categoryQueryRequest offset limit keyword =
     collectionQuery
-        |> request { artist = Nothing, keyword = Just keyword, limit = 30, offset = 0 }
+        |> request { artist = Nothing, keyword = Just keyword, limit = limit, offset = offset }
 
 
 collectionQueryRequest : Request Query (List Image)
@@ -143,10 +143,10 @@ collectionQueryRequest =
         |> request { artist = Nothing, keyword = Nothing, limit = 30, offset = 0 }
 
 
-artistQueryRequest : String -> Request Query (List Image)
-artistQueryRequest artist =
+artistQueryRequest : Int -> Int -> String -> Request Query (List Image)
+artistQueryRequest offset limit artist =
     collectionQuery
-        |> request { artist = Just artist, keyword = Nothing, limit = 30, offset = 0 }
+        |> request { artist = Just artist, keyword = Nothing, limit = limit, offset = offset }
 
 
 imageQueryRequest : String -> Request Query Image
@@ -310,25 +310,33 @@ update msg model =
                     )
 
                 ArtistRoute artist ->
+                    let
+                        artistString =
+                            Maybe.withDefault "" <| decodeUri artist
+                    in
                     ( { model
                         | route = newRoute
                         , openDropdown = AllClosed
                         , collection = RemoteData.NotAsked
                       }
                     , Cmd.batch
-                        [ sendArtistRequest <| Maybe.withDefault "" <| decodeUri artist
+                        [ sendArtistRequest model.offset model.limit artistString
                         , getDescription artist
                         ]
                     )
 
                 CategoriesRoute category ->
+                    let
+                        categoryString =
+                            Maybe.withDefault "" <| decodeUri category
+                    in
                     ( { model
                         | route = newRoute
                         , openDropdown = AllClosed
                         , collection = RemoteData.NotAsked
                       }
                     , Cmd.batch
-                        [ sendCategoryRequest <| Maybe.withDefault "" <| decodeUri category
+                        [ sendCategoryRequest model.offset model.limit categoryString
                         , getDescription category
                         ]
                     )
@@ -339,8 +347,26 @@ update msg model =
         ReceiveQueryResponse response ->
             case response of
                 Ok data ->
+                    let
+                        currImages =
+                            case model.collection of
+                                RemoteData.Success c ->
+                                    c.images
+
+                                _ ->
+                                    []
+
+                        newImages =
+                            List.concat [ currImages, data ]
+
+                        countd =
+                            List.length newImages
+
+                        d =
+                            Debug.log "collection lenght" countd
+                    in
                     ( { model
-                        | collection = RemoteData.succeed <| CollectionModel data "" ""
+                        | collection = RemoteData.succeed <| CollectionModel newImages "" ""
                         , error = Nothing
                       }
                     , nextCmd
@@ -375,6 +401,36 @@ update msg model =
                 Err error ->
                     ( { model | image = Nothing, error = Just <| toString <| error }, Cmd.none )
 
+        LoadMore ->
+            let
+                newOffset =
+                    model.offset + model.limit
+
+                nextCmd =
+                    case model.route of
+                        ArtistRoute a ->
+                            let
+                                artistString =
+                                    Maybe.withDefault "" <| decodeUri a
+                            in
+                            sendArtistRequest newOffset model.limit artistString
+
+                        CategoriesRoute c ->
+                            let
+                                categoryString =
+                                    Maybe.withDefault "" <| decodeUri c
+                            in
+                            sendCategoryRequest newOffset model.limit categoryString
+
+                        _ ->
+                            Cmd.none
+            in
+            ( { model
+                | offset = newOffset
+              }
+            , nextCmd
+            )
+
 
 
 ---- VIEW ----
@@ -403,7 +459,7 @@ view model =
                 _ ->
                     Loading.view
 
-        errorDisplay =
+        errorElement =
             case model.error of
                 Just err ->
                     p
@@ -414,6 +470,12 @@ view model =
 
                 Nothing ->
                     div [] []
+
+        errorDisplay =
+            if localDevelopment then
+                errorElement
+            else
+                div [] []
     in
     div []
         [ Elements.Header.view

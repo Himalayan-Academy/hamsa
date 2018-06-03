@@ -214,6 +214,22 @@ function image_get_all_by_keyword($keyword, $limit, $offset) {
     };
 
     $records = ORM::for_table('image')
+        ->raw_query("select * from image where file_missing = false and jsonb_exists(metadata->'keywords',?) LIMIT ? OFFSET ?;", Array($keyword, $limit, $offset))
+        ->find_array();
+
+    return array_map($extract_metadata, $records);
+}
+
+function image_search($query, $limit, $offset) {
+    // todo: add pagination
+    $extract_metadata = function($value) {
+        if (isset($value["metadata"])) {
+            $value["metadata"] = json_decode($value["metadata"],true);
+        }
+        return $value;
+    };
+
+    $records = ORM::for_table('image')
         ->raw_query("select * from image where file_missing = false and jsonb_exists(metadata->'keywords',?);", Array($keyword))
         ->find_array();
 

@@ -224,6 +224,11 @@ try {
                         'type' => Type::string(),
                         'description' => 'Filter images by keyword',
                         'defaultValue' => ''
+                    ],
+                    'query' => [
+                        'type' => Type::string(),
+                        'description' => 'Search term',
+                        'defaultValue' => ''
                     ]
 
                 ],
@@ -232,7 +237,8 @@ try {
                         $images = image_get_all_by_artist($args["artist"], $args["limit"], $args["offset"]);
                     } else if ($args["keyword"] !== '' ) {
                         $images = image_get_all_by_keyword($args["keyword"], $args["limit"], $args["offset"]);
-                        
+                    } else if ($args["query"] !== '') {
+                        $images = image_search($args["query"], $args["limit"], $args["offset"]);    
                     } else {
                         $images = image_get_all($args["limit"], $args["offset"]);
                     }
