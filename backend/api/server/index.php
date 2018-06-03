@@ -19,9 +19,6 @@ Keyword | count
 */
 
 
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: content-type");
-
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     die("ok");
 }
@@ -39,7 +36,6 @@ use GraphQL\Server\StandardServer;
 use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 use GraphQL\GraphQL;
-
 
 $artistType = new ObjectType([
     'name' => 'Artist',
@@ -192,7 +188,7 @@ try {
                         $r = str_replace('Collection', "", $r);
                         $r = str_replace('collection', "", $r);
                         return $r;
-                    };
+                     };
                    
                     $filterCollections = function($e) {
                         return strpos(strtolower($e['keyword']), 'collection') == true;

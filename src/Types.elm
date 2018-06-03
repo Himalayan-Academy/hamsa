@@ -46,19 +46,9 @@ type alias Model =
     , artist : Maybe String
     , category : Maybe String
     , selectedCollection : Maybe String
+    , activePageDescription : WebData String
     , openDropdown : OpenDropdown
     }
-
-
-type alias KeyValue =
-    { key : String
-    , value : String
-    }
-
-
-toKeyValues : List ( String, String ) -> List KeyValue
-toKeyValues list =
-    List.map (\( k, v ) -> KeyValue k v) list
 
 
 type alias CollectionModel =
@@ -116,6 +106,7 @@ type Msg
     | GoBack
     | Toggle OpenDropdown
     | Blur
+    | DescriptionReceived (WebData String)
 
 
 type alias Response a =

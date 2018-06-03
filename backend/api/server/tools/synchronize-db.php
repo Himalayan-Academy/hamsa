@@ -156,7 +156,7 @@ $allImages = new RegexIterator($Iterator, '/^.+\.jpg$/i', RecursiveRegexIterator
 foreach($allImages as $image) {
     $imageFile = $image[0];
 
-    if (strpos($imageFile, "_cache") == false && strpos($imageFile, "artist_portraits") == false ) {
+    if (strpos($imageFile, "_cache") == false && strpos($imageFile, "_artists") == false && strpos($imageFile, "_text") == false ) {
    
         echo "$imageFile\n";
 

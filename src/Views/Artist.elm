@@ -21,7 +21,7 @@ artistImageURL artist =
         a =
             String.Extra.replace " " "-" <| String.Extra.replace "." "" artistDown
     in
-    apiURL ++ "/images/artist_portraits/" ++ a ++ ".jpg"
+    apiURL ++ "/images/_artists/" ++ a ++ ".jpg"
 
 
 goBack : Html Msg

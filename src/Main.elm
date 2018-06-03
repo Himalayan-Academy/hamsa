@@ -1,5 +1,6 @@
 module Main exposing (..)
 
+import Css exposing (..)
 import Elements.Header
 import Elements.Hero
 import Elements.Loading as Loading
@@ -9,11 +10,14 @@ import GraphQL.Request.Builder as B exposing (..)
 import GraphQL.Request.Builder.Arg as Arg
 import GraphQL.Request.Builder.Variable as Var
 import Html.Styled exposing (..)
+import Html.Styled.Attributes exposing (css)
 import Http exposing (decodeUri)
+import Json.Decode
 import Mouse
 import Navigation exposing (Location)
 import RemoteData
 import Routing exposing (..)
+import String.Extra as Extra
 import Task exposing (Task)
 import Types exposing (..)
 import Views.Artist as Artist
@@ -40,6 +44,7 @@ init firstUrl location =
       , category = Nothing
       , selectedCollection = Nothing
       , openDropdown = AllClosed
+      , activePageDescription = RemoteData.NotAsked
       }
     , loadFirstUrl firstUrl
     )
@@ -47,6 +52,24 @@ init firstUrl location =
 
 
 ---- UPDATE ----
+
+
+getDescription : String -> Cmd Msg
+getDescription what =
+    let
+        file =
+            Http.decodeUri what
+                |> Maybe.withDefault ""
+                |> Extra.clean
+                |> String.toLower
+                |> Extra.dasherize
+
+        url =
+            apiURL ++ "/images/_texts/" ++ file ++ ".txt"
+    in
+    Http.getString url
+        |> RemoteData.sendRequest
+        |> Cmd.map DescriptionReceived
 
 
 sendQueryRequest : Request Query a -> Task GraphQLClient.Error a
@@ -223,6 +246,9 @@ update msg model =
                 Cmd.none
     in
     case msg of
+        DescriptionReceived response ->
+            ( { model | activePageDescription = response }, Cmd.none )
+
         Toggle dropdown ->
             let
                 newOpenDropdown =
@@ -289,7 +315,10 @@ update msg model =
                         , openDropdown = AllClosed
                         , collection = RemoteData.NotAsked
                       }
-                    , sendArtistRequest <| Maybe.withDefault "" <| decodeUri artist
+                    , Cmd.batch
+                        [ sendArtistRequest <| Maybe.withDefault "" <| decodeUri artist
+                        , getDescription artist
+                        ]
                     )
 
                 CategoriesRoute category ->
@@ -298,20 +327,24 @@ update msg model =
                         , openDropdown = AllClosed
                         , collection = RemoteData.NotAsked
                       }
-                    , sendCategoryRequest <| Maybe.withDefault "" <| decodeUri category
+                    , Cmd.batch
+                        [ sendCategoryRequest <| Maybe.withDefault "" <| decodeUri category
+                        , getDescription category
+                        ]
                     )
 
                 _ ->
                     ( model, Cmd.none )
 
         ReceiveQueryResponse response ->
-            let
-                a =
-                    Debug.log "result" response
-            in
             case response of
                 Ok data ->
-                    ( { model | collection = RemoteData.succeed <| CollectionModel data "" "" }, nextCmd )
+                    ( { model
+                        | collection = RemoteData.succeed <| CollectionModel data "" ""
+                        , error = Nothing
+                      }
+                    , nextCmd
+                    )
 
                 Err error ->
                     ( { model | error = Just <| toString <| error }, nextCmd )
@@ -329,10 +362,6 @@ update msg model =
                     ( { model | image = Nothing, error = Just <| toString <| error }, nextCmd )
 
         ReceiveSelectorConfiguration response ->
-            let
-                d =
-                    Debug.log "Selector stuff" response
-            in
             case response of
                 Ok data ->
                     ( { model
@@ -357,13 +386,13 @@ view model =
         subView =
             case model.route of
                 HomeRoute ->
-                    Collection.view model
+                    Collection.view "Home" model
 
-                CategoriesRoute _ ->
-                    Collection.view model
+                CategoriesRoute category ->
+                    Collection.view (Maybe.withDefault "" <| Http.decodeUri category) model
 
-                CollectionsRoute _ ->
-                    Collection.view model
+                CollectionsRoute collection ->
+                    Collection.view (Maybe.withDefault "" <| Http.decodeUri collection) model
 
                 ArtistRoute artist ->
                     Artist.view artist model
@@ -373,10 +402,23 @@ view model =
 
                 _ ->
                     Loading.view
+
+        errorDisplay =
+            case model.error of
+                Just err ->
+                    p
+                        [ css
+                            [ backgroundColor (rgb 255 220 0) ]
+                        ]
+                        [ text err ]
+
+                Nothing ->
+                    div [] []
     in
     div []
         [ Elements.Header.view
         , Elements.Hero.view
+        , errorDisplay
         , Selector.view model
         , subView
         ]

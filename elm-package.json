@@ -6,7 +6,6 @@
     "source-directories": [
         "src"
     ],
-    "homepage": "http://dev.himalayanacademy.com/hamsa/build/",
     "exposed-modules": [],
     "dependencies": {
         "elm-community/list-extra": "7.1.0 <= v < 8.0.0",
@@ -16,6 +15,7 @@
         "elm-lang/http": "1.0.0 <= v < 2.0.0",
         "elm-lang/mouse": "1.0.1 <= v < 2.0.0",
         "elm-lang/navigation": "2.1.0 <= v < 3.0.0",
+        "evancz/elm-markdown": "3.0.2 <= v < 4.0.0",
         "evancz/url-parser": "2.0.1 <= v < 3.0.0",
         "jamesmacaulay/elm-graphql": "1.8.0 <= v < 2.0.0",
         "krisajenkins/remotedata": "4.3.3 <= v < 5.0.0",
