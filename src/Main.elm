@@ -45,6 +45,7 @@ init firstUrl location =
       , selectedCollection = Nothing
       , openDropdown = AllClosed
       , activePageDescription = RemoteData.NotAsked
+      , busy = False
       }
     , loadFirstUrl firstUrl
     )
@@ -62,6 +63,7 @@ getDescription what =
                 |> Maybe.withDefault ""
                 |> Extra.clean
                 |> String.toLower
+                |> Extra.replace "." ""
                 |> Extra.dasherize
 
         url =
@@ -272,6 +274,8 @@ update msg model =
         SetRoute url ->
             ( { model
                 | openDropdown = AllClosed
+                , busy = False
+                , offset = 0
               }
             , Navigation.newUrl url
             )
@@ -296,6 +300,7 @@ update msg model =
                     ( { model
                         | route = newRoute
                         , openDropdown = AllClosed
+                        , offset = 0
                       }
                     , sendHomeRequest
                     )
@@ -318,6 +323,7 @@ update msg model =
                         | route = newRoute
                         , openDropdown = AllClosed
                         , collection = RemoteData.NotAsked
+                        , offset = 0
                       }
                     , Cmd.batch
                         [ sendArtistRequest model.offset model.limit artistString
@@ -334,6 +340,7 @@ update msg model =
                         | route = newRoute
                         , openDropdown = AllClosed
                         , collection = RemoteData.NotAsked
+                        , offset = 0
                       }
                     , Cmd.batch
                         [ sendCategoryRequest model.offset model.limit categoryString
@@ -344,6 +351,7 @@ update msg model =
                 _ ->
                     ( model, Cmd.none )
 
+        --dangerous
         ReceiveQueryResponse response ->
             case response of
                 Ok data ->
@@ -368,12 +376,13 @@ update msg model =
                     ( { model
                         | collection = RemoteData.succeed <| CollectionModel newImages "" ""
                         , error = Nothing
+                        , busy = False
                       }
                     , nextCmd
                     )
 
                 Err error ->
-                    ( { model | error = Just <| toString <| error }, nextCmd )
+                    ( { model | error = Just <| toString <| error, busy = False }, nextCmd )
 
         ReceiveImageResponse response ->
             let
@@ -427,6 +436,7 @@ update msg model =
             in
             ( { model
                 | offset = newOffset
+                , busy = True
               }
             , nextCmd
             )

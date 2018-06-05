@@ -48,6 +48,7 @@ type alias Model =
     , selectedCollection : Maybe String
     , activePageDescription : WebData String
     , openDropdown : OpenDropdown
+    , busy: Bool
     }
 
 

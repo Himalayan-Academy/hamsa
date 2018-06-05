@@ -7,7 +7,8 @@ import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (class, css, src)
 import Html.Styled.Events exposing (onClick)
 import Http exposing (decodeUri)
-import RemoteData
+import Markdown
+import RemoteData exposing (..)
 import String.Extra
 import Types exposing (..)
 
@@ -19,7 +20,9 @@ artistImageURL artist =
             String.toLower artist
 
         a =
-            String.Extra.replace " " "-" <| String.Extra.replace "." "" artistDown
+            String.Extra.replace " " "-" artistDown
+                |> String.Extra.replace "." ""
+                |> String.Extra.dasherize
     in
     apiURL ++ "/images/_artists/" ++ a ++ ".jpg"
 
@@ -52,75 +55,89 @@ tileView image =
     Image.masonryTile image.thumbnail "hello" image.checksum
 
 
-masonryView : String -> CollectionModel -> Html Msg
-masonryView artist collection =
+masonryView : String -> CollectionModel -> Model -> Html Msg
+masonryView artist collection model =
+    let
+        potentialDescription =
+            model.activePageDescription
+
+        description =
+            case potentialDescription of
+                Success content ->
+                    descriptionView <| Html.Styled.fromUnstyled <| Markdown.toHtml [] content
+
+                _ ->
+                    div [] []
+
+        descriptionView content =
+            div []
+                [ div
+                    [ css
+                        [ textAlign center
+                        , fontFamilies [ "sans-serif" ]
+                        , displayFlex
+                        , flexDirection column
+                        ]
+                    ]
+                    [ div
+                        [ css
+                            [ textAlign center ]
+                        ]
+                        [ h3
+                            [ css
+                                [ color colors.ocre
+                                , borderBottom3 (px 1) solid colors.gray
+                                , paddingBottom (px 10)
+                                , display inline
+                                ]
+                            ]
+                            [ text "Artist" ]
+                        ]
+                    , h2
+                        [ css
+                            [ color colors.gray
+                            ]
+                        ]
+                        [ text artist ]
+                    ]
+                , div
+                    [ css
+                        [ textAlign center
+                        , fontFamilies [ "sans-serif" ]
+                        , displayFlex
+                        , flexDirection row
+                        , marginBottom (px 30)
+                        , color colors.gray
+                        , textAlign left
+                        , paddingLeft (px 15)
+                        ]
+                    ]
+                    [ div
+                        [ css
+                            [ display block ]
+                        ]
+                        [ img
+                            [ css
+                                [ maxWidth (px 300)
+                                , margin (px 10)
+                                ]
+                            , src <| artistImageURL artist
+                            ]
+                            []
+                        ]
+                    , content
+                    ]
+                ]
+    in
     div [ class "collection" ]
         [ goBack
-        , div
-            [ css
-                [ textAlign center
-                , fontFamilies [ "sans-serif" ]
-                , displayFlex
-                , flexDirection column
-                ]
-            ]
-            [ div
-                [ css
-                    [ textAlign center ]
-                ]
-                [ h3
-                    [ css
-                        [ color colors.ocre
-                        , borderBottom3 (px 1) solid colors.gray
-                        , paddingBottom (px 10)
-                        , display inline
-                        ]
-                    ]
-                    [ text "Artist" ]
-                ]
-            , h2
-                [ css
-                    [ color colors.gray
-                    ]
-                ]
-                [ text artist ]
-            ]
-        , div
-            [ css
-                [ textAlign center
-                , fontFamilies [ "sans-serif" ]
-                , displayFlex
-                , flexDirection row
-                , marginBottom (px 30)
-                ]
-            ]
-            [ div
-                [ css
-                    [ display block ]
-                ]
-                [ img
-                    [ css
-                        [ maxWidth (px 300)
-                        , margin (px 10)
-                        ]
-                    , src <| artistImageURL artist
-                    ]
-                    []
-                ]
-            , p
-                [ css
-                    [ color colors.gray
-                    , textAlign left
-                    , paddingLeft (px 15)
-                    ]
-                ]
-                [ text lorem ]
-            ]
+        , description
         , section [ class "masonry" ]
             (List.map
                 tileView
                 collection.images
             )
+        , Loading.loadMore model.busy
         ]
 
 
@@ -141,7 +158,7 @@ view a model =
             Loading.view
 
         RemoteData.Success c ->
-            masonryView artist c
+            masonryView artist c model
 
         RemoteData.Failure _ ->
             h1 [] [ text "failure loading" ]

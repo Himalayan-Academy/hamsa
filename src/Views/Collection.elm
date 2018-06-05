@@ -39,22 +39,19 @@ tileView image =
     Image.masonryTile image.thumbnail "hello" image.checksum
 
 
-masonryView : String -> CollectionModel -> WebData String -> Html Msg
-masonryView name collection potentialDescription =
+masonryView : String -> CollectionModel -> Model -> Html Msg
+masonryView name collection model =
     let
+        potentialDescription =
+            model.activePageDescription
+
         description =
             case potentialDescription of
-                NotAsked ->
-                    div [] []
-
-                Loading ->
-                    p [] [ text "Loading..." ]
-
-                Failure err ->
-                    p [] [ text ("Error: " ++ toString err) ]
-
                 Success content ->
                     Html.Styled.fromUnstyled <| Markdown.toHtml [] content
+
+                _ ->
+                    div [] []
     in
     div [ class "collection" ]
         [ goBack
@@ -94,21 +91,7 @@ masonryView name collection potentialDescription =
                 tileView
                 collection.images
             )
-        , div
-            [ css
-                [ border3 (px 1) solid (rgb 100 100 100)
-                , textAlign center
-                , color (rgb 127 127 231)
-                , padding (px 10)
-                , marginBottom (px 10)
-                ]
-            ]
-            [ span
-                [ css [ cursor pointer ]
-                , onClick LoadMore
-                ]
-                [ text "Load More" ]
-            ]
+        , Loading.loadMore model.busy
         ]
 
 
@@ -126,7 +109,7 @@ view name model =
             Loading.view
 
         RemoteData.Success c ->
-            masonryView name c model.activePageDescription
+            masonryView name c model
 
         RemoteData.Failure _ ->
             h1 [] [ text "failure loading" ]

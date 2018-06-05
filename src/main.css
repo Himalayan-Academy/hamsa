@@ -77,12 +77,12 @@ div.collection {
     text-align: center; }
 
 section.masonry {
-  column-width: 15em;
-  -moz-column-width: 15em;
-  -webkit-column-width: 15em;
-  column-gap: 1em;
-  -moz-column-gap: 1em;
-  -webkit-column-gap: 1em; }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 10px;
+  grid-auto-rows: minmax(200px, auto);
+  grid-auto-flow: dense;
+  padding: 10px; }
 
 div.tile {
   display: inline-block;
