@@ -15,13 +15,9 @@ colors =
     }
 
 
-lorem =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque viverra faucibus fermentum. Praesent sagittis mollis porttitor. Duis tristique eros at tempor suscipit. Cras vitae rutrum leo, non porta turpis. Curabitur gravida molestie urna non sollicitudin. Integer gravida non erat eget varius. Donec nec lacinia neque. Duis non mi ultricies, congue magna eget, congue risus. Donec congue viverra mi quis imperdiet. Nulla bibendum scelerisque posuere. In consequat, arcu eget commodo porta, dolor lorem semper massa, non venenatis diam velit a erat. Fusce maximus suscipit mi a vestibulum. Suspendisse tincidunt lorem vel augue dignissim, a pulvinar arcu ornare. Sed maximus urna vitae suscipit mollis. Morbi pretium commodo interdum. Nulla nec sem non eros tincidunt ultrices. "
-
-
 localDevelopment : Bool
 localDevelopment =
-    True
+    False
 
 
 apiURL : String
@@ -48,7 +44,7 @@ type alias Model =
     , selectedCollection : Maybe String
     , activePageDescription : WebData String
     , openDropdown : OpenDropdown
-    , busy: Bool
+    , busy : Bool
     }
 
 
