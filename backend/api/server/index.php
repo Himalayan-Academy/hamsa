@@ -201,6 +201,27 @@ try {
                     return $records;
                 }
             ],
+            'count' => [
+                'type' => Type::int(),
+                'description' => 'Returns total number of items in collection',
+                'args' => [
+                    'artist' => [
+                        'type' => Type::string(),
+                        'description' => 'Count images by artist',
+                        'defaultValue' => ''
+                    ],
+                    'keyword' => [
+                        'type' => Type::string(),
+                        'description' => 'Count images by keyword',
+                        'defaultValue' => ''
+                    ]
+                ],
+                'resolve' => function($root, $args) {
+
+                    $records = collection_count_results($args["keyword"], $args["artist"]);
+                    return $records;
+                }
+            ],
             'images' => [
                 'type' => Type::listOf($imageType),
                 'description' => "Queries the available images on the system",

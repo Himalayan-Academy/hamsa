@@ -203,9 +203,21 @@ function keywords_get_all() {
 }
 
 
+function collection_count_results($keyword, $artist ) {
+    
+    if ($keyword !== '') {
+        $count = ORM::for_table('image')
+            ->raw_query("select count(path) from image where file_missing = false and jsonb_exists(metadata->'keywords',?);", Array($keyword))
+            ->find_array();
+    } else {
+        $count = ORM::for_table('image')
+        ->raw_query("select count(path) from image where file_missing = false and metadata->>'author' = ?;", Array($artist))
+        ->find_array();
+    }
+    return  $count[0]['count'];
+}
 
 function image_get_all_by_keyword($keyword, $limit, $offset) {
-    // todo: add pagination
     $extract_metadata = function($value) {
         if (isset($value["metadata"])) {
             $value["metadata"] = json_decode($value["metadata"],true);
