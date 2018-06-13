@@ -242,7 +242,7 @@ function image_search($query, $limit, $offset) {
     };
 
     $records = ORM::for_table('image')
-        ->raw_query("select * from image where file_missing = false and jsonb_exists(metadata->'keywords',?);", Array($keyword))
+        ->raw_query("select * from image where file_missing = false and metadata->>'caption' ILIKE ?;", Array($query))
         ->find_array();
 
     return array_map($extract_metadata, $records);
