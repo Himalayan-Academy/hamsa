@@ -46,6 +46,7 @@ init firstUrl location =
       , openDropdown = AllClosed
       , activePageDescription = RemoteData.NotAsked
       , busy = False
+      , paginationTotal = 0
       }
     , loadFirstUrl firstUrl
     )
@@ -72,6 +73,43 @@ getDescription what =
     Http.getString url
         |> RemoteData.sendRequest
         |> Cmd.map DescriptionReceived
+
+
+getPaginationTotal : String -> String -> Cmd Msg
+getPaginationTotal what query =
+    let
+        requestObject =
+            if what == "artist" then
+                { artist = Just query, keyword = Nothing }
+            else
+                { keyword = Just query, artist = Nothing }
+
+        paginationQuery =
+            let
+                artistVar =
+                    Var.optional "artist" .artist Var.string ""
+
+                keywordVar =
+                    Var.optional "keyword" .artist Var.string ""
+
+                queryRoot =
+                    extract
+                        (field "count"
+                            [ ( "artist", Arg.variable artistVar )
+                            , ( "keyword", Arg.variable keywordVar )
+                            ]
+                            B.int
+                        )
+            in
+            queryDocument queryRoot
+
+        paginationTotalQueryRequest =
+            paginationQuery
+                |> request requestObject
+    in
+    sendQueryRequest
+        paginationTotalQueryRequest
+        |> Task.attempt ReceivedPaginationTotal
 
 
 sendQueryRequest : Request Query a -> Task GraphQLClient.Error a
@@ -276,6 +314,7 @@ update msg model =
                 | openDropdown = AllClosed
                 , busy = False
                 , offset = 0
+                , paginationTotal = 0
               }
             , Navigation.newUrl url
             )
@@ -328,6 +367,7 @@ update msg model =
                     , Cmd.batch
                         [ sendArtistRequest model.offset model.limit artistString
                         , getDescription artist
+                        , getPaginationTotal "artist" artist
                         ]
                     )
 
@@ -345,6 +385,7 @@ update msg model =
                     , Cmd.batch
                         [ sendCategoryRequest model.offset model.limit categoryString
                         , getDescription category
+                        , getPaginationTotal "keyword" categoryString
                         ]
                     )
 
@@ -395,6 +436,18 @@ update msg model =
 
                 Err error ->
                     ( { model | image = Nothing, error = Just <| toString <| error }, nextCmd )
+
+        ReceivedPaginationTotal response ->
+            let
+                a =
+                    Debug.log "pagination result" response
+            in
+            case response of
+                Ok data ->
+                    ( { model | paginationTotal = data }, nextCmd )
+
+                Err error ->
+                    ( { model | paginationTotal = 0, error = Just <| toString <| error }, nextCmd )
 
         ReceiveSelectorConfiguration response ->
             case response of

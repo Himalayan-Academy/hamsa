@@ -45,6 +45,7 @@ type alias Model =
     , activePageDescription : WebData String
     , openDropdown : OpenDropdown
     , busy : Bool
+    , paginationTotal : Int
     }
 
 
@@ -105,6 +106,7 @@ type Msg
     | Blur
     | DescriptionReceived (WebData String)
     | LoadMore
+    | ReceivedPaginationTotal (Response Int)
 
 
 type alias Response a =
