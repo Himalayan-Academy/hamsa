@@ -52,6 +52,12 @@ masonryView name collection model =
 
                 _ ->
                     div [] []
+
+        bottom =
+            if (model.offset + model.limit) >= model.paginationTotal then
+                div [] []
+            else
+                Loading.loadMore model.busy
     in
     div [ class "collection" ]
         [ goBack
@@ -91,7 +97,7 @@ masonryView name collection model =
                 tileView
                 collection.images
             )
-        , Loading.loadMore model.busy
+        , bottom
         ]
 
 

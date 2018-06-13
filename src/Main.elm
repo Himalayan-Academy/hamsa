@@ -80,9 +80,9 @@ getPaginationTotal what query =
     let
         requestObject =
             if what == "artist" then
-                { artist = Just query, keyword = Nothing }
+                { artist = Http.decodeUri query, keyword = Nothing }
             else
-                { keyword = Just query, artist = Nothing }
+                { keyword = Http.decodeUri query, artist = Nothing }
 
         paginationQuery =
             let
@@ -90,7 +90,7 @@ getPaginationTotal what query =
                     Var.optional "artist" .artist Var.string ""
 
                 keywordVar =
-                    Var.optional "keyword" .artist Var.string ""
+                    Var.optional "keyword" .keyword Var.string ""
 
                 queryRoot =
                     extract
@@ -105,7 +105,7 @@ getPaginationTotal what query =
 
         paginationTotalQueryRequest =
             paginationQuery
-                |> request requestObject
+                |> request (Debug.log "request object" requestObject)
     in
     sendQueryRequest
         paginationTotalQueryRequest

@@ -69,6 +69,12 @@ masonryView artist collection model =
                 _ ->
                     div [] []
 
+        bottom =
+            if (model.offset + model.limit) >= model.paginationTotal then
+                div [] []
+            else
+                Loading.loadMore model.busy
+
         descriptionView content =
             div []
                 [ div
@@ -137,7 +143,7 @@ masonryView artist collection model =
                 tileView
                 collection.images
             )
-        , Loading.loadMore model.busy
+        , bottom
         ]
 
 

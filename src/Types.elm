@@ -17,7 +17,7 @@ colors =
 
 localDevelopment : Bool
 localDevelopment =
-    True
+    False
 
 
 apiURL : String

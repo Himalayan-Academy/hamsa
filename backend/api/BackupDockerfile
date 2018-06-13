@@ -24,9 +24,6 @@ COPY config/php.ini /etc/php7/php.ini
 # Configure supervisord
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Composer
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-
 # Configure cronjobs
 COPY cronjobs/backup-db.sh /etc/periodic/daily/backup-db.sh
 COPY cronjobs/synchronize-db.sh /etc/periodic/15min/synchronize-db.sh

@@ -1,0 +1,1 @@
+docker build -t hamsa-api .
