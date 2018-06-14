@@ -138,6 +138,24 @@ sendCategoryRequest offset limit keyword =
         |> Task.attempt ReceiveQueryResponse
 
 
+sendSearchRequest : String -> Cmd Msg
+sendSearchRequest query =
+    let
+        searchRequest =
+            collectionQuery
+                |> request
+                    { artist = Nothing
+                    , keyword = Nothing
+                    , query = Just <| "%" ++ query ++ "%"
+                    , limit = 100000
+                    , offset = 0
+                    }
+    in
+    sendQueryRequest
+        searchRequest
+        |> Task.attempt ReceiveQueryResponse
+
+
 loadFirstUrl : String -> Cmd Msg
 loadFirstUrl firstUrl =
     Navigation.newUrl firstUrl
@@ -174,19 +192,19 @@ sendSelectorConfigurationRequest =
 categoryQueryRequest : Int -> Int -> String -> Request Query (List Image)
 categoryQueryRequest offset limit keyword =
     collectionQuery
-        |> request { artist = Nothing, keyword = Just keyword, limit = limit, offset = offset }
+        |> request { artist = Nothing, keyword = Just keyword, query = Nothing, limit = limit, offset = offset }
 
 
 collectionQueryRequest : Request Query (List Image)
 collectionQueryRequest =
     collectionQuery
-        |> request { artist = Nothing, keyword = Nothing, limit = 30, offset = 0 }
+        |> request { artist = Nothing, keyword = Nothing, query = Nothing, limit = 30, offset = 0 }
 
 
 artistQueryRequest : Int -> Int -> String -> Request Query (List Image)
 artistQueryRequest offset limit artist =
     collectionQuery
-        |> request { artist = Just artist, keyword = Nothing, limit = limit, offset = offset }
+        |> request { artist = Just artist, keyword = Nothing, query = Nothing, limit = limit, offset = offset }
 
 
 imageQueryRequest : String -> Request Query Image
@@ -233,6 +251,7 @@ collectionQuery :
             , keyword : Maybe String
             , limit : Int
             , offset : Int
+            , query : Maybe String
         }
 collectionQuery =
     let
@@ -247,6 +266,9 @@ collectionQuery =
 
         keywordVar =
             Var.optional "keyword" .keyword Var.string ""
+
+        queryVar =
+            Var.optional "query" .query Var.string ""
 
         metadata =
             B.object Metadata
@@ -269,6 +291,7 @@ collectionQuery =
                     , ( "offset", Arg.variable offsetVar )
                     , ( "artist", Arg.variable artistVar )
                     , ( "keyword", Arg.variable keywordVar )
+                    , ( "query", Arg.variable queryVar )
                     ]
                     (list image)
                 )
@@ -423,6 +446,10 @@ update msg model =
                     )
 
                 Err error ->
+                    let
+                        err =
+                            Debug.log "error" error
+                    in
                     ( { model | error = Just <| toString <| error, busy = False }, nextCmd )
 
         ReceiveImageResponse response ->
@@ -490,6 +517,28 @@ update msg model =
             ( { model
                 | offset = newOffset
                 , busy = True
+              }
+            , nextCmd
+            )
+
+        ChangeQuery query ->
+            ( { model | query = Just query }, Cmd.none )
+
+        Search ->
+            let
+                ( route, nextCmd ) =
+                    case model.query of
+                        Nothing ->
+                            ( model.route, Cmd.none )
+
+                        Just query ->
+                            ( CollectionsRoute query, sendSearchRequest query )
+            in
+            ( { model
+                | route = route
+                , openDropdown = AllClosed
+                , collection = RemoteData.NotAsked
+                , offset = 0
               }
             , nextCmd
             )

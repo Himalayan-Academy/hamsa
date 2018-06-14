@@ -107,6 +107,8 @@ type Msg
     | DescriptionReceived (WebData String)
     | LoadMore
     | ReceivedPaginationTotal (Response Int)
+    | ChangeQuery String
+    | Search
 
 
 type alias Response a =

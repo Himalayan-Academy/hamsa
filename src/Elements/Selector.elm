@@ -3,9 +3,28 @@ module Elements.Selector exposing (..)
 import Elements.Dropdown as Dropdown
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (..)
-import Html.Styled.Events exposing (onWithOptions)
+import Html.Styled.Events exposing (keyCode, on, onInput, onSubmit, onWithOptions)
 import Json.Decode as Json
 import Types exposing (..)
+
+
+-- Helper --
+
+
+onEnter : Msg -> Attribute Msg
+onEnter msg =
+    let
+        isEnter code =
+            if code == 13 then
+                Json.succeed msg
+            else
+                Json.fail "not ENTER"
+    in
+    on "keydown" (Json.andThen isEnter keyCode)
+
+
+
+-- routines --
 
 
 round : String -> String -> List ( String, String ) -> Html Msg
@@ -35,7 +54,13 @@ round selectorClass title listOfOptions =
 search : Html Msg
 search =
     div [ classList [ ( "round-wrapper", True ), ( "is-search-box", True ) ] ]
-        [ input [ class "title", placeholder "Search" ] []
+        [ input
+            [ class "title"
+            , placeholder "Search"
+            , onInput ChangeQuery
+            , onEnter Search
+            ]
+            []
         , i [ class "fa fa-search" ] []
         ]
 
