@@ -301,6 +301,34 @@ collectionQuery =
     queryDocument queryRoot
 
 
+updateInfiniteScrollCmd : Model -> IS.Model Msg -> IS.Model Msg
+updateInfiniteScrollCmd model ismodel =
+    let
+        newOffset =
+            model.offset + model.limit
+    in
+    if newOffset > model.paginationTotal then
+        ismodel |> IS.loadMoreCmd (\dir -> Cmd.none)
+    else
+        case model.route of
+            CategoriesRoute category ->
+                let
+                    categoryString =
+                        Maybe.withDefault "" <| decodeUri category
+                in
+                ismodel |> IS.loadMoreCmd (\dir -> sendCategoryRequest newOffset model.limit categoryString)
+
+            ArtistRoute artist ->
+                let
+                    artistString =
+                        Maybe.withDefault "" <| decodeUri artist
+                in
+                ismodel |> IS.loadMoreCmd (\dir -> sendArtistRequest newOffset model.limit artistString)
+
+            _ ->
+                ismodel |> IS.loadMoreCmd (\dir -> Cmd.none)
+
+
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     let
@@ -453,9 +481,8 @@ update msg model =
                     ( { model
                         | collection = RemoteData.succeed <| CollectionModel newImages "" ""
                         , error = Nothing
-                        , busy = False
                         , offset = model.offset + model.limit
-                        , infScroll = IS.stopLoading model.infScroll
+                        , infScroll = IS.stopLoading model.infScroll |> updateInfiniteScrollCmd model
                       }
                     , nextCmd
                     )
