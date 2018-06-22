@@ -10,7 +10,7 @@ import GraphQL.Request.Builder as B exposing (..)
 import GraphQL.Request.Builder.Arg as Arg
 import GraphQL.Request.Builder.Variable as Var
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (css)
+import Html.Styled.Attributes as SA exposing (css, fromUnstyled, style)
 import Http exposing (decodeUri)
 import InfiniteScroll as IS
 import Json.Decode
@@ -48,7 +48,7 @@ init firstUrl location =
       , activePageDescription = RemoteData.NotAsked
       , busy = False
       , paginationTotal = 0
-      , infScroll = IS.init loadMore |> IS.offset 0 |> IS.direction IS.Bottom
+      , infScroll = IS.init (\dir -> Cmd.none) |> IS.offset 0 |> IS.direction IS.Bottom
       }
     , loadFirstUrl firstUrl
     )
@@ -56,11 +56,6 @@ init firstUrl location =
 
 
 ---- UPDATE ----
-
-
-loadMore : IS.Direction -> Cmd Msg
-loadMore dir =
-    sendHomeRequest
 
 
 getDescription : String -> Cmd Msg
@@ -368,6 +363,9 @@ update msg model =
                 newRoute =
                     extractRoute location
 
+                newOffset =
+                    model.offset + model.limit
+
                 d =
                     Debug.log "new route" newRoute
             in
@@ -418,6 +416,7 @@ update msg model =
                         , openDropdown = AllClosed
                         , collection = RemoteData.NotAsked
                         , offset = 0
+                        , infScroll = model.infScroll |> IS.loadMoreCmd (\dir -> sendCategoryRequest newOffset model.limit categoryString)
                       }
                     , Cmd.batch
                         [ sendCategoryRequest model.offset model.limit categoryString
@@ -455,6 +454,7 @@ update msg model =
                         | collection = RemoteData.succeed <| CollectionModel newImages "" ""
                         , error = Nothing
                         , busy = False
+                        , offset = model.offset + model.limit
                         , infScroll = IS.stopLoading model.infScroll
                       }
                     , nextCmd
@@ -608,8 +608,8 @@ view model =
             IS.infiniteScroll InfiniteScrollMsg
     in
     div
-        [ Html.Styled.Attributes.fromUnstyled infiniteAttribute
-        , Html.Styled.Attributes.style
+        [ SA.fromUnstyled infiniteAttribute
+        , style
             [ ( "height", "1200px" )
             , ( "overflow", "scroll" )
             ]
