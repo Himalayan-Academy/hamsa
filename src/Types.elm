@@ -4,6 +4,8 @@ import Css exposing (..)
 import GraphQL.Client.Http as GraphQLClient
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData, WebData)
+import InfiniteScroll as IS
+
 
 
 colors =
@@ -46,6 +48,7 @@ type alias Model =
     , openDropdown : OpenDropdown
     , busy : Bool
     , paginationTotal : Int
+    , infScroll : IS.Model Msg
     }
 
 
@@ -109,6 +112,7 @@ type Msg
     | ReceivedPaginationTotal (Response Int)
     | ChangeQuery String
     | Search
+    | InfiniteScrollMsg IS.Msg
 
 
 type alias Response a =

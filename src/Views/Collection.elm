@@ -4,11 +4,13 @@ import Css exposing (..)
 import Elements.Image as Image
 import Elements.Loading as Loading
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (..)
+import Html.Styled.Attributes exposing (class, css, style)
 import Html.Styled.Events exposing (onClick)
 import Markdown
 import RemoteData exposing (..)
 import Types exposing (..)
+import InfiniteScroll as IS
+
 
 
 goBack : Html Msg
@@ -54,12 +56,21 @@ masonryView name collection model =
                     div [] []
 
         bottom =
-            if (model.offset + model.limit) >= model.paginationTotal then
-                div [] []
+            if IS.isLoading model.infScroll then
+                 div
+                    [ style
+                        [ ( "color", "red" )
+                        , ( "font-weight", "bold" )
+                        , ( "text-align", "center" )
+                        ]
+                    ]
+                    [ text "Loading ..." ]
+                
             else
-                Loading.loadMore model.busy
+                div [][]
     in
-    div [ class "collection" ]
+    div [ class "collection"
+        ]
         [ goBack
         , div
             [ css
@@ -92,7 +103,9 @@ masonryView name collection model =
                 ]
                 [ description ]
             ]
-        , section [ class "masonry" ]
+        , section 
+            [ class "masonry" 
+            ]
             (List.map
                 tileView
                 collection.images

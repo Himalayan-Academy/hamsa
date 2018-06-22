@@ -12,6 +12,7 @@ import GraphQL.Request.Builder.Variable as Var
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (css)
 import Http exposing (decodeUri)
+import InfiniteScroll as IS
 import Json.Decode
 import Mouse
 import Navigation exposing (Location)
@@ -47,6 +48,7 @@ init firstUrl location =
       , activePageDescription = RemoteData.NotAsked
       , busy = False
       , paginationTotal = 0
+      , infScroll = IS.init loadMore |> IS.offset 0 |> IS.direction IS.Bottom
       }
     , loadFirstUrl firstUrl
     )
@@ -54,6 +56,11 @@ init firstUrl location =
 
 
 ---- UPDATE ----
+
+
+loadMore : IS.Direction -> Cmd Msg
+loadMore dir =
+    sendHomeRequest
 
 
 getDescription : String -> Cmd Msg
@@ -309,6 +316,13 @@ update msg model =
                 Cmd.none
     in
     case msg of
+        InfiniteScrollMsg msg_ ->
+            let
+                ( infScroll, cmd ) =
+                    IS.update InfiniteScrollMsg msg_ model.infScroll
+            in
+            ( { model | infScroll = infScroll }, cmd )
+
         DescriptionReceived response ->
             ( { model | activePageDescription = response }, Cmd.none )
 
@@ -441,6 +455,7 @@ update msg model =
                         | collection = RemoteData.succeed <| CollectionModel newImages "" ""
                         , error = Nothing
                         , busy = False
+                        , infScroll = IS.stopLoading model.infScroll
                       }
                     , nextCmd
                     )
@@ -588,8 +603,17 @@ view model =
                 errorElement
             else
                 div [] []
+
+        infiniteAttribute =
+            IS.infiniteScroll InfiniteScrollMsg
     in
-    div []
+    div
+        [ Html.Styled.Attributes.fromUnstyled infiniteAttribute
+        , Html.Styled.Attributes.style
+            [ ( "height", "1200px" )
+            , ( "overflow", "scroll" )
+            ]
+        ]
         [ Elements.Header.view
         , Elements.Hero.view
         , errorDisplay

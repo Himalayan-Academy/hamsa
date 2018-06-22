@@ -13,4 +13,4 @@ view =
         [ class "hero"
         , onClick (SetRoute "#/")
         ]
-        [ imageWithLabel "images/hero_small.jpg" "A nice description goes here" ]
+        [ imageWithLabel "images/hero1.jpg" "" ]

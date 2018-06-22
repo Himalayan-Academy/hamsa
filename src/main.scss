@@ -41,6 +41,7 @@ $dark-theme-secondary-color: #F4F3F1;
 
 body {
   margin: 0;
+  overflow: hidden;
 }
 
 header {
@@ -112,8 +113,8 @@ img.monastery-logo {
     }
 
     span.label {
-      line-height: 2rem;
-      padding-top: 20px;
+      line-height: 0.2rem;
+      // padding-top: 20px;
       padding-bottom: 20px;
       padding-left: 60px;
       width: 100%;
@@ -155,7 +156,6 @@ section.masonry {
   grid-auto-rows: minmax(200px, auto);
   grid-auto-flow: dense;
   padding: 10px;
-
 }
 
 div.tile {
