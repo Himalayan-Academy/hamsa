@@ -1,11 +1,12 @@
 {
     "version": "1.0.0",
-    "summary": "helpful summary of your project, less than 80 characters",
-    "repository": "https://github.com/user/project.git",
+    "summary": "Himalayan Academy collection of Spiritual Arts",
+    "repository": "https://github.com/Himalayan-Academy/hamsa.git",
     "license": "BSD3",
     "source-directories": [
         "src"
     ],
+    "homepage": "http://dev.himalayanacademy.com/hamsa",
     "exposed-modules": [],
     "dependencies": {
         "FabienHenon/elm-infinite-scroll": "2.4.1 <= v < 3.0.0",
