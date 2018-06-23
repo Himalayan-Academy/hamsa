@@ -12,11 +12,11 @@ services:
     ports:
       - "5433:5432"
     volumes:
-      - ./sql:/docker-entrypoint-initdb.d
+      - /mnt/ExtraStorage1/hamsa/repository/backend/sql:/docker-entrypoint-initdb.d
 
   api:
     image: hamsa-api
-    build: api/.
+    build: /mnt/ExtraStorage1/hamsa/repository/backend/api/.
     depends_on: 
       - db
     environment:
@@ -25,8 +25,8 @@ services:
       POSTGRES_DB: hamsa
     restart: always
     volumes:
-      - ./api/server/:/var/www/html/
-      - ../images/:/var/www/html/images
+      - /mnt/ExtraStorage1/hamsa/repository/backend/api/server/:/var/www/html/
+      - /mnt/ExtraStorage1/hamsa/images/:/var/www/html/images
     links:
       - "db:database"
     ports:
