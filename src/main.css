@@ -11,25 +11,48 @@ header {
   background-color: #783441;
   height: 60px;
   font-family: sans-serif; }
-  header h1.title {
-    color: #D3A073;
-    display: inline-block;
-    font-size: 1rem;
-    padding-right: 10px;
-    margin-left: 30px; }
-  header h2.subtitle {
-    color: #F4F3F1;
-    display: inline-block;
-    font-size: 1rem; }
-  header img.hamsa-logo {
-    margin-left: 120px;
-    z-index: 9999;
-    border: solid 2px white;
-    border-top: none; }
-  header img.monastery-logo {
-    margin-right: 120px;
-    z-index: 9999;
-    margin-left: auto; }
+  @media (min-width: 992px) {
+    header h1.title {
+      color: #D3A073;
+      display: inline-block;
+      font-size: 1rem;
+      padding-right: 10px;
+      margin-left: 30px; }
+    header h2.subtitle {
+      color: #F4F3F1;
+      display: inline-block;
+      font-size: 1rem; } }
+  @media (max-width: 991px) {
+    header div.monastery-header-text {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%; }
+    header h1.title {
+      color: #D3A073;
+      display: inline;
+      font-size: 1.1rem; }
+    header h2.subtitle {
+      color: #F4F3F1;
+      display: inline;
+      font-size: 0.9rem; } }
+  @media (min-width: 992px) {
+    header img.hamsa-logo {
+      margin-left: 120px;
+      z-index: 9999;
+      border: solid 2px white;
+      border-top: none; } }
+  @media (max-width: 991px) {
+    header img.hamsa-logo {
+      display: none; } }
+  @media (min-width: 992px) {
+    header img.monastery-logo {
+      margin-right: 120px;
+      z-index: 9999;
+      margin-left: auto; } }
+  @media (max-width: 991px) {
+    header img.monastery-logo {
+      display: none; } }
 
 img.hamsa-logo {
   width: 200px;
@@ -66,6 +89,10 @@ img.monastery-logo {
       position: absolute;
       bottom: 0px;
       left: 0px; }
+
+@media (max-width: 991px) {
+  .hero {
+    width: 100%; } }
 
 *, *:before, *:after {
   box-sizing: border-box !important; }
@@ -246,3 +273,7 @@ img.is-single-item-display {
         padding-left: 10px;
         border-left: solid 2px #919191;
         font-weight: normal; }
+
+@media (max-width: 991px) {
+  .selector-controls {
+    display: none; } }

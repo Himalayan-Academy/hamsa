@@ -1,6 +1,7 @@
 module Views.Artist exposing (view)
 
 import Css exposing (..)
+import Elements.Fragments exposing (goBack)
 import Elements.Image as Image
 import Elements.Loading as Loading
 import Html.Styled exposing (..)
@@ -26,29 +27,6 @@ artistImageURL artist =
                 |> String.Extra.dasherize
     in
     apiURL ++ "/images/_artists/" ++ a ++ ".jpg"
-
-
-goBack : Html Msg
-goBack =
-    div
-        [ onClick GoBack
-        , css
-            [ displayFlex
-            , flexDirection row
-            , verticalAlign middle
-            , marginBottom (px 20)
-            ]
-        ]
-        [ i [ class "far fa-2x fa-arrow-alt-circle-left" ] []
-        , span
-            [ css
-                [ fontSize (px 20)
-                , fontFamilies [ "sans-serif" ]
-                , paddingLeft (px 10)
-                ]
-            ]
-            [ text "Go Back" ]
-        ]
 
 
 tileView : Image -> Html Msg

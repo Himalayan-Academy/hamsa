@@ -1,0 +1,5 @@
+@include respond-below(md) {
+  .selector-controls {
+    display: none;
+  }
+}

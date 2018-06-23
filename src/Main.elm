@@ -48,7 +48,7 @@ init firstUrl location =
       , activePageDescription = RemoteData.NotAsked
       , busy = False
       , paginationTotal = 0
-      , infScroll = IS.init (\dir -> Cmd.none) |> IS.offset 0 |> IS.direction IS.Bottom
+      , infScroll = IS.init (\dir -> Cmd.none) |> IS.offset 50 |> IS.direction IS.Bottom
       }
     , loadFirstUrl firstUrl
     )
@@ -83,8 +83,10 @@ getPaginationTotal what query =
         requestObject =
             if what == "artist" then
                 { artist = Http.decodeUri query, keyword = Nothing }
-            else
+            else if what == "keyword" then
                 { keyword = Http.decodeUri query, artist = Nothing }
+            else
+                { keyword = Nothing, artist = Nothing }
 
         paginationQuery =
             let
@@ -408,7 +410,11 @@ update msg model =
                         , offset = 0
                         , activePageDescription = RemoteData.NotAsked
                       }
-                    , sendHomeRequest model.offset model.limit
+                    , Cmd.batch
+                        [ nextCmd
+                        , sendHomeRequest model.offset model.limit
+                        , getPaginationTotal "home" ""
+                        ]
                     )
 
                 SingleImageRoute id ->
@@ -536,33 +542,6 @@ update msg model =
                 Err error ->
                     ( { model | image = Nothing, error = Just <| toString <| error }, Cmd.none )
 
-        -- LoadMore ->
-        --     let
-        --         newOffset =
-        --             model.offset + model.limit
-        --         nextCmd =
-        --             case model.route of
-        --                 ArtistRoute a ->
-        --                     let
-        --                         artistString =
-        --                             Maybe.withDefault "" <| decodeUri a
-        --                     in
-        --                     sendArtistRequest newOffset model.limit artistString
-        --                 CategoriesRoute c ->
-        --                     let
-        --                         categoryString =
-        --                             Maybe.withDefault "" <| decodeUri c
-        --                     in
-        --                     sendCategoryRequest newOffset model.limit categoryString
-        --                 _ ->
-        --                     Cmd.none
-        --     in
-        --     ( { model
-        --         | offset = newOffset
-        --         , busy = True
-        --       }
-        --     , nextCmd
-        --     )
         ChangeQuery query ->
             ( { model | query = Just query }, Cmd.none )
 
@@ -638,7 +617,7 @@ view model =
     div
         [ SA.fromUnstyled infiniteAttribute
         , style
-            [ ( "height", "1200px" )
+            [ ( "height", "100vh" )
             , ( "overflow", "scroll" )
             ]
         ]

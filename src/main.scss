@@ -1,3 +1,6 @@
+@import "_mediaqueries.scss";
+
+
 // colors
 $color-purple: #8181bd;
 $color-ocre: #a76b73;
@@ -51,33 +54,71 @@ header {
   font-family: sans-serif;
 
 
+  @include respond-above(md) {
+    h1.title {
+      color: $dark-theme-primary-color;
+      display: inline-block;
+      font-size: 1rem;
+      padding-right: 10px;
+      margin-left: 30px;
+    }
 
-  h1.title {
-    color: $dark-theme-primary-color;
-    display: inline-block;
-    font-size: 1rem;
-    padding-right: 10px;
-    margin-left: 30px;
+    h2.subtitle {
+      color: $dark-theme-secondary-color;
+      display: inline-block;
+      font-size: 1rem;
+    }
   }
 
-  h2.subtitle {
-    color: $dark-theme-secondary-color;
-    display: inline-block;
-    font-size: 1rem;
+  @include respond-below(md) {
+    div.monastery-header-text {
+      display:flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+    }
+
+    h1.title {
+      color: $dark-theme-primary-color;
+      display: inline;
+      font-size: 1.1rem;
+    }
+
+    h2.subtitle {
+      color: $dark-theme-secondary-color;
+      display: inline;
+      font-size: 0.9rem;
+    }
   }
 
-  img.hamsa-logo {
-    margin-left: 120px;
-    z-index: 9999;
-    border: solid 2px white;
-    border-top: none;
-    
+  @include respond-above(md) {
+    img.hamsa-logo {
+      margin-left: 120px;
+      z-index: 9999;
+      border: solid 2px white;
+      border-top: none;
+      
+    }
   }
 
-  img.monastery-logo {
-    margin-right: 120px;
-    z-index: 9999;
-    margin-left: auto;
+  @include respond-below(md) {
+    img.hamsa-logo {
+      display:none;
+    }
+  }
+
+  @include respond-above(md) {
+    img.monastery-logo {
+      margin-right: 120px;
+      z-index: 9999;
+      margin-left: auto;
+    }
+  }
+
+  @include respond-below(md) {
+    img.monastery-logo {
+      display:none;
+    }
   }
 }
 
@@ -129,6 +170,12 @@ img.monastery-logo {
       bottom: 0px;
       left: 0px;
     }
+  }
+}
+
+@include respond-below(md) {
+  .hero {
+    width: 100%;
   }
 }
 
@@ -394,3 +441,5 @@ img.is-single-item-display {
   }
   
 }
+
+@import "_mobile.scss";

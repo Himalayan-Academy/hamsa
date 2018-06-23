@@ -209,9 +209,17 @@ function collection_count_results($keyword, $artist ) {
         $count = ORM::for_table('image')
             ->raw_query("select count(path) from image where file_missing = false and jsonb_exists(metadata->'keywords',?);", Array($keyword))
             ->find_array();
-    } else {
+    } 
+    
+    if ($artist !== '') {
         $count = ORM::for_table('image')
         ->raw_query("select count(path) from image where file_missing = false and metadata->>'author' = ?;", Array($artist))
+        ->find_array();
+    }
+
+    if ($artist == '' && $keyword == '') {
+        $count = ORM::for_table('image')
+        ->raw_query("select count(path) from image where file_missing = false;")
         ->find_array();
     }
     return  $count[0]['count'];
