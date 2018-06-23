@@ -163,9 +163,9 @@ loadFirstUrl firstUrl =
     Navigation.newUrl firstUrl
 
 
-sendHomeRequest : Cmd Msg
-sendHomeRequest =
-    sendQueryRequest collectionQueryRequest
+sendHomeRequest : Int -> Int -> Cmd Msg
+sendHomeRequest offset limit =
+    sendQueryRequest (collectionQueryRequest offset limit)
         |> Task.attempt ReceiveQueryResponse
 
 
@@ -197,10 +197,10 @@ categoryQueryRequest offset limit keyword =
         |> request { artist = Nothing, keyword = Just keyword, query = Nothing, limit = limit, offset = offset }
 
 
-collectionQueryRequest : Request Query (List Image)
-collectionQueryRequest =
+collectionQueryRequest : Int -> Int -> Request Query (List Image)
+collectionQueryRequest offset limit =
     collectionQuery
-        |> request { artist = Nothing, keyword = Nothing, query = Nothing, limit = 30, offset = 0 }
+        |> request { artist = Nothing, keyword = Nothing, query = Nothing, limit = limit, offset = offset }
 
 
 artistQueryRequest : Int -> Int -> String -> Request Query (List Image)
@@ -311,6 +311,9 @@ updateInfiniteScrollCmd model ismodel =
         ismodel |> IS.loadMoreCmd (\dir -> Cmd.none)
     else
         case model.route of
+            HomeRoute ->
+                ismodel |> IS.loadMoreCmd (\dir -> sendHomeRequest newOffset model.limit)
+
             CategoriesRoute category ->
                 let
                     categoryString =
@@ -403,8 +406,9 @@ update msg model =
                         | route = newRoute
                         , openDropdown = AllClosed
                         , offset = 0
+                        , activePageDescription = RemoteData.NotAsked
                       }
-                    , sendHomeRequest
+                    , sendHomeRequest model.offset model.limit
                     )
 
                 SingleImageRoute id ->
@@ -532,37 +536,33 @@ update msg model =
                 Err error ->
                     ( { model | image = Nothing, error = Just <| toString <| error }, Cmd.none )
 
-        LoadMore ->
-            let
-                newOffset =
-                    model.offset + model.limit
-
-                nextCmd =
-                    case model.route of
-                        ArtistRoute a ->
-                            let
-                                artistString =
-                                    Maybe.withDefault "" <| decodeUri a
-                            in
-                            sendArtistRequest newOffset model.limit artistString
-
-                        CategoriesRoute c ->
-                            let
-                                categoryString =
-                                    Maybe.withDefault "" <| decodeUri c
-                            in
-                            sendCategoryRequest newOffset model.limit categoryString
-
-                        _ ->
-                            Cmd.none
-            in
-            ( { model
-                | offset = newOffset
-                , busy = True
-              }
-            , nextCmd
-            )
-
+        -- LoadMore ->
+        --     let
+        --         newOffset =
+        --             model.offset + model.limit
+        --         nextCmd =
+        --             case model.route of
+        --                 ArtistRoute a ->
+        --                     let
+        --                         artistString =
+        --                             Maybe.withDefault "" <| decodeUri a
+        --                     in
+        --                     sendArtistRequest newOffset model.limit artistString
+        --                 CategoriesRoute c ->
+        --                     let
+        --                         categoryString =
+        --                             Maybe.withDefault "" <| decodeUri c
+        --                     in
+        --                     sendCategoryRequest newOffset model.limit categoryString
+        --                 _ ->
+        --                     Cmd.none
+        --     in
+        --     ( { model
+        --         | offset = newOffset
+        --         , busy = True
+        --       }
+        --     , nextCmd
+        --     )
         ChangeQuery query ->
             ( { model | query = Just query }, Cmd.none )
 
@@ -581,6 +581,7 @@ update msg model =
                 , openDropdown = AllClosed
                 , collection = RemoteData.NotAsked
                 , offset = 0
+                , activePageDescription = RemoteData.NotAsked
               }
             , nextCmd
             )

@@ -2,10 +2,9 @@ module Types exposing (..)
 
 import Css exposing (..)
 import GraphQL.Client.Http as GraphQLClient
+import InfiniteScroll as IS
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData, WebData)
-import InfiniteScroll as IS
-
 
 
 colors =
@@ -108,7 +107,6 @@ type Msg
     | Toggle OpenDropdown
     | Blur
     | DescriptionReceived (WebData String)
-    | LoadMore
     | ReceivedPaginationTotal (Response Int)
     | ChangeQuery String
     | Search

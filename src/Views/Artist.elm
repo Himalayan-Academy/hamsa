@@ -4,9 +4,10 @@ import Css exposing (..)
 import Elements.Image as Image
 import Elements.Loading as Loading
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (class, css, src)
+import Html.Styled.Attributes exposing (class, css, src, style)
 import Html.Styled.Events exposing (onClick)
 import Http exposing (decodeUri)
+import InfiniteScroll as IS
 import Markdown
 import RemoteData exposing (..)
 import String.Extra
@@ -70,10 +71,17 @@ masonryView artist collection model =
                     div [] []
 
         bottom =
-            if (model.offset + model.limit) >= model.paginationTotal then
-                div [] []
+            if IS.isLoading model.infScroll then
+                div
+                    [ style
+                        [ ( "color", "red" )
+                        , ( "font-weight", "bold" )
+                        , ( "text-align", "center" )
+                        ]
+                    ]
+                    [ text "Loading ..." ]
             else
-                Loading.loadMore model.busy
+                div [] []
 
         descriptionView content =
             div []
