@@ -235,6 +235,7 @@ imageQuery =
                 |> with (field "checksum" [] string)
                 |> with (field "path" [] string)
                 |> with (field "thumbnail" [] string)
+                |> with (field "medpath" [] string)
                 |> with (field "metadata" [] metadata)
 
         queryRoot =
@@ -286,6 +287,7 @@ collectionQuery =
                 |> with (field "checksum" [] string)
                 |> with (field "path" [] string)
                 |> with (field "thumbnail" [] string)
+                |> with (field "medpath" [] string)
                 |> with (field "metadata" [] metadata)
 
         queryRoot =

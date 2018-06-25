@@ -121,6 +121,7 @@ type alias Image =
     { checksum : String
     , path : String
     , thumbnail : String
+    , medpath : String
     , metadata : Metadata
     }
 

@@ -100,7 +100,7 @@ view imageId image =
                         []
                         [ img
                             [ css [ maxWidth (pct 100) ]
-                            , src (toImageUrl i.path)
+                            , src (toImageUrl i.medpath)
                             ]
                             []
                         , p

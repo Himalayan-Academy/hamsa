@@ -132,6 +132,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                     return "/images/_cache/${image['checksum']}.thumb.jpg";
                 }
             ],
+            'medpath' => [
+                'type' => Type::string(),
+                'resolve' => function ($image) {
+                    return "/images/_cache/${image['checksum']}.med.jpg";
+                }
+            ],
             'width' => Type::int(),
             'height' => Type::int(),
             'checksum' => Type::string(),
