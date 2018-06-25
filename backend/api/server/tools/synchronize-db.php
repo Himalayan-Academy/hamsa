@@ -15,7 +15,7 @@ require __DIR__ . '/../vendor/autoload.php';
 require __DIR__ . '/../src/database.php';
 require __DIR__ . '/../src/hamsa.php';
 
-use \Eventviva\ImageResize;
+use \Gumlet\ImageResize;
 
 function cacheMultipleVersionsOfImage($path, $md5) {
     $thumb_path = "/var/www/html/images/_cache/${md5}.thumb.jpg";
