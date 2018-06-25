@@ -24,6 +24,14 @@ function cacheMultipleVersionsOfImage($path, $md5) {
     $image->resizeToWidth(300);
     $image->save($thumb_path);
     echo "Saving thumb to ${thumb_path}\n";
+
+    // cache higher sized version as well.
+    $med_path = "/var/www/html/images/_cache/${md5}.med.jpg";
+    $image = new ImageResize($path);
+    $image->quality_jpg = 75;
+    $image->resizeToWidth(800);
+    $image->save($med_path);
+    echo "Saving medium size to ${med_path}\n";
 }
 
 function insertArtistIfNeeded($exif) {
@@ -116,6 +124,8 @@ function recordNeedsUpdate($path, $md5) {
 function processImage($path) {
     $md5 = md5_file($path);
     $thumb_path = "/var/www/html/images/_cache/${md5}.thumb.jpg";
+    $med_path = "/var/www/html/images/_cache/${md5}.med.jpg";
+
 
     $reader = \PHPExif\Reader\Reader::factory(\PHPExif\Reader\Reader::TYPE_EXIFTOOL);
 
@@ -136,7 +146,7 @@ function processImage($path) {
         break;
     }
     
-    if (!file_exists($thumb_path)) {
+    if (!file_exists($thumb_path) ||!file_exists($med_path) ) {
         cacheMultipleVersionsOfImage($path, $md5);
     }
 
