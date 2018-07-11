@@ -175,6 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                         };
 
                         $filterCollections = function($e) {
+                            if (!isset($e['keyword'])) return false;
                             return strpos(strtolower($e["keyword"]), 'collection') == false;
                         };
 
@@ -201,6 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                         };
                     
                         $filterCollections = function($e) {
+                            if (!isset($e['keyword'])) return false;
                             return strpos(strtolower($e['keyword']), 'collection') == true;
                         };
                         
