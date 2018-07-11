@@ -575,33 +575,36 @@ update msg model =
 view : Model -> Html Msg
 view model =
     let
-        subView =
+        emptyElement =
+            div [ css [ height (px 120) ] ] []
+
+        ( heroElement, subView ) =
             case model.route of
                 HomeRoute ->
-                    Collection.view "Home" model
+                    ( Elements.Hero.view, Collection.view "Home" model )
 
                 CategoriesRoute category ->
-                    Collection.view (Maybe.withDefault "" <| Http.decodeUri category) model
+                    ( emptyElement, Collection.view (Maybe.withDefault "" <| Http.decodeUri category) model )
 
                 CollectionsRoute collection ->
-                    Collection.view (Maybe.withDefault "" <| Http.decodeUri collection) model
+                    ( emptyElement, Collection.view (Maybe.withDefault "" <| Http.decodeUri collection) model )
 
                 ArtistRoute artist ->
-                    Artist.view artist model
+                    ( emptyElement, Artist.view artist model )
 
                 SingleImageRoute imageId ->
-                    SingleImage.view imageId model.image
+                    ( emptyElement, SingleImage.view imageId model.image )
 
                 _ ->
-                    Loading.view
+                    ( emptyElement, Loading.view )
 
         errorElement =
             case model.error of
                 Just err ->
                     let
-                        e = Debug.log "error" err
+                        e =
+                            Debug.log "error" err
                     in
-                        
                     div [] []
 
                 Nothing ->
@@ -624,7 +627,7 @@ view model =
             ]
         ]
         [ Elements.Header.view
-        , Elements.Hero.view
+        , heroElement
         , errorDisplay
         , Selector.view model
         , subView
