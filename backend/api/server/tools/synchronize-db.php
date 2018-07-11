@@ -170,7 +170,12 @@ foreach($allImages as $image) {
    
         echo "$imageFile\n";
 
+        try {
         processImage($imageFile);
+        } catch(Exception $e) {
+            $msg = $e->getMessage();
+            echo "Exception: $msg\n";
+        }
     }
 }
 
