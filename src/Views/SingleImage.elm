@@ -86,6 +86,26 @@ view imageId image =
 
                 imageTitle =
                     ""
+
+                tags =
+                    List.map tag i.metadata.keywords
+
+                tag k =
+                    span
+                        [ css
+                            [ cursor pointer
+                            , backgroundColor (hex "FFE5CC")
+                            , border3 (px 1) solid (hex "CC6600")
+                            , marginLeft (px 3)
+                            , marginRight (px 3)
+                            , padding (px 3)
+                            , display inlineBlock
+                            , color (hex "#ce1126")
+                            , fontSize (px 12)
+                            ]
+                        , onClick (SetRoute <| "#/categories/" ++ k)
+                        ]
+                        [ text k ]
             in
             div
                 [ css
@@ -124,18 +144,10 @@ view imageId image =
                             , h2 [] [ text artist ]
                             ]
                         , div [ class "dotted" ] []
-                        , div [ class "categories" ]
-                            [ Html.Styled.i [ class "far fa-folder-open fa-lg" ] []
-                            , h2 [] [ text "Categories" ]
-                            ]
-                        , div [ class "collections" ]
-                            [ Html.Styled.i [ class "far fa-star fa-lg" ] []
-                            , h2 [] [ text "Collections" ]
-                            ]
-                        , div [ class "keywords" ]
-                            [ Html.Styled.i [ class "far fa-bookmark fa-lg" ] []
-                            , h2 []
-                                (List.map (\k -> span [ css [ cursor pointer ], onClick (SetRoute <| "#/categories/" ++ k) ] [ text (k ++ ", ") ]) i.metadata.keywords)
+                        , div [ class "Tags" ]
+                            -- [ Html.Styled.i [ class "far fa-bookmark fa-lg" ] []
+                            [ h2 []
+                                tags
                             ]
                         , div [ class "dotted" ] []
                         , h3 [] [ text "More by the same artist" ]

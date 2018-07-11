@@ -542,7 +542,7 @@ update msg model =
                     )
 
                 Err error ->
-                    ( { model | image = Nothing, error = Just <| toString <| error }, Cmd.none )
+                    ( { model | error = Just <| toString <| error }, Cmd.none )
 
         ChangeQuery query ->
             ( { model | query = Just query }, Cmd.none )

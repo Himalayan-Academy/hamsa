@@ -107,7 +107,7 @@ artistRoutesListFromArtistName list =
 
 categoriesConfig : Dropdown.Config Msg
 categoriesConfig =
-    { defaultText = "Categories"
+    { defaultText = "Tags"
     , clickedMsg = Toggle CategoryDropdown
     , itemPickedMsg = SetRoute
     , selectorClass = "is-selector-categories"
