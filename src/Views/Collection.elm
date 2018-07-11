@@ -6,11 +6,10 @@ import Elements.Loading as Loading
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (class, css, style)
 import Html.Styled.Events exposing (onClick)
+import InfiniteScroll as IS
 import Markdown
 import RemoteData exposing (..)
 import Types exposing (..)
-import InfiniteScroll as IS
-
 
 
 goBack : Html Msg
@@ -41,6 +40,18 @@ tileView image =
     Image.masonryTile image.thumbnail "hello" image.checksum
 
 
+emptyCollectionView : String -> Html Msg
+emptyCollectionView name =
+    p
+        [ css
+            [ textAlign center
+            , fontSize (Css.em 1.6)
+            , color (hex "a76b73")
+            ]
+        ]
+        [ text <| "Sorry but we couldn't find images related to " ++ name ++ "." ]
+
+
 masonryView : String -> CollectionModel -> Model -> Html Msg
 masonryView name collection model =
     let
@@ -57,7 +68,7 @@ masonryView name collection model =
 
         bottom =
             if IS.isLoading model.infScroll then
-                 div
+                div
                     [ style
                         [ ( "color", "red" )
                         , ( "font-weight", "bold" )
@@ -65,11 +76,11 @@ masonryView name collection model =
                         ]
                     ]
                     [ text "Loading ..." ]
-                
             else
-                div [][]
+                div [] []
     in
-    div [ class "collection"
+    div
+        [ class "collection"
         ]
         [ goBack
         , div
@@ -103,8 +114,8 @@ masonryView name collection model =
                 ]
                 [ description ]
             ]
-        , section 
-            [ class "masonry" 
+        , section
+            [ class "masonry"
             ]
             (List.map
                 tileView
@@ -128,7 +139,10 @@ view name model =
             Loading.view
 
         RemoteData.Success c ->
-            masonryView name c model
+            if List.isEmpty c.images then
+                emptyCollectionView name
+            else
+                masonryView name c model
 
         RemoteData.Failure _ ->
             h1 [] [ text "failure loading" ]
