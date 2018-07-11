@@ -175,19 +175,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                         };
 
                         $filterCollections = function($e) {
-                            if (!isset($e['keyword'])) return false;
+                            if (!isset($e['keyword'])) {
+                                return false;
+                            }
                             return strpos(strtolower($e["keyword"]), 'collection') == false;
                         };
 
                         $filterArtists = function($e) {
-                        return strpos(strtolower($e["keyword"]), 'artist') == false;
+                            if (!isset($e['keyword'])) {
+                                return false;
+                            }
+                            return strpos(strtolower($e["keyword"]), 'artist') == false;
                         };
 
+                        try {
                         $records = keywords_get_all();
                         $records = array_filter($records, $filterCollections);
                         $records = array_filter($records, $filterArtists);
                         $records = array_map($stripQuotes, $records);
                         return $records;
+                        } catch(Exception $e) {
+                            $msg = $e->getMessage();
+                            print_r($msg);
+                            die(1);
+                        }
                     }
                 ],
                 'collections' => [
@@ -202,7 +213,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                         };
                     
                         $filterCollections = function($e) {
-                            if (!isset($e['keyword'])) return false;
+                            if (!isset($e['keyword'])) {
+                                return false;
+                            }
                             return strpos(strtolower($e['keyword']), 'collection') == true;
                         };
                         
