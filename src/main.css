@@ -192,7 +192,8 @@ img.is-single-item-display {
   padding: 40px;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly; }
+  justify-content: space-evenly;
+  position: relative; }
 
 .loading-wrapper {
   margin: auto;

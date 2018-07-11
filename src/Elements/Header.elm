@@ -36,7 +36,7 @@ view =
         [ logo
         , div [ class "monastery-header-text" ]
             [ h1 [ class "title" ] [ text "Himalayan Academy" ]
-            , h2 [ class "subtitle" ] [ text "Art & Photo Collection" ]
+            , h2 [ class "subtitle" ] [ text "Museum Of Spiritual Arts" ]
             ]
         , monasteryLogo
         ]

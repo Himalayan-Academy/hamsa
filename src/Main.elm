@@ -598,11 +598,11 @@ view model =
         errorElement =
             case model.error of
                 Just err ->
-                    p
-                        [ css
-                            [ backgroundColor (rgb 255 220 0) ]
-                        ]
-                        [ text err ]
+                    let
+                        e = Debug.log "error" err
+                    in
+                        
+                    div [] []
 
                 Nothing ->
                     div [] []
