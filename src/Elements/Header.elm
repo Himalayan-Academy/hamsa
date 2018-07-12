@@ -18,11 +18,15 @@ logo =
 
 monasteryLogo : Html Msg
 monasteryLogo =
-    img
+    a
         [ class "monastery-logo"
-        , src "images/monastery-logo.png"
+        , href "https://www.himalayanacademy.com"
         ]
-        []
+        [ img
+            [ src "images/monastery-logo.png"
+            ]
+            []
+        ]
 
 
 view : Html Msg
@@ -36,7 +40,7 @@ view =
         [ logo
         , div [ class "monastery-header-text" ]
             [ h1 [ class "title" ] [ text "Himalayan Academy" ]
-            , h2 [ class "subtitle" ] [ text "Museum Of Spiritual Arts" ]
+            , h2 [ class "subtitle" ] [ text "Museum Of Spiritual Art" ]
             ]
         , monasteryLogo
         ]

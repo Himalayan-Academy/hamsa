@@ -12,6 +12,11 @@ header {
   height: 60px;
   font-family: sans-serif; }
   @media (min-width: 992px) {
+    header div.monastery-header-text {
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      flex: 1 1 auto; }
     header h1.title {
       color: #D3A073;
       display: inline-block;
@@ -58,8 +63,13 @@ img.hamsa-logo {
   width: 200px;
   border: solid 0px 1px 1px 1px #fff; }
 
-img.monastery-logo {
-  width: 90px; }
+a.monastery-logo {
+  width: 90px;
+  z-index: 999;
+  margin-right: 120px; }
+
+a.monastery-logo img {
+  max-width: 100%; }
 
 .hero {
   width: 90%;

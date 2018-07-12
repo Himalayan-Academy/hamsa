@@ -55,6 +55,13 @@ header {
 
 
   @include respond-above(md) {
+    div.monastery-header-text {
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      flex: 1 1 auto;
+    }
+
     h1.title {
       color: $dark-theme-primary-color;
       display: inline-block;
@@ -127,8 +134,14 @@ img.hamsa-logo {
  	border: solid 0px 1px 1px 1px #fff;
 }
 
-img.monastery-logo {
+a.monastery-logo {
   width: 90px;
+  z-index: 999;
+  margin-right: 120px;
+}
+
+a.monastery-logo img {
+  max-width: 100%;
 }
 
 //
