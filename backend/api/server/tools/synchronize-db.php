@@ -132,6 +132,13 @@ function processImage($path) {
     $exif = $reader->read($path);
     $exifData = $exif->getData();
 
+    if (isset($exifData["keywords"])) {
+        if (!is_array($exifData["keywords"])) {
+            print_r($exifData["keywords"]);
+            die(1);
+        }
+    }
+
     switch (recordNeedsUpdate($path, $md5)) {
         case "update":
             echo "update...\n";
