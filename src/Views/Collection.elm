@@ -80,7 +80,7 @@ masonryView name collection model =
                 div [] []
 
         back =
-            if name /= "home" then
+            if name /= "Home" then
                 goBack
             else
                 div [] []
