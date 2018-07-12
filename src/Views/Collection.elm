@@ -78,11 +78,17 @@ masonryView name collection model =
                     [ text "Loading ..." ]
             else
                 div [] []
+
+        back =
+            if name /= "home" then
+                goBack
+            else
+                div [] []
     in
     div
         [ class "collection"
         ]
-        [ goBack
+        [ back
         , div
             [ css
                 [ textAlign center
