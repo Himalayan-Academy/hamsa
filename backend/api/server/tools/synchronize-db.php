@@ -134,8 +134,9 @@ function processImage($path) {
 
     if (isset($exifData["keywords"])) {
         if (!is_array($exifData["keywords"])) {
-            print_r($exifData["keywords"]);
-            die(1);
+            // print_r($exifData["keywords"]);
+            $exifData["keywords"] = [$exifData["keywords"]];
+            // die(1);
         }
     }
 
