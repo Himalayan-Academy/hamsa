@@ -102,7 +102,7 @@ artistConfig =
 
 artistRoutesListFromArtistName : List String -> List ( String, String )
 artistRoutesListFromArtistName list =
-    List.map (\i -> ( i, "#/artists/" ++ i )) list
+    List.sortBy Tuple.first <| List.map (\i -> ( i, "#/artists/" ++ i )) list
 
 
 categoriesConfig : Dropdown.Config Msg
@@ -125,12 +125,12 @@ collectionsConfig =
 
 categoriesRoutesListFromCategoriesName : List String -> List ( String, String )
 categoriesRoutesListFromCategoriesName list =
-    List.map (\i -> ( i, "#/categories/" ++ i )) list
+    List.sortBy Tuple.first <| List.map (\i -> ( i, "#/categories/" ++ i )) list
 
 
 collectionsRoutesListFromcollectionsName : List String -> List ( String, String )
 collectionsRoutesListFromcollectionsName list =
-    List.map (\i -> ( i, "#/categories/Collection" ++ i )) list
+    List.sortBy Tuple.first <| List.map (\i -> ( i, "#/categories/Collection" ++ i )) list
 
 
 onClick : msg -> Attribute msg

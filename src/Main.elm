@@ -1,7 +1,5 @@
 module Main exposing (..)
 
--- // todo: make thin header
-
 import Css exposing (..)
 import Elements.Header
 import Elements.Hero
@@ -579,27 +577,27 @@ view : Model -> Html Msg
 view model =
     let
         emptyElement =
-            div [ css [ height (px 120) ] ] []
+            div [] []
 
-        ( heroElement, subView ) =
+        ( headerElement, heroElement, subView ) =
             case model.route of
                 HomeRoute ->
-                    ( Elements.Hero.view, Collection.view "Home" model )
+                    ( Elements.Header.view, Elements.Hero.view, Collection.view "Home" model )
 
                 CategoriesRoute category ->
-                    ( emptyElement, Collection.view (Maybe.withDefault "" <| Http.decodeUri category) model )
+                    ( Elements.SlimHeader.view, emptyElement, Collection.view (Maybe.withDefault "" <| Http.decodeUri category) model )
 
                 CollectionsRoute collection ->
-                    ( emptyElement, Collection.view (Maybe.withDefault "" <| Http.decodeUri collection) model )
+                    ( Elements.SlimHeader.view, emptyElement, Collection.view (Maybe.withDefault "" <| Http.decodeUri collection) model )
 
                 ArtistRoute artist ->
-                    ( emptyElement, Artist.view artist model )
+                    ( Elements.SlimHeader.view, emptyElement, Artist.view artist model )
 
                 SingleImageRoute imageId ->
-                    ( emptyElement, SingleImage.view imageId model.image )
+                    ( Elements.SlimHeader.view, emptyElement, SingleImage.view imageId model.image )
 
                 _ ->
-                    ( emptyElement, Loading.view )
+                    ( Elements.SlimHeader.view, emptyElement, Loading.view )
 
         errorElement =
             case model.error of
@@ -629,7 +627,7 @@ view model =
             , ( "overflow", "scroll" )
             ]
         ]
-        [ Elements.SlimHeader.view
+        [ headerElement
         , heroElement
         , errorDisplay
         , Selector.view model

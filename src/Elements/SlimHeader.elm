@@ -10,19 +10,20 @@ import Types exposing (..)
 logo : Html Msg
 logo =
     a
-        [ class "monastery-logo"
-        , href "https://www.himalayanacademy.com"
+        [ class "hamsa-logo"
+        , href "/hamsa"
         , css
             [ displayFlex
             , justifyContent center
             , alignItems center
-            , backgroundColor (rgb 18 191 18)
+            , backgroundColor (hex "#73af01")
             , verticalAlign middle
             , padding (px 10)
-            , border3 (px 4) solid (rgb 255 255 255)
+            , border3 (px 2) solid (rgb 255 255 255)
             , Css.height (pct 100)
             , color (rgb 255 255 255)
             , textDecoration none
+            , marginLeft (px 120)
             ]
         ]
         [ h1
