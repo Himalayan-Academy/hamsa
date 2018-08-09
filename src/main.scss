@@ -60,6 +60,9 @@ header {
       align-items: center;
       width: 100%;
       flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      height: 100%;
     }
 
     h1.title {
@@ -132,16 +135,6 @@ header {
 img.hamsa-logo {
  	width: 200px;
  	border: solid 0px 1px 1px 1px #fff;
-}
-
-a.monastery-logo {
-  width: 90px;
-  z-index: 999;
-  margin-right: 120px;
-}
-
-a.monastery-logo img {
-  max-width: 100%;
 }
 
 //

@@ -1,10 +1,13 @@
 module Main exposing (..)
 
+-- // todo: make thin header
+
 import Css exposing (..)
 import Elements.Header
 import Elements.Hero
 import Elements.Loading as Loading
 import Elements.Selector as Selector
+import Elements.SlimHeader
 import GraphQL.Client.Http as GraphQLClient
 import GraphQL.Request.Builder as B exposing (..)
 import GraphQL.Request.Builder.Arg as Arg
@@ -626,7 +629,7 @@ view model =
             , ( "overflow", "scroll" )
             ]
         ]
-        [ Elements.Header.view
+        [ Elements.SlimHeader.view
         , heroElement
         , errorDisplay
         , Selector.view model
