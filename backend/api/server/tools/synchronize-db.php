@@ -170,19 +170,20 @@ $Iterator = new RecursiveIteratorIterator($Directory);
 $allImages = new RegexIterator($Iterator, '/^.+\.jpg$/i', RecursiveRegexIterator::GET_MATCH);
 
 // Begin image check
+if (isset($argc[1]) && $argc[1] !== "fix") { 
+    foreach($allImages as $image) {
+        $imageFile = $image[0];
 
-foreach($allImages as $image) {
-    $imageFile = $image[0];
+        if (strpos($imageFile, "_cache") == false && strpos($imageFile, "_artists") == false && strpos($imageFile, "_text") == false ) {
+    
+            echo "$imageFile\n";
 
-    if (strpos($imageFile, "_cache") == false && strpos($imageFile, "_artists") == false && strpos($imageFile, "_text") == false ) {
-   
-        echo "$imageFile\n";
-
-        try {
-        processImage($imageFile);
-        } catch(Exception $e) {
-            $msg = $e->getMessage();
-            echo "Exception: $msg\n";
+            try {
+            processImage($imageFile);
+            } catch(Exception $e) {
+                $msg = $e->getMessage();
+                echo "Exception: $msg\n";
+            }
         }
     }
 }
@@ -194,6 +195,7 @@ $records = ORM::for_table('image')
     ->find_array();
 
 $total_missing_files = 0;
+$total_count = count($records);
 foreach($records as $image) {
     $path = $image["path"];
     $exists = file_exists($path);
@@ -204,7 +206,14 @@ foreach($records as $image) {
     }
 }
 
+
+echo "Total: $total_count\n";
 echo "Total missing files: $total_missing_files\n";
 
+
+// manivelu fix
 ORM::raw_execute("update image set metadata = metadata::jsonb || '{\"author\": \"A. Manivelu\"}' where metadata->>'author' = 'ìA. Maniveluî'");
 ORM::raw_execute("update image set metadata = metadata::jsonb || '{\"author\": \"A. Manivelu\"}' where metadata->>'author' = '“A. Manivelu”'");
+
+// Rajam fix
+ORM::raw_execute("update image set metadata = metadata::jsonb || '{\"author\": \"S. Rajam\"}' where metadata->>'author' = 'Rajam'");
