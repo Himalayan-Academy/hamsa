@@ -151,7 +151,7 @@ sendSearchRequest query =
                 |> request
                     { artist = Nothing
                     , keyword = Nothing
-                    , query = Just <| "%" ++ query ++ "%"
+                    , query = Just query
                     , limit = 100000
                     , offset = 0
                     }
