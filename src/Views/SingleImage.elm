@@ -10,12 +10,18 @@ import Types exposing (..)
 
 toImageUrl : String -> String
 toImageUrl path =
-    apiURL ++ path
+    if localDevelopment then
+        apiURL ++ path
+    else
+        hapImageURL path
 
 
 thumbnailFromChecksum : String -> String
 thumbnailFromChecksum checksum =
-    apiURL ++ "/images/_cache/" ++ checksum ++ ".thumb.jpg"
+    if localDevelopment then
+        apiURL ++ "/images/_cache/" ++ checksum ++ ".thumb.jpg"
+    else
+        hapImageURL <| "/_cache/" ++ checksum ++ ".thumb.jpg"
 
 
 makeThumb : String -> Html Msg

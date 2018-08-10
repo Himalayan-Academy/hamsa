@@ -7,6 +7,14 @@ import Html.Styled.Events exposing (..)
 import Types exposing (..)
 
 
+toImageUrl : String -> String
+toImageUrl path =
+    if localDevelopment then
+        apiURL ++ path
+    else
+        hapImageURL path
+
+
 imageWithLabel : String -> String -> Html Msg
 imageWithLabel image label =
     figure []
@@ -27,7 +35,7 @@ masonryTile image label checksum =
         , onClick (SetRoute ("#/item/" ++ checksum))
         ]
         [ figure []
-            [ img [ src (apiURL ++ image) ] []
+            [ img [ src <| toImageUrl image ] []
 
             --, p [] [ text label ]
             ]

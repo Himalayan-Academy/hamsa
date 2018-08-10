@@ -5,6 +5,7 @@ import GraphQL.Client.Http as GraphQLClient
 import InfiniteScroll as IS
 import Navigation exposing (Location)
 import RemoteData exposing (RemoteData, WebData)
+import String.Extra as SE
 
 
 colors =
@@ -27,6 +28,15 @@ apiURL =
         "http://localhost:8080"
     else
         "http://dev.himalayanacademy.com:8080"
+
+
+hapImageURL : String -> String
+hapImageURL url =
+    let
+        fixedURL =
+            SE.replace "/images" "" url
+    in
+    "http://dev.himalayanacademy.com/hamsa-images" ++ fixedURL
 
 
 type alias Model =
