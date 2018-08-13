@@ -225,8 +225,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                     'resolve' => function($root, $args) {
                         $stripQuotesAndPrefix = function($e) {
                             $r = str_replace('"', "", $e["keyword"]);
-                            $r = str_replace('Collection', "", $r);
-                            $r = str_replace('collection', "", $r);
+                            $r = str_replace('Collection ', "", $r);
+                            $r = str_replace('collection ', "", $r);
                             return $r;
                         };
                     
@@ -236,6 +236,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                             }
 
                             if (in_array(strtolower($e['keyword']), array('','collection', 'collection '))) {
+                                return false;
+                            }
+
+                            if ($e['keyword'] == "Collection") {
                                 return false;
                             }
 
