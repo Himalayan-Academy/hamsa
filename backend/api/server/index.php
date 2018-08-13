@@ -164,7 +164,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
                             $authors_to_exclude = array( 
                                 "Hinduism Today", 
-                                "Krause & Johnasen"
+                                "Krause & Johnasen",
+                                "Krause & Johansen"
                             );
 
                             if (in_array($e["author"], $authors_to_exclude)) {
