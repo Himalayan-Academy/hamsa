@@ -234,6 +234,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                             if (!isset($e['keyword'])) {
                                 return false;
                             }
+
+                            if (strtolower($e['keyword']) == 'collection') {
+                                return false;
+                            }
+
                             return strpos(strtolower($e['keyword']), 'collection') == true;
                         };
                         
