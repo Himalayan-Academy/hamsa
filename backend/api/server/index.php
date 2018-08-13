@@ -235,7 +235,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                                 return false;
                             }
 
-                            if (in_array(strtolower($e['keyword']), array('collection', 'Collection', 'collection ', 'Collection'))) {
+                            if (in_array(strtolower($e['keyword']), array('','collection', 'Collection', 'collection ', 'Collection'))) {
                                 return false;
                             }
 
