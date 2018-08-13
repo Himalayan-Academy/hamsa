@@ -130,7 +130,7 @@ categoriesRoutesListFromCategoriesName list =
 
 collectionsRoutesListFromcollectionsName : List String -> List ( String, String )
 collectionsRoutesListFromcollectionsName list =
-    List.sortBy Tuple.first <| List.map (\i -> ( i, "#/categories/Collection" ++ i )) list
+    List.sortBy Tuple.first <| List.map (\i -> ( i, "#/categories/Collection " ++ i )) list
 
 
 onClick : msg -> Attribute msg
