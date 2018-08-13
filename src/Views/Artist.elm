@@ -26,7 +26,10 @@ artistImageURL artist =
                 |> String.Extra.replace "." ""
                 |> String.Extra.dasherize
     in
-    apiURL ++ "/images/_artists/" ++ a ++ ".jpg"
+    if localDevelopment then
+        apiURL ++ "/images/_artists/" ++ a ++ ".jpg"
+    else 
+        hapImageURL <| "/images/_artists/" ++ a ++ ".jpg"
 
 
 tileView : Image -> Html Msg
