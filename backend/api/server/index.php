@@ -162,7 +162,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                                 return false;
                             }
 
-                            if (in_array($e["author"], array( "Hinduism Today", "Krause & Johnasen"))) {
+                            $authors_to_exclude = array( 
+                                "Hinduism Today", 
+                                "Krause & Johnasen"
+                            );
+
+                            if (in_array($e["author"], $authors_to_exclude)) {
                                 return false;
                             }
 
