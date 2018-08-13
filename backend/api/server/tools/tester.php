@@ -27,11 +27,7 @@ $filterCollections = function($e) {
       return false;
   }
 
-  if (in_array(trim($e['keyword']), array("Collection", "collection"))) {
-      return false; 
-  }
-
-  return strpos(strtolower($e['keyword']), 'collection') == true;
+  return strpos(strtolower($e['keyword']), 'collection ') == true;
 };
 
 
