@@ -157,12 +157,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                     'type' => Type::listOf(Type::string()),
                     'description' => 'All artists present on the database',
                     'resolve' => function($root, $args) {
-                        $func = function($e) {
+                        $filter = function($e) {
+                            if ($e["author"] == "") {
+                                return false;
+                            }
+
+                            if (in_array($e["author"], array( "Hinduism Today", "Krause & Johnasen"))) {
+                                return false;
+                            }
+
+                            return true;
+                        };
+
+                        $mapper = function($e) {
                             return $e["author"];
                         };
 
                         $records = artist_get_all();
-                        $records = array_map($func, $records);
+                        $records = array_map($mapper, array_filter($records, $filter));
                         return $records;
                     }
                 ],
