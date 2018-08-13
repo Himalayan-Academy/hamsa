@@ -170,7 +170,7 @@ $Iterator = new RecursiveIteratorIterator($Directory);
 $allImages = new RegexIterator($Iterator, '/^.+\.jpg$/i', RecursiveRegexIterator::GET_MATCH);
 
 // Begin image check
-if (isset($argc[1]) && $argc[1] !== "fix") { 
+if (!isset($argc[1]) || $argc[1] !== "fix") { 
     foreach($allImages as $image) {
         $imageFile = $image[0];
 
