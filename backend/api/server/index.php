@@ -235,7 +235,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                                 return false;
                             }
 
-                            if (in_array($e['keyword'], array("Collection"))) {
+                            if (in_array(trim($e['keyword']), array("Collection", "collection"))) {
                                 return false; 
                             }
 
