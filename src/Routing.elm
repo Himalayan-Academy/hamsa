@@ -24,4 +24,6 @@ matchRoute =
         , map CategoriesRoute (s "categories" </> string)
         , map SearchRoute (s "search" </> string)
         , map SingleImageRoute (s "item" </> string)
+        , map (MobileMenuRoute "") (s "menu")
+        , map MobileMenuRoute (s "menu" </> string)
         ]

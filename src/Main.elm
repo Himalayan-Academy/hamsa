@@ -24,6 +24,7 @@ import Task exposing (Task)
 import Types exposing (..)
 import Views.Artist as Artist
 import Views.Collection as Collection
+import Views.MobileMenu as MobileMenu
 import Views.SingleImage as SingleImage
 
 
@@ -406,6 +407,9 @@ update msg model =
                     Debug.log "new route" newRoute
             in
             case newRoute of
+                MobileMenuRoute selector ->
+                    ( { model | route = newRoute }, Cmd.none )
+
                 HomeRoute ->
                     ( { model
                         | route = newRoute
@@ -582,7 +586,7 @@ view model =
         ( headerElement, heroElement, subView ) =
             case model.route of
                 HomeRoute ->
-                    ( Elements.Header.view, Elements.Hero.view, Collection.view "Home" model )
+                    ( Elements.Header.view model.route, Elements.Hero.view, Collection.view "Home" model )
 
                 CategoriesRoute category ->
                     ( Elements.SlimHeader.view, emptyElement, Collection.view (Maybe.withDefault "" <| Http.decodeUri category) model )
@@ -595,6 +599,9 @@ view model =
 
                 SingleImageRoute imageId ->
                     ( Elements.SlimHeader.view, emptyElement, SingleImage.view imageId model.image )
+
+                MobileMenuRoute selector ->
+                    ( Elements.SlimHeader.view, emptyElement, MobileMenu.view model selector )
 
                 _ ->
                     ( Elements.SlimHeader.view, emptyElement, Loading.view )

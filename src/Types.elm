@@ -91,6 +91,7 @@ type Route
     | SearchRoute String
     | NotFoundRoute
     | ErrorRoute String
+    | MobileMenuRoute String
 
 
 type OpenDropdown

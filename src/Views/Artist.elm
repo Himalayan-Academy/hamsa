@@ -28,7 +28,7 @@ artistImageURL artist =
     in
     if localDevelopment then
         apiURL ++ "/images/_artists/" ++ a ++ ".jpg"
-    else 
+    else
         hapImageURL <| "/images/_artists/" ++ a ++ ".jpg"
 
 
@@ -125,8 +125,7 @@ masonryView artist collection model =
                 ]
     in
     div [ class "collection" ]
-        [ goBack
-        , description
+        [ description
         , section [ class "masonry" ]
             (List.map
                 tileView

@@ -35,28 +35,29 @@ makeThumb checksum =
         []
 
 
-goBack : Html Msg
-goBack =
-    div
-        [ onClick GoBack
-        , css
-            [ color (hex "#757575")
-            , displayFlex
-            , flexDirection row
-            , verticalAlign middle
-            , marginBottom (px 20)
-            ]
-        ]
-        [ i [ class "far fa-2x fa-arrow-alt-circle-left" ] []
-        , span
-            [ css
-                [ fontSize (px 20)
-                , fontFamilies [ "sans-serif" ]
-                , paddingLeft (px 10)
-                ]
-            ]
-            [ text "Go Back" ]
-        ]
+
+-- goBack : Html Msg
+-- goBack =
+--     div
+--         [ onClick GoBack
+--         , css
+--             [ color (hex "#757575")
+--             , displayFlex
+--             , flexDirection row
+--             , verticalAlign middle
+--             , marginBottom (px 20)
+--             ]
+--         ]
+--         [ i [ class "far fa-2x fa-arrow-alt-circle-left" ] []
+--         , span
+--             [ css
+--                 [ fontSize (px 20)
+--                 , fontFamilies [ "sans-serif" ]
+--                 , paddingLeft (px 10)
+--                 ]
+--             ]
+--             [ text "Go Back" ]
+-- ]
 
 
 view : String -> Maybe Image -> Html Msg
@@ -119,8 +120,7 @@ view imageId image =
                     , width (pct 90)
                     ]
                 ]
-                [ goBack
-                , div
+                [ div
                     [ class "single-image-wrapper" ]
                     [ div
                         []

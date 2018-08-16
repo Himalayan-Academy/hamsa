@@ -12,27 +12,27 @@ import RemoteData exposing (..)
 import Types exposing (..)
 
 
-goBack : Html Msg
-goBack =
-    div
-        [ onClick GoBack
-        , css
-            [ displayFlex
-            , flexDirection row
-            , verticalAlign middle
-            , marginBottom (px 20)
-            ]
-        ]
-        [ i [ class "far fa-2x fa-arrow-alt-circle-left" ] []
-        , span
-            [ css
-                [ fontSize (px 20)
-                , fontFamilies [ "sans-serif" ]
-                , paddingLeft (px 10)
-                ]
-            ]
-            [ text "Go Back" ]
-        ]
+-- goBack : Html Msg
+-- goBack =
+--     div
+--         [ onClick GoBack
+--         , css
+--             [ displayFlex
+--             , flexDirection row
+--             , verticalAlign middle
+--             , marginBottom (px 20)
+--             ]
+--         ]
+--         [ i [ class "far fa-2x fa-arrow-alt-circle-left" ] []
+--         , span
+--             [ css
+--                 [ fontSize (px 20)
+--                 , fontFamilies [ "sans-serif" ]
+--                 , paddingLeft (px 10)
+--                 ]
+--             ]
+--             [ text "Go Back" ]
+--         ]
 
 
 tileView : Image -> Html Msg
@@ -78,18 +78,11 @@ masonryView name collection model =
                     [ text "Loading ..." ]
             else
                 div [] []
-
-        back =
-            if name /= "Home" then
-                goBack
-            else
-                div [] []
     in
     div
         [ class "collection"
         ]
-        [ back
-        , div
+        [ div
             [ css
                 [ textAlign center
                 , fontFamilies [ "sans-serif" ]

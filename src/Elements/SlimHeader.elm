@@ -39,8 +39,7 @@ monasteryLogo =
         [ class "monastery-logo"
         , href "https://www.himalayanacademy.com"
         , css
-            [ displayFlex
-            , justifyContent center
+            [ justifyContent center
             , alignItems center
 
             -- , overflow Css.hidden
@@ -59,8 +58,8 @@ monasteryLogo =
         ]
 
 
-view : Html Msg
-view =
+desktopView : Html Msg
+desktopView =
     header
         [ onClick (SetRoute "#/")
         , css
@@ -74,4 +73,62 @@ view =
             , div [ css [ flex auto ] ] []
             ]
         , monasteryLogo
+        ]
+
+
+mobileView : Html Msg
+mobileView =
+    let
+        mobileLogo =
+            img
+                [ onClick (SetRoute "#/")
+                , src "images/monastery-logo-small.svg"
+                , css
+                    [ maxWidth (px 42)
+                    , cursor pointer
+                    ]
+                ]
+                []
+
+        backLink =
+            img
+                [ onClick GoBack
+                , src "images/chevron-left.svg"
+                , css
+                    [ maxWidth (px 36)
+                    , cursor pointer
+                    ]
+                ]
+                []
+    in
+    div
+        [ css
+            [ flexDirection row
+            , alignItems center
+            , justifyContent center
+            , backgroundColor (hex "#783441")
+            , fontFamily sansSerif
+            , paddingLeft (px 5)
+            , paddingRight (px 5)
+            ]
+        , class "mobile-header"
+        ]
+        [ backLink
+        , h3
+            [ css
+                [ flex auto
+                , textAlign center
+                , color (hex "#FFFFFF")
+                ]
+            ]
+            [ text "Museum Of Spiritual Art" ]
+        , mobileLogo
+        ]
+
+
+view : Html Msg
+view =
+    div []
+        [ mobileView
+        , desktopView
         ]

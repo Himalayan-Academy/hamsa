@@ -49,10 +49,19 @@ monasteryLogo =
         ]
 
 
-view : Html Msg
-view =
+view : Route -> Html Msg
+view currentRoute =
+    let
+        isHome =
+            case currentRoute of
+                HomeRoute ->
+                    True
+
+                _ ->
+                    False
+    in
     div []
-        [ mobileView
+        [ mobileView isHome
         , desktopView
         ]
 
@@ -75,8 +84,8 @@ desktopView =
         ]
 
 
-mobileView : Html Msg
-mobileView =
+mobileView : Bool -> Html Msg
+mobileView isHome =
     let
         mobileLogo =
             img
@@ -91,7 +100,7 @@ mobileView =
 
         menuLink =
             img
-                [ onClick (SetRoute "#/")
+                [ onClick (SetRoute "#/menu")
                 , src "images/menu-white.svg"
                 , css
                     [ maxWidth (px 36)
@@ -99,6 +108,23 @@ mobileView =
                     ]
                 ]
                 []
+
+        backLink =
+            img
+                [ onClick GoBack
+                , src "images/chevron-left.svg"
+                , css
+                    [ maxWidth (px 36)
+                    , cursor pointer
+                    ]
+                ]
+                []
+
+        navLink =
+            if isHome then
+                menuLink
+            else
+                backLink
     in
     div
         [ css
