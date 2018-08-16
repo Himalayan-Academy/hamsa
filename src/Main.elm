@@ -408,7 +408,16 @@ update msg model =
             in
             case newRoute of
                 MobileMenuRoute selector ->
-                    ( { model | route = newRoute }, Cmd.none )
+                    let
+                        nextCmd =
+                            case selector of
+                                "" ->
+                                    sendSelectorConfigurationRequest
+
+                                _ ->
+                                    Cmd.none
+                    in
+                    ( { model | route = newRoute }, nextCmd )
 
                 HomeRoute ->
                     ( { model
