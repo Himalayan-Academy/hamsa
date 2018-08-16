@@ -30,7 +30,7 @@ makeSelector label url =
         [ span [ css [ flex auto ] ]
             [ text label ]
         , img
-            [ src "/images/chevron-right.svg"
+            [ src "images/chevron-right.svg"
             , css
                 [ height (px 32)
                 , backgroundColor (hex "#c3c3c3")
