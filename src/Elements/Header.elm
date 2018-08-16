@@ -51,6 +51,14 @@ monasteryLogo =
 
 view : Html Msg
 view =
+    div []
+        [ mobileView
+        , desktopView
+        ]
+
+
+desktopView : Html Msg
+desktopView =
     header
         [ onClick (SetRoute "#/")
         , css
@@ -64,4 +72,54 @@ view =
             , div [ css [ flex auto ] ] []
             ]
         , monasteryLogo
+        ]
+
+
+mobileView : Html Msg
+mobileView =
+    let
+        mobileLogo =
+            img
+                [ onClick (SetRoute "#/")
+                , src "images/monastery-logo-small.svg"
+                , css
+                    [ maxWidth (px 42)
+                    , cursor pointer
+                    ]
+                ]
+                []
+
+        menuLink =
+            img
+                [ onClick (SetRoute "#/")
+                , src "images/menu-white.svg"
+                , css
+                    [ maxWidth (px 36)
+                    , cursor pointer
+                    ]
+                ]
+                []
+    in
+    div
+        [ css
+            [ flexDirection row
+            , alignItems center
+            , justifyContent center
+            , backgroundColor (hex "#783441")
+            , fontFamily sansSerif
+            , paddingLeft (px 5)
+            , paddingRight (px 5)
+            ]
+        , class "mobile-header"
+        ]
+        [ menuLink
+        , h3
+            [ css
+                [ flex auto
+                , textAlign center
+                , color (hex "#FFFFFF")
+                ]
+            ]
+            [ text "Museum Of Spiritual Art" ]
+        , mobileLogo
         ]

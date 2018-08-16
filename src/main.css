@@ -2,6 +2,9 @@ body {
   margin: 0;
   overflow: hidden; }
 
+.mobile-header {
+  display: none; }
+
 header {
   display: flex !important;
   align-content: start !important;
@@ -282,4 +285,8 @@ img.is-single-item-display {
 
 @media (max-width: 991px) {
   .selector-controls {
-    display: none; } }
+    display: none; }
+  header {
+    display: none !important; }
+  .mobile-header {
+    display: flex; } }

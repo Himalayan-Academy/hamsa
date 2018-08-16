@@ -47,6 +47,10 @@ body {
   overflow: hidden;
 }
 
+.mobile-header {
+  display: none;
+}
+
 header {
   @include flex(row, n, space-between, start);
   background-color: $dark-theme-background-color;

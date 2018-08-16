@@ -2,4 +2,12 @@
   .selector-controls {
     display: none;
   }
+
+  header {
+    display: none !important;
+  }
+
+  .mobile-header {
+    display: flex;
+  }
 }
