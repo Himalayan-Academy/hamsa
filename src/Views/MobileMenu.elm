@@ -40,6 +40,26 @@ makeSelector label url =
         ]
 
 
+miniLabel label =
+    div
+        [ css
+            [ backgroundColor (hex "#c3c3c3")
+            ]
+        ]
+        [ h4
+            [ css
+                [ fontSize (px 20)
+                , padding (px 0)
+                , margin (px 0)
+                , textAlign center
+                , fontFamily sansSerif
+                , color (hex "#111")
+                ]
+            ]
+            [ text label ]
+        ]
+
+
 menuMenu =
     div
         [ css
@@ -70,7 +90,11 @@ artistsMenu artists =
             , height (calc (vh 100) minus (px 60))
             ]
         ]
-        itemList
+        (List.concat
+            [ [ miniLabel "Artists" ]
+            , itemList
+            ]
+        )
 
 
 collectionsMenu collections =
@@ -86,7 +110,11 @@ collectionsMenu collections =
             , height (calc (vh 100) minus (px 60))
             ]
         ]
-        itemList
+        (List.concat
+            [ [ miniLabel "Collections" ]
+            , itemList
+            ]
+        )
 
 
 tagsMenu categories =
@@ -102,7 +130,11 @@ tagsMenu categories =
             , height (calc (vh 100) minus (px 60))
             ]
         ]
-        itemList
+        (List.concat
+            [ [ miniLabel "Tags" ]
+            , itemList
+            ]
+        )
 
 
 view : Model -> String -> Html Msg
