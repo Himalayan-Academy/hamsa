@@ -297,4 +297,5 @@ img.is-single-item-display {
   .mobile-header {
     display: flex; }
   .single-image-wrapper {
-    flex-direction: column; } }
+    flex-direction: column;
+    padding-top: 10px; } }
