@@ -465,4 +465,8 @@ img.is-single-item-display {
   
 }
 
+.artist-metadata {
+  flex-direction: row;
+}
+
 @import "_mobile.scss";

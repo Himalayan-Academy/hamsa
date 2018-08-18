@@ -52,16 +52,16 @@ monasteryLogo =
 view : Route -> Html Msg
 view currentRoute =
     let
-        isHome =
+        isMenuRoute =
             case currentRoute of
-                HomeRoute ->
-                    True
+                MobileMenuRoute _ ->
+                    False
 
                 _ ->
-                    False
+                    True
     in
     div []
-        [ mobileView isHome
+        [ mobileView isMenuRoute
         , desktopView
         ]
 
@@ -85,7 +85,7 @@ desktopView =
 
 
 mobileView : Bool -> Html Msg
-mobileView isHome =
+mobileView isMenuRoute =
     let
         mobileLogo =
             img
@@ -121,7 +121,7 @@ mobileView isHome =
                 []
 
         navLink =
-            if isHome then
+            if isMenuRoute then
                 menuLink
             else
                 backLink

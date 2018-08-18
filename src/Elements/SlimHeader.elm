@@ -76,8 +76,8 @@ desktopView =
         ]
 
 
-mobileView : Html Msg
-mobileView =
+mobileView : Bool -> Html Msg
+mobileView isMenuRoute =
     let
         mobileLogo =
             img
@@ -85,6 +85,17 @@ mobileView =
                 , src "images/monastery-logo-small.svg"
                 , css
                     [ maxWidth (px 42)
+                    , cursor pointer
+                    ]
+                ]
+                []
+
+        menuLink =
+            img
+                [ onClick (SetRoute "#/menu")
+                , src "images/menu-white.svg"
+                , css
+                    [ maxWidth (px 36)
                     , cursor pointer
                     ]
                 ]
@@ -100,6 +111,12 @@ mobileView =
                     ]
                 ]
                 []
+
+        navLink =
+            if isMenuRoute then
+                menuLink
+            else
+                backLink
     in
     div
         [ css
@@ -113,7 +130,7 @@ mobileView =
             ]
         , class "mobile-header"
         ]
-        [ backLink
+        [ navLink
         , h3
             [ css
                 [ flex auto
@@ -126,9 +143,18 @@ mobileView =
         ]
 
 
-view : Html Msg
-view =
+view : Route -> Html Msg
+view currentRoute =
+    let
+        isMenuRoute =
+            case currentRoute of
+                MobileMenuRoute _ ->
+                    False
+
+                _ ->
+                    True
+    in
     div []
-        [ mobileView
+        [ mobileView isMenuRoute
         , desktopView
         ]

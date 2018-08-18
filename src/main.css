@@ -289,6 +289,9 @@ img.is-single-item-display {
         border-left: solid 2px #919191;
         font-weight: normal; }
 
+.artist-metadata {
+  flex-direction: row; }
+
 @media (max-width: 991px) {
   .selector-controls {
     display: none; }
@@ -298,4 +301,7 @@ img.is-single-item-display {
     display: flex; }
   .single-image-wrapper {
     flex-direction: column;
-    padding-top: 10px; } }
+    padding-top: 10px; }
+  .artist-metadata {
+    flex-direction: column;
+    justify-items: center; } }

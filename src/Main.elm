@@ -598,22 +598,22 @@ view model =
                     ( Elements.Header.view model.route, Elements.Hero.view, Collection.view "Home" model )
 
                 CategoriesRoute category ->
-                    ( Elements.SlimHeader.view, emptyElement, Collection.view (Maybe.withDefault "" <| Http.decodeUri category) model )
+                    ( Elements.SlimHeader.view model.route, emptyElement, Collection.view (Maybe.withDefault "" <| Http.decodeUri category) model )
 
                 CollectionsRoute collection ->
-                    ( Elements.SlimHeader.view, emptyElement, Collection.view (Maybe.withDefault "" <| Http.decodeUri collection) model )
+                    ( Elements.SlimHeader.view model.route, emptyElement, Collection.view (Maybe.withDefault "" <| Http.decodeUri collection) model )
 
                 ArtistRoute artist ->
-                    ( Elements.SlimHeader.view, emptyElement, Artist.view artist model )
+                    ( Elements.SlimHeader.view model.route, emptyElement, Artist.view artist model )
 
                 SingleImageRoute imageId ->
-                    ( Elements.SlimHeader.view, emptyElement, SingleImage.view imageId model.image )
+                    ( Elements.SlimHeader.view model.route, emptyElement, SingleImage.view imageId model.image )
 
                 MobileMenuRoute selector ->
-                    ( Elements.SlimHeader.view, emptyElement, MobileMenu.view model selector )
+                    ( Elements.SlimHeader.view model.route, emptyElement, MobileMenu.view model selector )
 
                 _ ->
-                    ( Elements.SlimHeader.view, emptyElement, Loading.view )
+                    ( Elements.SlimHeader.view model.route, emptyElement, Loading.view )
 
         errorElement =
             case model.error of

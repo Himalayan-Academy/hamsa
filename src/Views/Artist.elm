@@ -100,12 +100,12 @@ masonryView artist collection model =
                         [ textAlign center
                         , fontFamilies [ "sans-serif" ]
                         , displayFlex
-                        , flexDirection row
                         , marginBottom (px 30)
                         , color colors.gray
                         , textAlign left
                         , paddingLeft (px 15)
                         ]
+                    , class "artist-metadata"
                     ]
                     [ div
                         [ css
