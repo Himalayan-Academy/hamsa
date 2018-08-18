@@ -40,6 +40,7 @@ makeSelector label url =
         ]
 
 
+miniLabel : String -> Html msg
 miniLabel label =
     div
         [ css
@@ -60,6 +61,7 @@ miniLabel label =
         ]
 
 
+menuMenu : Html Msg
 menuMenu =
     div
         [ css
@@ -73,10 +75,12 @@ menuMenu =
         ]
 
 
+makeItem : String -> String -> Html Msg
 makeItem urlPrefix item =
     makeSelector item (urlPrefix ++ item)
 
 
+artistsMenu : List String -> Html Msg
 artistsMenu artists =
     let
         itemList =
@@ -97,6 +101,7 @@ artistsMenu artists =
         )
 
 
+collectionsMenu : List String -> Html Msg
 collectionsMenu collections =
     let
         itemList =
@@ -117,6 +122,7 @@ collectionsMenu collections =
         )
 
 
+tagsMenu : List String -> Html Msg
 tagsMenu categories =
     let
         itemList =

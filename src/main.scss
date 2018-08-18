@@ -337,14 +337,26 @@ img.is-single-item-display {
 
 
 .single-image-wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  grid-column-gap: 3rem;
+  display: flex;
+  
   color: #919191;
   font-family: sans-serif;
 
+  .single-image {
+      flex: 50%;
+
+      img {
+        max-width: 100%;
+        width: 100%;
+        
+    }
+  }
+
   .metadata {
+    flex: 50%;
     color: #919191;
+    padding-left: 10px; 
+      padding-right: 10px;
 
     img.more-images {
       max-width: 80px;

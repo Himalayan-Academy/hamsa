@@ -121,12 +121,13 @@ view imageId image =
                     ]
                 ]
                 [ div
-                    [ class "single-image-wrapper" ]
+                    [ class "single-image-wrapper" 
+                        
+                    ]
                     [ div
-                        []
+                        [class "single-image"]
                         [ img
-                            [ css [ maxWidth (pct 100) ]
-                            , src (toImageUrl i.medpath)
+                            [ src (toImageUrl i.medpath)
                             ]
                             []
                         , p
@@ -138,7 +139,8 @@ view imageId image =
                             [ text description ]
                         ]
                     , div
-                        [ class "metadata" ]
+                        [ class "metadata"
+                        ]
                         [ div [ class "divider" ] []
                         , h1 [] [ text imageTitle ]
                         , div
