@@ -138,9 +138,15 @@ view imageId image =
                             []
                         , a
                             [ css
-                                [ borderBottom3 (px 1) solid (hex "#a76b73")
+                                [ borderBottom3 (px 1) solid (hex "#b7872b")
                                 , textDecoration none
-                                , color (hex "#444")
+                                , color (hex "#FFF")
+                                , backgroundColor (hex "#649800")
+                                , borderRadius (px 8)
+                                , marginLeft (px 3)
+                                , marginRight (px 3)
+                                , padding (px 5)
+                                , fontSize (px 12)
                                 ]
                             , href (toImageUrl i.path)
                             , Html.Styled.Attributes.target "_blank"
