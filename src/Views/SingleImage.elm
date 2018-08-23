@@ -3,8 +3,9 @@ module Views.SingleImage exposing (view)
 import Css exposing (..)
 import Elements.Loading
 import Html.Styled exposing (..)
-import Html.Styled.Attributes exposing (class, css, src)
+import Html.Styled.Attributes exposing (class, css, href, src, target)
 import Html.Styled.Events exposing (onClick)
+import String.Extra as SE
 import Types exposing (..)
 
 
@@ -14,6 +15,11 @@ toImageUrl path =
         apiURL ++ path
     else
         hapImageURL path
+
+
+toFilename : String -> String
+toFilename path =
+    SE.replace "/" "-" path |> SE.camelize
 
 
 thumbnailFromChecksum : String -> String
@@ -130,6 +136,17 @@ view imageId image =
                             [ src (toImageUrl i.medpath)
                             ]
                             []
+                        , a
+                            [ css
+                                [ borderBottom3 (px 1) solid (hex "#a76b73")
+                                , textDecoration none
+                                , color (hex "#444")
+                                ]
+                            , href (toImageUrl i.path)
+                            , Html.Styled.Attributes.target "_blank"
+                            , Html.Styled.Attributes.downloadAs <| toFilename i.path
+                            ]
+                            [ text "Download this image" ]
                         , p
                             [ css
                                 [ fontFamilies [ "sans-serif" ]
