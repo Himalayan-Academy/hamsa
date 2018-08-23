@@ -98,7 +98,7 @@ artistsMenu artists =
         ]
         (List.concat
             [ [ miniLabel "Artists" ]
-            , [ makeSelector "#/" "Home" ]
+            , [ makeSelector "Home" "#/" ]
             , itemList
             ]
         )
@@ -120,7 +120,7 @@ collectionsMenu collections =
         ]
         (List.concat
             [ [ miniLabel "Collections" ]
-            , [ makeSelector "#/" "Home" ]
+            , [ makeSelector "Home" "#/" ]
             , itemList
             ]
         )
@@ -142,7 +142,7 @@ tagsMenu categories =
         ]
         (List.concat
             [ [ miniLabel "Tags" ]
-            , [ makeSelector "#/" "Home" ]
+            , [ makeSelector "Home" "#/" ]
             , itemList
             ]
         )
