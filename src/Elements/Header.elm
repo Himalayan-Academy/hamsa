@@ -77,7 +77,7 @@ desktopView =
         [ logo
         , div [ class "monastery-header-text" ]
             [ h1 [ class "title" ] [ text "Himalayan Academy" ]
-            , h2 [ class "subtitle" ] [ text "Museum Of Spiritual Art" ]
+            , h2 [ class "subtitle" ] [ text "Museum of Spiritual Art" ]
             , div [ css [ flex auto ] ] []
             ]
         , monasteryLogo
@@ -146,6 +146,6 @@ mobileView isMenuRoute =
                 , color (hex "#FFFFFF")
                 ]
             ]
-            [ text "Museum Of Spiritual Art" ]
+            [ text "Museum of Spiritual Art" ]
         , mobileLogo
         ]
