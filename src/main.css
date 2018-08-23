@@ -74,7 +74,6 @@ img.hamsa-logo {
   border: solid 0px 1px 1px 1px #fff; }
 
 .hero {
-  width: 90%;
   margin: auto; }
   .hero figure {
     width: 100%;
@@ -171,15 +170,21 @@ img.is-single-item-display {
   border: solid 1px;
   display: inline-block;
   padding: 10px;
-  width: 240px; }
+  width: 240px;
+  background-color: #D8B36C;
+  color: #783441;
+  font-weight: 600; }
   .round-wrapper span.title {
     font-size: 1.1em;
     padding-left: 8px;
     font-family: sans-serif; }
-  .round-wrapper input.title {
+  .round-wrapper input.search {
     border: none;
     padding-left: 8px;
-    font-family: sans-serif; }
+    font-family: sans-serif;
+    background: none;
+    font-weight: 600;
+    color: #783441; }
   .round-wrapper i.fa {
     float: right;
     padding-right: 8px; }
@@ -205,7 +210,8 @@ img.is-single-item-display {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-  position: relative; }
+  position: relative;
+  background-color: #783441; }
 
 .loading-wrapper {
   margin: auto;

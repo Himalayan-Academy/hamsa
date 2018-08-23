@@ -55,13 +55,13 @@ search : Html Msg
 search =
     div [ classList [ ( "round-wrapper", True ), ( "is-search-box", True ) ] ]
         [ input
-            [ class "title"
+            [ class "search"
             , placeholder "Search"
             , onInput ChangeQuery
             , onEnter Search
             ]
             []
-        , i [ class "fa fa-search" ] []
+        , i [ class "fa fa-search", onClick Search ] []
         ]
 
 
@@ -83,11 +83,14 @@ view model =
             , isOpen = model.openDropdown == CollectionDropdown
             }
     in
-    div [ class "selector-controls" ]
-        [ Dropdown.view categoriesConfig categoriesContext <| categoriesRoutesListFromCategoriesName model.categories
-        , Dropdown.view artistConfig artistContext <| artistRoutesListFromArtistName model.artists
-        , Dropdown.view collectionsConfig collectionsContext <| collectionsRoutesListFromcollectionsName model.collections
-        , search
+    div []
+        [ div [ class "selector-controls" ]
+            [ Dropdown.view categoriesConfig categoriesContext <| categoriesRoutesListFromCategoriesName model.categories
+            , Dropdown.view artistConfig artistContext <| artistRoutesListFromArtistName model.artists
+            , Dropdown.view collectionsConfig collectionsContext <| collectionsRoutesListFromcollectionsName model.collections
+            , search
+            ]
+        , img [ src "images/green-ruler.svg" ] []
         ]
 
 
