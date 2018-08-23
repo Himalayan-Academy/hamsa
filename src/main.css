@@ -80,17 +80,30 @@ img.hamsa-logo {
   width: 200px;
   border: solid 0px 1px 1px 1px #fff; }
 
+@keyframes fadein {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+
+.fade {
+  animation-duration: 4s;
+  animation-name: fadein;
+  animation-delay: 3s;
+  animation-fill-mode: forwards; }
+
 .hero {
   margin: auto; }
   .hero figure {
     width: 100%;
     max-width: 100%;
-    position: relative;
+    position: absolute;
     max-height: 400px;
     overflow: hidden;
     margin: 0;
+    left: 0;
     text-align: center;
-    background-color: #005aa0; }
+    opacity: 1; }
     .hero figure img.hero {
       max-height: 100%;
       height: 100%; }
