@@ -101,13 +101,14 @@ view imageId image =
                     span
                         [ css
                             [ cursor pointer
-                            , backgroundColor (hex "FFE5CC")
-                            , border3 (px 1) solid (hex "CC6600")
+                            , backgroundColor (hex "f1f6fffc")
+                            , borderRadius (px 8)
+                            , border3 (px 1) solid (hex "9a9a9a")
                             , marginLeft (px 3)
                             , marginRight (px 3)
-                            , padding (px 3)
+                            , padding (px 5)
                             , display inlineBlock
-                            , color (hex "#ce1126")
+                            , color (hex "#444")
                             , fontSize (px 12)
                             ]
                         , onClick (SetRoute <| "#/categories/" ++ k)
@@ -121,11 +122,10 @@ view imageId image =
                     ]
                 ]
                 [ div
-                    [ class "single-image-wrapper" 
-                        
+                    [ class "single-image-wrapper"
                     ]
                     [ div
-                        [class "single-image"]
+                        [ class "single-image" ]
                         [ img
                             [ src (toImageUrl i.medpath)
                             ]
