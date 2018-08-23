@@ -24,6 +24,7 @@ makeSelector label url =
             , cursor pointer
             , fontFamily sansSerif
             , fontSize (px 24)
+            , backgroundColor (hex "#FFF")
             ]
         , onClick (SetRoute url)
         ]
@@ -40,7 +41,7 @@ makeSelector label url =
         ]
 
 
-miniLabel : String -> Html msg
+miniLabel : String -> Html Msg
 miniLabel label =
     div
         [ css
@@ -96,6 +97,7 @@ artistsMenu artists =
         ]
         (List.concat
             [ [ miniLabel "Artists" ]
+            , [ makeItem "#/" "Home" ]
             , itemList
             ]
         )
@@ -117,6 +119,7 @@ collectionsMenu collections =
         ]
         (List.concat
             [ [ miniLabel "Collections" ]
+            , [ makeItem "#/" "Home" ]
             , itemList
             ]
         )
@@ -138,6 +141,7 @@ tagsMenu categories =
         ]
         (List.concat
             [ [ miniLabel "Tags" ]
+            , [ makeItem "#/" "Home" ]
             , itemList
             ]
         )
