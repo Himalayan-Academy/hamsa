@@ -1,5 +1,6 @@
 module Elements.Selector exposing (..)
 
+import Css exposing (..)
 import Elements.Dropdown as Dropdown
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (..)
@@ -34,7 +35,7 @@ round selectorClass title listOfOptions =
             case String.length v of
                 0 ->
                     option
-                        [ disabled True, selected True ]
+                        [ Html.Styled.Attributes.disabled True, selected True ]
                         [ text title ]
 
                 _ ->
@@ -82,15 +83,37 @@ view model =
             { selectedItem = model.selectedCollection
             , isOpen = model.openDropdown == CollectionDropdown
             }
+
+        infoButton =
+            div
+                [ css
+                    [ borderRadius (pct 50)
+                    , backgroundColor (hex "#D8B36C")
+                    , color (hex "#783441")
+                    , padding (px 10)
+                    , fontSize (Css.em 1.3)
+                    , fontWeight (int 600)
+                    , displayFlex
+                    , fontFamily sansSerif
+                    , Css.width (px 40)
+                    , Css.height (px 40)
+                    , justifyContent center
+                    , alignItems center
+                    , cursor pointer
+                    ]
+                , onClick (SetRoute "#/info")
+                ]
+                [ span [] [ text "i" ] ]
     in
     div []
         [ div [ class "selector-controls" ]
-            [ Dropdown.view categoriesConfig categoriesContext <| categoriesRoutesListFromCategoriesName model.categories
+            [ infoButton
+            , Dropdown.view categoriesConfig categoriesContext <| categoriesRoutesListFromCategoriesName model.categories
             , Dropdown.view artistConfig artistContext <| artistRoutesListFromArtistName model.artists
             , Dropdown.view collectionsConfig collectionsContext <| collectionsRoutesListFromcollectionsName model.collections
             , search
             ]
-        , img [ class "hide-in-mobile" , src "images/green-ruler.svg" ] []
+        , img [ class "hide-in-mobile", src "images/green-ruler.svg" ] []
         ]
 
 

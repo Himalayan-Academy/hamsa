@@ -26,4 +26,5 @@ matchRoute =
         , map SingleImageRoute (s "item" </> string)
         , map (MobileMenuRoute "") (s "menu")
         , map MobileMenuRoute (s "menu" </> string)
+        , map InfoRoute (s "info")
         ]

@@ -24,6 +24,7 @@ import Task exposing (Task)
 import Types exposing (..)
 import Views.Artist as Artist
 import Views.Collection as Collection
+import Views.Info as Info
 import Views.MobileMenu as MobileMenu
 import Views.SingleImage as SingleImage
 
@@ -433,6 +434,15 @@ update msg model =
                         ]
                     )
 
+                InfoRoute ->
+                    ( { model
+                        | route = newRoute
+                        , openDropdown = AllClosed
+                        , image = Nothing
+                      }
+                    , Cmd.none
+                    )
+
                 SingleImageRoute id ->
                     ( { model
                         | route = newRoute
@@ -611,6 +621,9 @@ view model =
 
                 MobileMenuRoute selector ->
                     ( Elements.SlimHeader.view model.route, emptyElement, MobileMenu.view model selector )
+
+                InfoRoute ->
+                    ( Elements.SlimHeader.view model.route, emptyElement, Info.view )
 
                 _ ->
                     ( Elements.SlimHeader.view model.route, emptyElement, Loading.view )

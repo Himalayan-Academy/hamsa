@@ -9,6 +9,13 @@ body {
   .hide-in-desktop {
     display: none !important; } }
 
+.info-blurb {
+  font-family: sans-serif; }
+  .info-blurb h1 {
+    color: #783441; }
+  .info-blurb p {
+    font-size: 1.1em; }
+
 header {
   display: flex !important;
   align-content: start !important;

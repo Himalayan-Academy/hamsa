@@ -57,6 +57,16 @@ body {
   }
 }
 
+.info-blurb {
+  font-family: sans-serif;
+  h1 {
+    color: #783441;
+  }
+  p {
+    font-size: 1.1em;
+  }
+}
+
 header {
   @include flex(row, n, space-between, start);
   background-color: $dark-theme-background-color;
