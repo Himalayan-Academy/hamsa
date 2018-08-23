@@ -118,7 +118,7 @@ masonryView artist collection model =
                             ]
                             []
                         ]
-                    , div [ css [ color (hex "#919191") ] ] [ content ]
+                    , div [ css [ color (hex "#333") ] ] [ content ]
                     ]
                 ]
     in
