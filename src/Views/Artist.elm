@@ -88,7 +88,7 @@ masonryView artist collection model =
                         ]
                     , h2
                         [ css
-                            [ color colors.gray
+                            [ color (hex "#333")
                             ]
                         ]
                         [ text artist ]
