@@ -117,7 +117,7 @@ masonryView name collection model =
             [ collectionName
             , div
                 [ css
-                    [ color (hex "919191")
+                    [ color (hex "#333")
                     , textAlign left
                     , paddingLeft (px 15)
                     ]
