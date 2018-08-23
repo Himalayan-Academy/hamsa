@@ -151,6 +151,7 @@ view imageId image =
                             [ css
                                 [ fontFamilies [ "sans-serif" ]
                                 , fontSize (px 20)
+                                , color (hex "#333333")
                                 ]
                             ]
                             [ text description ]
