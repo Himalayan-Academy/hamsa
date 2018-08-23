@@ -9,27 +9,40 @@ import Types exposing (..)
 
 logo : Html Msg
 logo =
-    a
+    div
         [ class "hamsa-logo"
-        , href "/hamsa"
         , css
             [ displayFlex
             , justifyContent center
             , alignItems center
-            , backgroundColor (hex "#73af01")
             , verticalAlign middle
-            , padding (px 10)
-            , border3 (px 2) solid (rgb 255 255 255)
-            , Css.height (pct 100)
-            , color (rgb 255 255 255)
-            , textDecoration none
+            , padding (px 8)
             , marginLeft (px 120)
+            , Css.height (pct 100)
             ]
         ]
-        [ h1
-            [ css [ fontWeight (int 100) ]
+        [ a
+            [ href "/hamsa"
+            , css
+                [ backgroundColor (hex "#73af01")
+                , border3 (px 2) solid (rgb 255 255 255)
+                , color (rgb 255 255 255)
+                , textDecoration none
+                , Css.height (pct 100)
+                , maxHeight (pct 100)
+                , displayFlex
+                , verticalAlign middle
+                , alignItems center
+                ]
             ]
-            [ text "HAMSA" ]
+            [ span
+                [ css
+                    [ fontWeight (int 100)
+                    , padding (px 5)
+                    ]
+                ]
+                [ text "HAMSA" ]
+            ]
         ]
 
 
@@ -52,6 +65,7 @@ monasteryLogo =
                 , minHeight (px 60)
                 , maxHeight (px 60)
                 , marginRight (px 120)
+                , padding (px 8)
                 ]
             ]
             []

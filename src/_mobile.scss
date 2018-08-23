@@ -17,8 +17,17 @@
   }
 
   
-.artist-metadata {
-  flex-direction: column;
-  justify-items: center;
-}
+  .artist-metadata {
+    flex-direction: column;
+    justify-items: center;
+  }
+
+  section.masonry {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    grid-auto-flow: dense;
+    padding: 10px;
+  }
 }
