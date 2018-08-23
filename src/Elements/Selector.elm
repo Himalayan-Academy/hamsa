@@ -104,6 +104,12 @@ view model =
                 , onClick (SetRoute "#/info")
                 ]
                 [ span [] [ text "i" ] ]
+
+        ruler =
+            if model.route == HomeRoute then
+                img [ class "hide-in-mobile", src "images/green-ruler.svg" ] []
+            else
+                div [] []
     in
     div []
         [ div [ class "selector-controls" ]
@@ -113,7 +119,7 @@ view model =
             , Dropdown.view collectionsConfig collectionsContext <| collectionsRoutesListFromcollectionsName model.collections
             , search
             ]
-        , img [ class "hide-in-mobile", src "images/green-ruler.svg" ] []
+        , ruler
         ]
 
 
