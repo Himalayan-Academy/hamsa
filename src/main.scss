@@ -51,6 +51,12 @@ body {
   display: none;
 }
 
+@include respond-above(md) {
+  .hide-in-desktop {
+    display: none !important;
+  }
+}
+
 header {
   @include flex(row, n, space-between, start);
   background-color: $dark-theme-background-color;

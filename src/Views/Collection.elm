@@ -101,6 +101,7 @@ masonryView name collection model =
                         , paddingBottom (px 10)
                         , display inlineBlock
                         ]
+                    , class "hide-in-desktop"
                     ]
                     [ text name ]
                 ]
