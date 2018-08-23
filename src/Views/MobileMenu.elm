@@ -70,7 +70,8 @@ menuMenu =
             , flexDirection column
             ]
         ]
-        [ makeSelector "Tags" "#/menu/tags"
+        [ makeSelector "Home" "#/"
+        , makeSelector "Tags" "#/menu/tags"
         , makeSelector "Artists" "#/menu/artists"
         , makeSelector "Collections" "#/menu/collections"
         ]
@@ -97,7 +98,7 @@ artistsMenu artists =
         ]
         (List.concat
             [ [ miniLabel "Artists" ]
-            , [ makeItem "#/" "Home" ]
+            , [ makeSelector "#/" "Home" ]
             , itemList
             ]
         )
@@ -119,7 +120,7 @@ collectionsMenu collections =
         ]
         (List.concat
             [ [ miniLabel "Collections" ]
-            , [ makeItem "#/" "Home" ]
+            , [ makeSelector "#/" "Home" ]
             , itemList
             ]
         )
@@ -141,7 +142,7 @@ tagsMenu categories =
         ]
         (List.concat
             [ [ miniLabel "Tags" ]
-            , [ makeItem "#/" "Home" ]
+            , [ makeSelector "#/" "Home" ]
             , itemList
             ]
         )
