@@ -305,6 +305,8 @@ img.is-single-item-display {
 @media (max-width: 991px) {
   .selector-controls {
     display: none; }
+  .hide-in-mobile {
+    display: none !important; }
   header {
     display: none !important; }
   .mobile-header {

@@ -90,7 +90,7 @@ view model =
             , Dropdown.view collectionsConfig collectionsContext <| collectionsRoutesListFromcollectionsName model.collections
             , search
             ]
-        , img [ src "images/green-ruler.svg" ] []
+        , img [ class "hide-in-mobile" , src "images/green-ruler.svg" ] []
         ]
 
 
