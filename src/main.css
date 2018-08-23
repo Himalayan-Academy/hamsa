@@ -175,7 +175,8 @@ img.is-single-item-display {
   width: 240px;
   background-color: #D8B36C;
   color: #783441;
-  font-weight: 600; }
+  font-weight: 600;
+  cursor: pointer; }
   .round-wrapper span.title {
     font-size: 1.1em;
     padding-left: 8px;
