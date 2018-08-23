@@ -24,7 +24,7 @@ logo =
         ]
         [ img
             [ class "hamsa-logo"
-            , src "images/hamsa-logo.png"
+            , src "images/hamsa-logo-opt.jpg"
             ]
             []
         ]
