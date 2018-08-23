@@ -53,6 +53,9 @@ dropdownList =
         , margin (px 0)
         , Css.width (px 200)
         , backgroundColor (hex "FFFF")
+        , fontFamily sansSerif
+        , fontWeight (int 300)
+
         -- , Css.height (px 300)
         ]
 
