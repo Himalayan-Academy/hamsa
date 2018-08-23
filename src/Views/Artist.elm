@@ -1,12 +1,10 @@
 module Views.Artist exposing (view)
 
 import Css exposing (..)
-import Elements.Fragments exposing (goBack)
 import Elements.Image as Image
 import Elements.Loading as Loading
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (class, css, src, style)
-import Html.Styled.Events exposing (onClick)
 import Http exposing (decodeUri)
 import InfiniteScroll as IS
 import Markdown
