@@ -78,6 +78,30 @@ masonryView name collection model =
                     [ text "Loading ..." ]
             else
                 div [] []
+
+        collectionName =
+            let
+                classForTitle =
+                    if String.toLower name == "home" then
+                        "hide-in-desktop"
+                    else
+                        "meleca"
+            in
+            div
+                [ css
+                    [ textAlign center ]
+                , class classForTitle
+                ]
+                [ h3
+                    [ css
+                        [ color colors.ocre
+                        , borderBottom3 (px 1) solid colors.gray
+                        , paddingBottom (px 10)
+                        , display inlineBlock
+                        ]
+                    ]
+                    [ text name ]
+                ]
     in
     div
         [ class "collection"
@@ -90,21 +114,7 @@ masonryView name collection model =
                 , flexDirection column
                 ]
             ]
-            [ div
-                [ css
-                    [ textAlign center ]
-                ]
-                [ h3
-                    [ css
-                        [ color colors.ocre
-                        , borderBottom3 (px 1) solid colors.gray
-                        , paddingBottom (px 10)
-                        , display inlineBlock
-                        ]
-                    , class "hide-in-desktop"
-                    ]
-                    [ text name ]
-                ]
+            [ collectionName
             , div
                 [ css
                     [ color colors.gray
