@@ -330,6 +330,10 @@ img.is-single-item-display {
     display: none; }
   .hide-in-mobile {
     display: none !important; }
+  .hero {
+    max-height: 250px; }
+    .hero figure {
+      max-height: 250px; }
   header {
     display: none !important; }
   .mobile-header {
