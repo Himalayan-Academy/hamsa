@@ -23,8 +23,15 @@
 
   .hero {
     max-height: 185px !important;
-    img.hero {
+    height: 185px !important;
+
+    figure {
       max-height: 185px !important;
+      height: 185px !important; 
+      img.hero {
+        max-height: 185px !important;
+        height: 185px !important;
+      }
     }
   }
 

@@ -75,7 +75,8 @@ view =
                     , Css.width (pct 100)
                     , Css.maxWidth (pct 100)
                     ]
-                , class "fade"
+
+                -- , class "fade"
                 ]
                 [ img
                     [ class "hero"
