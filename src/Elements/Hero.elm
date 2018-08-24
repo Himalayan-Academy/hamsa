@@ -45,24 +45,25 @@ view =
             , css
                 [ position relative
                 , Css.height (px 370)
+                , maxHeight (px 370)
+                , overflow Css.hidden
                 ]
             ]
             [ figure
                 [ css
                     [ position absolute
                     , left (px 0)
-                    , Css.height (px 370)
                     , backgroundColor (hex "#000")
+                    , overflow Css.hidden
+                    , Css.width (pct 100)
+                    , Css.maxWidth (pct 100)
                     ]
                 ]
                 [ img
                     [ class "hero"
                     , src "images/hero2.jpg"
                     , css
-                        [ Css.width (pct 100)
-                        , Css.maxWidth (pct 100)
-                        , overflow Css.hidden
-                        ]
+                        [ Css.width (pct 100) ]
                     ]
                     []
                 ]
@@ -70,14 +71,17 @@ view =
                 [ css
                     [ position absolute
                     , left (px 0)
-                    , Css.height (px 370)
                     , backgroundColor (hex "#005aa0")
+                    , Css.width (pct 100)
+                    , Css.maxWidth (pct 100)
                     ]
                 , class "fade"
                 ]
                 [ img
                     [ class "hero"
                     , src "images/hero1.jpg"
+                    , css
+                        []
                     ]
                     []
                 , span [ class "label" ] [ text "" ]

@@ -7,10 +7,24 @@
     display: none !important;
   }
 
+  // .hero {
+  //   max-height: 250px;
+  //   height: 250px;
+  //   figure {
+  //     max-height: 250px;
+  //     height: 250px;
+
+  //     img.hero {
+  //       height: 250px;
+  //       overflow: hidden;
+  //     }
+  //   }
+  // }
+
   .hero {
-    max-height: 250px;
-    figure {
-      max-height: 250px;
+    max-height: 185px !important;
+    img.hero {
+      max-height: 185px !important;
     }
   }
 
