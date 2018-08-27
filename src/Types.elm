@@ -27,7 +27,7 @@ apiURL =
     if localDevelopment then
         "http://localhost:8080"
     else
-        "http://dev.himalayanacademy.com:8080"
+        "//dev.himalayanacademy.com:8080"
 
 
 hapImageURL : String -> String
