@@ -36,7 +36,7 @@ hapImageURL url =
         fixedURL =
             SE.replace "/images" "" url
     in
-    "http://dev.himalayanacademy.com/hamsa-images" ++ fixedURL
+    "https://dev.himalayanacademy.com/hamsa-images" ++ fixedURL
 
 
 type alias Model =
