@@ -74,7 +74,7 @@ menuMenu =
         , makeSelector "Tags" "#/menu/tags"
         , makeSelector "Artists" "#/menu/artists"
         , makeSelector "Collections" "#/menu/collections"
-        , makeSelector "Abous Us" "#/info"
+        , makeSelector "About Us" "#/info"
         ]
 
 
