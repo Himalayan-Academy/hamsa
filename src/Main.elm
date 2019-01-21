@@ -1,5 +1,9 @@
-module Main exposing (..)
+module Main exposing (artistQueryRequest, categoryQueryRequest, collectionQuery, collectionQueryRequest, getDescription, getPaginationTotal, imageQuery, imageQueryRequest, init, loadFirstUrl, main, selectorQuery, sendArtistRequest, sendCategoryRequest, sendHomeRequest, sendImageRequest, sendQueryRequest, sendSearchRequest, sendSelectorConfigurationRequest, subscriptions, update, updateInfiniteScrollCmd, view)
 
+import Basics exposing ((>>))
+import Browser
+import Browser.Events as Events
+import Browser.Navigation as Navigation
 import Css exposing (..)
 import Elements.Header
 import Elements.Hero
@@ -11,17 +15,16 @@ import GraphQL.Request.Builder as B exposing (..)
 import GraphQL.Request.Builder.Arg as Arg
 import GraphQL.Request.Builder.Variable as Var
 import Html.Styled exposing (..)
-import Html.Styled.Attributes as SA exposing (css, fromUnstyled, style)
-import Http exposing (decodeUri)
+import Html.Styled.Attributes as SA exposing (css)
+import Http
 import InfiniteScroll as IS
 import Json.Decode
-import Mouse
-import Navigation exposing (Location)
 import RemoteData
 import Routing exposing (..)
 import String.Extra as Extra
 import Task exposing (Task)
 import Types exposing (..)
+import Url
 import Views.Artist as Artist
 import Views.Collection as Collection
 import Views.Info as Info
@@ -29,11 +32,12 @@ import Views.MobileMenu as MobileMenu
 import Views.SingleImage as SingleImage
 
 
+
 ---- MODEL ----
 
 
-init : String -> Location -> ( Model, Cmd Msg )
-init firstUrl location =
+init : String -> Url.Url -> Navigation.Key -> ( Model, Cmd Msg )
+init firstUrl location key =
     ( { route = HomeRoute
       , collection = RemoteData.NotAsked
       , artists = []
@@ -53,7 +57,7 @@ init firstUrl location =
       , paginationTotal = 0
       , infScroll = IS.init (\dir -> Cmd.none) |> IS.offset 50 |> IS.direction IS.Bottom
       }
-    , loadFirstUrl firstUrl
+    , loadFirstUrl key firstUrl
     )
 
 
@@ -65,11 +69,11 @@ getDescription : String -> Cmd Msg
 getDescription what =
     let
         file =
-            Http.decodeUri what
+            Url.percentDecode what
                 |> Maybe.withDefault ""
                 |> Extra.clean
                 |> String.toLower
-                |> Extra.replace "." ""
+                |> String.replace "." ""
                 |> Extra.dasherize
 
         url =
@@ -85,9 +89,11 @@ getPaginationTotal what query =
     let
         requestObject =
             if what == "artist" then
-                { artist = Http.decodeUri query, keyword = Nothing }
+                { artist = Url.percentDecode query, keyword = Nothing }
+
             else if what == "keyword" then
-                { keyword = Http.decodeUri query, artist = Nothing }
+                { keyword = Url.percentDecode query, artist = Nothing }
+
             else
                 { keyword = Nothing, artist = Nothing }
 
@@ -112,7 +118,7 @@ getPaginationTotal what query =
 
         paginationTotalQueryRequest =
             paginationQuery
-                |> request (Debug.log "request object" requestObject)
+                |> request requestObject
     in
     sendQueryRequest
         paginationTotalQueryRequest
@@ -124,7 +130,7 @@ sendQueryRequest request =
     GraphQLClient.sendQuery (apiURL ++ "/graphql") request
 
 
-sendImageRequest : String -> Cmd Msg
+sendImageRequest : String -> String
 sendImageRequest checksum =
     sendQueryRequest
         (imageQueryRequest checksum)
@@ -163,9 +169,9 @@ sendSearchRequest query =
         |> Task.attempt ReceiveQueryResponse
 
 
-loadFirstUrl : String -> Cmd Msg
-loadFirstUrl firstUrl =
-    Navigation.newUrl firstUrl
+loadFirstUrl : Navigation.Key -> String -> Cmd Msg
+loadFirstUrl key firstUrl =
+    Navigation.pushUrl firstUrl
 
 
 sendHomeRequest : Int -> Int -> Cmd Msg
@@ -316,6 +322,7 @@ updateInfiniteScrollCmd model ismodel =
     in
     if newOffset > model.paginationTotal then
         ismodel |> IS.loadMoreCmd (\dir -> Cmd.none)
+
     else
         case model.route of
             HomeRoute ->
@@ -324,14 +331,14 @@ updateInfiniteScrollCmd model ismodel =
             CategoriesRoute category ->
                 let
                     categoryString =
-                        Maybe.withDefault "" <| decodeUri category
+                        Maybe.withDefault "" <| Url.percentDecode category
                 in
                 ismodel |> IS.loadMoreCmd (\dir -> sendCategoryRequest newOffset model.limit categoryString)
 
             ArtistRoute artist ->
                 let
                     artistString =
-                        Maybe.withDefault "" <| decodeUri artist
+                        Maybe.withDefault "" <| Url.percentDecode artist
                 in
                 ismodel |> IS.loadMoreCmd (\dir -> sendArtistRequest newOffset model.limit artistString)
 
@@ -345,6 +352,7 @@ update msg model =
         nextCmd =
             if List.isEmpty model.artists || List.isEmpty model.categories then
                 sendSelectorConfigurationRequest
+
             else
                 Cmd.none
     in
@@ -364,13 +372,15 @@ update msg model =
                 newOpenDropdown =
                     if model.openDropdown == dropdown then
                         AllClosed
+
                     else
                         dropdown
             in
-            { model
+            ( { model
                 | openDropdown = newOpenDropdown
-            }
-                ! []
+              }
+            , Cmd.none
+            )
 
         GoBack ->
             ( { model
@@ -386,7 +396,7 @@ update msg model =
                 , offset = 0
                 , paginationTotal = 0
               }
-            , Navigation.newUrl url
+            , Navigation.pushUrl model.key url
             )
 
         Blur ->
@@ -396,21 +406,18 @@ update msg model =
             , Cmd.none
             )
 
-        OnLocationChange location ->
+        UrlChanged location ->
             let
                 newRoute =
                     extractRoute location
 
                 newOffset =
                     model.offset + model.limit
-
-                d =
-                    Debug.log "new route" newRoute
             in
             case newRoute of
                 MobileMenuRoute selector ->
                     let
-                        nextCmd =
+                        selectorCmd =
                             case selector of
                                 "" ->
                                     sendSelectorConfigurationRequest
@@ -418,7 +425,7 @@ update msg model =
                                 _ ->
                                     Cmd.none
                     in
-                    ( { model | route = newRoute }, nextCmd )
+                    ( { model | route = newRoute }, selectorCmd )
 
                 HomeRoute ->
                     ( { model
@@ -455,7 +462,7 @@ update msg model =
                 ArtistRoute artist ->
                     let
                         artistString =
-                            Maybe.withDefault "" <| decodeUri artist
+                            Maybe.withDefault "" <| Url.percentDecode artist
                     in
                     ( { model
                         | route = newRoute
@@ -473,7 +480,7 @@ update msg model =
                 CategoriesRoute category ->
                     let
                         categoryString =
-                            Maybe.withDefault "" <| decodeUri category
+                            Maybe.withDefault "" <| Url.percentDecode category
                     in
                     ( { model
                         | route = newRoute
@@ -510,9 +517,6 @@ update msg model =
 
                         countd =
                             List.length newImages
-
-                        d =
-                            Debug.log "collection lenght" countd
                     in
                     ( { model
                         | collection = RemoteData.succeed <| CollectionModel newImages "" ""
@@ -524,35 +528,23 @@ update msg model =
                     )
 
                 Err error ->
-                    let
-                        err =
-                            Debug.log "error" error
-                    in
-                    ( { model | error = Just <| toString <| error, busy = False }, nextCmd )
+                    ( { model | error = Just <| String.fromInt <| error, busy = False }, nextCmd )
 
         ReceiveImageResponse response ->
-            let
-                a =
-                    Debug.log "image result" response
-            in
             case response of
                 Ok data ->
                     ( { model | image = Just data, error = Nothing }, nextCmd )
 
                 Err error ->
-                    ( { model | image = Nothing, error = Just <| toString <| error }, nextCmd )
+                    ( { model | image = Nothing, error = Just <| String.fromInt <| error }, nextCmd )
 
         ReceivedPaginationTotal response ->
-            let
-                a =
-                    Debug.log "pagination result" response
-            in
             case response of
                 Ok data ->
                     ( { model | paginationTotal = data }, nextCmd )
 
                 Err error ->
-                    ( { model | paginationTotal = 0, error = Just <| toString <| error }, nextCmd )
+                    ( { model | paginationTotal = 0, error = Just <| String.fromInt <| error }, nextCmd )
 
         ReceiveSelectorConfiguration response ->
             case response of
@@ -566,14 +558,14 @@ update msg model =
                     )
 
                 Err error ->
-                    ( { model | error = Just <| toString <| error }, Cmd.none )
+                    ( { model | error = Just <| String.fromInt <| error }, Cmd.none )
 
         ChangeQuery query ->
             ( { model | query = Just query }, Cmd.none )
 
         Search ->
             let
-                ( route, nextCmd ) =
+                ( route, searchCmd ) =
                     case model.query of
                         Nothing ->
                             ( model.route, Cmd.none )
@@ -588,7 +580,7 @@ update msg model =
                 , offset = 0
                 , activePageDescription = RemoteData.NotAsked
               }
-            , nextCmd
+            , searchCmd
             )
 
 
@@ -596,7 +588,7 @@ update msg model =
 ---- VIEW ----
 
 
-view : Model -> Html Msg
+view : Model -> Document Msg
 view model =
     let
         emptyElement =
@@ -608,10 +600,10 @@ view model =
                     ( Elements.Header.view model.route, Elements.Hero.view, Collection.view "Home" model )
 
                 CategoriesRoute category ->
-                    ( Elements.SlimHeader.view model.route, emptyElement, Collection.view (Maybe.withDefault "" <| Http.decodeUri category) model )
+                    ( Elements.SlimHeader.view model.route, emptyElement, Collection.view (Maybe.withDefault "" <| Url.percentDecode category) model )
 
                 CollectionsRoute collection ->
-                    ( Elements.SlimHeader.view model.route, emptyElement, Collection.view (Maybe.withDefault "" <| Http.decodeUri collection) model )
+                    ( Elements.SlimHeader.view model.route, emptyElement, Collection.view (Maybe.withDefault "" <| Url.percentDecode collection) model )
 
                 ArtistRoute artist ->
                     ( Elements.SlimHeader.view model.route, emptyElement, Artist.view artist model )
@@ -631,10 +623,6 @@ view model =
         errorElement =
             case model.error of
                 Just err ->
-                    let
-                        e =
-                            Debug.log "error" err
-                    in
                     div [] []
 
                 Nothing ->
@@ -643,25 +631,30 @@ view model =
         errorDisplay =
             if localDevelopment then
                 errorElement
+
             else
                 div [] []
 
         infiniteAttribute =
             IS.infiniteScroll InfiniteScrollMsg
     in
-    div
-        [ SA.fromUnstyled infiniteAttribute
-        , style
-            [ ( "height", "100vh" )
-            , ( "overflow", "scroll" )
+    { title = "HAMSA"
+    , body =
+        [ div
+            [ SA.fromUnstyled infiniteAttribute
+            , style
+                [ ( "height", "100vh" )
+                , ( "overflow", "scroll" )
+                ]
+            ]
+            [ headerElement
+            , heroElement
+            , errorDisplay
+            , Selector.view model
+            , subView
             ]
         ]
-        [ headerElement
-        , heroElement
-        , errorDisplay
-        , Selector.view model
-        , subView
-        ]
+    }
 
 
 
@@ -675,18 +668,27 @@ subscriptions model =
             Sub.none
 
         _ ->
-            Mouse.clicks (always Blur)
+            Events.onClick (always Blur)
 
 
 
 ---- PROGRAM ----
 
 
+toUnstyledDocument : Document Msg -> Browser.Document Msg
+toUnstyledDocument doc =
+    { title = doc.title
+    , body = List.map toUnstyled doc.body
+    }
+
+
 main : Program String Model Msg
 main =
-    Navigation.programWithFlags OnLocationChange
-        { view = view >> toUnstyled
-        , init = init
+    Browser.application
+        { init = init
         , update = update
+        , view = view >> toUnstyledDocument
         , subscriptions = subscriptions
+        , onUrlRequest = UrlRequested
+        , onUrlChange = UrlChanged
         }

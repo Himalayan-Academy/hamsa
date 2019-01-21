@@ -1,12 +1,13 @@
-module Elements.Selector exposing (..)
+module Elements.Selector exposing (artistConfig, artistRoutesListFromArtistName, categoriesConfig, categoriesRoutesListFromCategoriesName, collectionsConfig, collectionsRoutesListFromcollectionsName, onClick, onEnter, round, search, view)
 
 import Css exposing (..)
 import Elements.Dropdown as Dropdown
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (..)
-import Html.Styled.Events exposing (keyCode, on, onInput, onSubmit, onWithOptions)
+import Html.Styled.Events exposing (keyCode, on, onInput, onSubmit, stopPropagationOn)
 import Json.Decode as Json
 import Types exposing (..)
+
 
 
 -- Helper --
@@ -18,6 +19,7 @@ onEnter msg =
         isEnter code =
             if code == 13 then
                 Json.succeed msg
+
             else
                 Json.fail "not ENTER"
     in
@@ -108,6 +110,7 @@ view model =
         ruler =
             if model.route == HomeRoute then
                 img [ class "hide-in-mobile", src "images/green-ruler.svg" ] []
+
             else
                 div [] []
     in
@@ -165,11 +168,14 @@ collectionsRoutesListFromcollectionsName list =
     List.sortBy Tuple.first <| List.map (\i -> ( i, "#/categories/Collection " ++ i )) list
 
 
+
+alwaysPreventDefault : msg -> ( msg, Bool )
+alwaysPreventDefault msg =
+    ( msg, True )
+
 onClick : msg -> Attribute msg
 onClick message =
-    onWithOptions
+    stopPropagationOn
         "click"
-        { stopPropagation = True
-        , preventDefault = False
-        }
-        (Json.succeed message)
+         (Json.map alwaysPreventDefault (Json.succeed message))
+

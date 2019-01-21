@@ -5,8 +5,9 @@ module Elements.Dropdown exposing (Config, Context, view)
 import Css exposing (..)
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (..)
-import Html.Styled.Events exposing (onWithOptions)
+import Html.Styled.Events exposing (..)
 import Json.Decode as Json
+
 
 
 -- MODEL
@@ -94,12 +95,14 @@ view config context data =
                     , overflowY scroll
                     , zIndex (int 9999)
                     ]
+
             else
                 Css.batch [ display none ]
 
         caretStyle =
             if context.isOpen then
                 "fa fa-caret-up"
+
             else
                 "fa fa-caret-down"
 
@@ -141,12 +144,12 @@ viewItem config item =
 
 -- helper to cancel click anywhere
 
+alwaysPreventDefault : msg -> ( msg, Bool )
+alwaysPreventDefault msg =
+    ( msg, True )
 
 onClick : msg -> Attribute msg
 onClick message =
-    onWithOptions
+    stopPropagationOn
         "click"
-        { stopPropagation = True
-        , preventDefault = False
-        }
-        (Json.succeed message)
+         (Json.map alwaysPreventDefault (Json.succeed message))

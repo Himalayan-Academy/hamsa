@@ -1,13 +1,13 @@
-module Routing exposing (..)
+module Routing exposing (extractRoute, matchRoute)
 
-import Navigation exposing (Location)
+import Url
 import Types exposing (..)
-import UrlParser exposing (..)
+import Url.Parser exposing (..)
 
 
-extractRoute : Location -> Route
+extractRoute : Url.Url -> Route
 extractRoute location =
-    case parseHash matchRoute location of
+    case parse matchRoute location of
         Just route ->
             route
 

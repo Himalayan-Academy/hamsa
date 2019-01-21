@@ -123,6 +123,7 @@ mobileView isMenuRoute =
         navLink =
             if isMenuRoute then
                 menuLink
+
             else
                 backLink
     in

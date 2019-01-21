@@ -12,6 +12,7 @@ import RemoteData exposing (..)
 import Types exposing (..)
 
 
+
 -- goBack : Html Msg
 -- goBack =
 --     div
@@ -69,13 +70,14 @@ masonryView name collection model =
         bottom =
             if IS.isLoading model.infScroll then
                 div
-                    [ style
-                        [ ( "color", "red" )
-                        , ( "font-weight", "bold" )
-                        , ( "text-align", "center" )
+                    [ css
+                        [ color colors.ocre
+                        , fontWeight bold
+                        , textAlign center
                         ]
                     ]
                     [ text "Loading ..." ]
+
             else
                 div [] []
 
@@ -84,6 +86,7 @@ masonryView name collection model =
                 classForTitle =
                     if String.toLower name == "home" then
                         "hide-in-desktop"
+
                     else
                         "meleca"
             in
@@ -151,6 +154,7 @@ view name model =
         RemoteData.Success c ->
             if List.isEmpty c.images then
                 emptyCollectionView name
+
             else
                 masonryView name c model
 

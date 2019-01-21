@@ -16,6 +16,7 @@ onEnter msg =
         isEnter code =
             if code == 13 then
                 Json.succeed msg
+
             else
                 Json.fail "not ENTER"
     in
@@ -75,7 +76,6 @@ view =
                     , Css.width (pct 100)
                     , Css.maxWidth (pct 100)
                     ]
-
                 , class "fade"
                 ]
                 [ img

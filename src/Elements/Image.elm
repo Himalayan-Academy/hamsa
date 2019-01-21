@@ -1,4 +1,4 @@
-module Elements.Image exposing (..)
+module Elements.Image exposing (imageWithLabel, masonryTile, toImageUrl)
 
 import Css exposing (..)
 import Html.Styled exposing (..)
@@ -11,6 +11,7 @@ toImageUrl : String -> String
 toImageUrl path =
     if localDevelopment then
         apiURL ++ path
+
     else
         hapImageURL path
 

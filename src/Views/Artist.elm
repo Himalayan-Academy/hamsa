@@ -5,13 +5,12 @@ import Elements.Image as Image
 import Elements.Loading as Loading
 import Html.Styled exposing (..)
 import Html.Styled.Attributes exposing (class, css, src, style)
-import Http exposing (decodeUri)
 import InfiniteScroll as IS
 import Markdown
 import RemoteData exposing (..)
 import String.Extra
 import Types exposing (..)
-
+import Url
 
 artistImageURL : String -> String
 artistImageURL artist =
@@ -20,12 +19,13 @@ artistImageURL artist =
             String.toLower artist
 
         a =
-            String.Extra.replace " " "-" artistDown
-                |> String.Extra.replace "." ""
+            String.replace " " "-" artistDown
+                |> String.replace "." ""
                 |> String.Extra.dasherize
     in
     if localDevelopment then
         apiURL ++ "/images/_artists/" ++ a ++ ".jpg"
+
     else
         hapImageURL <| "/images/_artists/" ++ a ++ ".jpg"
 
@@ -52,13 +52,14 @@ masonryView artist collection model =
         bottom =
             if IS.isLoading model.infScroll then
                 div
-                    [ style
-                        [ ( "color", "red" )
-                        , ( "font-weight", "bold" )
-                        , ( "text-align", "center" )
+                    [ css
+                        [ color colors.ocre
+                        , fontWeight bold
+                        , textAlign center
                         ]
                     ]
                     [ text "Loading ..." ]
+
             else
                 div [] []
 
@@ -140,7 +141,7 @@ view a model =
             model.collection
 
         artist =
-            Maybe.withDefault "" <| decodeUri a
+            Maybe.withDefault "" <| Url.percentDecode a
     in
     case collection of
         RemoteData.NotAsked ->

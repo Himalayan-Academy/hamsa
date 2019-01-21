@@ -13,19 +13,21 @@ toImageUrl : String -> String
 toImageUrl path =
     if localDevelopment then
         apiURL ++ path
+
     else
         hapImageURL path
 
 
 toFilename : String -> String
 toFilename path =
-    SE.replace "/" "-" path |> SE.camelize
+    String.replace "/" "-" path |> SE.camelize
 
 
 thumbnailFromChecksum : String -> String
 thumbnailFromChecksum checksum =
     if localDevelopment then
         apiURL ++ "/images/_cache/" ++ checksum ++ ".thumb.jpg"
+
     else
         hapImageURL <| "/_cache/" ++ checksum ++ ".thumb.jpg"
 
@@ -80,6 +82,7 @@ view imageId image =
                 isArtistKeyword k =
                     if String.contains "Artist" k then
                         Just k
+
                     else
                         Nothing
 
@@ -89,6 +92,7 @@ view imageId image =
                 artist =
                     if String.length i.metadata.artist > 0 then
                         i.metadata.artist
+
                     else
                         case List.head foundArtists of
                             Just h ->
@@ -150,7 +154,7 @@ view imageId image =
                                 ]
                             , href (toImageUrl i.path)
                             , Html.Styled.Attributes.target "_blank"
-                            , Html.Styled.Attributes.downloadAs <| toFilename i.path
+                            , Html.Styled.Attributes.download <| toFilename i.path
                             ]
                             [ text "Download this image" ]
                         , p

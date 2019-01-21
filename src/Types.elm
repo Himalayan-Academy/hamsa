@@ -1,11 +1,14 @@
-module Types exposing (..)
+module Types exposing (ArtistModel, CategoriesModel, CollectionModel, Image, Metadata, Model, Msg(..), OpenDropdown(..), Response, Route(..), SelectorConfiguration, apiURL, colors, hapImageURL, localDevelopment)
 
 import Css exposing (..)
 import GraphQL.Client.Http as GraphQLClient
 import InfiniteScroll as IS
-import Navigation exposing (Location)
+import Url
+import Browser
+import Browser.Navigation as Navigation
 import RemoteData exposing (RemoteData, WebData)
-import String.Extra as SE
+import Html.Styled exposing (..)
+
 
 
 colors =
@@ -26,6 +29,7 @@ apiURL : String
 apiURL =
     if localDevelopment then
         "http://localhost:8080"
+
     else
         "https://dev.himalayanacademy.com/hamsa-api"
 
@@ -34,13 +38,14 @@ hapImageURL : String -> String
 hapImageURL url =
     let
         fixedURL =
-            SE.replace "/images" "" url
+            String.replace "/images" "" url
     in
     "/hamsa-images" ++ fixedURL
 
 
 type alias Model =
-    { route : Route
+    { key : Navigation.Key
+    , route : Route
     , artists : List String
     , categories : List String
     , collections : List String
@@ -59,7 +64,12 @@ type alias Model =
     , paginationTotal : Int
     , infScroll : IS.Model Msg
     }
+    
 
+type alias Document msg =
+    { title : String
+    , body : List (Html msg)
+    }
 
 type alias CollectionModel =
     { images : List Image
@@ -110,7 +120,8 @@ type alias SelectorConfiguration =
 
 
 type Msg
-    = OnLocationChange Location
+    = UrlRequested Browser.UrlRequest
+    | UrlChanged Url.Url
     | ReceiveQueryResponse (Response (List Image))
     | ReceiveImageResponse (Response Image)
     | ReceiveSelectorConfiguration (Response SelectorConfiguration)
