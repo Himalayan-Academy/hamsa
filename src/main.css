@@ -138,8 +138,7 @@ div.collection {
 div.tile {
   display: inline-block;
   margin: 0.25rem;
-  width: 100%;
-  background: #FFF; }
+  width: 100%; }
   div.tile figure {
     width: 100%;
     max-width: 100%;

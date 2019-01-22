@@ -40,7 +40,7 @@ hapImageURL url =
         fixedURL =
             String.replace "/images" "" url
     in
-    "/hamsa-images" ++ fixedURL
+    "https://www.himalayanacademy.com/hamsa-images" ++ fixedURL
 
 
 type alias Model =

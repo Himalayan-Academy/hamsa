@@ -1,7 +1,7 @@
 module Main exposing (artistQueryRequest, categoryQueryRequest, collectionQuery, collectionQueryRequest, getDescription, getPaginationTotal, imageQuery, imageQueryRequest, init, loadFirstUrl, main, selectorQuery, sendArtistRequest, sendCategoryRequest, sendHomeRequest, sendImageRequest, sendQueryRequest, sendSearchRequest, sendSelectorConfigurationRequest, subscriptions, update, updateInfiniteScrollCmd, view)
 
 import Basics exposing ((>>))
-import Browser exposing (Document)
+import Browser exposing (Document, UrlRequest(..))
 import Browser.Events as Events
 import Browser.Navigation as Navigation
 import Css exposing (..)
@@ -417,8 +417,17 @@ update msg model =
             , Cmd.none
             )
 
-        UrlRequested _ ->
-            ( model, Cmd.none )
+        UrlRequested urlRequest ->
+            case urlRequest of
+                Internal url ->
+                    ( model
+                    , Navigation.pushUrl model.key (Url.toString url)
+                    )
+
+                External url ->
+                    ( model
+                    , Navigation.load url
+                    )
 
         UrlChanged location ->
             let
@@ -447,7 +456,7 @@ update msg model =
                         , openDropdown = AllClosed
                         , offset = 0
                         , activePageDescription = RemoteData.NotAsked
-                      }
+                        }
                     , Cmd.batch
                         [ nextCmd
                         , sendHomeRequest model.offset model.limit
@@ -460,7 +469,7 @@ update msg model =
                         | route = newRoute
                         , openDropdown = AllClosed
                         , image = Nothing
-                      }
+                        }
                     , Cmd.none
                     )
 
@@ -469,7 +478,7 @@ update msg model =
                         | route = newRoute
                         , openDropdown = AllClosed
                         , image = Nothing
-                      }
+                        }
                     , sendImageRequest id
                     )
 
@@ -483,7 +492,7 @@ update msg model =
                         , openDropdown = AllClosed
                         , collection = RemoteData.NotAsked
                         , offset = 0
-                      }
+                        }
                     , Cmd.batch
                         [ sendArtistRequest model.offset model.limit artistString
                         , getDescription artist
@@ -502,7 +511,7 @@ update msg model =
                         , collection = RemoteData.NotAsked
                         , offset = 0
                         , infScroll = model.infScroll |> IS.loadMoreCmd (\dir -> sendCategoryRequest newOffset model.limit categoryString)
-                      }
+                        }
                     , Cmd.batch
                         [ sendCategoryRequest model.offset model.limit categoryString
                         , getDescription category
@@ -537,7 +546,7 @@ update msg model =
                         , error = Nothing
                         , offset = model.offset + model.limit
                         , infScroll = IS.stopLoading model.infScroll |> updateInfiniteScrollCmd model
-                      }
+                        }
                     , nextCmd
                     )
 
@@ -567,7 +576,7 @@ update msg model =
                         | artists = data.artists
                         , categories = data.keywords
                         , collections = data.collections
-                      }
+                        }
                     , Cmd.none
                     )
 
@@ -593,7 +602,7 @@ update msg model =
                 , collection = RemoteData.NotAsked
                 , offset = 0
                 , activePageDescription = RemoteData.NotAsked
-              }
+                }
             , searchCmd
             )
 

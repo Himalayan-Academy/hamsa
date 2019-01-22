@@ -2,14 +2,15 @@
   "name": "hamsa",
   "version": "1.0.0",
   "description": "Hindu Art Museum of Spiritual Arts",
+  "homepage": "https://dev.himalayanacademy.com/hamsa",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "build": "node scripts/build.js",
+    "build": "cross-env PUBLIC_URL=./ node scripts/build.js",
     "start": "node scripts/start.js",
-    "dev": "cross-env ELM_DEBUGGER=false node scripts/start.js",
+    "start-no-debug": "cross-env ELM_DEBUGGER=false node scripts/start.js",
     "make": "elm make",
     "repl": "elm repl",
     "reactor": "elm reactor",
