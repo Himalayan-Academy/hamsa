@@ -8,7 +8,7 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "cross-env PUBLIC_URL=./ node scripts/build.js",
+    "build": "cross-env PUBLIC_URL=/hamsa/ node scripts/build.js",
     "start": "node scripts/start.js",
     "start-no-debug": "cross-env ELM_DEBUGGER=false node scripts/start.js",
     "make": "elm make",
