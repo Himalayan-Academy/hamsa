@@ -6,8 +6,13 @@ import Url.Parser exposing (..)
 
 
 extractRoute : Url.Url -> Route
-extractRoute location =
-    case parse matchRoute location of
+extractRoute url =
+    let
+        fragmentAsUrl =
+          { url | path = Maybe.withDefault "" url.fragment, fragment = Nothing }
+    in
+    
+    case parse matchRoute fragmentAsUrl of
         Just route ->
             route
 

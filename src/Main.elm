@@ -418,6 +418,8 @@ update msg model =
             )
 
         UrlRequested urlRequest ->
+           
+            
             case urlRequest of
                 Internal url ->
                     ( model
@@ -430,9 +432,10 @@ update msg model =
                     )
 
         UrlChanged location ->
+         
             let
                 newRoute =
-                    extractRoute location
+                   extractRoute location
 
                 newOffset =
                     model.offset + model.limit

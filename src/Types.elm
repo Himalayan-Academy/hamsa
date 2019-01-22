@@ -31,7 +31,7 @@ apiURL =
         "http://localhost:8080"
 
     else
-        "https://www.himalayanacademy.com/hamsa-api"
+        "https://dev.himalayanacademy.com/hamsa-api"
 
 
 hapImageURL : String -> String
