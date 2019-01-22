@@ -1,6 +1,7 @@
 body {
   margin: 0;
-  overflow: hidden; }
+  overflow: hidden;
+  background-image: url(https://www.himalayanacademy.com/assets/img/bg-page.jpg); }
 
 .mobile-header {
   display: none; }
