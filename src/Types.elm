@@ -1,4 +1,4 @@
-module Types exposing (ArtistModel, CategoriesModel, CollectionModel, Image, Metadata, Model, Msg(..), OpenDropdown(..), Response, Route(..), SelectorConfiguration, apiURL, colors, hapImageURL, localDevelopment)
+module Types exposing (ArtistModel, StyledDocument, CategoriesModel, CollectionModel, Image, Metadata, Model, Msg(..), OpenDropdown(..), Response, Route(..), SelectorConfiguration, apiURL, colors, hapImageURL, localDevelopment)
 
 import Css exposing (..)
 import GraphQL.Client.Http as GraphQLClient
@@ -66,7 +66,7 @@ type alias Model =
     }
     
 
-type alias Document msg =
+type alias StyledDocument msg =
     { title : String
     , body : List (Html msg)
     }

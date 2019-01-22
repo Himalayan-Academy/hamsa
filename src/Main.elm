@@ -1,7 +1,7 @@
 module Main exposing (artistQueryRequest, categoryQueryRequest, collectionQuery, collectionQueryRequest, getDescription, getPaginationTotal, imageQuery, imageQueryRequest, init, loadFirstUrl, main, selectorQuery, sendArtistRequest, sendCategoryRequest, sendHomeRequest, sendImageRequest, sendQueryRequest, sendSearchRequest, sendSelectorConfigurationRequest, subscriptions, update, updateInfiniteScrollCmd, view)
 
 import Basics exposing ((>>))
-import Browser
+import Browser exposing (Document)
 import Browser.Events as Events
 import Browser.Navigation as Navigation
 import Css exposing (..)
@@ -15,7 +15,7 @@ import GraphQL.Request.Builder as B exposing (..)
 import GraphQL.Request.Builder.Arg as Arg
 import GraphQL.Request.Builder.Variable as Var
 import Html.Styled exposing (..)
-import Html.Styled.Attributes as SA exposing (css)
+import Html.Styled.Attributes as SA exposing (css, style)
 import Http
 import InfiniteScroll as IS
 import Json.Decode
@@ -41,8 +41,9 @@ init firstUrl location key =
     ( { route = HomeRoute
       , collection = RemoteData.NotAsked
       , artists = []
-      , categories = []
+      , key = key
       , collections = []
+      , categories = []
       , query = Nothing
       , image = Nothing
       , error = Nothing
@@ -125,12 +126,22 @@ getPaginationTotal what query =
         |> Task.attempt ReceivedPaginationTotal
 
 
+extractGraphQLError : GraphQLClient.Error -> String
+extractGraphQLError error =
+    case error of
+        GraphQLClient.HttpError _ ->
+            "HTTP Error"
+
+        GraphQLClient.GraphQLError _ ->
+            "GraphQLError"
+
+
 sendQueryRequest : Request Query a -> Task GraphQLClient.Error a
 sendQueryRequest request =
     GraphQLClient.sendQuery (apiURL ++ "/graphql") request
 
 
-sendImageRequest : String -> String
+sendImageRequest : String -> Cmd Msg
 sendImageRequest checksum =
     sendQueryRequest
         (imageQueryRequest checksum)
@@ -171,7 +182,7 @@ sendSearchRequest query =
 
 loadFirstUrl : Navigation.Key -> String -> Cmd Msg
 loadFirstUrl key firstUrl =
-    Navigation.pushUrl firstUrl
+    Navigation.pushUrl key firstUrl
 
 
 sendHomeRequest : Int -> Int -> Cmd Msg
@@ -180,7 +191,7 @@ sendHomeRequest offset limit =
         |> Task.attempt ReceiveQueryResponse
 
 
-selectorQuery : Document Query SelectorConfiguration {}
+selectorQuery : B.Document Query SelectorConfiguration {}
 selectorQuery =
     let
         conf =
@@ -226,7 +237,7 @@ imageQueryRequest checksum =
         |> request { checksum = checksum }
 
 
-imageQuery : Document Query Image { vars | checksum : String }
+imageQuery : B.Document Query Image { vars | checksum : String }
 imageQuery =
     let
         checksumVar =
@@ -258,7 +269,7 @@ imageQuery =
 
 
 collectionQuery :
-    Document Query
+    B.Document Query
         (List Image)
         { vars
             | artist : Maybe String
@@ -386,7 +397,7 @@ update msg model =
             ( { model
                 | openDropdown = AllClosed
               }
-            , Navigation.back 1
+            , Navigation.back model.key 1
             )
 
         SetRoute url ->
@@ -405,6 +416,9 @@ update msg model =
               }
             , Cmd.none
             )
+
+        UrlRequested _ ->
+            ( model, Cmd.none )
 
         UrlChanged location ->
             let
@@ -528,7 +542,7 @@ update msg model =
                     )
 
                 Err error ->
-                    ( { model | error = Just <| String.fromInt <| error, busy = False }, nextCmd )
+                    ( { model | error = Just <| extractGraphQLError error, busy = False }, nextCmd )
 
         ReceiveImageResponse response ->
             case response of
@@ -536,7 +550,7 @@ update msg model =
                     ( { model | image = Just data, error = Nothing }, nextCmd )
 
                 Err error ->
-                    ( { model | image = Nothing, error = Just <| String.fromInt <| error }, nextCmd )
+                    ( { model | image = Nothing, error = Just <| extractGraphQLError error }, nextCmd )
 
         ReceivedPaginationTotal response ->
             case response of
@@ -544,7 +558,7 @@ update msg model =
                     ( { model | paginationTotal = data }, nextCmd )
 
                 Err error ->
-                    ( { model | paginationTotal = 0, error = Just <| String.fromInt <| error }, nextCmd )
+                    ( { model | paginationTotal = 0, error = Just <| extractGraphQLError error }, nextCmd )
 
         ReceiveSelectorConfiguration response ->
             case response of
@@ -558,7 +572,7 @@ update msg model =
                     )
 
                 Err error ->
-                    ( { model | error = Just <| String.fromInt <| error }, Cmd.none )
+                    ( { model | error = Just <| extractGraphQLError error }, Cmd.none )
 
         ChangeQuery query ->
             ( { model | query = Just query }, Cmd.none )
@@ -588,7 +602,7 @@ update msg model =
 ---- VIEW ----
 
 
-view : Model -> Document Msg
+view : Model -> StyledDocument Msg
 view model =
     let
         emptyElement =
@@ -642,10 +656,8 @@ view model =
     , body =
         [ div
             [ SA.fromUnstyled infiniteAttribute
-            , style
-                [ ( "height", "100vh" )
-                , ( "overflow", "scroll" )
-                ]
+            , style "height" "100vh"
+            , style "overflow" "scroll"
             ]
             [ headerElement
             , heroElement
@@ -668,14 +680,14 @@ subscriptions model =
             Sub.none
 
         _ ->
-            Events.onClick (always Blur)
+            Events.onClick (Json.Decode.succeed Blur)
 
 
 
 ---- PROGRAM ----
 
 
-toUnstyledDocument : Document Msg -> Browser.Document Msg
+toUnstyledDocument : StyledDocument Msg -> Browser.Document Msg
 toUnstyledDocument doc =
     { title = doc.title
     , body = List.map toUnstyled doc.body
