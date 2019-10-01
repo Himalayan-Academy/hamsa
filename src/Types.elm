@@ -31,7 +31,7 @@ apiURL =
         "http://localhost:8080"
 
     else
-        "https://dev.himalayanacademy.com/hamsa-api"
+        "https://dev.himalayanacademy.com/hamsa/index.php"
 
 
 hapImageURL : String -> String
@@ -40,7 +40,7 @@ hapImageURL url =
         fixedURL =
             String.replace "/images" "" url
     in
-    "https://www.himalayanacademy.com/hamsa-images" ++ fixedURL
+    "https://dev.himalayanacademy.com/hamsa-images" ++ fixedURL
 
 
 type alias Model =
