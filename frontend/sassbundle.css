@@ -1,0 +1,349 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-image: url(https://www.himalayanacademy.com/assets/img/bg-page.jpg); }
+
+.mobile-header {
+  display: none; }
+
+@media (min-width: 992px) {
+  .hide-in-desktop {
+    display: none !important; } }
+
+.info-blurb {
+  font-family: sans-serif; }
+  .info-blurb h1 {
+    color: #783441; }
+  .info-blurb p {
+    font-size: 1.1em; }
+
+header {
+  display: flex !important;
+  align-content: start !important;
+  align-items: start !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  background-color: #783441;
+  height: 60px;
+  font-family: sans-serif; }
+  @media (min-width: 992px) {
+    header div.monastery-header-text {
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      height: 100%; }
+    header h1.title {
+      color: #D3A073;
+      display: inline-block;
+      font-size: 1rem;
+      padding-right: 10px;
+      margin-left: 30px; }
+    header h2.subtitle {
+      color: #F4F3F1;
+      display: inline-block;
+      font-size: 1rem; } }
+  @media (max-width: 991px) {
+    header div.monastery-header-text {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%; }
+    header h1.title {
+      color: #D3A073;
+      display: inline;
+      font-size: 1.1rem; }
+    header h2.subtitle {
+      color: #F4F3F1;
+      display: inline;
+      font-size: 0.9rem; } }
+  @media (min-width: 992px) {
+    header img.hamsa-logo {
+      margin-left: 120px;
+      z-index: 9999;
+      border: solid 2px white;
+      border-top: none; } }
+  @media (max-width: 991px) {
+    header img.hamsa-logo {
+      display: none; } }
+  @media (min-width: 992px) {
+    header img.monastery-logo {
+      margin-right: 120px;
+      z-index: 9999;
+      margin-left: auto; } }
+  @media (max-width: 991px) {
+    header img.monastery-logo {
+      display: none; } }
+
+img.hamsa-logo {
+  width: 200px;
+  border: solid 0px 1px 1px 1px #fff; }
+
+@keyframes fadein {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+
+.fade {
+  animation-duration: 4s;
+  animation-name: fadein;
+  animation-delay: 3s;
+  animation-fill-mode: forwards; }
+
+.hero {
+  margin: auto; }
+  .hero figure {
+    position: absolute;
+    overflow: hidden;
+    margin: 0;
+    left: 0;
+    text-align: center;
+    opacity: 1; }
+    .hero figure span.label {
+      line-height: 0.2rem;
+      padding-bottom: 20px;
+      padding-left: 60px;
+      width: 100%;
+      max-width: 100%;
+      opacity: 0.8;
+      background-color: #783441;
+      color: #D3A073;
+      font-family: sans-serif;
+      font-size: 1.1em;
+      padding-left: 60px;
+      position: absolute;
+      bottom: 0px;
+      left: 0px; }
+
+*, *:before, *:after {
+  box-sizing: border-box !important; }
+
+section.masonry {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 10px;
+  grid-auto-rows: minmax(200px, auto);
+  grid-auto-flow: dense;
+  padding: 10px; }
+
+div.collection {
+  margin: auto;
+  width: 90%; }
+  div.collection h1 {
+    text-align: center; }
+
+div.tile {
+  display: inline-block;
+  margin: 0.25rem;
+  width: 100%; }
+  div.tile figure {
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin: 0; }
+    div.tile figure img {
+      max-width: 100%;
+      width: 100%;
+      object-fit: cover; }
+    div.tile figure p {
+      padding-left: 20px;
+      width: 100%;
+      max-width: 100%;
+      color: #000;
+      font-family: sans-serif;
+      font-weight: bold;
+      font-size: 1.1em; }
+
+img.is-single-item-display {
+  max-width: 100%; }
+
+.is-selector-categories {
+  border-color: #8181bd;
+  color: #8181bd; }
+
+.is-selector-artists {
+  border-color: #a76b73;
+  color: #a76b73; }
+
+.is-selector-collections {
+  border-color: #ee9f7e;
+  color: #ee9f7e; }
+
+.is-search-box {
+  border-color: #b7bb6e;
+  color: #b7bb6e; }
+
+.round-wrapper {
+  border-radius: 30px;
+  border: solid 1px;
+  display: inline-block;
+  padding: 10px;
+  width: 240px;
+  background-color: #D8B36C;
+  color: #783441;
+  font-weight: 600;
+  cursor: pointer; }
+  .round-wrapper span.title {
+    font-size: 1.1em;
+    padding-left: 8px;
+    font-family: sans-serif; }
+  .round-wrapper input.search {
+    border: none;
+    padding-left: 8px;
+    font-family: sans-serif;
+    background: none;
+    font-weight: 600;
+    color: #783441; }
+  .round-wrapper i.fa {
+    float: right;
+    padding-right: 8px; }
+  .round-wrapper select {
+    display: none; }
+
+.selectWrapper {
+  border-radius: 36px;
+  display: inline-block;
+  overflow: hidden;
+  background: #cccccc;
+  border: 1px solid #cccccc; }
+
+.selectBox {
+  width: 140px;
+  height: 40px;
+  border: 0px;
+  outline: none; }
+
+.selector-controls {
+  display: flex;
+  padding: 12px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  position: relative;
+  background-color: #783441; }
+
+.loading-wrapper {
+  margin: auto;
+  color: #a76b73;
+  text-align: center;
+  padding-top: 20px; }
+
+.single-image-wrapper {
+  display: flex;
+  color: #919191;
+  font-family: sans-serif; }
+  .single-image-wrapper .single-image {
+    flex: 50%; }
+    .single-image-wrapper .single-image img {
+      max-width: 100%;
+      width: 100%; }
+  .single-image-wrapper .metadata {
+    flex: 50%;
+    color: #919191;
+    padding-left: 10px;
+    padding-right: 10px; }
+    .single-image-wrapper .metadata img.more-images {
+      max-width: 80px;
+      margin: 5px; }
+    .single-image-wrapper .metadata div.divider {
+      border-bottom: solid 2px #919191;
+      height: 0; }
+    .single-image-wrapper .metadata div.dotted {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border-bottom: 2px dashed;
+      height: 0; }
+    .single-image-wrapper .metadata h3 {
+      color: #a76b73; }
+    .single-image-wrapper .metadata h1 {
+      font-weight: lighter; }
+    .single-image-wrapper .metadata .author {
+      display: inline;
+      color: #a76b73;
+      font-size: 16px; }
+      .single-image-wrapper .metadata .author i {
+        padding-right: 10px; }
+      .single-image-wrapper .metadata .author h2 {
+        display: inline;
+        padding-left: 10px;
+        border-left: solid 2px #a76b73;
+        font-weight: normal; }
+    .single-image-wrapper .metadata .categories {
+      display: block;
+      color: #919191;
+      font-size: 12px; }
+      .single-image-wrapper .metadata .categories i {
+        padding-right: 10px;
+        color: #8181bd;
+        width: 25px; }
+      .single-image-wrapper .metadata .categories h2 {
+        display: inline;
+        padding-left: 10px;
+        border-left: solid 2px #919191;
+        font-weight: normal; }
+    .single-image-wrapper .metadata .keywords {
+      display: block;
+      color: #919191;
+      font-size: 12px; }
+      .single-image-wrapper .metadata .keywords i {
+        color: #ee9f7e;
+        padding-right: 10px;
+        width: 25px; }
+      .single-image-wrapper .metadata .keywords h2 {
+        display: inline;
+        padding-left: 10px;
+        border-left: solid 2px #919191;
+        font-weight: normal; }
+    .single-image-wrapper .metadata .collections {
+      display: block;
+      color: #919191;
+      font-size: 12px; }
+      .single-image-wrapper .metadata .collections i {
+        color: #b7bb6e;
+        padding-right: 10px;
+        width: 25px; }
+      .single-image-wrapper .metadata .collections h2 {
+        display: inline;
+        padding-left: 10px;
+        border-left: solid 2px #919191;
+        font-weight: normal; }
+
+.artist-metadata {
+  flex-direction: row; }
+
+@media (max-width: 991px) {
+  .selector-controls {
+    display: none; }
+  .hide-in-mobile {
+    display: none !important; }
+  .hero {
+    max-height: 185px !important;
+    height: 185px !important; }
+    .hero figure {
+      max-height: 185px !important;
+      height: 185px !important; }
+      .hero figure img.hero {
+        max-height: 185px !important;
+        height: 185px !important; }
+  header {
+    display: none !important; }
+  .mobile-header {
+    display: flex; }
+  .single-image-wrapper {
+    flex-direction: column;
+    padding-top: 10px; }
+  .artist-metadata {
+    flex-direction: column;
+    justify-items: center; }
+  section.masonry {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    grid-auto-flow: dense;
+    padding: 10px; } }

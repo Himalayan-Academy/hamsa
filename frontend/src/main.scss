@@ -1,0 +1,520 @@
+@import "_mediaqueries.scss";
+
+
+// colors
+$color-purple: #8181bd;
+$color-ocre: #a76b73;
+$color-orange: #ee9f7e;
+$color-green: #b7bb6e;
+
+$color-dropdown-categories: $color-purple;
+$color-dropdown-artists: $color-ocre;
+$color-dropdown-collections: $color-orange;
+$color-search-box: $color-green;
+
+
+@mixin flex($typeFlex, $wrapFlex, $justifyFlex, $alignFlex) {
+  display: flex !important;
+  align-content: $alignFlex !important;
+  align-items: $alignFlex !important;
+  flex-direction: $typeFlex !important;
+  //justify-content: $justifyFlex !important;
+
+  @if $wrapFlex == wrap {
+      flex-wrap: wrap !important;
+  }
+  @else if $wrapFlex == w {
+      flex-wrap: wrap !important;
+  }
+  @else if $wrapFlex == nowrap {
+      flex-wrap: nowrap !important;
+  }
+  @else if $wrapFlex == n {
+      flex-wrap: nowrap !important;
+  }
+  @else if $wrapFlex == '' {
+      flex-wrap: nowrap !important;
+  }
+}
+
+
+$dark-theme-background-color: #783441;
+$dark-theme-primary-color:#D3A073;
+$dark-theme-secondary-color: #F4F3F1;
+
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url(https://www.himalayanacademy.com/assets/img/bg-page.jpg);
+}
+
+.mobile-header {
+  display: none;
+}
+
+@include respond-above(md) {
+  .hide-in-desktop {
+    display: none !important;
+  }
+}
+
+.info-blurb {
+  font-family: sans-serif;
+  h1 {
+    color: #783441;
+  }
+  p {
+    font-size: 1.1em;
+  }
+}
+
+header {
+  @include flex(row, n, space-between, start);
+  background-color: $dark-theme-background-color;
+  height: 60px;
+  font-family: sans-serif;
+
+
+  @include respond-above(md) {
+    div.monastery-header-text {
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      flex: 1 1 auto;
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    h1.title {
+      color: $dark-theme-primary-color;
+      display: inline-block;
+      font-size: 1rem;
+      padding-right: 10px;
+      margin-left: 30px;
+    }
+
+    h2.subtitle {
+      color: $dark-theme-secondary-color;
+      display: inline-block;
+      font-size: 1rem;
+    }
+
+    
+    
+  }
+
+
+
+  @include respond-below(md) {
+    div.monastery-header-text {
+      display:flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+    }
+
+    h1.title {
+      color: $dark-theme-primary-color;
+      display: inline;
+      font-size: 1.1rem;
+    }
+
+    h2.subtitle {
+      color: $dark-theme-secondary-color;
+      display: inline;
+      font-size: 0.9rem;
+    }
+  }
+
+  @include respond-above(md) {
+    img.hamsa-logo {
+      margin-left: 120px;
+      z-index: 9999;
+      border: solid 2px white;
+      border-top: none;
+      
+    }
+  }
+
+  @include respond-below(md) {
+    img.hamsa-logo {
+      display:none;
+    }
+  }
+
+  @include respond-above(md) {
+    img.monastery-logo {
+      margin-right: 120px;
+      z-index: 9999;
+      margin-left: auto;
+    }
+  }
+
+  @include respond-below(md) {
+    img.monastery-logo {
+      display:none;
+    }
+  }
+}
+
+img.hamsa-logo {
+ 	width: 200px;
+ 	border: solid 0px 1px 1px 1px #fff;
+}
+
+//
+// Hero
+//
+
+  
+@keyframes fadein {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.fade {
+  animation-duration: 4s;
+  animation-name: fadein;
+  animation-delay: 3s;
+  animation-fill-mode: forwards;
+}
+
+
+.hero {
+  // height: 250px;
+  // max-height: 250px;
+  margin: auto;
+
+  figure {
+    // height: 250px;
+    position: absolute;
+    overflow: hidden;
+    margin: 0;
+    left: 0;
+    text-align: center;
+    opacity: 1; 
+
+   
+    img.hero {
+      // width: 100%;
+      // height: 100%;
+    }
+
+    span.label {
+      line-height: 0.2rem;
+      // padding-top: 20px;
+      padding-bottom: 20px;
+      padding-left: 60px;
+      width: 100%;
+      max-width: 100%;
+      opacity: 0.8;
+      background-color: $dark-theme-background-color;
+      color: $dark-theme-primary-color;
+      font-family: sans-serif;
+      font-size: 1.1em;
+      padding-left: 60px;
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+    }
+  }
+}
+
+@include respond-below(md) {
+ 
+}
+
+
+//
+// Masonry
+//
+
+*, *:before, *:after {box-sizing:  border-box !important;}
+
+section.masonry {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: 10px;
+  grid-auto-rows: minmax(200px, auto);
+  grid-auto-flow: dense;
+  padding: 10px;
+}
+
+div.collection {
+  margin:auto;
+  width: 90%;
+
+  h1 {
+    text-align: center;
+  }
+}
+
+
+div.tile {
+ display: inline-block;
+ margin:  0.25rem;
+ width:  100%;
+ //border: solid 1px #c5c4c4;
+
+  figure {
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+
+
+    img {
+      max-width: 100%;
+      width: 100%;
+      object-fit: cover
+    }
+
+    p {
+      padding-left: 20px;
+      width: 100%;
+      max-width: 100%;
+      color: #000;
+      font-family: sans-serif;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+  }
+}
+
+img.is-single-item-display {
+  max-width: 100%;
+}
+
+
+
+// SELECT
+.is-selector-categories {
+  border-color: $color-dropdown-categories;
+  color: $color-dropdown-categories;
+}
+
+.is-selector-artists {
+  border-color: $color-dropdown-artists;
+  color: $color-dropdown-artists;
+}
+
+.is-selector-collections {
+  border-color: $color-dropdown-collections;
+  color: $color-dropdown-collections;
+}
+
+.is-search-box {
+  border-color: $color-search-box;
+  color: $color-search-box;
+}
+
+.round-wrapper {
+  border-radius: 30px;
+  border: solid 1px;
+  display: inline-block;
+  padding: 10px;
+  width: 240px;
+  background-color: #D8B36C;
+  color: #783441;
+  font-weight: 600;
+  cursor: pointer;
+
+  span.title {
+    font-size: 1.1em;
+    padding-left: 8px;
+    font-family: sans-serif;
+  }
+
+  input.search {
+    border:none;
+    padding-left: 8px;
+    font-family: sans-serif;
+    background: none; 
+    font-weight: 600;
+    color: #783441;
+  }
+
+  i.fa {
+    float: right;
+    padding-right: 8px;
+  }
+
+  select {
+    display: none;
+  }
+
+}
+.selectWrapper {
+  border-radius:36px;
+  display:inline-block;
+  overflow:hidden;
+  background:#cccccc;
+  border:1px solid #cccccc;
+}
+.selectBox {
+  width:140px;
+  height:40px;
+  border:0px;
+  outline:none;
+}
+
+.selector-controls {
+  display: flex;
+  padding: 12px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  position: relative;
+  background-color: #783441;
+}
+
+.loading-wrapper {
+  margin: auto;
+  color: $color-ocre;
+  text-align: center;
+  padding-top: 20px;
+}
+
+
+.single-image-wrapper {
+  display: flex;
+  
+  color: #919191;
+  font-family: sans-serif;
+
+  .single-image {
+      flex: 50%;
+
+      img {
+        max-width: 100%;
+        width: 100%;
+        
+    }
+  }
+
+  .metadata {
+    flex: 50%;
+    color: #919191;
+    padding-left: 10px; 
+      padding-right: 10px;
+
+    img.more-images {
+      max-width: 80px;
+      margin: 5px;
+    }
+
+    div.divider {
+      border-bottom: solid 2px #919191; 
+      height: 0; 
+    }
+
+    div.dotted {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border-bottom: 2px dashed; 
+      height: 0; 
+    }
+
+    h3 {
+      color: $color-ocre;
+    }
+
+    h1 {
+      font-weight: lighter;
+    }
+
+    .author {
+      display: inline;
+      color: $color-ocre;
+      font-size: 16px;
+
+      i {
+        padding-right: 10px;
+      }
+
+      h2 {
+        display: inline;
+        padding-left: 10px;
+        border-left: solid 2px $color-ocre;
+        font-weight: normal;
+
+      }
+    }
+
+    .categories {
+      display: block;
+      color: #919191;
+      font-size: 12px;
+
+      i {
+        padding-right: 10px;
+        color: $color-purple;
+        width: 25px;
+      }
+
+      h2 {
+        display: inline;
+        padding-left: 10px;
+        border-left: solid 2px #919191;
+        font-weight: normal;
+
+      }
+    }
+
+    .keywords {
+      display: block;
+      color: #919191;
+      font-size: 12px;
+
+      i {
+        color: $color-orange;
+        padding-right: 10px;
+        width: 25px;
+
+      }
+
+      h2 {
+        display: inline;
+        padding-left: 10px;
+        border-left: solid 2px #919191;
+        font-weight: normal;
+      }
+    }
+
+    .collections {
+      display: block;
+      color: #919191;
+      font-size: 12px;
+
+      i {
+        color: $color-green;
+        padding-right: 10px;
+        width: 25px;
+
+      }
+
+      h2 {
+        display: inline;
+        padding-left: 10px;
+        border-left: solid 2px #919191;
+        font-weight: normal;
+
+      }
+    }
+  }
+  
+}
+
+.artist-metadata {
+  flex-direction: row;
+}
+
+@import "_mobile.scss";

@@ -1,26 +1,17 @@
-# Distribution
-#build/
-
-# elm-package generated files
-elm-stuff
-
-# elm-repl generated files
-repl-temp-*
-
-# Dependency directories
+.DS_Store
 node_modules
+public/bundle.*
 
 # Desktop Services Store on macOS
-.DS_Store
-.idea
-node_modules
-elm_stuff
 vendor/
 
-DS_Store
 *.log
 
 *.pid
+
+old/
+
+.idea
 
 # aag auxiliary deploy scripts
 scripts/*.sh
