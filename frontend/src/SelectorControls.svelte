@@ -3,6 +3,7 @@
     import SearchField from "./SearchField.svelte";
     import {getSelectors} from "./api.js";
     import {onMount} from "svelte";
+    import {go} from "./navigation.js";
 
     let artistsList = [];
     let collectionList = [];
@@ -18,6 +19,10 @@
 
 
     })
+
+    const goInfo = () => {
+        go("InfoPage");
+    }
 </script>
 <style>
     .selector-controls {
@@ -45,11 +50,10 @@
         align-items: center;
         cursor: pointer;
     }
-
 </style>
 
 <div class="selector-controls">
-    <div class="bolotinha"><span>i</span></div>
+    <div class="bolotinha" on:click={goInfo}><span>i</span></div>
     <SelectorButton title="Tags" items={keywordList} />
     <SelectorButton title="Artists" items={artistsList} />
     <SelectorButton title="Collections" items={collectionList} />

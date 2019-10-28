@@ -33,5 +33,5 @@
             is commercial, you must get written permission from the copyright holder, Himalayan Academy, by writing to:
             <a href="mailto:contact@hindu.org">contact@hindu.org</a>.</p>
     </div>
-    <button class="back-button">Go back</button>
+    <button class="back-button" on:click={() => history.back()}>Go back</button>
 </div>

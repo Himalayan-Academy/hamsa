@@ -12,8 +12,6 @@
     onMount( async () => {
         let {images} = await getCollection({limit: 50, offset});
         collection = images;
-        await tick();
-        up();
     })
 
     const thumbnailToURL = (t) => {
