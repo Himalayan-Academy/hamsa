@@ -2910,7 +2910,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (161:2) {:else}
+    // (165:2) {:else}
     function create_else_block(ctx) {
     	var t0, div1, div0, t1, section;
 
@@ -2943,12 +2943,12 @@ var app = (function () {
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
-    			attr_dev(div0, "class", "collection-inner svelte-71frf1");
-    			add_location(div0, file$6, 179, 6, 4019);
-    			attr_dev(section, "class", "g svelte-71frf1");
-    			add_location(section, file$6, 180, 6, 4059);
+    			attr_dev(div0, "class", "collection-inner svelte-2ovhb3");
+    			add_location(div0, file$6, 183, 6, 4209);
+    			attr_dev(section, "class", "g svelte-2ovhb3");
+    			add_location(section, file$6, 184, 6, 4249);
     			attr_dev(div1, "class", "collection");
-    			add_location(div1, file$6, 178, 4, 3987);
+    			add_location(div1, file$6, 182, 4, 4177);
     		},
 
     		m: function mount(target, anchor) {
@@ -3029,11 +3029,11 @@ var app = (function () {
     			if (each_1_else) each_1_else.d();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block.name, type: "else", source: "(161:2) {:else}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block.name, type: "else", source: "(165:2) {:else}", ctx });
     	return block;
     }
 
-    // (157:2) {#if images.length == 0}
+    // (161:2) {#if images.length == 0}
     function create_if_block(ctx) {
     	var div, i;
 
@@ -3042,9 +3042,9 @@ var app = (function () {
     			div = element("div");
     			i = element("i");
     			attr_dev(i, "class", "fa fa-spinner fa-spin fa-3x");
-    			add_location(i, file$6, 158, 6, 3356);
+    			add_location(i, file$6, 162, 6, 3546);
     			attr_dev(div, "class", "loading-wrapper");
-    			add_location(div, file$6, 157, 4, 3319);
+    			add_location(div, file$6, 161, 4, 3509);
     		},
 
     		m: function mount(target, anchor) {
@@ -3060,11 +3060,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block.name, type: "if", source: "(157:2) {#if images.length == 0}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block.name, type: "if", source: "(161:2) {#if images.length == 0}", ctx });
     	return block;
     }
 
-    // (162:4) {#if collection !== 'home'}
+    // (166:4) {#if collection !== 'home'}
     function create_if_block_1(ctx) {
     	var div1, h3, t0, t1, div0, t2, p;
 
@@ -3080,14 +3080,14 @@ var app = (function () {
     			if (if_block) if_block.c();
     			t2 = space();
     			p = element("p");
-    			attr_dev(h3, "class", "collection-title svelte-71frf1");
-    			add_location(h3, file$6, 163, 8, 3502);
-    			attr_dev(p, "class", "collection-description svelte-71frf1");
-    			add_location(p, file$6, 172, 10, 3857);
-    			attr_dev(div0, "class", "collection-metadata svelte-71frf1");
-    			add_location(div0, file$6, 164, 8, 3558);
-    			attr_dev(div1, "class", "collection-header svelte-71frf1");
-    			add_location(div1, file$6, 162, 6, 3461);
+    			attr_dev(h3, "class", "collection-title svelte-2ovhb3");
+    			add_location(h3, file$6, 167, 8, 3692);
+    			attr_dev(p, "class", "collection-description svelte-2ovhb3");
+    			add_location(p, file$6, 176, 10, 4047);
+    			attr_dev(div0, "class", "collection-metadata svelte-2ovhb3");
+    			add_location(div0, file$6, 168, 8, 3748);
+    			attr_dev(div1, "class", "collection-header svelte-2ovhb3");
+    			add_location(div1, file$6, 166, 6, 3651);
     		},
 
     		m: function mount(target, anchor) {
@@ -3133,11 +3133,11 @@ var app = (function () {
     			if (if_block) if_block.d();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1.name, type: "if", source: "(162:4) {#if collection !== 'home'}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1.name, type: "if", source: "(166:4) {#if collection !== 'home'}", ctx });
     	return block;
     }
 
-    // (166:10) {#if collectionThumb}
+    // (170:10) {#if collectionThumb}
     function create_if_block_2(ctx) {
     	var img, img_alt_value, dispose;
 
@@ -3146,9 +3146,9 @@ var app = (function () {
     			img = element("img");
     			attr_dev(img, "src", ctx.collectionThumb);
     			attr_dev(img, "alt", img_alt_value = "photo: " + ctx.collection);
-    			attr_dev(img, "class", "svelte-71frf1");
+    			attr_dev(img, "class", "svelte-2ovhb3");
     			toggle_class(img, "hidden", !ctx.collectionThumb);
-    			add_location(img, file$6, 166, 12, 3638);
+    			add_location(img, file$6, 170, 12, 3828);
     			dispose = listen_dev(img, "error", ctx.error_handler);
     		},
 
@@ -3178,11 +3178,11 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2.name, type: "if", source: "(166:10) {#if collectionThumb}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2.name, type: "if", source: "(170:10) {#if collectionThumb}", ctx });
     	return block;
     }
 
-    // (188:8) {:else}
+    // (192:8) {:else}
     function create_else_block_1(ctx) {
     	var p, t0, t1, t2;
 
@@ -3192,8 +3192,8 @@ var app = (function () {
     			t0 = text("Sorry but we couldn't find images related to ");
     			t1 = text(ctx.collection);
     			t2 = text(".\r\n          ");
-    			attr_dev(p, "class", "no-collection svelte-71frf1");
-    			add_location(p, file$6, 188, 10, 4297);
+    			attr_dev(p, "class", "no-collection svelte-2ovhb3");
+    			add_location(p, file$6, 192, 10, 4487);
     		},
 
     		m: function mount(target, anchor) {
@@ -3215,11 +3215,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block_1.name, type: "else", source: "(188:8) {:else}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block_1.name, type: "else", source: "(192:8) {:else}", ctx });
     	return block;
     }
 
-    // (182:8) {#each images as item}
+    // (186:8) {#each images as item}
     function create_each_block$1(ctx) {
     	var div, figure, img, img_src_value, t;
 
@@ -3231,12 +3231,12 @@ var app = (function () {
     			t = space();
     			attr_dev(img, "src", img_src_value = ctx.thumbnailToURL(ctx.item.thumbnail));
     			attr_dev(img, "alt", "");
-    			attr_dev(img, "class", "svelte-71frf1");
-    			add_location(img, file$6, 184, 14, 4176);
-    			attr_dev(figure, "class", "svelte-71frf1");
-    			add_location(figure, file$6, 183, 12, 4152);
-    			attr_dev(div, "class", "gi svelte-71frf1");
-    			add_location(div, file$6, 182, 10, 4122);
+    			attr_dev(img, "class", "svelte-2ovhb3");
+    			add_location(img, file$6, 188, 14, 4366);
+    			attr_dev(figure, "class", "svelte-2ovhb3");
+    			add_location(figure, file$6, 187, 12, 4342);
+    			attr_dev(div, "class", "gi svelte-2ovhb3");
+    			add_location(div, file$6, 186, 10, 4312);
     		},
 
     		m: function mount(target, anchor) {
@@ -3258,7 +3258,7 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$1.name, type: "each", source: "(182:8) {#each images as item}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$1.name, type: "each", source: "(186:8) {#each images as item}", ctx });
     	return block;
     }
 
@@ -3277,7 +3277,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			if_block.c();
-    			add_location(div, file$6, 155, 0, 3280);
+    			add_location(div, file$6, 159, 0, 3470);
     		},
 
     		l: function claim(nodes) {
@@ -3347,12 +3347,14 @@ var app = (function () {
           opts.keyword = keyword;
           $$invalidate('collection', collection = data.collection);
           getDescription(keyword);
+          document.title = `HAMSA - collection: ${keyword}`;
         }
 
         if (data.keyword) {
           opts.keyword = data.keyword;
           $$invalidate('collection', collection = data.keyword);
           getDescription(keyword);
+          document.title = `HAMSA - keyword: ${keyword}`;
         }
 
         if (data.artist) {
@@ -3360,6 +3362,7 @@ var app = (function () {
           $$invalidate('collection', collection = data.artist);
           getDescription(data.artist);
           getCollectionThumb(data.artist);
+          document.title = `HAMSA - Artist: ${data.artist}`;
         }
 
         console.dir("getting collection", opts);

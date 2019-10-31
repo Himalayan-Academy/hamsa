@@ -30,12 +30,14 @@
       opts.keyword = keyword;
       collection = data.collection;
       getDescription(keyword);
+      document.title = `HAMSA - collection: ${keyword}`;
     }
 
     if (data.keyword) {
       opts.keyword = data.keyword;
       collection = data.keyword;
       getDescription(keyword);
+      document.title = `HAMSA - keyword: ${keyword}`;
     }
 
     if (data.artist) {
@@ -43,6 +45,7 @@
       collection = data.artist;
       getDescription(data.artist);
       getCollectionThumb(data.artist);
+      document.title = `HAMSA - Artist: ${data.artist}`;
     }
 
     console.dir("getting collection", opts);
@@ -124,6 +127,7 @@
 
   .collection-metadata > img {
     max-width: 300px;
+    height: auto;
     margin: 10px;
   }
 
