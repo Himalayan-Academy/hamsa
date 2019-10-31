@@ -580,6 +580,7 @@ var app = (function () {
     const currentView = writable({view: "Collection", data: {}});
 
     const go = (view, data) => {
+        history.pushState({view, data}, `HAMSA - ${view}`);
         currentView.set({view, data});
     };
 
