@@ -25,5 +25,5 @@
   <Header />
   <Hero />
   <SelectorControls />
-  <svelte:component this={views[$currentView.view]} {...$currentView.data} />
+  <svelte:component this={views[$currentView.view]} />
 </div>

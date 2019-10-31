@@ -13,7 +13,7 @@ export const count = async (artist, keyword) => {
       }
     `;
 
-    return executeQuery(query, {artist, keyword});
+    return executeQuery(query, { artist, keyword });
 };
 
 
@@ -31,14 +31,11 @@ export const getSelectors = async () => {
 
 export const getCollection = async (payload) => {
     let query = gql`
-      query($limit: Int!, $offset: Int!) 
-        { 
-            images( limit: $limit offset: $offset ) 
-                { 
-                thumbnail, 
-                checksum 
-                } 
-        } 
+    query($limit: Int!, $offset: Int!, $keyword: String, $artist: String, $query: String) { 
+        images( limit: $limit offset: $offset keyword: $keyword artist: $artist query: $query  ) { 
+          thumbnail, 
+          checksum 
+        } } 
     `;
 
     return executeQuery(query, payload);

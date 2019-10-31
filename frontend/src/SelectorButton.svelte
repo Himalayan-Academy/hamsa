@@ -1,11 +1,16 @@
 <script>
+  import { go } from "./navigation.js";
     export let title="untitled";
     export let items=[];
+    export let key="item"
 
     let open = false;
 
     const onClick = (item) => {
         console.log("clicked", item)
+        let data = {};
+        data[key] = item;
+        go("Collection", data)
     }
 </script>
 

@@ -54,8 +54,8 @@
 
 <div class="selector-controls">
     <div class="bolotinha" on:click={goInfo}><span>i</span></div>
-    <SelectorButton title="Tags" items={keywordList} />
-    <SelectorButton title="Artists" items={artistsList} />
-    <SelectorButton title="Collections" items={collectionList} />
+    <SelectorButton title="Tags" key="keyword" items={keywordList} />
+    <SelectorButton title="Artists" key="artist" items={artistsList} />
+    <SelectorButton title="Collections" key="collection" items={collectionList} />
     <SearchField />
 </div>
