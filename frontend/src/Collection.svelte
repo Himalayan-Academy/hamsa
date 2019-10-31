@@ -36,8 +36,8 @@
     if (data.keyword) {
       opts.keyword = data.keyword;
       collection = data.keyword;
-      getDescription(keyword);
-      document.title = `HAMSA - keyword: ${keyword}`;
+      getDescription(data.keyword);
+      document.title = `HAMSA - tag: ${data.keyword}`;
     }
 
     if (data.artist) {

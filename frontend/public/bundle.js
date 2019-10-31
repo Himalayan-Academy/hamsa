@@ -2989,11 +2989,11 @@ var app = (function () {
     				each_blocks[i].c();
     			}
     			attr_dev(div0, "class", "collection-inner svelte-2ovhb3");
-    			add_location(div0, file$6, 189, 6, 4361);
+    			add_location(div0, file$6, 189, 6, 4367);
     			attr_dev(section, "class", "g svelte-2ovhb3");
-    			add_location(section, file$6, 190, 6, 4401);
+    			add_location(section, file$6, 190, 6, 4407);
     			attr_dev(div1, "class", "collection");
-    			add_location(div1, file$6, 188, 4, 4329);
+    			add_location(div1, file$6, 188, 4, 4335);
     		},
 
     		m: function mount(target, anchor) {
@@ -3087,9 +3087,9 @@ var app = (function () {
     			div = element("div");
     			i = element("i");
     			attr_dev(i, "class", "fa fa-spinner fa-spin fa-3x");
-    			add_location(i, file$6, 168, 6, 3698);
+    			add_location(i, file$6, 168, 6, 3704);
     			attr_dev(div, "class", "loading-wrapper");
-    			add_location(div, file$6, 167, 4, 3661);
+    			add_location(div, file$6, 167, 4, 3667);
     		},
 
     		m: function mount(target, anchor) {
@@ -3126,13 +3126,13 @@ var app = (function () {
     			t2 = space();
     			p = element("p");
     			attr_dev(h3, "class", "collection-title svelte-2ovhb3");
-    			add_location(h3, file$6, 173, 8, 3844);
+    			add_location(h3, file$6, 173, 8, 3850);
     			attr_dev(p, "class", "collection-description svelte-2ovhb3");
-    			add_location(p, file$6, 182, 10, 4199);
+    			add_location(p, file$6, 182, 10, 4205);
     			attr_dev(div0, "class", "collection-metadata svelte-2ovhb3");
-    			add_location(div0, file$6, 174, 8, 3900);
+    			add_location(div0, file$6, 174, 8, 3906);
     			attr_dev(div1, "class", "collection-header svelte-2ovhb3");
-    			add_location(div1, file$6, 172, 6, 3803);
+    			add_location(div1, file$6, 172, 6, 3809);
     		},
 
     		m: function mount(target, anchor) {
@@ -3193,7 +3193,7 @@ var app = (function () {
     			attr_dev(img, "alt", img_alt_value = "photo: " + ctx.collection);
     			attr_dev(img, "class", "svelte-2ovhb3");
     			toggle_class(img, "hidden", !ctx.collectionThumb);
-    			add_location(img, file$6, 176, 12, 3980);
+    			add_location(img, file$6, 176, 12, 3986);
     			dispose = listen_dev(img, "error", ctx.error_handler);
     		},
 
@@ -3238,7 +3238,7 @@ var app = (function () {
     			t1 = text(ctx.collection);
     			t2 = text(".\r\n          ");
     			attr_dev(p, "class", "no-collection svelte-2ovhb3");
-    			add_location(p, file$6, 198, 10, 4639);
+    			add_location(p, file$6, 198, 10, 4645);
     		},
 
     		m: function mount(target, anchor) {
@@ -3277,11 +3277,11 @@ var app = (function () {
     			attr_dev(img, "src", img_src_value = ctx.thumbnailToURL(ctx.item.thumbnail));
     			attr_dev(img, "alt", "");
     			attr_dev(img, "class", "svelte-2ovhb3");
-    			add_location(img, file$6, 194, 14, 4518);
+    			add_location(img, file$6, 194, 14, 4524);
     			attr_dev(figure, "class", "svelte-2ovhb3");
-    			add_location(figure, file$6, 193, 12, 4494);
+    			add_location(figure, file$6, 193, 12, 4500);
     			attr_dev(div, "class", "gi svelte-2ovhb3");
-    			add_location(div, file$6, 192, 10, 4464);
+    			add_location(div, file$6, 192, 10, 4470);
     		},
 
     		m: function mount(target, anchor) {
@@ -3322,7 +3322,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			if_block.c();
-    			add_location(div, file$6, 165, 0, 3622);
+    			add_location(div, file$6, 165, 0, 3628);
     		},
 
     		l: function claim(nodes) {
@@ -3398,8 +3398,8 @@ var app = (function () {
         if (data.keyword) {
           opts.keyword = data.keyword;
           $$invalidate('collection', collection = data.keyword);
-          getDescription(keyword);
-          document.title = `HAMSA - keyword: ${keyword}`;
+          getDescription(data.keyword);
+          document.title = `HAMSA - tag: ${data.keyword}`;
         }
 
         if (data.artist) {
