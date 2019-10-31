@@ -48,6 +48,12 @@
       document.title = `HAMSA - Artist: ${data.artist}`;
     }
 
+    if (data.query) {
+      opts.query = data.query;
+      collection = data.query;
+      document.title = `HAMSA - Search: ${data.query}`
+    }
+
     console.dir("getting collection", opts);
     getCollection(opts).then(data => {
       images = data.images;

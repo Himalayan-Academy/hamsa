@@ -74,6 +74,11 @@ var app = (function () {
     function children(element) {
         return Array.from(element.childNodes);
     }
+    function set_input_value(input, value) {
+        if (value != null || input.value) {
+            input.value = value;
+        }
+    }
     function set_style(node, key, value, important) {
         node.style.setProperty(key, value, important ? 'important' : '');
     }
@@ -823,7 +828,7 @@ var app = (function () {
     const file$3 = "src\\SearchField.svelte";
 
     function create_fragment$3(ctx) {
-    	var div, input, t, i;
+    	var div, input, t, i, dispose;
 
     	const block = {
     		c: function create() {
@@ -831,13 +836,18 @@ var app = (function () {
     			input = element("input");
     			t = space();
     			i = element("i");
-    			attr_dev(input, "class", "search svelte-1pmgsh7");
+    			attr_dev(input, "class", "search svelte-806y3v");
     			attr_dev(input, "placeholder", "Search");
-    			add_location(input, file$3, 26, 4, 597);
+    			add_location(input, file$3, 39, 2, 748);
     			attr_dev(i, "class", "fa fa-search");
-    			add_location(i, file$3, 27, 4, 646);
-    			attr_dev(div, "class", "round-wrapper is-search-box svelte-1pmgsh7");
-    			add_location(div, file$3, 25, 0, 550);
+    			add_location(i, file$3, 40, 2, 836);
+    			attr_dev(div, "class", "round-wrapper is-search-box svelte-806y3v");
+    			add_location(div, file$3, 38, 0, 703);
+
+    			dispose = [
+    				listen_dev(input, "input", ctx.input_input_handler),
+    				listen_dev(input, "keydown", ctx.search)
+    			];
     		},
 
     		l: function claim(nodes) {
@@ -847,11 +857,17 @@ var app = (function () {
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
     			append_dev(div, input);
+
+    			set_input_value(input, ctx.query);
+
     			append_dev(div, t);
     			append_dev(div, i);
     		},
 
-    		p: noop,
+    		p: function update(changed, ctx) {
+    			if (changed.query && (input.value !== ctx.query)) set_input_value(input, ctx.query);
+    		},
+
     		i: noop,
     		o: noop,
 
@@ -859,16 +875,44 @@ var app = (function () {
     			if (detaching) {
     				detach_dev(div);
     			}
+
+    			run_all(dispose);
     		}
     	};
     	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$3.name, type: "component", source: "", ctx });
     	return block;
     }
 
+    function instance$1($$self, $$props, $$invalidate) {
+    	let query;
+
+      function search(event) {
+        if (event.key === "Enter") {
+          console.log("search", query);
+          go("Collection", { query });
+        }
+      }
+
+    	function input_input_handler() {
+    		query = this.value;
+    		$$invalidate('query', query);
+    	}
+
+    	$$self.$capture_state = () => {
+    		return {};
+    	};
+
+    	$$self.$inject_state = $$props => {
+    		if ('query' in $$props) $$invalidate('query', query = $$props.query);
+    	};
+
+    	return { query, search, input_input_handler };
+    }
+
     class SearchField extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, null, create_fragment$3, safe_not_equal, []);
+    		init(this, options, instance$1, create_fragment$3, safe_not_equal, []);
     		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "SearchField", options, id: create_fragment$3.name });
     	}
     }
@@ -1068,7 +1112,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$1($$self, $$props, $$invalidate) {
+    function instance$2($$self, $$props, $$invalidate) {
     	
 
         let artistsList = [];
@@ -1111,7 +1155,7 @@ var app = (function () {
     class SelectorControls extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$1, create_fragment$4, safe_not_equal, []);
+    		init(this, options, instance$2, create_fragment$4, safe_not_equal, []);
     		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "SelectorControls", options, id: create_fragment$4.name });
     	}
     }
@@ -2910,7 +2954,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (165:2) {:else}
+    // (171:2) {:else}
     function create_else_block(ctx) {
     	var t0, div1, div0, t1, section;
 
@@ -2944,11 +2988,11 @@ var app = (function () {
     				each_blocks[i].c();
     			}
     			attr_dev(div0, "class", "collection-inner svelte-2ovhb3");
-    			add_location(div0, file$6, 183, 6, 4209);
+    			add_location(div0, file$6, 189, 6, 4361);
     			attr_dev(section, "class", "g svelte-2ovhb3");
-    			add_location(section, file$6, 184, 6, 4249);
+    			add_location(section, file$6, 190, 6, 4401);
     			attr_dev(div1, "class", "collection");
-    			add_location(div1, file$6, 182, 4, 4177);
+    			add_location(div1, file$6, 188, 4, 4329);
     		},
 
     		m: function mount(target, anchor) {
@@ -3029,11 +3073,11 @@ var app = (function () {
     			if (each_1_else) each_1_else.d();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block.name, type: "else", source: "(165:2) {:else}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block.name, type: "else", source: "(171:2) {:else}", ctx });
     	return block;
     }
 
-    // (161:2) {#if images.length == 0}
+    // (167:2) {#if images.length == 0}
     function create_if_block(ctx) {
     	var div, i;
 
@@ -3042,9 +3086,9 @@ var app = (function () {
     			div = element("div");
     			i = element("i");
     			attr_dev(i, "class", "fa fa-spinner fa-spin fa-3x");
-    			add_location(i, file$6, 162, 6, 3546);
+    			add_location(i, file$6, 168, 6, 3698);
     			attr_dev(div, "class", "loading-wrapper");
-    			add_location(div, file$6, 161, 4, 3509);
+    			add_location(div, file$6, 167, 4, 3661);
     		},
 
     		m: function mount(target, anchor) {
@@ -3060,11 +3104,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block.name, type: "if", source: "(161:2) {#if images.length == 0}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block.name, type: "if", source: "(167:2) {#if images.length == 0}", ctx });
     	return block;
     }
 
-    // (166:4) {#if collection !== 'home'}
+    // (172:4) {#if collection !== 'home'}
     function create_if_block_1(ctx) {
     	var div1, h3, t0, t1, div0, t2, p;
 
@@ -3081,13 +3125,13 @@ var app = (function () {
     			t2 = space();
     			p = element("p");
     			attr_dev(h3, "class", "collection-title svelte-2ovhb3");
-    			add_location(h3, file$6, 167, 8, 3692);
+    			add_location(h3, file$6, 173, 8, 3844);
     			attr_dev(p, "class", "collection-description svelte-2ovhb3");
-    			add_location(p, file$6, 176, 10, 4047);
+    			add_location(p, file$6, 182, 10, 4199);
     			attr_dev(div0, "class", "collection-metadata svelte-2ovhb3");
-    			add_location(div0, file$6, 168, 8, 3748);
+    			add_location(div0, file$6, 174, 8, 3900);
     			attr_dev(div1, "class", "collection-header svelte-2ovhb3");
-    			add_location(div1, file$6, 166, 6, 3651);
+    			add_location(div1, file$6, 172, 6, 3803);
     		},
 
     		m: function mount(target, anchor) {
@@ -3133,11 +3177,11 @@ var app = (function () {
     			if (if_block) if_block.d();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1.name, type: "if", source: "(166:4) {#if collection !== 'home'}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1.name, type: "if", source: "(172:4) {#if collection !== 'home'}", ctx });
     	return block;
     }
 
-    // (170:10) {#if collectionThumb}
+    // (176:10) {#if collectionThumb}
     function create_if_block_2(ctx) {
     	var img, img_alt_value, dispose;
 
@@ -3148,7 +3192,7 @@ var app = (function () {
     			attr_dev(img, "alt", img_alt_value = "photo: " + ctx.collection);
     			attr_dev(img, "class", "svelte-2ovhb3");
     			toggle_class(img, "hidden", !ctx.collectionThumb);
-    			add_location(img, file$6, 170, 12, 3828);
+    			add_location(img, file$6, 176, 12, 3980);
     			dispose = listen_dev(img, "error", ctx.error_handler);
     		},
 
@@ -3178,11 +3222,11 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2.name, type: "if", source: "(170:10) {#if collectionThumb}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2.name, type: "if", source: "(176:10) {#if collectionThumb}", ctx });
     	return block;
     }
 
-    // (192:8) {:else}
+    // (198:8) {:else}
     function create_else_block_1(ctx) {
     	var p, t0, t1, t2;
 
@@ -3193,7 +3237,7 @@ var app = (function () {
     			t1 = text(ctx.collection);
     			t2 = text(".\r\n          ");
     			attr_dev(p, "class", "no-collection svelte-2ovhb3");
-    			add_location(p, file$6, 192, 10, 4487);
+    			add_location(p, file$6, 198, 10, 4639);
     		},
 
     		m: function mount(target, anchor) {
@@ -3215,11 +3259,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block_1.name, type: "else", source: "(192:8) {:else}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block_1.name, type: "else", source: "(198:8) {:else}", ctx });
     	return block;
     }
 
-    // (186:8) {#each images as item}
+    // (192:8) {#each images as item}
     function create_each_block$1(ctx) {
     	var div, figure, img, img_src_value, t;
 
@@ -3232,11 +3276,11 @@ var app = (function () {
     			attr_dev(img, "src", img_src_value = ctx.thumbnailToURL(ctx.item.thumbnail));
     			attr_dev(img, "alt", "");
     			attr_dev(img, "class", "svelte-2ovhb3");
-    			add_location(img, file$6, 188, 14, 4366);
+    			add_location(img, file$6, 194, 14, 4518);
     			attr_dev(figure, "class", "svelte-2ovhb3");
-    			add_location(figure, file$6, 187, 12, 4342);
+    			add_location(figure, file$6, 193, 12, 4494);
     			attr_dev(div, "class", "gi svelte-2ovhb3");
-    			add_location(div, file$6, 186, 10, 4312);
+    			add_location(div, file$6, 192, 10, 4464);
     		},
 
     		m: function mount(target, anchor) {
@@ -3258,7 +3302,7 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$1.name, type: "each", source: "(186:8) {#each images as item}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$1.name, type: "each", source: "(192:8) {#each images as item}", ctx });
     	return block;
     }
 
@@ -3277,7 +3321,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			if_block.c();
-    			add_location(div, file$6, 159, 0, 3470);
+    			add_location(div, file$6, 165, 0, 3622);
     		},
 
     		l: function claim(nodes) {
@@ -3321,7 +3365,7 @@ var app = (function () {
 
     let IMAGE_URL = "//dev.himalayanacademy.com/hamsa-images";
 
-    function instance$2($$self, $$props, $$invalidate) {
+    function instance$3($$self, $$props, $$invalidate) {
     	
 
       let description = "";
@@ -3363,6 +3407,12 @@ var app = (function () {
           getDescription(data.artist);
           getCollectionThumb(data.artist);
           document.title = `HAMSA - Artist: ${data.artist}`;
+        }
+
+        if (data.query) {
+          opts.query = data.query;
+          $$invalidate('collection', collection = data.query);
+          document.title = `HAMSA - Search: ${data.query}`;
         }
 
         console.dir("getting collection", opts);
@@ -3430,7 +3480,7 @@ var app = (function () {
     class Collection extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$2, create_fragment$6, safe_not_equal, []);
+    		init(this, options, instance$3, create_fragment$6, safe_not_equal, []);
     		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "Collection", options, id: create_fragment$6.name });
     	}
     }
@@ -3555,7 +3605,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$3($$self, $$props, $$invalidate) {
+    function instance$4($$self, $$props, $$invalidate) {
     	let $currentView;
 
     	validate_store(currentView, 'currentView');
@@ -3588,7 +3638,7 @@ var app = (function () {
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$3, create_fragment$7, safe_not_equal, []);
+    		init(this, options, instance$4, create_fragment$7, safe_not_equal, []);
     		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "App", options, id: create_fragment$7.name });
     	}
     }
