@@ -14,17 +14,16 @@
     loading = true;
     getImage({ checksum }).then(res => {
       image = res.image;
-      console.log(image);
       loading = false;
     });
   };
 
   const toFilename = path => {
-    return path;
+    return "image.jpg";
   };
 
   const toImageURL = url => {
-    let i = url.replace("/images/", "");
+    let i = url.replace("/images/", "").replace("/home/devhap/public_html/hamsa-images", "");
     return `${IMAGE_URL}/${i}`;
   };
 
@@ -110,7 +109,7 @@
         <p class="description">{image.metadata.description}</p>
       </div>
       <div class="metadata">
-        <div class="author">
+        <div class="author" on:click={() => go("Collection", {artist:image.metadata.artist })}>
           <i class="far fa-user fa-lg" />
           <h2>{image.metadata.artist}</h2>
         </div>

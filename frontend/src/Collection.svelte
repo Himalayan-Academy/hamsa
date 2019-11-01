@@ -15,7 +15,6 @@
   let collectionThumb = false;
 
   const refreshCollection = data => {
-    console.dir("refresh", data);
     let opts = {};
     images = [];
     collectionThumb = false;
@@ -59,7 +58,6 @@
     console.dir("getting collection", opts);
     getCollection(opts).then(data => {
       images = data.images;
-      console.log("images", images);
     });
   };
 
