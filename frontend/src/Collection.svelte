@@ -1,8 +1,10 @@
 <script>
   import { afterUpdate, onMount, tick } from "svelte";
   import { getCollection } from "./api.js";
-  import { currentView } from "./navigation.js";
+  import { currentView, go } from "./navigation.js";
   import { get } from "svelte/store";
+  import { onDestroy } from "svelte";
+
   import marked from "marked";
 
   let description = "";
@@ -51,7 +53,7 @@
     if (data.query) {
       opts.query = data.query;
       collection = data.query;
-      document.title = `HAMSA - Search: ${data.query}`
+      document.title = `HAMSA - Search: ${data.query}`;
     }
 
     console.dir("getting collection", opts);
@@ -60,11 +62,6 @@
       console.log("images", images);
     });
   };
-
-  currentView.subscribe(i => {
-    console.dir("view changed", i);
-    refreshCollection(i.data);
-  });
 
   const getDescription = k => {
     let key = k
@@ -90,6 +87,16 @@
     let i = t.replace("/images/", "");
     return `${IMAGE_URL}/${i}`;
   };
+
+  
+  const unsub = currentView.subscribe(i => {
+    if (i.view == "Collection") {
+      console.dir("view changed", i);
+      refreshCollection(i.data);
+    }
+  });
+
+  onDestroy(() => unsub());
 </script>
 
 <style>
@@ -191,7 +198,7 @@
       <section class="g">
         {#each images as item}
           <div class="gi">
-            <figure>
+            <figure on:click={() => go('Image', { checksum: item.checksum })}>
               <img src={thumbnailToURL(item.thumbnail)} alt="" />
             </figure>
           </div>

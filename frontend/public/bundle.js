@@ -61,6 +61,9 @@ var app = (function () {
     function space() {
         return text(' ');
     }
+    function empty() {
+        return text('');
+    }
     function listen(node, event, handler, options) {
         node.addEventListener(event, handler, options);
         return () => node.removeEventListener(event, handler, options);
@@ -102,6 +105,9 @@ var app = (function () {
     }
     function onMount(fn) {
         get_current_component().$$.on_mount.push(fn);
+    }
+    function onDestroy(fn) {
+        get_current_component().$$.on_destroy.push(fn);
     }
 
     const dirty_components = [];
@@ -961,6 +967,26 @@ var app = (function () {
     `;
 
         return executeQuery(query, payload);
+    };
+
+    const getImage = async (payload) => {
+      let query = nanographql_1`
+  query($checksum: String!) { 
+      image( checksum: $checksum) { 
+        path, 
+        medpath,
+        width,
+        height,
+        metadata {
+          artist,
+          description,
+          more,
+          keywords
+        } 
+      } } 
+  `;
+
+      return executeQuery(query, payload);
     };
 
     const executeQuery = async (query, payload) => {
@@ -2955,7 +2981,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (171:2) {:else}
+    // (178:2) {:else}
     function create_else_block(ctx) {
     	var t0, div1, div0, t1, section;
 
@@ -2989,11 +3015,11 @@ var app = (function () {
     				each_blocks[i].c();
     			}
     			attr_dev(div0, "class", "collection-inner svelte-2ovhb3");
-    			add_location(div0, file$6, 189, 6, 4367);
+    			add_location(div0, file$6, 196, 6, 4508);
     			attr_dev(section, "class", "g svelte-2ovhb3");
-    			add_location(section, file$6, 190, 6, 4407);
+    			add_location(section, file$6, 197, 6, 4548);
     			attr_dev(div1, "class", "collection");
-    			add_location(div1, file$6, 188, 4, 4335);
+    			add_location(div1, file$6, 195, 4, 4476);
     		},
 
     		m: function mount(target, anchor) {
@@ -3074,11 +3100,11 @@ var app = (function () {
     			if (each_1_else) each_1_else.d();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block.name, type: "else", source: "(171:2) {:else}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block.name, type: "else", source: "(178:2) {:else}", ctx });
     	return block;
     }
 
-    // (167:2) {#if images.length == 0}
+    // (174:2) {#if images.length == 0}
     function create_if_block(ctx) {
     	var div, i;
 
@@ -3087,9 +3113,9 @@ var app = (function () {
     			div = element("div");
     			i = element("i");
     			attr_dev(i, "class", "fa fa-spinner fa-spin fa-3x");
-    			add_location(i, file$6, 168, 6, 3704);
+    			add_location(i, file$6, 175, 6, 3845);
     			attr_dev(div, "class", "loading-wrapper");
-    			add_location(div, file$6, 167, 4, 3667);
+    			add_location(div, file$6, 174, 4, 3808);
     		},
 
     		m: function mount(target, anchor) {
@@ -3105,11 +3131,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block.name, type: "if", source: "(167:2) {#if images.length == 0}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block.name, type: "if", source: "(174:2) {#if images.length == 0}", ctx });
     	return block;
     }
 
-    // (172:4) {#if collection !== 'home'}
+    // (179:4) {#if collection !== 'home'}
     function create_if_block_1(ctx) {
     	var div1, h3, t0, t1, div0, t2, p;
 
@@ -3126,13 +3152,13 @@ var app = (function () {
     			t2 = space();
     			p = element("p");
     			attr_dev(h3, "class", "collection-title svelte-2ovhb3");
-    			add_location(h3, file$6, 173, 8, 3850);
+    			add_location(h3, file$6, 180, 8, 3991);
     			attr_dev(p, "class", "collection-description svelte-2ovhb3");
-    			add_location(p, file$6, 182, 10, 4205);
+    			add_location(p, file$6, 189, 10, 4346);
     			attr_dev(div0, "class", "collection-metadata svelte-2ovhb3");
-    			add_location(div0, file$6, 174, 8, 3906);
+    			add_location(div0, file$6, 181, 8, 4047);
     			attr_dev(div1, "class", "collection-header svelte-2ovhb3");
-    			add_location(div1, file$6, 172, 6, 3809);
+    			add_location(div1, file$6, 179, 6, 3950);
     		},
 
     		m: function mount(target, anchor) {
@@ -3178,11 +3204,11 @@ var app = (function () {
     			if (if_block) if_block.d();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1.name, type: "if", source: "(172:4) {#if collection !== 'home'}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1.name, type: "if", source: "(179:4) {#if collection !== 'home'}", ctx });
     	return block;
     }
 
-    // (176:10) {#if collectionThumb}
+    // (183:10) {#if collectionThumb}
     function create_if_block_2(ctx) {
     	var img, img_alt_value, dispose;
 
@@ -3193,7 +3219,7 @@ var app = (function () {
     			attr_dev(img, "alt", img_alt_value = "photo: " + ctx.collection);
     			attr_dev(img, "class", "svelte-2ovhb3");
     			toggle_class(img, "hidden", !ctx.collectionThumb);
-    			add_location(img, file$6, 176, 12, 3986);
+    			add_location(img, file$6, 183, 12, 4127);
     			dispose = listen_dev(img, "error", ctx.error_handler);
     		},
 
@@ -3223,11 +3249,11 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2.name, type: "if", source: "(176:10) {#if collectionThumb}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2.name, type: "if", source: "(183:10) {#if collectionThumb}", ctx });
     	return block;
     }
 
-    // (198:8) {:else}
+    // (205:8) {:else}
     function create_else_block_1(ctx) {
     	var p, t0, t1, t2;
 
@@ -3238,7 +3264,7 @@ var app = (function () {
     			t1 = text(ctx.collection);
     			t2 = text(".\r\n          ");
     			attr_dev(p, "class", "no-collection svelte-2ovhb3");
-    			add_location(p, file$6, 198, 10, 4645);
+    			add_location(p, file$6, 205, 10, 4844);
     		},
 
     		m: function mount(target, anchor) {
@@ -3260,13 +3286,17 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block_1.name, type: "else", source: "(198:8) {:else}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block_1.name, type: "else", source: "(205:8) {:else}", ctx });
     	return block;
     }
 
-    // (192:8) {#each images as item}
+    // (199:8) {#each images as item}
     function create_each_block$1(ctx) {
-    	var div, figure, img, img_src_value, t;
+    	var div, figure, img, img_src_value, t, dispose;
+
+    	function click_handler() {
+    		return ctx.click_handler(ctx);
+    	}
 
     	const block = {
     		c: function create() {
@@ -3277,11 +3307,12 @@ var app = (function () {
     			attr_dev(img, "src", img_src_value = ctx.thumbnailToURL(ctx.item.thumbnail));
     			attr_dev(img, "alt", "");
     			attr_dev(img, "class", "svelte-2ovhb3");
-    			add_location(img, file$6, 194, 14, 4524);
+    			add_location(img, file$6, 201, 14, 4723);
     			attr_dev(figure, "class", "svelte-2ovhb3");
-    			add_location(figure, file$6, 193, 12, 4500);
+    			add_location(figure, file$6, 200, 12, 4641);
     			attr_dev(div, "class", "gi svelte-2ovhb3");
-    			add_location(div, file$6, 192, 10, 4470);
+    			add_location(div, file$6, 199, 10, 4611);
+    			dispose = listen_dev(figure, "click", click_handler);
     		},
 
     		m: function mount(target, anchor) {
@@ -3291,7 +3322,8 @@ var app = (function () {
     			append_dev(div, t);
     		},
 
-    		p: function update(changed, ctx) {
+    		p: function update(changed, new_ctx) {
+    			ctx = new_ctx;
     			if ((changed.images) && img_src_value !== (img_src_value = ctx.thumbnailToURL(ctx.item.thumbnail))) {
     				attr_dev(img, "src", img_src_value);
     			}
@@ -3301,9 +3333,11 @@ var app = (function () {
     			if (detaching) {
     				detach_dev(div);
     			}
+
+    			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$1.name, type: "each", source: "(192:8) {#each images as item}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$1.name, type: "each", source: "(199:8) {#each images as item}", ctx });
     	return block;
     }
 
@@ -3322,7 +3356,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			if_block.c();
-    			add_location(div, file$6, 165, 0, 3628);
+    			add_location(div, file$6, 172, 0, 3769);
     		},
 
     		l: function claim(nodes) {
@@ -3423,11 +3457,6 @@ var app = (function () {
         });
       };
 
-      currentView.subscribe(i => {
-        console.dir("view changed", i);
-        refreshCollection(i.data);
-      });
-
       const getDescription = k => {
         let key = k
           .toLowerCase()
@@ -3453,7 +3482,19 @@ var app = (function () {
         return `${IMAGE_URL}/${i}`;
       };
 
+      
+      const unsub = currentView.subscribe(i => {
+        if (i.view == "Collection") {
+          console.dir("view changed", i);
+          refreshCollection(i.data);
+        }
+      });
+
+      onDestroy(() => unsub());
+
     	const error_handler = () => ($$invalidate('collectionThumb', collectionThumb = false));
+
+    	const click_handler = ({ item }) => go('Image', { checksum: item.checksum });
 
     	$$self.$capture_state = () => {
     		return {};
@@ -3474,7 +3515,8 @@ var app = (function () {
     		collection,
     		collectionThumb,
     		thumbnailToURL,
-    		error_handler
+    		error_handler,
+    		click_handler
     	};
     }
 
@@ -3486,11 +3528,515 @@ var app = (function () {
     	}
     }
 
-    /* src\App.svelte generated by Svelte v3.12.1 */
+    /* src\Image.svelte generated by Svelte v3.12.1 */
+    const { console: console_1$1 } = globals;
 
-    const file$7 = "src\\App.svelte";
+    const file$7 = "src\\Image.svelte";
+
+    function get_each_context$2(ctx, list, i) {
+    	const child_ctx = Object.create(ctx);
+    	child_ctx.more = list[i];
+    	return child_ctx;
+    }
+
+    function get_each_context_1(ctx, list, i) {
+    	const child_ctx = Object.create(ctx);
+    	child_ctx.tag = list[i];
+    	return child_ctx;
+    }
+
+    // (98:0) {:else}
+    function create_else_block$1(ctx) {
+    	var div7, div6, div0, img, img_src_value, img_alt_value, t0, a, t1, a_href_value, a_download_value, t2, p, t3_value = ctx.image.metadata.description + "", t3, t4, div5, div1, i, t5, h20, t6_value = ctx.image.metadata.artist + "", t6, t7, div2, t8, div3, h21, t10, t11, div4, t12, h3, t14;
+
+    	let each_value_1 = ctx.image.metadata.keywords;
+
+    	let each_blocks_1 = [];
+
+    	for (let i_1 = 0; i_1 < each_value_1.length; i_1 += 1) {
+    		each_blocks_1[i_1] = create_each_block_1(get_each_context_1(ctx, each_value_1, i_1));
+    	}
+
+    	let each_value = ctx.image.metadata.more;
+
+    	let each_blocks = [];
+
+    	for (let i_1 = 0; i_1 < each_value.length; i_1 += 1) {
+    		each_blocks[i_1] = create_each_block$2(get_each_context$2(ctx, each_value, i_1));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div7 = element("div");
+    			div6 = element("div");
+    			div0 = element("div");
+    			img = element("img");
+    			t0 = space();
+    			a = element("a");
+    			t1 = text("Download this image");
+    			t2 = space();
+    			p = element("p");
+    			t3 = text(t3_value);
+    			t4 = space();
+    			div5 = element("div");
+    			div1 = element("div");
+    			i = element("i");
+    			t5 = space();
+    			h20 = element("h2");
+    			t6 = text(t6_value);
+    			t7 = space();
+    			div2 = element("div");
+    			t8 = space();
+    			div3 = element("div");
+    			h21 = element("h2");
+    			h21.textContent = "Tags";
+    			t10 = space();
+
+    			for (let i_1 = 0; i_1 < each_blocks_1.length; i_1 += 1) {
+    				each_blocks_1[i_1].c();
+    			}
+
+    			t11 = space();
+    			div4 = element("div");
+    			t12 = space();
+    			h3 = element("h3");
+    			h3.textContent = "More by the same artist";
+    			t14 = space();
+
+    			for (let i_1 = 0; i_1 < each_blocks.length; i_1 += 1) {
+    				each_blocks[i_1].c();
+    			}
+    			attr_dev(img, "src", img_src_value = ctx.toImageURL(ctx.image.medpath));
+    			attr_dev(img, "alt", img_alt_value = ctx.image.metadata.description);
+    			add_location(img, file$7, 101, 8, 2038);
+    			attr_dev(a, "href", a_href_value = ctx.toImageURL(ctx.image.path));
+    			attr_dev(a, "target", "_blank");
+    			attr_dev(a, "download", a_download_value = ctx.toFilename(ctx.image.path));
+    			attr_dev(a, "class", "single-image-link svelte-1c853h2");
+    			add_location(a, file$7, 102, 8, 2120);
+    			attr_dev(p, "class", "description svelte-1c853h2");
+    			add_location(p, file$7, 109, 8, 2328);
+    			attr_dev(div0, "class", "single-image");
+    			add_location(div0, file$7, 100, 6, 2002);
+    			attr_dev(i, "class", "far fa-user fa-lg");
+    			add_location(i, file$7, 113, 10, 2469);
+    			add_location(h20, file$7, 114, 10, 2512);
+    			attr_dev(div1, "class", "author svelte-1c853h2");
+    			add_location(div1, file$7, 112, 8, 2437);
+    			attr_dev(div2, "class", "dotted");
+    			add_location(div2, file$7, 116, 8, 2570);
+    			add_location(h21, file$7, 118, 10, 2632);
+    			attr_dev(div3, "class", "tags");
+    			add_location(div3, file$7, 117, 8, 2602);
+    			attr_dev(div4, "class", "dotted");
+    			add_location(div4, file$7, 127, 8, 2896);
+    			add_location(h3, file$7, 128, 8, 2928);
+    			attr_dev(div5, "class", "metadata");
+    			add_location(div5, file$7, 111, 6, 2405);
+    			attr_dev(div6, "class", "single-image-wrapper svelte-1c853h2");
+    			add_location(div6, file$7, 99, 4, 1960);
+    			attr_dev(div7, "class", "image-view-container svelte-1c853h2");
+    			add_location(div7, file$7, 98, 2, 1920);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div7, anchor);
+    			append_dev(div7, div6);
+    			append_dev(div6, div0);
+    			append_dev(div0, img);
+    			append_dev(div0, t0);
+    			append_dev(div0, a);
+    			append_dev(a, t1);
+    			append_dev(div0, t2);
+    			append_dev(div0, p);
+    			append_dev(p, t3);
+    			append_dev(div6, t4);
+    			append_dev(div6, div5);
+    			append_dev(div5, div1);
+    			append_dev(div1, i);
+    			append_dev(div1, t5);
+    			append_dev(div1, h20);
+    			append_dev(h20, t6);
+    			append_dev(div5, t7);
+    			append_dev(div5, div2);
+    			append_dev(div5, t8);
+    			append_dev(div5, div3);
+    			append_dev(div3, h21);
+    			append_dev(div3, t10);
+
+    			for (let i_1 = 0; i_1 < each_blocks_1.length; i_1 += 1) {
+    				each_blocks_1[i_1].m(div3, null);
+    			}
+
+    			append_dev(div5, t11);
+    			append_dev(div5, div4);
+    			append_dev(div5, t12);
+    			append_dev(div5, h3);
+    			append_dev(div5, t14);
+
+    			for (let i_1 = 0; i_1 < each_blocks.length; i_1 += 1) {
+    				each_blocks[i_1].m(div5, null);
+    			}
+    		},
+
+    		p: function update(changed, ctx) {
+    			if ((changed.image) && img_src_value !== (img_src_value = ctx.toImageURL(ctx.image.medpath))) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+
+    			if ((changed.image) && img_alt_value !== (img_alt_value = ctx.image.metadata.description)) {
+    				attr_dev(img, "alt", img_alt_value);
+    			}
+
+    			if ((changed.image) && a_href_value !== (a_href_value = ctx.toImageURL(ctx.image.path))) {
+    				attr_dev(a, "href", a_href_value);
+    			}
+
+    			if ((changed.image) && a_download_value !== (a_download_value = ctx.toFilename(ctx.image.path))) {
+    				attr_dev(a, "download", a_download_value);
+    			}
+
+    			if ((changed.image) && t3_value !== (t3_value = ctx.image.metadata.description + "")) {
+    				set_data_dev(t3, t3_value);
+    			}
+
+    			if ((changed.image) && t6_value !== (t6_value = ctx.image.metadata.artist + "")) {
+    				set_data_dev(t6, t6_value);
+    			}
+
+    			if (changed.image) {
+    				each_value_1 = ctx.image.metadata.keywords;
+
+    				let i_1;
+    				for (i_1 = 0; i_1 < each_value_1.length; i_1 += 1) {
+    					const child_ctx = get_each_context_1(ctx, each_value_1, i_1);
+
+    					if (each_blocks_1[i_1]) {
+    						each_blocks_1[i_1].p(changed, child_ctx);
+    					} else {
+    						each_blocks_1[i_1] = create_each_block_1(child_ctx);
+    						each_blocks_1[i_1].c();
+    						each_blocks_1[i_1].m(div3, null);
+    					}
+    				}
+
+    				for (; i_1 < each_blocks_1.length; i_1 += 1) {
+    					each_blocks_1[i_1].d(1);
+    				}
+    				each_blocks_1.length = each_value_1.length;
+    			}
+
+    			if (changed.toThumbnail || changed.image) {
+    				each_value = ctx.image.metadata.more;
+
+    				let i_1;
+    				for (i_1 = 0; i_1 < each_value.length; i_1 += 1) {
+    					const child_ctx = get_each_context$2(ctx, each_value, i_1);
+
+    					if (each_blocks[i_1]) {
+    						each_blocks[i_1].p(changed, child_ctx);
+    					} else {
+    						each_blocks[i_1] = create_each_block$2(child_ctx);
+    						each_blocks[i_1].c();
+    						each_blocks[i_1].m(div5, null);
+    					}
+    				}
+
+    				for (; i_1 < each_blocks.length; i_1 += 1) {
+    					each_blocks[i_1].d(1);
+    				}
+    				each_blocks.length = each_value.length;
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div7);
+    			}
+
+    			destroy_each(each_blocks_1, detaching);
+
+    			destroy_each(each_blocks, detaching);
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block$1.name, type: "else", source: "(98:0) {:else}", ctx });
+    	return block;
+    }
+
+    // (94:0) {#if loading}
+    function create_if_block$1(ctx) {
+    	var div, i;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			i = element("i");
+    			attr_dev(i, "class", "fa fa-spinner fa-spin fa-3x");
+    			add_location(i, file$7, 95, 4, 1856);
+    			attr_dev(div, "class", "loading-wrapper");
+    			add_location(div, file$7, 94, 2, 1821);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, i);
+    		},
+
+    		p: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div);
+    			}
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$1.name, type: "if", source: "(94:0) {#if loading}", ctx });
+    	return block;
+    }
+
+    // (120:10) {#each image.metadata.keywords as tag}
+    function create_each_block_1(ctx) {
+    	var span, t0_value = ctx.tag + "", t0, t1, dispose;
+
+    	function click_handler() {
+    		return ctx.click_handler(ctx);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			span = element("span");
+    			t0 = text(t0_value);
+    			t1 = space();
+    			attr_dev(span, "class", "tag svelte-1c853h2");
+    			add_location(span, file$7, 120, 12, 2709);
+    			dispose = listen_dev(span, "click", click_handler);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, span, anchor);
+    			append_dev(span, t0);
+    			append_dev(span, t1);
+    		},
+
+    		p: function update(changed, new_ctx) {
+    			ctx = new_ctx;
+    			if ((changed.image) && t0_value !== (t0_value = ctx.tag + "")) {
+    				set_data_dev(t0, t0_value);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(span);
+    			}
+
+    			dispose();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1.name, type: "each", source: "(120:10) {#each image.metadata.keywords as tag}", ctx });
+    	return block;
+    }
+
+    // (130:8) {#each image.metadata.more as more}
+    function create_each_block$2(ctx) {
+    	var img, img_src_value, dispose;
+
+    	function click_handler_1() {
+    		return ctx.click_handler_1(ctx);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			attr_dev(img, "src", img_src_value = ctx.toThumbnail(ctx.more));
+    			attr_dev(img, "alt", "more");
+    			attr_dev(img, "class", "more-images svelte-1c853h2");
+    			add_location(img, file$7, 130, 10, 3017);
+    			dispose = listen_dev(img, "click", click_handler_1);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+
+    		p: function update(changed, new_ctx) {
+    			ctx = new_ctx;
+    			if ((changed.image) && img_src_value !== (img_src_value = ctx.toThumbnail(ctx.more))) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(img);
+    			}
+
+    			dispose();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$2.name, type: "each", source: "(130:8) {#each image.metadata.more as more}", ctx });
+    	return block;
+    }
 
     function create_fragment$7(ctx) {
+    	var if_block_anchor;
+
+    	function select_block_type(changed, ctx) {
+    		if (ctx.loading) return create_if_block$1;
+    		return create_else_block$1;
+    	}
+
+    	var current_block_type = select_block_type(null, ctx);
+    	var if_block = current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block.c();
+    			if_block_anchor = empty();
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (current_block_type === (current_block_type = select_block_type(changed, ctx)) && if_block) {
+    				if_block.p(changed, ctx);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			}
+    		},
+
+    		i: noop,
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if_block.d(detaching);
+
+    			if (detaching) {
+    				detach_dev(if_block_anchor);
+    			}
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$7.name, type: "component", source: "", ctx });
+    	return block;
+    }
+
+    let IMAGE_URL$1 = "//dev.himalayanacademy.com/hamsa-images";
+
+    function instance$4($$self, $$props, $$invalidate) {
+    	
+
+      let { checksum } = $$props;
+
+      let image = {};
+      let loading = true;
+
+      const refreshImage = data => {
+        let checksum = data.checksum;
+        $$invalidate('loading', loading = true);
+        getImage({ checksum }).then(res => {
+          $$invalidate('image', image = res.image);
+          console.log(image);
+          $$invalidate('loading', loading = false);
+        });
+      };
+
+      const toFilename = path => {
+        return path;
+      };
+
+      const toImageURL = url => {
+        let i = url.replace("/images/", "");
+        return `${IMAGE_URL$1}/${i}`;
+      };
+
+      const toThumbnail = checksum => {
+        return `${IMAGE_URL$1}/_cache/${checksum}.thumb.jpg`;
+      };
+
+      const unsub = currentView.subscribe(i => {
+        console.dir("view changed", i);
+        if (i.view == "Image") {
+          refreshImage(i.data);
+        }
+      });
+
+      onDestroy(() => unsub());
+
+    	const writable_props = ['checksum'];
+    	Object.keys($$props).forEach(key => {
+    		if (!writable_props.includes(key) && !key.startsWith('$$')) console_1$1.warn(`<Image> was created with unknown prop '${key}'`);
+    	});
+
+    	const click_handler = ({ tag }) => go('Collection', { keyword: tag });
+
+    	const click_handler_1 = ({ more }) => go('Image', { checksum: more });
+
+    	$$self.$set = $$props => {
+    		if ('checksum' in $$props) $$invalidate('checksum', checksum = $$props.checksum);
+    	};
+
+    	$$self.$capture_state = () => {
+    		return { checksum, image, loading, IMAGE_URL: IMAGE_URL$1 };
+    	};
+
+    	$$self.$inject_state = $$props => {
+    		if ('checksum' in $$props) $$invalidate('checksum', checksum = $$props.checksum);
+    		if ('image' in $$props) $$invalidate('image', image = $$props.image);
+    		if ('loading' in $$props) $$invalidate('loading', loading = $$props.loading);
+    		if ('IMAGE_URL' in $$props) IMAGE_URL$1 = $$props.IMAGE_URL;
+    	};
+
+    	return {
+    		checksum,
+    		image,
+    		loading,
+    		toFilename,
+    		toImageURL,
+    		toThumbnail,
+    		click_handler,
+    		click_handler_1
+    	};
+    }
+
+    class Image extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$4, create_fragment$7, safe_not_equal, ["checksum"]);
+    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "Image", options, id: create_fragment$7.name });
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+    		if (ctx.checksum === undefined && !('checksum' in props)) {
+    			console_1$1.warn("<Image> was created without expected prop 'checksum'");
+    		}
+    	}
+
+    	get checksum() {
+    		throw new Error("<Image>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set checksum(value) {
+    		throw new Error("<Image>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src\App.svelte generated by Svelte v3.12.1 */
+
+    const file$8 = "src\\App.svelte";
+
+    function create_fragment$8(ctx) {
     	var div, t0, t1, t2, current, dispose;
 
     	var header = new Header({ $$inline: true });
@@ -3519,7 +4065,7 @@ var app = (function () {
     			selectorcontrols.$$.fragment.c();
     			t2 = space();
     			if (switch_instance) switch_instance.$$.fragment.c();
-    			add_location(div, file$7, 23, 0, 598);
+    			add_location(div, file$8, 25, 0, 654);
     			dispose = listen_dev(window, "popstate", ctx.pop);
     		},
 
@@ -3602,11 +4148,11 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$7.name, type: "component", source: "", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$8.name, type: "component", source: "", ctx });
     	return block;
     }
 
-    function instance$4($$self, $$props, $$invalidate) {
+    function instance$5($$self, $$props, $$invalidate) {
     	let $currentView;
 
     	validate_store(currentView, 'currentView');
@@ -3616,7 +4162,8 @@ var app = (function () {
 
       const views = {
         InfoPage: InfoPage,
-        Collection: Collection
+        Collection: Collection,
+        Image: Image
       };
 
       history.pushState({view: currentView.view, data: currentView.data}, currentView.view);
@@ -3639,8 +4186,8 @@ var app = (function () {
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$4, create_fragment$7, safe_not_equal, []);
-    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "App", options, id: create_fragment$7.name });
+    		init(this, options, instance$5, create_fragment$8, safe_not_equal, []);
+    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "App", options, id: create_fragment$8.name });
     	}
     }
 

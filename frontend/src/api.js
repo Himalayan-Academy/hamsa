@@ -41,6 +41,26 @@ export const getCollection = async (payload) => {
     return executeQuery(query, payload);
 };
 
+export const getImage = async (payload) => {
+  let query = gql`
+  query($checksum: String!) { 
+      image( checksum: $checksum) { 
+        path, 
+        medpath,
+        width,
+        height,
+        metadata {
+          artist,
+          description,
+          more,
+          keywords
+        } 
+      } } 
+  `;
+
+  return executeQuery(query, payload);
+};
+
 const executeQuery = async (query, payload) => {
     try {
         const res = await fetch(API_URL, {
