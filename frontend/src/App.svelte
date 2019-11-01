@@ -6,7 +6,7 @@
   import Collection from "./Collection.svelte";
   import Image from "./Image.svelte";
   import queryString from "query-string";
-  import { currentView } from "./navigation.js";
+  import { currentView, loadFromURL } from "./navigation.js";
 
   const views = {
     InfoPage: InfoPage,
@@ -14,12 +14,11 @@
     Image: Image
   };
 
-  history.pushState({view: currentView.view, data: currentView.data}, currentView.view);
+  loadFromURL();
 
   const pop = d => {
     currentView.set(d.state);
   };
-
 </script>
 
 <svelte:window on:popstate={pop} />

@@ -1,6 +1,6 @@
 import gql from "nanographql";
 
-const API_URL = "http://dev.himalayanacademy.com/hamsa/api/index.php";
+const API_URL = "//dev.himalayanacademy.com/hamsa/api/index.php";
 
 
 export const count = async (artist, keyword) => {
