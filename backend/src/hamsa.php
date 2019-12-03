@@ -15,7 +15,6 @@ function account_new($email, $password_hash) {
 
     $record->set("email", $email);
     $record->set("password", $password_hash);
-    $record->set("is_active", true);
     $record->save();
 }
 
@@ -27,7 +26,7 @@ function account_set_active($email, $active) {
 }
 
 function account_exists($email) {
-    $record = ORM::for_table('account')->where('email', $email)->where('is_active', true)->findOne();
+    $record = ORM::for_table('account')->where('email', $email)->findOne();
 
     if ($record) {
         return true;

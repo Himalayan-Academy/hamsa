@@ -1,16 +1,1385 @@
-var app=function(){"use strict";function e(){}function t(e){return e()}function n(){return Object.create(null)}function r(e){e.forEach(t)}function i(e){return"function"==typeof e}function s(e,t){return e!=e?t==t:e!==t||e&&"object"==typeof e||"function"==typeof e}function o(e,t){e.appendChild(t)}function l(e,t,n){e.insertBefore(t,n||null)}function a(e){e.parentNode.removeChild(e)}function c(e,t){for(let n=0;n<e.length;n+=1)e[n]&&e[n].d(t)}function u(e){return document.createElement(e)}function h(e){return document.createTextNode(e)}function p(){return h(" ")}function g(e,t,n,r){return e.addEventListener(t,n,r),()=>e.removeEventListener(t,n,r)}function d(e,t,n){null==n?e.removeAttribute(t):e.setAttribute(t,n)}function f(e,t){t=""+t,e.data!==t&&(e.data=t)}function m(e,t){(null!=t||e.value)&&(e.value=t)}function y(e,t,n){e.classList[n?"add":"remove"](t)}let b;function k(e){b=e}function v(){if(!b)throw new Error("Function called outside component initialization");return b}function $(e){v().$$.on_destroy.push(e)}const x=[],w=[],_=[],A=[],S=Promise.resolve();let L=!1;function R(e){_.push(e)}function T(){const e=new Set;do{for(;x.length;){const e=x.shift();k(e),j(e.$$)}for(;w.length;)w.pop()();for(let t=0;t<_.length;t+=1){const n=_[t];e.has(n)||(n(),e.add(n))}_.length=0}while(x.length);for(;A.length;)A.pop()();L=!1}function j(e){e.fragment&&(e.update(e.dirty),r(e.before_update),e.fragment.p(e.dirty,e.ctx),e.dirty=null,e.after_update.forEach(R))}const z=new Set;let C;function q(e,t){e&&e.i&&(z.delete(e),e.i(t))}function O(e,t,n,r){if(e&&e.o){if(z.has(e))return;z.add(e),C.c.push(()=>{z.delete(e),r&&(n&&e.d(1),r())}),e.o(t)}}function I(e,n,s){const{fragment:o,on_mount:l,on_destroy:a,after_update:c}=e.$$;o.m(n,s),R(()=>{const n=l.map(t).filter(i);a?a.push(...n):r(n),e.$$.on_mount=[]}),c.forEach(R)}function E(e,t){e.$$.fragment&&(r(e.$$.on_destroy),e.$$.fragment.d(t),e.$$.on_destroy=e.$$.fragment=null,e.$$.ctx={})}function U(e,t){e.$$.dirty||(x.push(e),L||(L=!0,S.then(T)),e.$$.dirty=n()),e.$$.dirty[t]=!0}function N(t,i,s,o,l,a){const c=b;k(t);const u=i.props||{},h=t.$$={fragment:null,ctx:null,props:a,update:e,not_equal:l,bound:n(),on_mount:[],on_destroy:[],before_update:[],after_update:[],context:new Map(c?c.$$.context:[]),callbacks:n(),dirty:null};let p=!1;var g;h.ctx=s?s(t,u,(e,n,r=n)=>(h.ctx&&l(h.ctx[e],h.ctx[e]=r)&&(h.bound[e]&&h.bound[e](r),p&&U(t,e)),n)):u,h.update(),p=!0,r(h.before_update),h.fragment=o(h.ctx),i.target&&(i.hydrate?h.fragment.l((g=i.target,Array.from(g.childNodes))):h.fragment.c(),i.intro&&q(t.$$.fragment),I(t,i.target,i.anchor),T()),k(c)}class Z{$destroy(){E(this,1),this.$destroy=e}$on(e,t){const n=this.$$.callbacks[e]||(this.$$.callbacks[e]=[]);return n.push(t),()=>{const e=n.indexOf(t);-1!==e&&n.splice(e,1)}}$set(){}}function H(t){var n;return{c(){(n=u("div")).innerHTML='<header><a href="/hamsa" class="logo svelte-elyn56"><img src="images/hamsa-logo-opt.jpg" alt="HAMSA logo" class="hamsa-logo svelte-elyn56"></a> <div class="monastery-header-text"><h1 class="title">Himalayan Academy</h1> <h2 class="subtitle">Museum of Spiritual Arts</h2> <div style="flex: auto"></div></div> <a href="/" class="monastery-logo svelte-elyn56"><img class="monastery-logo svelte-elyn56" src="images/monastery-logo.png" alt="Monastery Logo"></a></header>'},m(e,t){l(e,n,t)},p:e,i:e,o:e,d(e){e&&a(n)}}}class M extends Z{constructor(e){super(),N(this,e,null,H,s,[])}}function F(t){var n;return{c(){(n=u("div")).innerHTML='<div class="hero svelte-1tjfa35"><figure class="hero1 svelte-1tjfa35"></figure> <figure class="hero2 svelte-1tjfa35"></figure></div>'},m(e,t){l(e,n,t)},p:e,i:e,o:e,d(e){e&&a(n)}}}class P extends Z{constructor(e){super(),N(this,e,null,F,s,[])}}var B=e=>encodeURIComponent(e).replace(/[!'()*]/g,e=>`%${e.charCodeAt(0).toString(16).toUpperCase()}`),D=new RegExp("%[a-f0-9]{2}","gi"),V=new RegExp("(%[a-f0-9]{2})+","gi");function G(e,t){try{return decodeURIComponent(e.join(""))}catch(e){}if(1===e.length)return e;t=t||1;var n=e.slice(0,t),r=e.slice(t);return Array.prototype.concat.call([],G(n),G(r))}function J(e){try{return decodeURIComponent(e)}catch(r){for(var t=e.match(D),n=1;n<t.length;n++)t=(e=G(t,n).join("")).match(D);return e}}var X=function(e){if("string"!=typeof e)throw new TypeError("Expected `encodedURI` to be of type `string`, got `"+typeof e+"`");try{return e=e.replace(/\+/g," "),decodeURIComponent(e)}catch(t){return function(e){for(var t={"%FE%FF":"��","%FF%FE":"��"},n=V.exec(e);n;){try{t[n[0]]=decodeURIComponent(n[0])}catch(e){var r=J(n[0]);r!==n[0]&&(t[n[0]]=r)}n=V.exec(e)}t["%C2"]="�";for(var i=Object.keys(t),s=0;s<i.length;s++){var o=i[s];e=e.replace(new RegExp(o,"g"),t[o])}return e}(e)}},Y=(e,t)=>{if("string"!=typeof e||"string"!=typeof t)throw new TypeError("Expected the arguments to be of type `string`");if(""===t)return[e];const n=e.indexOf(t);return-1===n?[e]:[e.slice(0,n),e.slice(n+t.length)]};function K(e,t){return t.encode?t.strict?B(e):encodeURIComponent(e):e}function Q(e,t){return t.decode?X(e):e}function W(e){const t=e.indexOf("#");return-1!==t&&(e=e.slice(0,t)),e}function ee(e){const t=(e=W(e)).indexOf("?");return-1===t?"":e.slice(t+1)}function te(e,t){return t.parseNumbers&&!Number.isNaN(Number(e))&&"string"==typeof e&&""!==e.trim()?e=Number(e):!t.parseBooleans||null===e||"true"!==e.toLowerCase()&&"false"!==e.toLowerCase()||(e="true"===e.toLowerCase()),e}function ne(e,t){const n=function(e){let t;switch(e.arrayFormat){case"index":return(e,n,r)=>{t=/\[(\d*)\]$/.exec(e),e=e.replace(/\[\d*\]$/,""),t?(void 0===r[e]&&(r[e]={}),r[e][t[1]]=n):r[e]=n};case"bracket":return(e,n,r)=>{t=/(\[\])$/.exec(e),e=e.replace(/\[\]$/,""),t?void 0!==r[e]?r[e]=[].concat(r[e],n):r[e]=[n]:r[e]=n};case"comma":return(e,t,n)=>{const r="string"==typeof t&&t.split("").indexOf(",")>-1?t.split(","):t;n[e]=r};default:return(e,t,n)=>{void 0!==n[e]?n[e]=[].concat(n[e],t):n[e]=t}}}(t=Object.assign({decode:!0,sort:!0,arrayFormat:"none",parseNumbers:!1,parseBooleans:!1},t)),r=Object.create(null);if("string"!=typeof e)return r;if(!(e=e.trim().replace(/^[?#&]/,"")))return r;for(const i of e.split("&")){let[e,s]=Y(i.replace(/\+/g," "),"=");s=void 0===s?null:Q(s,t),n(Q(e,t),s,r)}for(const e of Object.keys(r)){const n=r[e];if("object"==typeof n&&null!==n)for(const e of Object.keys(n))n[e]=te(n[e],t);else r[e]=te(n,t)}return!1===t.sort?r:(!0===t.sort?Object.keys(r).sort():Object.keys(r).sort(t.sort)).reduce((e,t)=>{const n=r[t];return Boolean(n)&&"object"==typeof n&&!Array.isArray(n)?e[t]=function e(t){return Array.isArray(t)?t.sort():"object"==typeof t?e(Object.keys(t)).sort((e,t)=>Number(e)-Number(t)).map(e=>t[e]):t}(n):e[t]=n,e},Object.create(null))}var re={extract:ee,parse:ne,stringify:(e,t)=>{if(!e)return"";const n=function(e){switch(e.arrayFormat){case"index":return t=>(n,r)=>{const i=n.length;return void 0===r?n:null===r?[...n,[K(t,e),"[",i,"]"].join("")]:[...n,[K(t,e),"[",K(i,e),"]=",K(r,e)].join("")]};case"bracket":return t=>(n,r)=>void 0===r?n:null===r?[...n,[K(t,e),"[]"].join("")]:[...n,[K(t,e),"[]=",K(r,e)].join("")];case"comma":return t=>(n,r,i)=>null==r||0===r.length?n:0===i?[[K(t,e),"=",K(r,e)].join("")]:[[n,K(r,e)].join(",")];default:return t=>(n,r)=>void 0===r?n:null===r?[...n,K(t,e)]:[...n,[K(t,e),"=",K(r,e)].join("")]}}(t=Object.assign({encode:!0,strict:!0,arrayFormat:"none"},t)),r=Object.keys(e);return!1!==t.sort&&r.sort(t.sort),r.map(r=>{const i=e[r];return void 0===i?"":null===i?K(r,t):Array.isArray(i)?i.reduce(n(r),[]).join("&"):K(r,t)+"="+K(i,t)}).filter(e=>e.length>0).join("&")},parseUrl:(e,t)=>({url:W(e).split("?")[0]||"",query:ne(ee(e),t)})};const ie=[];const se=function(t,n=e){let r;const i=[];function o(e){if(s(t,e)&&(t=e,r)){const e=!ie.length;for(let e=0;e<i.length;e+=1){const n=i[e];n[1](),ie.push(n,t)}if(e){for(let e=0;e<ie.length;e+=2)ie[e][0](ie[e+1]);ie.length=0}}}return{set:o,update:function(e){o(e(t))},subscribe:function(s,l=e){const a=[s,l];return i.push(a),1===i.length&&(r=n(o)||e),s(t),()=>{const e=i.indexOf(a);-1!==e&&i.splice(e,1),0===i.length&&(r(),r=null)}}}}({view:"Collection",data:{}}),oe=(e,t)=>{let n=re.stringify({view:e,...t});history.pushState({view:e,data:t},`HAMSA - ${e}`,`index.html?${n}`),se.set({view:e,data:t})},le=()=>{let e=re.parse(location.search),t=e.view||"Collection";delete e.view,oe(t,e)};function ae(e,t,n){const r=Object.create(e);return r.item=t[n],r}function ce(e){var t,n,r,i=e.item+"";function s(){return e.click_handler(e)}return{c(){t=u("li"),n=h(i),d(t,"class","list-item svelte-15hgir4"),r=g(t,"click",s)},m(e,r){l(e,t,r),o(t,n)},p(t,r){e=r,t.items&&i!==(i=e.item+"")&&f(n,i)},d(e){e&&a(t),r()}}}function ue(t){var n,r,i,s,m,b,k,v,$;let x=t.items,w=[];for(let e=0;e<x.length;e+=1)w[e]=ce(ae(t,x,e));return{c(){n=u("div"),r=u("div"),i=u("span"),s=h(t.title),m=p(),b=u("i"),k=p(),v=u("ul");for(let e=0;e<w.length;e+=1)w[e].c();d(i,"class","title"),d(b,"class","fa fa-caret-down"),d(r,"class","selector-text svelte-15hgir4"),d(v,"class","selector-content svelte-15hgir4"),y(v,"open",t.open),d(n,"class","round-wrapper is-selector-categories svelte-15hgir4"),$=g(n,"click",t.click_handler_1)},m(e,t){l(e,n,t),o(n,r),o(r,i),o(i,s),o(r,m),o(r,b),o(n,k),o(n,v);for(let e=0;e<w.length;e+=1)w[e].m(v,null)},p(e,t){if(e.title&&f(s,t.title),e.items){let n;for(x=t.items,n=0;n<x.length;n+=1){const r=ae(t,x,n);w[n]?w[n].p(e,r):(w[n]=ce(r),w[n].c(),w[n].m(v,null))}for(;n<w.length;n+=1)w[n].d(1);w.length=x.length}e.open&&y(v,"open",t.open)},i:e,o:e,d(e){e&&a(n),c(w,e),$()}}}function he(e,t,n){let{title:r="untitled",items:i=[],key:s="item"}=t,o=!1;const l=e=>{console.log("clicked",e);let t={};t[s]=e,oe("Collection",t)};return e.$set=(e=>{"title"in e&&n("title",r=e.title),"items"in e&&n("items",i=e.items),"key"in e&&n("key",s=e.key)}),{title:r,items:i,key:s,open:o,onClick:l,click_handler:({item:e})=>{l(e)},click_handler_1:()=>n("open",o=!o)}}class pe extends Z{constructor(e){super(),N(this,e,he,ue,s,["title","items","key"])}}function ge(t){var n,i,s,c,h;return{c(){n=u("div"),i=u("input"),s=p(),c=u("i"),d(i,"class","search svelte-806y3v"),d(i,"placeholder","Search"),d(c,"class","fa fa-search"),d(n,"class","round-wrapper is-search-box svelte-806y3v"),h=[g(i,"input",t.input_input_handler),g(i,"keydown",t.search)]},m(e,r){l(e,n,r),o(n,i),m(i,t.query),o(n,s),o(n,c)},p(e,t){e.query&&i.value!==t.query&&m(i,t.query)},i:e,o:e,d(e){e&&a(n),r(h)}}}function de(e,t,n){let r;return{query:r,search:function(e){"Enter"===e.key&&(console.log("search",r),oe("Collection",{query:r}))},input_input_handler:function(){r=this.value,n("query",r)}}}class fe extends Z{constructor(e){super(),N(this,e,de,ge,s,[])}}var me=function(e){e=Array.isArray(e)?e.join(""):e;var t=ye.exec(e);return function(n){var r={query:e};if(n&&(r.variables=JSON.stringify(n)),t&&t.length){var i=t[2];i&&(r.operationName=t[2])}return JSON.stringify(r)}},ye=/(query|mutation) ?([\w\d-_]+)? ?\(.*?\)? \{/;const be=async()=>{let e=me`
+
+(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.head.appendChild(r) })(document);
+var app = (function () {
+    'use strict';
+
+    function noop() { }
+    function add_location(element, file, line, column, char) {
+        element.__svelte_meta = {
+            loc: { file, line, column, char }
+        };
+    }
+    function run(fn) {
+        return fn();
+    }
+    function blank_object() {
+        return Object.create(null);
+    }
+    function run_all(fns) {
+        fns.forEach(run);
+    }
+    function is_function(thing) {
+        return typeof thing === 'function';
+    }
+    function safe_not_equal(a, b) {
+        return a != a ? b == b : a !== b || ((a && typeof a === 'object') || typeof a === 'function');
+    }
+    function validate_store(store, name) {
+        if (!store || typeof store.subscribe !== 'function') {
+            throw new Error(`'${name}' is not a store with a 'subscribe' method`);
+        }
+    }
+    function subscribe(store, callback) {
+        const unsub = store.subscribe(callback);
+        return unsub.unsubscribe ? () => unsub.unsubscribe() : unsub;
+    }
+    function component_subscribe(component, store, callback) {
+        component.$$.on_destroy.push(subscribe(store, callback));
+    }
+
+    function append(target, node) {
+        target.appendChild(node);
+    }
+    function insert(target, node, anchor) {
+        target.insertBefore(node, anchor || null);
+    }
+    function detach(node) {
+        node.parentNode.removeChild(node);
+    }
+    function destroy_each(iterations, detaching) {
+        for (let i = 0; i < iterations.length; i += 1) {
+            if (iterations[i])
+                iterations[i].d(detaching);
+        }
+    }
+    function element(name) {
+        return document.createElement(name);
+    }
+    function text(data) {
+        return document.createTextNode(data);
+    }
+    function space() {
+        return text(' ');
+    }
+    function empty() {
+        return text('');
+    }
+    function listen(node, event, handler, options) {
+        node.addEventListener(event, handler, options);
+        return () => node.removeEventListener(event, handler, options);
+    }
+    function attr(node, attribute, value) {
+        if (value == null)
+            node.removeAttribute(attribute);
+        else
+            node.setAttribute(attribute, value);
+    }
+    function children(element) {
+        return Array.from(element.childNodes);
+    }
+    function set_input_value(input, value) {
+        if (value != null || input.value) {
+            input.value = value;
+        }
+    }
+    function set_style(node, key, value, important) {
+        node.style.setProperty(key, value, important ? 'important' : '');
+    }
+    function toggle_class(element, name, toggle) {
+        element.classList[toggle ? 'add' : 'remove'](name);
+    }
+    function custom_event(type, detail) {
+        const e = document.createEvent('CustomEvent');
+        e.initCustomEvent(type, false, false, detail);
+        return e;
+    }
+
+    let current_component;
+    function set_current_component(component) {
+        current_component = component;
+    }
+    function get_current_component() {
+        if (!current_component)
+            throw new Error(`Function called outside component initialization`);
+        return current_component;
+    }
+    function onMount(fn) {
+        get_current_component().$$.on_mount.push(fn);
+    }
+    function onDestroy(fn) {
+        get_current_component().$$.on_destroy.push(fn);
+    }
+
+    const dirty_components = [];
+    const binding_callbacks = [];
+    const render_callbacks = [];
+    const flush_callbacks = [];
+    const resolved_promise = Promise.resolve();
+    let update_scheduled = false;
+    function schedule_update() {
+        if (!update_scheduled) {
+            update_scheduled = true;
+            resolved_promise.then(flush);
+        }
+    }
+    function add_render_callback(fn) {
+        render_callbacks.push(fn);
+    }
+    function flush() {
+        const seen_callbacks = new Set();
+        do {
+            // first, call beforeUpdate functions
+            // and update components
+            while (dirty_components.length) {
+                const component = dirty_components.shift();
+                set_current_component(component);
+                update(component.$$);
+            }
+            while (binding_callbacks.length)
+                binding_callbacks.pop()();
+            // then, once components are updated, call
+            // afterUpdate functions. This may cause
+            // subsequent updates...
+            for (let i = 0; i < render_callbacks.length; i += 1) {
+                const callback = render_callbacks[i];
+                if (!seen_callbacks.has(callback)) {
+                    callback();
+                    // ...so guard against infinite loops
+                    seen_callbacks.add(callback);
+                }
+            }
+            render_callbacks.length = 0;
+        } while (dirty_components.length);
+        while (flush_callbacks.length) {
+            flush_callbacks.pop()();
+        }
+        update_scheduled = false;
+    }
+    function update($$) {
+        if ($$.fragment) {
+            $$.update($$.dirty);
+            run_all($$.before_update);
+            $$.fragment.p($$.dirty, $$.ctx);
+            $$.dirty = null;
+            $$.after_update.forEach(add_render_callback);
+        }
+    }
+    const outroing = new Set();
+    let outros;
+    function group_outros() {
+        outros = {
+            r: 0,
+            c: [],
+            p: outros // parent group
+        };
+    }
+    function check_outros() {
+        if (!outros.r) {
+            run_all(outros.c);
+        }
+        outros = outros.p;
+    }
+    function transition_in(block, local) {
+        if (block && block.i) {
+            outroing.delete(block);
+            block.i(local);
+        }
+    }
+    function transition_out(block, local, detach, callback) {
+        if (block && block.o) {
+            if (outroing.has(block))
+                return;
+            outroing.add(block);
+            outros.c.push(() => {
+                outroing.delete(block);
+                if (callback) {
+                    if (detach)
+                        block.d(1);
+                    callback();
+                }
+            });
+            block.o(local);
+        }
+    }
+
+    const globals = (typeof window !== 'undefined' ? window : global);
+    function mount_component(component, target, anchor) {
+        const { fragment, on_mount, on_destroy, after_update } = component.$$;
+        fragment.m(target, anchor);
+        // onMount happens before the initial afterUpdate
+        add_render_callback(() => {
+            const new_on_destroy = on_mount.map(run).filter(is_function);
+            if (on_destroy) {
+                on_destroy.push(...new_on_destroy);
+            }
+            else {
+                // Edge case - component was destroyed immediately,
+                // most likely as a result of a binding initialising
+                run_all(new_on_destroy);
+            }
+            component.$$.on_mount = [];
+        });
+        after_update.forEach(add_render_callback);
+    }
+    function destroy_component(component, detaching) {
+        if (component.$$.fragment) {
+            run_all(component.$$.on_destroy);
+            component.$$.fragment.d(detaching);
+            // TODO null out other refs, including component.$$ (but need to
+            // preserve final state?)
+            component.$$.on_destroy = component.$$.fragment = null;
+            component.$$.ctx = {};
+        }
+    }
+    function make_dirty(component, key) {
+        if (!component.$$.dirty) {
+            dirty_components.push(component);
+            schedule_update();
+            component.$$.dirty = blank_object();
+        }
+        component.$$.dirty[key] = true;
+    }
+    function init(component, options, instance, create_fragment, not_equal, prop_names) {
+        const parent_component = current_component;
+        set_current_component(component);
+        const props = options.props || {};
+        const $$ = component.$$ = {
+            fragment: null,
+            ctx: null,
+            // state
+            props: prop_names,
+            update: noop,
+            not_equal,
+            bound: blank_object(),
+            // lifecycle
+            on_mount: [],
+            on_destroy: [],
+            before_update: [],
+            after_update: [],
+            context: new Map(parent_component ? parent_component.$$.context : []),
+            // everything else
+            callbacks: blank_object(),
+            dirty: null
+        };
+        let ready = false;
+        $$.ctx = instance
+            ? instance(component, props, (key, ret, value = ret) => {
+                if ($$.ctx && not_equal($$.ctx[key], $$.ctx[key] = value)) {
+                    if ($$.bound[key])
+                        $$.bound[key](value);
+                    if (ready)
+                        make_dirty(component, key);
+                }
+                return ret;
+            })
+            : props;
+        $$.update();
+        ready = true;
+        run_all($$.before_update);
+        $$.fragment = create_fragment($$.ctx);
+        if (options.target) {
+            if (options.hydrate) {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                $$.fragment.l(children(options.target));
+            }
+            else {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                $$.fragment.c();
+            }
+            if (options.intro)
+                transition_in(component.$$.fragment);
+            mount_component(component, options.target, options.anchor);
+            flush();
+        }
+        set_current_component(parent_component);
+    }
+    class SvelteComponent {
+        $destroy() {
+            destroy_component(this, 1);
+            this.$destroy = noop;
+        }
+        $on(type, callback) {
+            const callbacks = (this.$$.callbacks[type] || (this.$$.callbacks[type] = []));
+            callbacks.push(callback);
+            return () => {
+                const index = callbacks.indexOf(callback);
+                if (index !== -1)
+                    callbacks.splice(index, 1);
+            };
+        }
+        $set() {
+            // overridden by instance, if it has props
+        }
+    }
+
+    function dispatch_dev(type, detail) {
+        document.dispatchEvent(custom_event(type, detail));
+    }
+    function append_dev(target, node) {
+        dispatch_dev("SvelteDOMInsert", { target, node });
+        append(target, node);
+    }
+    function insert_dev(target, node, anchor) {
+        dispatch_dev("SvelteDOMInsert", { target, node, anchor });
+        insert(target, node, anchor);
+    }
+    function detach_dev(node) {
+        dispatch_dev("SvelteDOMRemove", { node });
+        detach(node);
+    }
+    function listen_dev(node, event, handler, options, has_prevent_default, has_stop_propagation) {
+        const modifiers = options === true ? ["capture"] : options ? Array.from(Object.keys(options)) : [];
+        if (has_prevent_default)
+            modifiers.push('preventDefault');
+        if (has_stop_propagation)
+            modifiers.push('stopPropagation');
+        dispatch_dev("SvelteDOMAddEventListener", { node, event, handler, modifiers });
+        const dispose = listen(node, event, handler, options);
+        return () => {
+            dispatch_dev("SvelteDOMRemoveEventListener", { node, event, handler, modifiers });
+            dispose();
+        };
+    }
+    function attr_dev(node, attribute, value) {
+        attr(node, attribute, value);
+        if (value == null)
+            dispatch_dev("SvelteDOMRemoveAttribute", { node, attribute });
+        else
+            dispatch_dev("SvelteDOMSetAttribute", { node, attribute, value });
+    }
+    function set_data_dev(text, data) {
+        data = '' + data;
+        if (text.data === data)
+            return;
+        dispatch_dev("SvelteDOMSetData", { node: text, data });
+        text.data = data;
+    }
+    class SvelteComponentDev extends SvelteComponent {
+        constructor(options) {
+            if (!options || (!options.target && !options.$$inline)) {
+                throw new Error(`'target' is a required option`);
+            }
+            super();
+        }
+        $destroy() {
+            super.$destroy();
+            this.$destroy = () => {
+                console.warn(`Component was already destroyed`); // eslint-disable-line no-console
+            };
+        }
+    }
+
+    /* src/Header.svelte generated by Svelte v3.12.1 */
+
+    const file = "src/Header.svelte";
+
+    function create_fragment(ctx) {
+    	var div2, header, a0, img0, t0, div1, h1, t2, h2, t4, div0, t5, a1, img1;
+
+    	const block = {
+    		c: function create() {
+    			div2 = element("div");
+    			header = element("header");
+    			a0 = element("a");
+    			img0 = element("img");
+    			t0 = space();
+    			div1 = element("div");
+    			h1 = element("h1");
+    			h1.textContent = "Himalayan Academy";
+    			t2 = space();
+    			h2 = element("h2");
+    			h2.textContent = "Museum of Spiritual Arts";
+    			t4 = space();
+    			div0 = element("div");
+    			t5 = space();
+    			a1 = element("a");
+    			img1 = element("img");
+    			attr_dev(img0, "src", "images/hamsa-logo-opt.jpg");
+    			attr_dev(img0, "alt", "HAMSA logo");
+    			attr_dev(img0, "class", "hamsa-logo svelte-ijxtj5");
+    			add_location(img0, file, 26, 12, 474);
+    			attr_dev(a0, "href", "/hamsa");
+    			attr_dev(a0, "class", "logo svelte-ijxtj5");
+    			add_location(a0, file, 25, 8, 431);
+    			attr_dev(h1, "class", "title");
+    			add_location(h1, file, 29, 12, 617);
+    			attr_dev(h2, "class", "subtitle");
+    			add_location(h2, file, 30, 12, 670);
+    			set_style(div0, "flex", "auto");
+    			add_location(div0, file, 31, 12, 733);
+    			attr_dev(div1, "class", "monastery-header-text");
+    			add_location(div1, file, 28, 8, 569);
+    			attr_dev(img1, "class", "monastery-logo svelte-ijxtj5");
+    			attr_dev(img1, "src", "images/monastery-logo.png");
+    			attr_dev(img1, "alt", "Monastery Logo");
+    			add_location(img1, file, 34, 12, 835);
+    			attr_dev(a1, "href", "/");
+    			attr_dev(a1, "class", "monastery-logo svelte-ijxtj5");
+    			add_location(a1, file, 33, 8, 787);
+    			add_location(header, file, 24, 4, 414);
+    			add_location(div2, file, 23, 0, 404);
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, header);
+    			append_dev(header, a0);
+    			append_dev(a0, img0);
+    			append_dev(header, t0);
+    			append_dev(header, div1);
+    			append_dev(div1, h1);
+    			append_dev(div1, t2);
+    			append_dev(div1, h2);
+    			append_dev(div1, t4);
+    			append_dev(div1, div0);
+    			append_dev(header, t5);
+    			append_dev(header, a1);
+    			append_dev(a1, img1);
+    		},
+
+    		p: noop,
+    		i: noop,
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div2);
+    			}
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment.name, type: "component", source: "", ctx });
+    	return block;
+    }
+
+    class Header extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, null, create_fragment, safe_not_equal, []);
+    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "Header", options, id: create_fragment.name });
+    	}
+    }
+
+    /* src/Hero.svelte generated by Svelte v3.12.1 */
+
+    const file$1 = "src/Hero.svelte";
+
+    function create_fragment$1(ctx) {
+    	var div1, div0, figure0, t, figure1;
+
+    	const block = {
+    		c: function create() {
+    			div1 = element("div");
+    			div0 = element("div");
+    			figure0 = element("figure");
+    			t = space();
+    			figure1 = element("figure");
+    			attr_dev(figure0, "class", "hero1 svelte-1dlv9r2");
+    			add_location(figure0, file$1, 39, 4, 756);
+    			attr_dev(figure1, "class", "hero2 svelte-1dlv9r2");
+    			add_location(figure1, file$1, 40, 4, 785);
+    			attr_dev(div0, "class", "hero svelte-1dlv9r2");
+    			add_location(div0, file$1, 38, 2, 733);
+    			add_location(div1, file$1, 37, 0, 725);
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, div0);
+    			append_dev(div0, figure0);
+    			append_dev(div0, t);
+    			append_dev(div0, figure1);
+    		},
+
+    		p: noop,
+    		i: noop,
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div1);
+    			}
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$1.name, type: "component", source: "", ctx });
+    	return block;
+    }
+
+    class Hero extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, null, create_fragment$1, safe_not_equal, []);
+    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "Hero", options, id: create_fragment$1.name });
+    	}
+    }
+
+    var strictUriEncode = str => encodeURIComponent(str).replace(/[!'()*]/g, x => `%${x.charCodeAt(0).toString(16).toUpperCase()}`);
+
+    var token = '%[a-f0-9]{2}';
+    var singleMatcher = new RegExp(token, 'gi');
+    var multiMatcher = new RegExp('(' + token + ')+', 'gi');
+
+    function decodeComponents(components, split) {
+    	try {
+    		// Try to decode the entire string first
+    		return decodeURIComponent(components.join(''));
+    	} catch (err) {
+    		// Do nothing
+    	}
+
+    	if (components.length === 1) {
+    		return components;
+    	}
+
+    	split = split || 1;
+
+    	// Split the array in 2 parts
+    	var left = components.slice(0, split);
+    	var right = components.slice(split);
+
+    	return Array.prototype.concat.call([], decodeComponents(left), decodeComponents(right));
+    }
+
+    function decode(input) {
+    	try {
+    		return decodeURIComponent(input);
+    	} catch (err) {
+    		var tokens = input.match(singleMatcher);
+
+    		for (var i = 1; i < tokens.length; i++) {
+    			input = decodeComponents(tokens, i).join('');
+
+    			tokens = input.match(singleMatcher);
+    		}
+
+    		return input;
+    	}
+    }
+
+    function customDecodeURIComponent(input) {
+    	// Keep track of all the replacements and prefill the map with the `BOM`
+    	var replaceMap = {
+    		'%FE%FF': '\uFFFD\uFFFD',
+    		'%FF%FE': '\uFFFD\uFFFD'
+    	};
+
+    	var match = multiMatcher.exec(input);
+    	while (match) {
+    		try {
+    			// Decode as big chunks as possible
+    			replaceMap[match[0]] = decodeURIComponent(match[0]);
+    		} catch (err) {
+    			var result = decode(match[0]);
+
+    			if (result !== match[0]) {
+    				replaceMap[match[0]] = result;
+    			}
+    		}
+
+    		match = multiMatcher.exec(input);
+    	}
+
+    	// Add `%C2` at the end of the map to make sure it does not replace the combinator before everything else
+    	replaceMap['%C2'] = '\uFFFD';
+
+    	var entries = Object.keys(replaceMap);
+
+    	for (var i = 0; i < entries.length; i++) {
+    		// Replace all decoded components
+    		var key = entries[i];
+    		input = input.replace(new RegExp(key, 'g'), replaceMap[key]);
+    	}
+
+    	return input;
+    }
+
+    var decodeUriComponent = function (encodedURI) {
+    	if (typeof encodedURI !== 'string') {
+    		throw new TypeError('Expected `encodedURI` to be of type `string`, got `' + typeof encodedURI + '`');
+    	}
+
+    	try {
+    		encodedURI = encodedURI.replace(/\+/g, ' ');
+
+    		// Try the built in decoder first
+    		return decodeURIComponent(encodedURI);
+    	} catch (err) {
+    		// Fallback to a more advanced decoder
+    		return customDecodeURIComponent(encodedURI);
+    	}
+    };
+
+    var splitOnFirst = (string, separator) => {
+    	if (!(typeof string === 'string' && typeof separator === 'string')) {
+    		throw new TypeError('Expected the arguments to be of type `string`');
+    	}
+
+    	if (separator === '') {
+    		return [string];
+    	}
+
+    	const separatorIndex = string.indexOf(separator);
+
+    	if (separatorIndex === -1) {
+    		return [string];
+    	}
+
+    	return [
+    		string.slice(0, separatorIndex),
+    		string.slice(separatorIndex + separator.length)
+    	];
+    };
+
+    function encoderForArrayFormat(options) {
+    	switch (options.arrayFormat) {
+    		case 'index':
+    			return key => (result, value) => {
+    				const index = result.length;
+    				if (value === undefined) {
+    					return result;
+    				}
+
+    				if (value === null) {
+    					return [...result, [encode(key, options), '[', index, ']'].join('')];
+    				}
+
+    				return [
+    					...result,
+    					[encode(key, options), '[', encode(index, options), ']=', encode(value, options)].join('')
+    				];
+    			};
+
+    		case 'bracket':
+    			return key => (result, value) => {
+    				if (value === undefined) {
+    					return result;
+    				}
+
+    				if (value === null) {
+    					return [...result, [encode(key, options), '[]'].join('')];
+    				}
+
+    				return [...result, [encode(key, options), '[]=', encode(value, options)].join('')];
+    			};
+
+    		case 'comma':
+    			return key => (result, value, index) => {
+    				if (value === null || value === undefined || value.length === 0) {
+    					return result;
+    				}
+
+    				if (index === 0) {
+    					return [[encode(key, options), '=', encode(value, options)].join('')];
+    				}
+
+    				return [[result, encode(value, options)].join(',')];
+    			};
+
+    		default:
+    			return key => (result, value) => {
+    				if (value === undefined) {
+    					return result;
+    				}
+
+    				if (value === null) {
+    					return [...result, encode(key, options)];
+    				}
+
+    				return [...result, [encode(key, options), '=', encode(value, options)].join('')];
+    			};
+    	}
+    }
+
+    function parserForArrayFormat(options) {
+    	let result;
+
+    	switch (options.arrayFormat) {
+    		case 'index':
+    			return (key, value, accumulator) => {
+    				result = /\[(\d*)\]$/.exec(key);
+
+    				key = key.replace(/\[\d*\]$/, '');
+
+    				if (!result) {
+    					accumulator[key] = value;
+    					return;
+    				}
+
+    				if (accumulator[key] === undefined) {
+    					accumulator[key] = {};
+    				}
+
+    				accumulator[key][result[1]] = value;
+    			};
+
+    		case 'bracket':
+    			return (key, value, accumulator) => {
+    				result = /(\[\])$/.exec(key);
+    				key = key.replace(/\[\]$/, '');
+
+    				if (!result) {
+    					accumulator[key] = value;
+    					return;
+    				}
+
+    				if (accumulator[key] === undefined) {
+    					accumulator[key] = [value];
+    					return;
+    				}
+
+    				accumulator[key] = [].concat(accumulator[key], value);
+    			};
+
+    		case 'comma':
+    			return (key, value, accumulator) => {
+    				const isArray = typeof value === 'string' && value.split('').indexOf(',') > -1;
+    				const newValue = isArray ? value.split(',') : value;
+    				accumulator[key] = newValue;
+    			};
+
+    		default:
+    			return (key, value, accumulator) => {
+    				if (accumulator[key] === undefined) {
+    					accumulator[key] = value;
+    					return;
+    				}
+
+    				accumulator[key] = [].concat(accumulator[key], value);
+    			};
+    	}
+    }
+
+    function encode(value, options) {
+    	if (options.encode) {
+    		return options.strict ? strictUriEncode(value) : encodeURIComponent(value);
+    	}
+
+    	return value;
+    }
+
+    function decode$1(value, options) {
+    	if (options.decode) {
+    		return decodeUriComponent(value);
+    	}
+
+    	return value;
+    }
+
+    function keysSorter(input) {
+    	if (Array.isArray(input)) {
+    		return input.sort();
+    	}
+
+    	if (typeof input === 'object') {
+    		return keysSorter(Object.keys(input))
+    			.sort((a, b) => Number(a) - Number(b))
+    			.map(key => input[key]);
+    	}
+
+    	return input;
+    }
+
+    function removeHash(input) {
+    	const hashStart = input.indexOf('#');
+    	if (hashStart !== -1) {
+    		input = input.slice(0, hashStart);
+    	}
+
+    	return input;
+    }
+
+    function extract(input) {
+    	input = removeHash(input);
+    	const queryStart = input.indexOf('?');
+    	if (queryStart === -1) {
+    		return '';
+    	}
+
+    	return input.slice(queryStart + 1);
+    }
+
+    function parseValue(value, options) {
+    	if (options.parseNumbers && !Number.isNaN(Number(value)) && (typeof value === 'string' && value.trim() !== '')) {
+    		value = Number(value);
+    	} else if (options.parseBooleans && value !== null && (value.toLowerCase() === 'true' || value.toLowerCase() === 'false')) {
+    		value = value.toLowerCase() === 'true';
+    	}
+
+    	return value;
+    }
+
+    function parse(input, options) {
+    	options = Object.assign({
+    		decode: true,
+    		sort: true,
+    		arrayFormat: 'none',
+    		parseNumbers: false,
+    		parseBooleans: false
+    	}, options);
+
+    	const formatter = parserForArrayFormat(options);
+
+    	// Create an object with no prototype
+    	const ret = Object.create(null);
+
+    	if (typeof input !== 'string') {
+    		return ret;
+    	}
+
+    	input = input.trim().replace(/^[?#&]/, '');
+
+    	if (!input) {
+    		return ret;
+    	}
+
+    	for (const param of input.split('&')) {
+    		let [key, value] = splitOnFirst(param.replace(/\+/g, ' '), '=');
+
+    		// Missing `=` should be `null`:
+    		// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
+    		value = value === undefined ? null : decode$1(value, options);
+    		formatter(decode$1(key, options), value, ret);
+    	}
+
+    	for (const key of Object.keys(ret)) {
+    		const value = ret[key];
+    		if (typeof value === 'object' && value !== null) {
+    			for (const k of Object.keys(value)) {
+    				value[k] = parseValue(value[k], options);
+    			}
+    		} else {
+    			ret[key] = parseValue(value, options);
+    		}
+    	}
+
+    	if (options.sort === false) {
+    		return ret;
+    	}
+
+    	return (options.sort === true ? Object.keys(ret).sort() : Object.keys(ret).sort(options.sort)).reduce((result, key) => {
+    		const value = ret[key];
+    		if (Boolean(value) && typeof value === 'object' && !Array.isArray(value)) {
+    			// Sort object keys, not values
+    			result[key] = keysSorter(value);
+    		} else {
+    			result[key] = value;
+    		}
+
+    		return result;
+    	}, Object.create(null));
+    }
+
+    var extract_1 = extract;
+    var parse_1 = parse;
+
+    var stringify = (object, options) => {
+    	if (!object) {
+    		return '';
+    	}
+
+    	options = Object.assign({
+    		encode: true,
+    		strict: true,
+    		arrayFormat: 'none'
+    	}, options);
+
+    	const formatter = encoderForArrayFormat(options);
+    	const keys = Object.keys(object);
+
+    	if (options.sort !== false) {
+    		keys.sort(options.sort);
+    	}
+
+    	return keys.map(key => {
+    		const value = object[key];
+
+    		if (value === undefined) {
+    			return '';
+    		}
+
+    		if (value === null) {
+    			return encode(key, options);
+    		}
+
+    		if (Array.isArray(value)) {
+    			return value
+    				.reduce(formatter(key), [])
+    				.join('&');
+    		}
+
+    		return encode(key, options) + '=' + encode(value, options);
+    	}).filter(x => x.length > 0).join('&');
+    };
+
+    var parseUrl = (input, options) => {
+    	return {
+    		url: removeHash(input).split('?')[0] || '',
+    		query: parse(extract(input), options)
+    	};
+    };
+
+    var queryString = {
+    	extract: extract_1,
+    	parse: parse_1,
+    	stringify: stringify,
+    	parseUrl: parseUrl
+    };
+
+    const subscriber_queue = [];
+    /**
+     * Create a `Writable` store that allows both updating and reading by subscription.
+     * @param {*=}value initial value
+     * @param {StartStopNotifier=}start start and stop notifications for subscriptions
+     */
+    function writable(value, start = noop) {
+        let stop;
+        const subscribers = [];
+        function set(new_value) {
+            if (safe_not_equal(value, new_value)) {
+                value = new_value;
+                if (stop) { // store is ready
+                    const run_queue = !subscriber_queue.length;
+                    for (let i = 0; i < subscribers.length; i += 1) {
+                        const s = subscribers[i];
+                        s[1]();
+                        subscriber_queue.push(s, value);
+                    }
+                    if (run_queue) {
+                        for (let i = 0; i < subscriber_queue.length; i += 2) {
+                            subscriber_queue[i][0](subscriber_queue[i + 1]);
+                        }
+                        subscriber_queue.length = 0;
+                    }
+                }
+            }
+        }
+        function update(fn) {
+            set(fn(value));
+        }
+        function subscribe(run, invalidate = noop) {
+            const subscriber = [run, invalidate];
+            subscribers.push(subscriber);
+            if (subscribers.length === 1) {
+                stop = start(set) || noop;
+            }
+            run(value);
+            return () => {
+                const index = subscribers.indexOf(subscriber);
+                if (index !== -1) {
+                    subscribers.splice(index, 1);
+                }
+                if (subscribers.length === 0) {
+                    stop();
+                    stop = null;
+                }
+            };
+        }
+        return { set, update, subscribe };
+    }
+
+    const currentView = writable({view: "Collection", data: {}});
+
+    const go = (view, data) => {
+        let qs = queryString.stringify({view, ...data});
+        history.pushState({view, data}, `HAMSA - ${view}`,`index.html?${qs}`);
+        currentView.set({view, data});
+    };
+
+    const loadFromURL = () => {
+        let qs = queryString.parse(location.search);
+        let view = qs.view || "Collection"; 
+        delete qs.view;
+        go(view, qs);
+    };
+
+    /* src/SelectorButton.svelte generated by Svelte v3.12.1 */
+    const { console: console_1 } = globals;
+
+    const file$2 = "src/SelectorButton.svelte";
+
+    function get_each_context(ctx, list, i) {
+    	const child_ctx = Object.create(ctx);
+    	child_ctx.item = list[i];
+    	return child_ctx;
+    }
+
+    // (67:4) {#each items as item}
+    function create_each_block(ctx) {
+    	var li, t_value = ctx.item + "", t, dispose;
+
+    	function click_handler() {
+    		return ctx.click_handler(ctx);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			li = element("li");
+    			t = text(t_value);
+    			attr_dev(li, "class", "list-item svelte-of35eu");
+    			add_location(li, file$2, 67, 8, 1497);
+    			dispose = listen_dev(li, "click", click_handler);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, li, anchor);
+    			append_dev(li, t);
+    		},
+
+    		p: function update(changed, new_ctx) {
+    			ctx = new_ctx;
+    			if ((changed.items) && t_value !== (t_value = ctx.item + "")) {
+    				set_data_dev(t, t_value);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(li);
+    			}
+
+    			dispose();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block.name, type: "each", source: "(67:4) {#each items as item}", ctx });
+    	return block;
+    }
+
+    function create_fragment$2(ctx) {
+    	var div1, div0, span, t0, t1, i, t2, ul, dispose;
+
+    	let each_value = ctx.items;
+
+    	let each_blocks = [];
+
+    	for (let i_1 = 0; i_1 < each_value.length; i_1 += 1) {
+    		each_blocks[i_1] = create_each_block(get_each_context(ctx, each_value, i_1));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div1 = element("div");
+    			div0 = element("div");
+    			span = element("span");
+    			t0 = text(ctx.title);
+    			t1 = space();
+    			i = element("i");
+    			t2 = space();
+    			ul = element("ul");
+
+    			for (let i_1 = 0; i_1 < each_blocks.length; i_1 += 1) {
+    				each_blocks[i_1].c();
+    			}
+    			attr_dev(span, "class", "title");
+    			add_location(span, file$2, 62, 8, 1331);
+    			attr_dev(i, "class", "fa fa-caret-down");
+    			add_location(i, file$2, 63, 8, 1374);
+    			attr_dev(div0, "class", "selector-text svelte-of35eu");
+    			add_location(div0, file$2, 61, 4, 1295);
+    			attr_dev(ul, "class", "selector-content svelte-of35eu");
+    			toggle_class(ul, "open", ctx.open);
+    			add_location(ul, file$2, 65, 4, 1422);
+    			attr_dev(div1, "class", "round-wrapper is-selector-categories svelte-of35eu");
+    			add_location(div1, file$2, 60, 0, 1210);
+    			dispose = listen_dev(div1, "click", ctx.click_handler_1);
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, div0);
+    			append_dev(div0, span);
+    			append_dev(span, t0);
+    			append_dev(div0, t1);
+    			append_dev(div0, i);
+    			append_dev(div1, t2);
+    			append_dev(div1, ul);
+
+    			for (let i_1 = 0; i_1 < each_blocks.length; i_1 += 1) {
+    				each_blocks[i_1].m(ul, null);
+    			}
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (changed.title) {
+    				set_data_dev(t0, ctx.title);
+    			}
+
+    			if (changed.items) {
+    				each_value = ctx.items;
+
+    				let i_1;
+    				for (i_1 = 0; i_1 < each_value.length; i_1 += 1) {
+    					const child_ctx = get_each_context(ctx, each_value, i_1);
+
+    					if (each_blocks[i_1]) {
+    						each_blocks[i_1].p(changed, child_ctx);
+    					} else {
+    						each_blocks[i_1] = create_each_block(child_ctx);
+    						each_blocks[i_1].c();
+    						each_blocks[i_1].m(ul, null);
+    					}
+    				}
+
+    				for (; i_1 < each_blocks.length; i_1 += 1) {
+    					each_blocks[i_1].d(1);
+    				}
+    				each_blocks.length = each_value.length;
+    			}
+
+    			if (changed.open) {
+    				toggle_class(ul, "open", ctx.open);
+    			}
+    		},
+
+    		i: noop,
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div1);
+    			}
+
+    			destroy_each(each_blocks, detaching);
+
+    			dispose();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$2.name, type: "component", source: "", ctx });
+    	return block;
+    }
+
+    function instance($$self, $$props, $$invalidate) {
+    	let { title="untitled", items=[], key="item" } = $$props;
+
+        let open = false;
+
+        const onClick = (item) => {
+            console.log("clicked", item);
+            let data = {};
+            data[key] = item;
+            go("Collection", data);
+        };
+
+    	const writable_props = ['title', 'items', 'key'];
+    	Object.keys($$props).forEach(key => {
+    		if (!writable_props.includes(key) && !key.startsWith('$$')) console_1.warn(`<SelectorButton> was created with unknown prop '${key}'`);
+    	});
+
+    	const click_handler = ({ item }) => {onClick(item);};
+
+    	const click_handler_1 = () => $$invalidate('open', open = !open);
+
+    	$$self.$set = $$props => {
+    		if ('title' in $$props) $$invalidate('title', title = $$props.title);
+    		if ('items' in $$props) $$invalidate('items', items = $$props.items);
+    		if ('key' in $$props) $$invalidate('key', key = $$props.key);
+    	};
+
+    	$$self.$capture_state = () => {
+    		return { title, items, key, open };
+    	};
+
+    	$$self.$inject_state = $$props => {
+    		if ('title' in $$props) $$invalidate('title', title = $$props.title);
+    		if ('items' in $$props) $$invalidate('items', items = $$props.items);
+    		if ('key' in $$props) $$invalidate('key', key = $$props.key);
+    		if ('open' in $$props) $$invalidate('open', open = $$props.open);
+    	};
+
+    	return {
+    		title,
+    		items,
+    		key,
+    		open,
+    		onClick,
+    		click_handler,
+    		click_handler_1
+    	};
+    }
+
+    class SelectorButton extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance, create_fragment$2, safe_not_equal, ["title", "items", "key"]);
+    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "SelectorButton", options, id: create_fragment$2.name });
+    	}
+
+    	get title() {
+    		throw new Error("<SelectorButton>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set title(value) {
+    		throw new Error("<SelectorButton>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get items() {
+    		throw new Error("<SelectorButton>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set items(value) {
+    		throw new Error("<SelectorButton>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get key() {
+    		throw new Error("<SelectorButton>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set key(value) {
+    		throw new Error("<SelectorButton>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/SearchField.svelte generated by Svelte v3.12.1 */
+
+    const file$3 = "src/SearchField.svelte";
+
+    function create_fragment$3(ctx) {
+    	var div, input, t, i, dispose;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			input = element("input");
+    			t = space();
+    			i = element("i");
+    			attr_dev(input, "class", "search svelte-tzpwoo");
+    			attr_dev(input, "placeholder", "Search");
+    			add_location(input, file$3, 39, 2, 709);
+    			attr_dev(i, "class", "fa fa-search");
+    			add_location(i, file$3, 40, 2, 796);
+    			attr_dev(div, "class", "round-wrapper is-search-box svelte-tzpwoo");
+    			add_location(div, file$3, 38, 0, 665);
+
+    			dispose = [
+    				listen_dev(input, "input", ctx.input_input_handler),
+    				listen_dev(input, "keydown", ctx.search)
+    			];
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, input);
+
+    			set_input_value(input, ctx.query);
+
+    			append_dev(div, t);
+    			append_dev(div, i);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (changed.query && (input.value !== ctx.query)) set_input_value(input, ctx.query);
+    		},
+
+    		i: noop,
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div);
+    			}
+
+    			run_all(dispose);
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$3.name, type: "component", source: "", ctx });
+    	return block;
+    }
+
+    function instance$1($$self, $$props, $$invalidate) {
+    	let query;
+
+      function search(event) {
+        if (event.key === "Enter") {
+          console.log("search", query);
+          go("Collection", { query });
+        }
+      }
+
+    	function input_input_handler() {
+    		query = this.value;
+    		$$invalidate('query', query);
+    	}
+
+    	$$self.$capture_state = () => {
+    		return {};
+    	};
+
+    	$$self.$inject_state = $$props => {
+    		if ('query' in $$props) $$invalidate('query', query = $$props.query);
+    	};
+
+    	return { query, search, input_input_handler };
+    }
+
+    class SearchField extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$1, create_fragment$3, safe_not_equal, []);
+    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "SearchField", options, id: create_fragment$3.name });
+    	}
+    }
+
+    var nanographql_1 = nanographql;
+
+    var getOpname = /(query|mutation) ?([\w\d-_]+)? ?\(.*?\)? \{/;
+
+    function nanographql (str) {
+      str = Array.isArray(str) ? str.join('') : str;
+      var name = getOpname.exec(str);
+      return function (variables) {
+        var data = { query: str };
+        if (variables) data.variables = JSON.stringify(variables);
+        if (name && name.length) {
+          var operationName = name[2];
+          if (operationName) data.operationName = name[2];
+        }
+        return JSON.stringify(data)
+      }
+    }
+
+    const API_URL = "//dev.himalayanacademy.com/hamsa/api/index.php";
+
+
+    const getSelectors = async () => {
+        let query = nanographql_1`
       query {
         collections
         artists
         keywords
       }
-    `;return $e(e)},ke=async e=>{let t=me`
+    `;
+
+        return executeQuery(query);
+    };
+
+    const getCollection = async (payload) => {
+        let query = nanographql_1`
     query($limit: Int!, $offset: Int!, $keyword: String, $artist: String, $query: String) { 
         images( limit: $limit offset: $offset keyword: $keyword artist: $artist query: $query  ) { 
           thumbnail, 
           checksum 
         } } 
-    `;return $e(t,e)},ve=async e=>{let t=me`
+    `;
+
+        return executeQuery(query, payload);
+    };
+
+    const getImage = async (payload) => {
+      let query = nanographql_1`
   query($checksum: String!) { 
       image( checksum: $checksum) { 
         path, 
@@ -24,5 +1393,3224 @@ var app=function(){"use strict";function e(){}function t(e){return e()}function 
           keywords
         } 
       } } 
-  `;return $e(t,e)},$e=async(e,t)=>{try{const n=await fetch("//dev.himalayanacademy.com/hamsa/api/index.php",{body:e(t),method:"POST",headers:{Accept:"application/json","Content-Type":"application/json"}});return(await n.json()).data}catch(e){throw console.error("GraphQL Error",e),e}};function xe(e){var t,n,r,i,s,c,h,f,m=new pe({props:{title:"Tags",key:"keyword",items:e.keywordList}}),y=new pe({props:{title:"Artists",key:"artist",items:e.artistsList}}),b=new pe({props:{title:"Collections",key:"collection",items:e.collectionList}}),k=new fe({});return{c(){t=u("div"),(n=u("div")).innerHTML="<span>i</span>",r=p(),m.$$.fragment.c(),i=p(),y.$$.fragment.c(),s=p(),b.$$.fragment.c(),c=p(),k.$$.fragment.c(),d(n,"class","bolotinha svelte-1qalh13"),d(t,"class","selector-controls svelte-1qalh13"),f=g(n,"click",e.goInfo)},m(e,a){l(e,t,a),o(t,n),o(t,r),I(m,t,null),o(t,i),I(y,t,null),o(t,s),I(b,t,null),o(t,c),I(k,t,null),h=!0},p(e,t){var n={};e.keywordList&&(n.items=t.keywordList),m.$set(n);var r={};e.artistsList&&(r.items=t.artistsList),y.$set(r);var i={};e.collectionList&&(i.items=t.collectionList),b.$set(i)},i(e){h||(q(m.$$.fragment,e),q(y.$$.fragment,e),q(b.$$.fragment,e),q(k.$$.fragment,e),h=!0)},o(e){O(m.$$.fragment,e),O(y.$$.fragment,e),O(b.$$.fragment,e),O(k.$$.fragment,e),h=!1},d(e){e&&a(t),E(m),E(y),E(b),E(k),f()}}}function we(e,t,n){let r=[],i=[],s=[];var o;o=(async()=>{let e=await be();n("artistsList",r=e.artists.sort()),n("collectionList",i=e.collections.sort()),n("keywordList",s=e.keywords.sort()),console.log("selectors data",e)}),v().$$.on_mount.push(o);return{artistsList:r,collectionList:i,keywordList:s,goInfo:()=>{oe("InfoPage")}}}class _e extends Z{constructor(e){super(),N(this,e,we,xe,s,[])}}function Ae(t){var n,r,i,s,c;return{c(){n=u("div"),(r=u("div")).innerHTML='<h1 id="welcome-to-hamsa">Welcome to HAMSA</h1> <p>Indian spiritual art has no equal in the world, either in scope or sheer quantity. For five decades the monks\n\t\t\t            at Kauai’s Hindu Monastery in Hawaii have been commissioning and collecting original works of art for our\n\t\t\t            many publications, apps and web projects. Among the thousands of images you will find rare masterpieces,\n\t\t\t            educational depictions of Hindu culture, legend, deities and philosophy, sacred religious symbols,\n\t\t\t            illustrated alphabets, children’s stories and decorative borders. For decades this treasure trove was hidden\n\t\t\t            in the binary recesses of our server (even we could barely find things). Now the entire collection is\n\t\t\t            available to you through the Himalayan Academy Museum of Spiritual Art. In Sanskrit hamsa is the word for\n\t\t\t            the Indian Goose (Anser indicus) or a swan, and represents the Ultimate Reality and the spiritually pure\n\t\t\t            soul. The flight of the hamsa symbolizes moksha, the release from the cycle of samsara.</p> <p>You can search by key word, artist or collection. The download button will save the highest available\n\t\t\t            resolution file to your computer. You may use these images freely in service to dharma. However, if your use\n\t\t\t            is commercial, you must get written permission from the copyright holder, Himalayan Academy, by writing to:\n\t\t\t            <a href="mailto:contact@hindu.org">contact@hindu.org</a>.</p>',i=p(),(s=u("button")).textContent="Go back",d(s,"class","back-button svelte-5zgyg"),d(n,"class","info info-blurb svelte-5zgyg"),c=g(s,"click",Se)},m(e,t){l(e,n,t),o(n,r),o(n,i),o(n,s)},p:e,i:e,o:e,d(e){e&&a(n),c()}}}const Se=()=>history.back();class Le extends Z{constructor(e){super(),N(this,e,null,Ae,s,[])}}var Re,Te=(function(e,t){!function(t){var n={newline:/^\n+/,code:/^( {4}[^\n]+\n*)+/,fences:/^ {0,3}(`{3,}|~{3,})([^`~\n]*)\n(?:|([\s\S]*?)\n)(?: {0,3}\1[~`]* *(?:\n+|$)|$)/,hr:/^ {0,3}((?:- *){3,}|(?:_ *){3,}|(?:\* *){3,})(?:\n+|$)/,heading:/^ {0,3}(#{1,6}) +([^\n]*?)(?: +#+)? *(?:\n+|$)/,blockquote:/^( {0,3}> ?(paragraph|[^\n]*)(?:\n|$))+/,list:/^( {0,3})(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,html:"^ {0,3}(?:<(script|pre|style)[\\s>][\\s\\S]*?(?:</\\1>[^\\n]*\\n+|$)|comment[^\\n]*(\\n+|$)|<\\?[\\s\\S]*?\\?>\\n*|<![A-Z][\\s\\S]*?>\\n*|<!\\[CDATA\\[[\\s\\S]*?\\]\\]>\\n*|</?(tag)(?: +|\\n|/?>)[\\s\\S]*?(?:\\n{2,}|$)|<(?!script|pre|style)([a-z][\\w-]*)(?:attribute)*? */?>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:\\n{2,}|$)|</(?!script|pre|style)[a-z][\\w-]*\\s*>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:\\n{2,}|$))",def:/^ {0,3}\[(label)\]: *\n? *<?([^\s>]+)>?(?:(?: +\n? *| *\n *)(title))? *(?:\n+|$)/,nptable:m,table:m,lheading:/^([^\n]+)\n {0,3}(=+|-+) *(?:\n+|$)/,_paragraph:/^([^\n]+(?:\n(?!hr|heading|lheading|blockquote|fences|list|html)[^\n]+)*)/,text:/^[^\n]+/};function r(e){this.tokens=[],this.tokens.links=Object.create(null),this.options=e||x.defaults,this.rules=n.normal,this.options.pedantic?this.rules=n.pedantic:this.options.gfm&&(this.rules=n.gfm)}n._label=/(?!\s*\])(?:\\[\[\]]|[^\[\]])+/,n._title=/(?:"(?:\\"?|[^"\\])*"|'[^'\n]*(?:\n[^'\n]+)*\n?'|\([^()]*\))/,n.def=p(n.def).replace("label",n._label).replace("title",n._title).getRegex(),n.bullet=/(?:[*+-]|\d{1,9}\.)/,n.item=/^( *)(bull) ?[^\n]*(?:\n(?!\1bull ?)[^\n]*)*/,n.item=p(n.item,"gm").replace(/bull/g,n.bullet).getRegex(),n.list=p(n.list).replace(/bull/g,n.bullet).replace("hr","\\n+(?=\\1?(?:(?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})(?:\\n+|$))").replace("def","\\n+(?="+n.def.source+")").getRegex(),n._tag="address|article|aside|base|basefont|blockquote|body|caption|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption|figure|footer|form|frame|frameset|h[1-6]|head|header|hr|html|iframe|legend|li|link|main|menu|menuitem|meta|nav|noframes|ol|optgroup|option|p|param|section|source|summary|table|tbody|td|tfoot|th|thead|title|tr|track|ul",n._comment=/<!--(?!-?>)[\s\S]*?-->/,n.html=p(n.html,"i").replace("comment",n._comment).replace("tag",n._tag).replace("attribute",/ +[a-zA-Z:_][\w.:-]*(?: *= *"[^"\n]*"| *= *'[^'\n]*'| *= *[^\s"'=<>`]+)?/).getRegex(),n.paragraph=p(n._paragraph).replace("hr",n.hr).replace("heading"," {0,3}#{1,6} +").replace("|lheading","").replace("blockquote"," {0,3}>").replace("fences"," {0,3}(?:`{3,}|~{3,})[^`\\n]*\\n").replace("list"," {0,3}(?:[*+-]|1[.)]) ").replace("html","</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|!--)").replace("tag",n._tag).getRegex(),n.blockquote=p(n.blockquote).replace("paragraph",n.paragraph).getRegex(),n.normal=y({},n),n.gfm=y({},n.normal,{nptable:/^ *([^|\n ].*\|.*)\n *([-:]+ *\|[-| :]*)(?:\n((?:.*[^>\n ].*(?:\n|$))*)\n*|$)/,table:/^ *\|(.+)\n *\|?( *[-:]+[-| :]*)(?:\n((?: *[^>\n ].*(?:\n|$))*)\n*|$)/}),n.pedantic=y({},n.normal,{html:p("^ *(?:comment *(?:\\n|\\s*$)|<(tag)[\\s\\S]+?</\\1> *(?:\\n{2,}|\\s*$)|<tag(?:\"[^\"]*\"|'[^']*'|\\s[^'\"/>\\s]*)*?/?> *(?:\\n{2,}|\\s*$))").replace("comment",n._comment).replace(/tag/g,"(?!(?:a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)\\b)\\w+(?!:|[^\\w\\s@]*@)\\b").getRegex(),def:/^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +(["(][^\n]+[")]))? *(?:\n+|$)/,heading:/^ *(#{1,6}) *([^\n]+?) *(?:#+ *)?(?:\n+|$)/,fences:m,paragraph:p(n.normal._paragraph).replace("hr",n.hr).replace("heading"," *#{1,6} *[^\n]").replace("lheading",n.lheading).replace("blockquote"," {0,3}>").replace("|fences","").replace("|list","").replace("|html","").getRegex()}),r.rules=n,r.lex=function(e,t){return new r(t).lex(e)},r.prototype.lex=function(e){return e=e.replace(/\r\n|\r/g,"\n").replace(/\t/g,"    ").replace(/\u00a0/g," ").replace(/\u2424/g,"\n"),this.token(e,!0)},r.prototype.token=function(e,t){var r,i,s,o,l,a,c,h,p,g,d,f,m,y,v,$;for(e=e.replace(/^ +$/gm,"");e;)if((s=this.rules.newline.exec(e))&&(e=e.substring(s[0].length),s[0].length>1&&this.tokens.push({type:"space"})),s=this.rules.code.exec(e)){var x=this.tokens[this.tokens.length-1];e=e.substring(s[0].length),x&&"paragraph"===x.type?x.text+="\n"+s[0].trimRight():(s=s[0].replace(/^ {4}/gm,""),this.tokens.push({type:"code",codeBlockStyle:"indented",text:this.options.pedantic?s:k(s,"\n")}))}else if(s=this.rules.fences.exec(e))e=e.substring(s[0].length),this.tokens.push({type:"code",lang:s[2]?s[2].trim():s[2],text:s[3]||""});else if(s=this.rules.heading.exec(e))e=e.substring(s[0].length),this.tokens.push({type:"heading",depth:s[1].length,text:s[2]});else if((s=this.rules.nptable.exec(e))&&(a={type:"table",header:b(s[1].replace(/^ *| *\| *$/g,"")),align:s[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:s[3]?s[3].replace(/\n$/,"").split("\n"):[]}).header.length===a.align.length){for(e=e.substring(s[0].length),d=0;d<a.align.length;d++)/^ *-+: *$/.test(a.align[d])?a.align[d]="right":/^ *:-+: *$/.test(a.align[d])?a.align[d]="center":/^ *:-+ *$/.test(a.align[d])?a.align[d]="left":a.align[d]=null;for(d=0;d<a.cells.length;d++)a.cells[d]=b(a.cells[d],a.header.length);this.tokens.push(a)}else if(s=this.rules.hr.exec(e))e=e.substring(s[0].length),this.tokens.push({type:"hr"});else if(s=this.rules.blockquote.exec(e))e=e.substring(s[0].length),this.tokens.push({type:"blockquote_start"}),s=s[0].replace(/^ *> ?/gm,""),this.token(s,t),this.tokens.push({type:"blockquote_end"});else if(s=this.rules.list.exec(e)){for(e=e.substring(s[0].length),c={type:"list_start",ordered:y=(o=s[2]).length>1,start:y?+o:"",loose:!1},this.tokens.push(c),h=[],r=!1,m=(s=s[0].match(this.rules.item)).length,d=0;d<m;d++)g=(a=s[d]).length,~(a=a.replace(/^ *([*+-]|\d+\.) */,"")).indexOf("\n ")&&(g-=a.length,a=this.options.pedantic?a.replace(/^ {1,4}/gm,""):a.replace(new RegExp("^ {1,"+g+"}","gm"),"")),d!==m-1&&(l=n.bullet.exec(s[d+1])[0],(o.length>1?1===l.length:l.length>1||this.options.smartLists&&l!==o)&&(e=s.slice(d+1).join("\n")+e,d=m-1)),i=r||/\n\n(?!\s*$)/.test(a),d!==m-1&&(r="\n"===a.charAt(a.length-1),i||(i=r)),i&&(c.loose=!0),$=void 0,(v=/^\[[ xX]\] /.test(a))&&($=" "!==a[1],a=a.replace(/^\[[ xX]\] +/,"")),p={type:"list_item_start",task:v,checked:$,loose:i},h.push(p),this.tokens.push(p),this.token(a,!1),this.tokens.push({type:"list_item_end"});if(c.loose)for(m=h.length,d=0;d<m;d++)h[d].loose=!0;this.tokens.push({type:"list_end"})}else if(s=this.rules.html.exec(e))e=e.substring(s[0].length),this.tokens.push({type:this.options.sanitize?"paragraph":"html",pre:!this.options.sanitizer&&("pre"===s[1]||"script"===s[1]||"style"===s[1]),text:this.options.sanitize?this.options.sanitizer?this.options.sanitizer(s[0]):u(s[0]):s[0]});else if(t&&(s=this.rules.def.exec(e)))e=e.substring(s[0].length),s[3]&&(s[3]=s[3].substring(1,s[3].length-1)),f=s[1].toLowerCase().replace(/\s+/g," "),this.tokens.links[f]||(this.tokens.links[f]={href:s[2],title:s[3]});else if((s=this.rules.table.exec(e))&&(a={type:"table",header:b(s[1].replace(/^ *| *\| *$/g,"")),align:s[2].replace(/^ *|\| *$/g,"").split(/ *\| */),cells:s[3]?s[3].replace(/\n$/,"").split("\n"):[]}).header.length===a.align.length){for(e=e.substring(s[0].length),d=0;d<a.align.length;d++)/^ *-+: *$/.test(a.align[d])?a.align[d]="right":/^ *:-+: *$/.test(a.align[d])?a.align[d]="center":/^ *:-+ *$/.test(a.align[d])?a.align[d]="left":a.align[d]=null;for(d=0;d<a.cells.length;d++)a.cells[d]=b(a.cells[d].replace(/^ *\| *| *\| *$/g,""),a.header.length);this.tokens.push(a)}else if(s=this.rules.lheading.exec(e))e=e.substring(s[0].length),this.tokens.push({type:"heading",depth:"="===s[2].charAt(0)?1:2,text:s[1]});else if(t&&(s=this.rules.paragraph.exec(e)))e=e.substring(s[0].length),this.tokens.push({type:"paragraph",text:"\n"===s[1].charAt(s[1].length-1)?s[1].slice(0,-1):s[1]});else if(s=this.rules.text.exec(e))e=e.substring(s[0].length),this.tokens.push({type:"text",text:s[0]});else if(e)throw new Error("Infinite loop on byte: "+e.charCodeAt(0));return this.tokens};var i={escape:/^\\([!"#$%&'()*+,\-.\/:;<=>?@\[\]\\^_`{|}~])/,autolink:/^<(scheme:[^\s\x00-\x1f<>]*|email)>/,url:m,tag:"^comment|^</[a-zA-Z][\\w:-]*\\s*>|^<[a-zA-Z][\\w-]*(?:attribute)*?\\s*/?>|^<\\?[\\s\\S]*?\\?>|^<![a-zA-Z]+\\s[\\s\\S]*?>|^<!\\[CDATA\\[[\\s\\S]*?\\]\\]>",link:/^!?\[(label)\]\(\s*(href)(?:\s+(title))?\s*\)/,reflink:/^!?\[(label)\]\[(?!\s*\])((?:\\[\[\]]?|[^\[\]\\])+)\]/,nolink:/^!?\[(?!\s*\])((?:\[[^\[\]]*\]|\\[\[\]]|[^\[\]])*)\](?:\[\])?/,strong:/^__([^\s_])__(?!_)|^\*\*([^\s*])\*\*(?!\*)|^__([^\s][\s\S]*?[^\s])__(?!_)|^\*\*([^\s][\s\S]*?[^\s])\*\*(?!\*)/,em:/^_([^\s_])_(?!_)|^\*([^\s*<\[])\*(?!\*)|^_([^\s<][\s\S]*?[^\s_])_(?!_|[^\spunctuation])|^_([^\s_<][\s\S]*?[^\s])_(?!_|[^\spunctuation])|^\*([^\s<"][\s\S]*?[^\s\*])\*(?!\*|[^\spunctuation])|^\*([^\s*"<\[][\s\S]*?[^\s])\*(?!\*)/,code:/^(`+)([^`]|[^`][\s\S]*?[^`])\1(?!`)/,br:/^( {2,}|\\)\n(?!\s*$)/,del:m,text:/^(`+|[^`])(?:[\s\S]*?(?:(?=[\\<!\[`*]|\b_|$)|[^ ](?= {2,}\n))|(?= {2,}\n))/};function s(e,t){if(this.options=t||x.defaults,this.links=e,this.rules=i.normal,this.renderer=this.options.renderer||new o,this.renderer.options=this.options,!this.links)throw new Error("Tokens array requires a `links` property.");this.options.pedantic?this.rules=i.pedantic:this.options.gfm&&(this.options.breaks?this.rules=i.breaks:this.rules=i.gfm)}function o(e){this.options=e||x.defaults}function l(){}function a(e){this.tokens=[],this.token=null,this.options=e||x.defaults,this.options.renderer=this.options.renderer||new o,this.renderer=this.options.renderer,this.renderer.options=this.options,this.slugger=new c}function c(){this.seen={}}function u(e,t){if(t){if(u.escapeTest.test(e))return e.replace(u.escapeReplace,function(e){return u.replacements[e]})}else if(u.escapeTestNoEncode.test(e))return e.replace(u.escapeReplaceNoEncode,function(e){return u.replacements[e]});return e}function h(e){return e.replace(/&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/gi,function(e,t){return"colon"===(t=t.toLowerCase())?":":"#"===t.charAt(0)?"x"===t.charAt(1)?String.fromCharCode(parseInt(t.substring(2),16)):String.fromCharCode(+t.substring(1)):""})}function p(e,t){return e=e.source||e,t=t||"",{replace:function(t,n){return n=(n=n.source||n).replace(/(^|[^\[])\^/g,"$1"),e=e.replace(t,n),this},getRegex:function(){return new RegExp(e,t)}}}function g(e,t,n){if(e){try{var r=decodeURIComponent(h(n)).replace(/[^\w:]/g,"").toLowerCase()}catch(e){return null}if(0===r.indexOf("javascript:")||0===r.indexOf("vbscript:")||0===r.indexOf("data:"))return null}t&&!f.test(n)&&(n=function(e,t){d[" "+e]||(/^[^:]+:\/*[^\/]*$/.test(e)?d[" "+e]=e+"/":d[" "+e]=k(e,"/",!0));return e=d[" "+e],"//"===t.slice(0,2)?e.replace(/:[\s\S]*/,":")+t:"/"===t.charAt(0)?e.replace(/(:\/*[^\/]*)[\s\S]*/,"$1")+t:e+t}(t,n));try{n=encodeURI(n).replace(/%25/g,"%")}catch(e){return null}return n}i._punctuation="!\"#$%&'()*+,\\-./:;<=>?@\\[^_{|}~",i.em=p(i.em).replace(/punctuation/g,i._punctuation).getRegex(),i._escapes=/\\([!"#$%&'()*+,\-.\/:;<=>?@\[\]\\^_`{|}~])/g,i._scheme=/[a-zA-Z][a-zA-Z0-9+.-]{1,31}/,i._email=/[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+(@)[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+(?![-_])/,i.autolink=p(i.autolink).replace("scheme",i._scheme).replace("email",i._email).getRegex(),i._attribute=/\s+[a-zA-Z:_][\w.:-]*(?:\s*=\s*"[^"]*"|\s*=\s*'[^']*'|\s*=\s*[^\s"'=<>`]+)?/,i.tag=p(i.tag).replace("comment",n._comment).replace("attribute",i._attribute).getRegex(),i._label=/(?:\[[^\[\]]*\]|\\.|`[^`]*`|[^\[\]\\`])*?/,i._href=/<(?:\\[<>]?|[^\s<>\\])*>|[^\s\x00-\x1f]*/,i._title=/"(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)/,i.link=p(i.link).replace("label",i._label).replace("href",i._href).replace("title",i._title).getRegex(),i.reflink=p(i.reflink).replace("label",i._label).getRegex(),i.normal=y({},i),i.pedantic=y({},i.normal,{strong:/^__(?=\S)([\s\S]*?\S)__(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,em:/^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/,link:p(/^!?\[(label)\]\((.*?)\)/).replace("label",i._label).getRegex(),reflink:p(/^!?\[(label)\]\s*\[([^\]]*)\]/).replace("label",i._label).getRegex()}),i.gfm=y({},i.normal,{escape:p(i.escape).replace("])","~|])").getRegex(),_extended_email:/[A-Za-z0-9._+-]+(@)[a-zA-Z0-9-_]+(?:\.[a-zA-Z0-9-_]*[a-zA-Z0-9])+(?![-_])/,url:/^((?:ftp|https?):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.?)+[^\s<]*|^email/,_backpedal:/(?:[^?!.,:;*_~()&]+|\([^)]*\)|&(?![a-zA-Z0-9]+;$)|[?!.,:;*_~)]+(?!$))+/,del:/^~+(?=\S)([\s\S]*?\S)~+/,text:/^(`+|[^`])(?:[\s\S]*?(?:(?=[\\<!\[`*~]|\b_|https?:\/\/|ftp:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@))|(?= {2,}\n|[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@))/}),i.gfm.url=p(i.gfm.url,"i").replace("email",i.gfm._extended_email).getRegex(),i.breaks=y({},i.gfm,{br:p(i.br).replace("{2,}","*").getRegex(),text:p(i.gfm.text).replace("\\b_","\\b_| {2,}\\n").replace(/\{2,\}/g,"*").getRegex()}),s.rules=i,s.output=function(e,t,n){return new s(t,n).output(e)},s.prototype.output=function(e){for(var t,n,r,i,o,l,a="";e;)if(o=this.rules.escape.exec(e))e=e.substring(o[0].length),a+=u(o[1]);else if(o=this.rules.tag.exec(e))!this.inLink&&/^<a /i.test(o[0])?this.inLink=!0:this.inLink&&/^<\/a>/i.test(o[0])&&(this.inLink=!1),!this.inRawBlock&&/^<(pre|code|kbd|script)(\s|>)/i.test(o[0])?this.inRawBlock=!0:this.inRawBlock&&/^<\/(pre|code|kbd|script)(\s|>)/i.test(o[0])&&(this.inRawBlock=!1),e=e.substring(o[0].length),a+=this.options.sanitize?this.options.sanitizer?this.options.sanitizer(o[0]):u(o[0]):o[0];else if(o=this.rules.link.exec(e)){var c=v(o[2],"()");if(c>-1){var h=4+o[1].length+c;o[2]=o[2].substring(0,c),o[0]=o[0].substring(0,h).trim(),o[3]=""}e=e.substring(o[0].length),this.inLink=!0,r=o[2],this.options.pedantic?(t=/^([^'"]*[^\s])\s+(['"])(.*)\2/.exec(r))?(r=t[1],i=t[3]):i="":i=o[3]?o[3].slice(1,-1):"",r=r.trim().replace(/^<([\s\S]*)>$/,"$1"),a+=this.outputLink(o,{href:s.escapes(r),title:s.escapes(i)}),this.inLink=!1}else if((o=this.rules.reflink.exec(e))||(o=this.rules.nolink.exec(e))){if(e=e.substring(o[0].length),t=(o[2]||o[1]).replace(/\s+/g," "),!(t=this.links[t.toLowerCase()])||!t.href){a+=o[0].charAt(0),e=o[0].substring(1)+e;continue}this.inLink=!0,a+=this.outputLink(o,t),this.inLink=!1}else if(o=this.rules.strong.exec(e))e=e.substring(o[0].length),a+=this.renderer.strong(this.output(o[4]||o[3]||o[2]||o[1]));else if(o=this.rules.em.exec(e))e=e.substring(o[0].length),a+=this.renderer.em(this.output(o[6]||o[5]||o[4]||o[3]||o[2]||o[1]));else if(o=this.rules.code.exec(e))e=e.substring(o[0].length),a+=this.renderer.codespan(u(o[2].trim(),!0));else if(o=this.rules.br.exec(e))e=e.substring(o[0].length),a+=this.renderer.br();else if(o=this.rules.del.exec(e))e=e.substring(o[0].length),a+=this.renderer.del(this.output(o[1]));else if(o=this.rules.autolink.exec(e))e=e.substring(o[0].length),r="@"===o[2]?"mailto:"+(n=u(this.mangle(o[1]))):n=u(o[1]),a+=this.renderer.link(r,null,n);else if(this.inLink||!(o=this.rules.url.exec(e))){if(o=this.rules.text.exec(e))e=e.substring(o[0].length),this.inRawBlock?a+=this.renderer.text(this.options.sanitize?this.options.sanitizer?this.options.sanitizer(o[0]):u(o[0]):o[0]):a+=this.renderer.text(u(this.smartypants(o[0])));else if(e)throw new Error("Infinite loop on byte: "+e.charCodeAt(0))}else{if("@"===o[2])r="mailto:"+(n=u(o[0]));else{do{l=o[0],o[0]=this.rules._backpedal.exec(o[0])[0]}while(l!==o[0]);n=u(o[0]),r="www."===o[1]?"http://"+n:n}e=e.substring(o[0].length),a+=this.renderer.link(r,null,n)}return a},s.escapes=function(e){return e?e.replace(s.rules._escapes,"$1"):e},s.prototype.outputLink=function(e,t){var n=t.href,r=t.title?u(t.title):null;return"!"!==e[0].charAt(0)?this.renderer.link(n,r,this.output(e[1])):this.renderer.image(n,r,u(e[1]))},s.prototype.smartypants=function(e){return this.options.smartypants?e.replace(/---/g,"—").replace(/--/g,"–").replace(/(^|[-\u2014\/(\[{"\s])'/g,"$1‘").replace(/'/g,"’").replace(/(^|[-\u2014\/(\[{\u2018\s])"/g,"$1“").replace(/"/g,"”").replace(/\.{3}/g,"…"):e},s.prototype.mangle=function(e){if(!this.options.mangle)return e;for(var t,n="",r=e.length,i=0;i<r;i++)t=e.charCodeAt(i),Math.random()>.5&&(t="x"+t.toString(16)),n+="&#"+t+";";return n},o.prototype.code=function(e,t,n){var r=(t||"").match(/\S*/)[0];if(this.options.highlight){var i=this.options.highlight(e,r);null!=i&&i!==e&&(n=!0,e=i)}return r?'<pre><code class="'+this.options.langPrefix+u(r,!0)+'">'+(n?e:u(e,!0))+"</code></pre>\n":"<pre><code>"+(n?e:u(e,!0))+"</code></pre>"},o.prototype.blockquote=function(e){return"<blockquote>\n"+e+"</blockquote>\n"},o.prototype.html=function(e){return e},o.prototype.heading=function(e,t,n,r){return this.options.headerIds?"<h"+t+' id="'+this.options.headerPrefix+r.slug(n)+'">'+e+"</h"+t+">\n":"<h"+t+">"+e+"</h"+t+">\n"},o.prototype.hr=function(){return this.options.xhtml?"<hr/>\n":"<hr>\n"},o.prototype.list=function(e,t,n){var r=t?"ol":"ul";return"<"+r+(t&&1!==n?' start="'+n+'"':"")+">\n"+e+"</"+r+">\n"},o.prototype.listitem=function(e){return"<li>"+e+"</li>\n"},o.prototype.checkbox=function(e){return"<input "+(e?'checked="" ':"")+'disabled="" type="checkbox"'+(this.options.xhtml?" /":"")+"> "},o.prototype.paragraph=function(e){return"<p>"+e+"</p>\n"},o.prototype.table=function(e,t){return t&&(t="<tbody>"+t+"</tbody>"),"<table>\n<thead>\n"+e+"</thead>\n"+t+"</table>\n"},o.prototype.tablerow=function(e){return"<tr>\n"+e+"</tr>\n"},o.prototype.tablecell=function(e,t){var n=t.header?"th":"td";return(t.align?"<"+n+' align="'+t.align+'">':"<"+n+">")+e+"</"+n+">\n"},o.prototype.strong=function(e){return"<strong>"+e+"</strong>"},o.prototype.em=function(e){return"<em>"+e+"</em>"},o.prototype.codespan=function(e){return"<code>"+e+"</code>"},o.prototype.br=function(){return this.options.xhtml?"<br/>":"<br>"},o.prototype.del=function(e){return"<del>"+e+"</del>"},o.prototype.link=function(e,t,n){if(null===(e=g(this.options.sanitize,this.options.baseUrl,e)))return n;var r='<a href="'+u(e)+'"';return t&&(r+=' title="'+t+'"'),r+=">"+n+"</a>"},o.prototype.image=function(e,t,n){if(null===(e=g(this.options.sanitize,this.options.baseUrl,e)))return n;var r='<img src="'+e+'" alt="'+n+'"';return t&&(r+=' title="'+t+'"'),r+=this.options.xhtml?"/>":">"},o.prototype.text=function(e){return e},l.prototype.strong=l.prototype.em=l.prototype.codespan=l.prototype.del=l.prototype.text=function(e){return e},l.prototype.link=l.prototype.image=function(e,t,n){return""+n},l.prototype.br=function(){return""},a.parse=function(e,t){return new a(t).parse(e)},a.prototype.parse=function(e){this.inline=new s(e.links,this.options),this.inlineText=new s(e.links,y({},this.options,{renderer:new l})),this.tokens=e.reverse();for(var t="";this.next();)t+=this.tok();return t},a.prototype.next=function(){return this.token=this.tokens.pop(),this.token},a.prototype.peek=function(){return this.tokens[this.tokens.length-1]||0},a.prototype.parseText=function(){for(var e=this.token.text;"text"===this.peek().type;)e+="\n"+this.next().text;return this.inline.output(e)},a.prototype.tok=function(){switch(this.token.type){case"space":return"";case"hr":return this.renderer.hr();case"heading":return this.renderer.heading(this.inline.output(this.token.text),this.token.depth,h(this.inlineText.output(this.token.text)),this.slugger);case"code":return this.renderer.code(this.token.text,this.token.lang,this.token.escaped);case"table":var e,t,n,r,i="",s="";for(n="",e=0;e<this.token.header.length;e++)n+=this.renderer.tablecell(this.inline.output(this.token.header[e]),{header:!0,align:this.token.align[e]});for(i+=this.renderer.tablerow(n),e=0;e<this.token.cells.length;e++){for(t=this.token.cells[e],n="",r=0;r<t.length;r++)n+=this.renderer.tablecell(this.inline.output(t[r]),{header:!1,align:this.token.align[r]});s+=this.renderer.tablerow(n)}return this.renderer.table(i,s);case"blockquote_start":for(s="";"blockquote_end"!==this.next().type;)s+=this.tok();return this.renderer.blockquote(s);case"list_start":s="";for(var o=this.token.ordered,l=this.token.start;"list_end"!==this.next().type;)s+=this.tok();return this.renderer.list(s,o,l);case"list_item_start":s="";var a=this.token.loose,c=this.token.checked,u=this.token.task;for(this.token.task&&(s+=this.renderer.checkbox(c));"list_item_end"!==this.next().type;)s+=a||"text"!==this.token.type?this.tok():this.parseText();return this.renderer.listitem(s,u,c);case"html":return this.renderer.html(this.token.text);case"paragraph":return this.renderer.paragraph(this.inline.output(this.token.text));case"text":return this.renderer.paragraph(this.parseText());default:var p='Token with "'+this.token.type+'" type was not found.';if(!this.options.silent)throw new Error(p);console.log(p)}},c.prototype.slug=function(e){var t=e.toLowerCase().trim().replace(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,.\/:;<=>?@[\]^`{|}~]/g,"").replace(/\s/g,"-");if(this.seen.hasOwnProperty(t)){var n=t;do{this.seen[n]++,t=n+"-"+this.seen[n]}while(this.seen.hasOwnProperty(t))}return this.seen[t]=0,t},u.escapeTest=/[&<>"']/,u.escapeReplace=/[&<>"']/g,u.replacements={"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"},u.escapeTestNoEncode=/[<>"']|&(?!#?\w+;)/,u.escapeReplaceNoEncode=/[<>"']|&(?!#?\w+;)/g;var d={},f=/^$|^[a-z][a-z0-9+.-]*:|^[?#]/i;function m(){}function y(e){for(var t,n,r=1;r<arguments.length;r++)for(n in t=arguments[r])Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n]);return e}function b(e,t){var n=e.replace(/\|/g,function(e,t,n){for(var r=!1,i=t;--i>=0&&"\\"===n[i];)r=!r;return r?"|":" |"}).split(/ \|/),r=0;if(n.length>t)n.splice(t);else for(;n.length<t;)n.push("");for(;r<n.length;r++)n[r]=n[r].trim().replace(/\\\|/g,"|");return n}function k(e,t,n){if(0===e.length)return"";for(var r=0;r<e.length;){var i=e.charAt(e.length-r-1);if(i!==t||n){if(i===t||!n)break;r++}else r++}return e.substr(0,e.length-r)}function v(e,t){if(-1===e.indexOf(t[1]))return-1;for(var n=0,r=0;r<e.length;r++)if("\\"===e[r])r++;else if(e[r]===t[0])n++;else if(e[r]===t[1]&&--n<0)return r;return-1}function $(e){e&&e.sanitize&&!e.silent&&console.warn("marked(): sanitize and sanitizer parameters are deprecated since version 0.7.0, should not be used and will be removed in the future. Read more here: https://marked.js.org/#/USING_ADVANCED.md#options")}function x(e,t,n){if(null==e)throw new Error("marked(): input parameter is undefined or null");if("string"!=typeof e)throw new Error("marked(): input parameter is of type "+Object.prototype.toString.call(e)+", string expected");if(n||"function"==typeof t){n||(n=t,t=null),$(t=y({},x.defaults,t||{}));var i,s,o=t.highlight,l=0;try{i=r.lex(e,t)}catch(e){return n(e)}s=i.length;var c=function(e){if(e)return t.highlight=o,n(e);var r;try{r=a.parse(i,t)}catch(t){e=t}return t.highlight=o,e?n(e):n(null,r)};if(!o||o.length<3)return c();if(delete t.highlight,!s)return c();for(;l<i.length;l++)!function(e){"code"!==e.type?--s||c():o(e.text,e.lang,function(t,n){return t?c(t):null==n||n===e.text?--s||c():(e.text=n,e.escaped=!0,void(--s||c()))})}(i[l])}else try{return t&&(t=y({},x.defaults,t)),$(t),a.parse(r.lex(e,t),t)}catch(e){if(e.message+="\nPlease report this to https://github.com/markedjs/marked.",(t||x.defaults).silent)return"<p>An error occurred:</p><pre>"+u(e.message+"",!0)+"</pre>";throw e}}m.exec=m,x.options=x.setOptions=function(e){return y(x.defaults,e),x},x.getDefaults=function(){return{baseUrl:null,breaks:!1,gfm:!0,headerIds:!0,headerPrefix:"",highlight:null,langPrefix:"language-",mangle:!0,pedantic:!1,renderer:new o,sanitize:!1,sanitizer:null,silent:!1,smartLists:!1,smartypants:!1,xhtml:!1}},x.defaults=x.getDefaults(),x.Parser=a,x.parser=a.parse,x.Renderer=o,x.TextRenderer=l,x.Lexer=r,x.lexer=r.lex,x.InlineLexer=s,x.inlineLexer=s.output,x.Slugger=c,x.parse=x,e.exports=x}()}(Re={exports:{}},Re.exports),Re.exports);function je(e,t,n){const r=Object.create(e);return r.item=t[n],r}function ze(e){var t,n,r,i,s,h="home"!==e.collection&&qe(e);let g=e.images,f=[];for(let t=0;t<g.length;t+=1)f[t]=Ee(je(e,g,t));let m=null;return g.length||(m=Ie(e)).c(),{c(){h&&h.c(),t=p(),n=u("div"),r=u("div"),i=p(),s=u("section");for(let e=0;e<f.length;e+=1)f[e].c();d(r,"class","collection-inner svelte-2ovhb3"),d(s,"class","g svelte-2ovhb3"),d(n,"class","collection")},m(e,a){h&&h.m(e,a),l(e,t,a),l(e,n,a),o(n,r),o(n,i),o(n,s);for(let e=0;e<f.length;e+=1)f[e].m(s,null);m&&m.m(s,null)},p(e,n){if("home"!==n.collection?h?h.p(e,n):((h=qe(n)).c(),h.m(t.parentNode,t)):h&&(h.d(1),h=null),e.thumbnailToURL||e.images||e.collection){let t;for(g=n.images,t=0;t<g.length;t+=1){const r=je(n,g,t);f[t]?f[t].p(e,r):(f[t]=Ee(r),f[t].c(),f[t].m(s,null))}for(;t<f.length;t+=1)f[t].d(1);f.length=g.length}!g.length&&m?m.p(e,n):g.length?m&&(m.d(1),m=null):((m=Ie(n)).c(),m.m(s,null))},d(e){h&&h.d(e),e&&(a(t),a(n)),c(f,e),m&&m.d()}}}function Ce(t){var n;return{c(){(n=u("div")).innerHTML='<i class="fa fa-spinner fa-spin fa-3x"></i>',d(n,"class","loading-wrapper")},m(e,t){l(e,n,t)},p:e,d(e){e&&a(n)}}}function qe(e){var t,n,r,i,s,c,g,m=e.collectionThumb&&Oe(e);return{c(){t=u("div"),n=u("h3"),r=h(e.collection),i=p(),s=u("div"),m&&m.c(),c=p(),g=u("p"),d(n,"class","collection-title svelte-2ovhb3"),d(g,"class","collection-description svelte-2ovhb3"),d(s,"class","collection-metadata svelte-2ovhb3"),d(t,"class","collection-header svelte-2ovhb3")},m(a,u){l(a,t,u),o(t,n),o(n,r),o(t,i),o(t,s),m&&m.m(s,null),o(s,c),o(s,g),g.innerHTML=e.description},p(e,t){e.collection&&f(r,t.collection),t.collectionThumb?m?m.p(e,t):((m=Oe(t)).c(),m.m(s,c)):m&&(m.d(1),m=null),e.description&&(g.innerHTML=t.description)},d(e){e&&a(t),m&&m.d()}}}function Oe(e){var t,n,r;return{c(){d(t=u("img"),"src",e.collectionThumb),d(t,"alt",n="photo: "+e.collection),d(t,"class","svelte-2ovhb3"),y(t,"hidden",!e.collectionThumb),r=g(t,"error",e.error_handler)},m(e,n){l(e,t,n)},p(e,r){e.collectionThumb&&d(t,"src",r.collectionThumb),e.collection&&n!==(n="photo: "+r.collection)&&d(t,"alt",n),e.collectionThumb&&y(t,"hidden",!r.collectionThumb)},d(e){e&&a(t),r()}}}function Ie(e){var t,n,r,i;return{c(){t=u("p"),n=h("Sorry but we couldn't find images related to "),r=h(e.collection),i=h(".\r\n          "),d(t,"class","no-collection svelte-2ovhb3")},m(e,s){l(e,t,s),o(t,n),o(t,r),o(t,i)},p(e,t){e.collection&&f(r,t.collection)},d(e){e&&a(t)}}}function Ee(e){var t,n,r,i,s,c;function h(){return e.click_handler(e)}return{c(){t=u("div"),n=u("figure"),r=u("img"),s=p(),d(r,"src",i=e.thumbnailToURL(e.item.thumbnail)),d(r,"alt",""),d(r,"class","svelte-2ovhb3"),d(n,"class","svelte-2ovhb3"),d(t,"class","gi svelte-2ovhb3"),c=g(n,"click",h)},m(e,i){l(e,t,i),o(t,n),o(n,r),o(t,s)},p(t,n){e=n,t.images&&i!==(i=e.thumbnailToURL(e.item.thumbnail))&&d(r,"src",i)},d(e){e&&a(t),c()}}}function Ue(t){var n;function r(e,t){return 0==t.images.length?Ce:ze}var i=r(0,t),s=i(t);return{c(){n=u("div"),s.c()},m(e,t){l(e,n,t),s.m(n,null)},p(e,t){i===(i=r(0,t))&&s?s.p(e,t):(s.d(1),(s=i(t))&&(s.c(),s.m(n,null)))},i:e,o:e,d(e){e&&a(n),s.d()}}}let Ne=0,Ze="//dev.himalayanacademy.com/hamsa-images";function He(e,t,n){let r="",i=[],s="home",o=!1;const l=e=>{let t=e.toLowerCase().replace(/\s+/g,"-").replace(/\./g,"");fetch(`//dev.himalayanacademy.com/hamsa-images/_texts/${t}.txt`).then(e=>e.text()).then(e=>n("description",r=Te(e)))},a=e=>{let t=e.toLowerCase().replace(/\s+/g,"-").replace(/\./g,"");n("collectionThumb",o=`//dev.himalayanacademy.com/hamsa-images/_artists/${t}.jpg`)},c=se.subscribe(e=>{"Collection"==e.view&&(console.dir("view changed",e),(e=>{let t={};if(n("images",i=[]),n("collectionThumb",o=!1),n("description",r=""),!e)return!1;if(t={limit:50,offset:Ne},e.collection&&"home"!==e.collection){let r=`Collection ${e.collection}`;t.keyword=r,n("collection",s=e.collection),l(r),document.title=`HAMSA - collection: ${r}`}e.keyword&&(t.keyword=e.keyword,n("collection",s=e.keyword),l(e.keyword),document.title=`HAMSA - tag: ${e.keyword}`),e.artist&&(t.artist=e.artist,n("collection",s=e.artist),l(e.artist),a(e.artist),document.title=`HAMSA - Artist: ${e.artist}`),e.query&&(t.query=e.query,n("collection",s=e.query),document.title=`HAMSA - Search: ${e.query}`),console.dir("getting collection",t),ke(t).then(e=>{n("images",i=e.images)})})(e.data))});$(()=>c());return{description:r,images:i,collection:s,collectionThumb:o,thumbnailToURL:e=>{let t=e.replace("/images/","");return`${Ze}/${t}`},error_handler:()=>n("collectionThumb",o=!1),click_handler:({item:e})=>oe("Image",{checksum:e.checksum})}}class Me extends Z{constructor(e){super(),N(this,e,He,Ue,s,[])}}function Fe(e,t,n){const r=Object.create(e);return r.more=t[n],r}function Pe(e,t,n){const r=Object.create(e);return r.tag=t[n],r}function Be(e){var t,n,r,i,s,m,y,b,k,v,$,x,w,_,A,S,L,R,T,j,z,C,q,O,I,E,U,N,Z,H,M,F,P,B=e.image.metadata.description+"",D=e.image.metadata.artist+"";let V=e.image.metadata.keywords,G=[];for(let t=0;t<V.length;t+=1)G[t]=Ve(Pe(e,V,t));let J=e.image.metadata.more,X=[];for(let t=0;t<J.length;t+=1)X[t]=Ge(Fe(e,J,t));return{c(){t=u("div"),n=u("div"),r=u("div"),i=u("img"),y=p(),b=u("a"),k=h("Download this image"),x=p(),w=u("p"),_=h(B),A=p(),S=u("div"),L=u("div"),R=u("i"),T=p(),j=u("h2"),z=h(D),C=p(),q=u("div"),O=p(),I=u("div"),(E=u("h2")).textContent="Tags",U=p();for(let e=0;e<G.length;e+=1)G[e].c();N=p(),Z=u("div"),H=p(),(M=u("h3")).textContent="More by the same artist",F=p();for(let e=0;e<X.length;e+=1)X[e].c();d(i,"src",s=e.toImageURL(e.image.medpath)),d(i,"alt",m=e.image.metadata.description),d(b,"href",v=e.toImageURL(e.image.path)),d(b,"target","_blank"),d(b,"download",$=e.toFilename(e.image.path)),d(b,"class","single-image-link svelte-1c853h2"),d(w,"class","description svelte-1c853h2"),d(r,"class","single-image"),d(R,"class","far fa-user fa-lg"),d(L,"class","author svelte-1c853h2"),d(q,"class","dotted"),d(I,"class","tags"),d(Z,"class","dotted"),d(S,"class","metadata"),d(n,"class","single-image-wrapper svelte-1c853h2"),d(t,"class","image-view-container svelte-1c853h2"),P=g(L,"click",e.click_handler)},m(e,s){l(e,t,s),o(t,n),o(n,r),o(r,i),o(r,y),o(r,b),o(b,k),o(r,x),o(r,w),o(w,_),o(n,A),o(n,S),o(S,L),o(L,R),o(L,T),o(L,j),o(j,z),o(S,C),o(S,q),o(S,O),o(S,I),o(I,E),o(I,U);for(let e=0;e<G.length;e+=1)G[e].m(I,null);o(S,N),o(S,Z),o(S,H),o(S,M),o(S,F);for(let e=0;e<X.length;e+=1)X[e].m(S,null)},p(e,t){if(e.image&&s!==(s=t.toImageURL(t.image.medpath))&&d(i,"src",s),e.image&&m!==(m=t.image.metadata.description)&&d(i,"alt",m),e.image&&v!==(v=t.toImageURL(t.image.path))&&d(b,"href",v),e.image&&$!==($=t.toFilename(t.image.path))&&d(b,"download",$),e.image&&B!==(B=t.image.metadata.description+"")&&f(_,B),e.image&&D!==(D=t.image.metadata.artist+"")&&f(z,D),e.image){let n;for(V=t.image.metadata.keywords,n=0;n<V.length;n+=1){const r=Pe(t,V,n);G[n]?G[n].p(e,r):(G[n]=Ve(r),G[n].c(),G[n].m(I,null))}for(;n<G.length;n+=1)G[n].d(1);G.length=V.length}if(e.toThumbnail||e.image){let n;for(J=t.image.metadata.more,n=0;n<J.length;n+=1){const r=Fe(t,J,n);X[n]?X[n].p(e,r):(X[n]=Ge(r),X[n].c(),X[n].m(S,null))}for(;n<X.length;n+=1)X[n].d(1);X.length=J.length}},d(e){e&&a(t),c(G,e),c(X,e),P()}}}function De(t){var n;return{c(){(n=u("div")).innerHTML='<i class="fa fa-spinner fa-spin fa-3x"></i>',d(n,"class","loading-wrapper")},m(e,t){l(e,n,t)},p:e,d(e){e&&a(n)}}}function Ve(e){var t,n,r,i,s=e.tag+"";function c(){return e.click_handler_1(e)}return{c(){t=u("span"),n=h(s),r=p(),d(t,"class","tag svelte-1c853h2"),i=g(t,"click",c)},m(e,i){l(e,t,i),o(t,n),o(t,r)},p(t,r){e=r,t.image&&s!==(s=e.tag+"")&&f(n,s)},d(e){e&&a(t),i()}}}function Ge(e){var t,n,r;function i(){return e.click_handler_2(e)}return{c(){d(t=u("img"),"src",n=e.toThumbnail(e.more)),d(t,"alt","more"),d(t,"class","more-images svelte-1c853h2"),r=g(t,"click",i)},m(e,n){l(e,t,n)},p(r,i){e=i,r.image&&n!==(n=e.toThumbnail(e.more))&&d(t,"src",n)},d(e){e&&a(t),r()}}}function Je(t){var n;function r(e,t){return t.loading?De:Be}var i=r(0,t),s=i(t);return{c(){s.c(),n=h("")},m(e,t){s.m(e,t),l(e,n,t)},p(e,t){i===(i=r(0,t))&&s?s.p(e,t):(s.d(1),(s=i(t))&&(s.c(),s.m(n.parentNode,n)))},i:e,o:e,d(e){s.d(e),e&&a(n)}}}let Xe="//dev.himalayanacademy.com/hamsa-images";function Ye(e,t,n){let{checksum:r}=t,i={},s=!0;const o=se.subscribe(e=>{console.dir("view changed",e),"Image"==e.view&&(e=>{let t=e.checksum;n("loading",s=!0),ve({checksum:t}).then(e=>{n("image",i=e.image),n("loading",s=!1)})})(e.data)});$(()=>o());return e.$set=(e=>{"checksum"in e&&n("checksum",r=e.checksum)}),{checksum:r,image:i,loading:s,toFilename:e=>"image.jpg",toImageURL:e=>{let t=e.replace("/images/","").replace("/home/devhap/public_html/hamsa-images","");return`${Xe}/${t}`},toThumbnail:e=>`${Xe}/_cache/${e}.thumb.jpg`,click_handler:()=>oe("Collection",{artist:i.metadata.artist}),click_handler_1:({tag:e})=>oe("Collection",{keyword:e}),click_handler_2:({more:e})=>oe("Image",{checksum:e})}}class Ke extends Z{constructor(e){super(),N(this,e,Ye,Je,s,["checksum"])}}function Qe(e){var t,n,i,s,c,h,d=new M({}),f=new P({}),m=new _e({}),y=e.views[e.$currentView.view];if(y)var b=new y({});return{c(){t=u("div"),d.$$.fragment.c(),n=p(),f.$$.fragment.c(),i=p(),m.$$.fragment.c(),s=p(),b&&b.$$.fragment.c(),h=g(window,"popstate",e.pop)},m(e,r){l(e,t,r),I(d,t,null),o(t,n),I(f,t,null),o(t,i),I(m,t,null),o(t,s),b&&I(b,t,null),c=!0},p(e,n){if(y!==(y=n.views[n.$currentView.view])){if(b){C={r:0,c:[],p:C};const e=b;O(e.$$.fragment,1,0,()=>{E(e,1)}),C.r||r(C.c),C=C.p}y?((b=new y({})).$$.fragment.c(),q(b.$$.fragment,1),I(b,t,null)):b=null}},i(e){c||(q(d.$$.fragment,e),q(f.$$.fragment,e),q(m.$$.fragment,e),b&&q(b.$$.fragment,e),c=!0)},o(e){O(d.$$.fragment,e),O(f.$$.fragment,e),O(m.$$.fragment,e),b&&O(b.$$.fragment,e),c=!1},d(e){e&&a(t),E(d),E(f),E(m),b&&E(b),h()}}}function We(e,t,n){let r;var i,s;i=se,s=(e=>{n("$currentView",r=e)}),e.$$.on_destroy.push(function(e,t){const n=e.subscribe(t);return n.unsubscribe?()=>n.unsubscribe():n}(i,s));const o={InfoPage:Le,Collection:Me,Image:Ke};le();return{views:o,pop:e=>{se.set(e.state)},$currentView:r}}return new class extends Z{constructor(e){super(),N(this,e,We,Qe,s,[])}}({target:document.body,props:{name:"world"}})}();
+  `;
+
+      return executeQuery(query, payload);
+    };
+
+    const executeQuery = async (query, payload) => {
+        try {
+            const res = await fetch(API_URL, {
+                body: query(payload),
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            });
+            const json = await res.json();
+            return (json.data);
+        } catch (err) {
+            console.error(`GraphQL Error`, err);
+            throw err;
+        }
+    };
+
+    /* src/SelectorControls.svelte generated by Svelte v3.12.1 */
+
+    const file$4 = "src/SelectorControls.svelte";
+
+    function create_fragment$4(ctx) {
+    	var div1, div0, span, t1, t2, t3, t4, current, dispose;
+
+    	var selectorbutton0 = new SelectorButton({
+    		props: {
+    		title: "Tags",
+    		key: "keyword",
+    		items: ctx.keywordList
+    	},
+    		$$inline: true
+    	});
+
+    	var selectorbutton1 = new SelectorButton({
+    		props: {
+    		title: "Artists",
+    		key: "artist",
+    		items: ctx.artistsList
+    	},
+    		$$inline: true
+    	});
+
+    	var selectorbutton2 = new SelectorButton({
+    		props: {
+    		title: "Collections",
+    		key: "collection",
+    		items: ctx.collectionList
+    	},
+    		$$inline: true
+    	});
+
+    	var searchfield = new SearchField({ $$inline: true });
+
+    	const block = {
+    		c: function create() {
+    			div1 = element("div");
+    			div0 = element("div");
+    			span = element("span");
+    			span.textContent = "i";
+    			t1 = space();
+    			selectorbutton0.$$.fragment.c();
+    			t2 = space();
+    			selectorbutton1.$$.fragment.c();
+    			t3 = space();
+    			selectorbutton2.$$.fragment.c();
+    			t4 = space();
+    			searchfield.$$.fragment.c();
+    			add_location(span, file$4, 55, 45, 1377);
+    			attr_dev(div0, "class", "bolotinha svelte-13f0km3");
+    			add_location(div0, file$4, 55, 4, 1336);
+    			attr_dev(div1, "class", "selector-controls svelte-13f0km3");
+    			add_location(div1, file$4, 54, 0, 1300);
+    			dispose = listen_dev(div0, "click", ctx.goInfo);
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, div0);
+    			append_dev(div0, span);
+    			append_dev(div1, t1);
+    			mount_component(selectorbutton0, div1, null);
+    			append_dev(div1, t2);
+    			mount_component(selectorbutton1, div1, null);
+    			append_dev(div1, t3);
+    			mount_component(selectorbutton2, div1, null);
+    			append_dev(div1, t4);
+    			mount_component(searchfield, div1, null);
+    			current = true;
+    		},
+
+    		p: function update(changed, ctx) {
+    			var selectorbutton0_changes = {};
+    			if (changed.keywordList) selectorbutton0_changes.items = ctx.keywordList;
+    			selectorbutton0.$set(selectorbutton0_changes);
+
+    			var selectorbutton1_changes = {};
+    			if (changed.artistsList) selectorbutton1_changes.items = ctx.artistsList;
+    			selectorbutton1.$set(selectorbutton1_changes);
+
+    			var selectorbutton2_changes = {};
+    			if (changed.collectionList) selectorbutton2_changes.items = ctx.collectionList;
+    			selectorbutton2.$set(selectorbutton2_changes);
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(selectorbutton0.$$.fragment, local);
+
+    			transition_in(selectorbutton1.$$.fragment, local);
+
+    			transition_in(selectorbutton2.$$.fragment, local);
+
+    			transition_in(searchfield.$$.fragment, local);
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			transition_out(selectorbutton0.$$.fragment, local);
+    			transition_out(selectorbutton1.$$.fragment, local);
+    			transition_out(selectorbutton2.$$.fragment, local);
+    			transition_out(searchfield.$$.fragment, local);
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div1);
+    			}
+
+    			destroy_component(selectorbutton0);
+
+    			destroy_component(selectorbutton1);
+
+    			destroy_component(selectorbutton2);
+
+    			destroy_component(searchfield);
+
+    			dispose();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$4.name, type: "component", source: "", ctx });
+    	return block;
+    }
+
+    function instance$2($$self, $$props, $$invalidate) {
+    	
+
+        let artistsList = [];
+        let collectionList = [];
+        let keywordList = [];
+
+        onMount(async () => {
+            let selectors = await getSelectors();
+            $$invalidate('artistsList', artistsList = selectors.artists.sort());
+            $$invalidate('collectionList', collectionList  = selectors.collections.sort());
+            $$invalidate('keywordList', keywordList = selectors.keywords.sort());
+
+            console.log("selectors data", selectors);
+
+
+        });
+
+        const goInfo = () => {
+            go("InfoPage");
+        };
+
+    	$$self.$capture_state = () => {
+    		return {};
+    	};
+
+    	$$self.$inject_state = $$props => {
+    		if ('artistsList' in $$props) $$invalidate('artistsList', artistsList = $$props.artistsList);
+    		if ('collectionList' in $$props) $$invalidate('collectionList', collectionList = $$props.collectionList);
+    		if ('keywordList' in $$props) $$invalidate('keywordList', keywordList = $$props.keywordList);
+    	};
+
+    	return {
+    		artistsList,
+    		collectionList,
+    		keywordList,
+    		goInfo
+    	};
+    }
+
+    class SelectorControls extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$2, create_fragment$4, safe_not_equal, []);
+    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "SelectorControls", options, id: create_fragment$4.name });
+    	}
+    }
+
+    /* src/InfoPage.svelte generated by Svelte v3.12.1 */
+
+    const file$5 = "src/InfoPage.svelte";
+
+    function create_fragment$5(ctx) {
+    	var div1, div0, h1, t1, p0, t3, p1, t4, a, t6, t7, button, dispose;
+
+    	const block = {
+    		c: function create() {
+    			div1 = element("div");
+    			div0 = element("div");
+    			h1 = element("h1");
+    			h1.textContent = "Welcome to HAMSA";
+    			t1 = space();
+    			p0 = element("p");
+    			p0.textContent = "Indian spiritual art has no equal in the world, either in scope or sheer quantity. For five decades the monks\n            at Kauai’s Hindu Monastery in Hawaii have been commissioning and collecting original works of art for our\n            many publications, apps and web projects. Among the thousands of images you will find rare masterpieces,\n            educational depictions of Hindu culture, legend, deities and philosophy, sacred religious symbols,\n            illustrated alphabets, children’s stories and decorative borders. For decades this treasure trove was hidden\n            in the binary recesses of our server (even we could barely find things). Now the entire collection is\n            available to you through the Himalayan Academy Museum of Spiritual Art. In Sanskrit hamsa is the word for\n            the Indian Goose (Anser indicus) or a swan, and represents the Ultimate Reality and the spiritually pure\n            soul. The flight of the hamsa symbolizes moksha, the release from the cycle of samsara.";
+    			t3 = space();
+    			p1 = element("p");
+    			t4 = text("You can search by key word, artist or collection. The download button will save the highest available\n            resolution file to your computer. You may use these images freely in service to dharma. However, if your use\n            is commercial, you must get written permission from the copyright holder, Himalayan Academy, by writing to:\n            ");
+    			a = element("a");
+    			a.textContent = "contact@hindu.org";
+    			t6 = text(".");
+    			t7 = space();
+    			button = element("button");
+    			button.textContent = "Go back";
+    			attr_dev(h1, "id", "welcome-to-hamsa");
+    			add_location(h1, file$5, 20, 9, 401);
+    			add_location(p0, file$5, 21, 8, 457);
+    			attr_dev(a, "href", "mailto:contact@hindu.org");
+    			add_location(a, file$5, 33, 12, 1856);
+    			add_location(p1, file$5, 30, 8, 1498);
+    			add_location(div0, file$5, 20, 4, 396);
+    			attr_dev(button, "class", "back-button svelte-1sk3dgf");
+    			add_location(button, file$5, 35, 4, 1933);
+    			attr_dev(div1, "class", "info info-blurb svelte-1sk3dgf");
+    			add_location(div1, file$5, 19, 0, 362);
+    			dispose = listen_dev(button, "click", click_handler);
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, div0);
+    			append_dev(div0, h1);
+    			append_dev(div0, t1);
+    			append_dev(div0, p0);
+    			append_dev(div0, t3);
+    			append_dev(div0, p1);
+    			append_dev(p1, t4);
+    			append_dev(p1, a);
+    			append_dev(p1, t6);
+    			append_dev(div1, t7);
+    			append_dev(div1, button);
+    		},
+
+    		p: noop,
+    		i: noop,
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div1);
+    			}
+
+    			dispose();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$5.name, type: "component", source: "", ctx });
+    	return block;
+    }
+
+    const click_handler = () => history.back();
+
+    class InfoPage extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, null, create_fragment$5, safe_not_equal, []);
+    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "InfoPage", options, id: create_fragment$5.name });
+    	}
+    }
+
+    function createCommonjsModule(fn, module) {
+    	return module = { exports: {} }, fn(module, module.exports), module.exports;
+    }
+
+    var marked = createCommonjsModule(function (module, exports) {
+    (function(root) {
+
+    /**
+     * Block-Level Grammar
+     */
+
+    var block = {
+      newline: /^\n+/,
+      code: /^( {4}[^\n]+\n*)+/,
+      fences: /^ {0,3}(`{3,}|~{3,})([^`~\n]*)\n(?:|([\s\S]*?)\n)(?: {0,3}\1[~`]* *(?:\n+|$)|$)/,
+      hr: /^ {0,3}((?:- *){3,}|(?:_ *){3,}|(?:\* *){3,})(?:\n+|$)/,
+      heading: /^ {0,3}(#{1,6}) +([^\n]*?)(?: +#+)? *(?:\n+|$)/,
+      blockquote: /^( {0,3}> ?(paragraph|[^\n]*)(?:\n|$))+/,
+      list: /^( {0,3})(bull) [\s\S]+?(?:hr|def|\n{2,}(?! )(?!\1bull )\n*|\s*$)/,
+      html: '^ {0,3}(?:' // optional indentation
+        + '<(script|pre|style)[\\s>][\\s\\S]*?(?:</\\1>[^\\n]*\\n+|$)' // (1)
+        + '|comment[^\\n]*(\\n+|$)' // (2)
+        + '|<\\?[\\s\\S]*?\\?>\\n*' // (3)
+        + '|<![A-Z][\\s\\S]*?>\\n*' // (4)
+        + '|<!\\[CDATA\\[[\\s\\S]*?\\]\\]>\\n*' // (5)
+        + '|</?(tag)(?: +|\\n|/?>)[\\s\\S]*?(?:\\n{2,}|$)' // (6)
+        + '|<(?!script|pre|style)([a-z][\\w-]*)(?:attribute)*? */?>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:\\n{2,}|$)' // (7) open tag
+        + '|</(?!script|pre|style)[a-z][\\w-]*\\s*>(?=[ \\t]*(?:\\n|$))[\\s\\S]*?(?:\\n{2,}|$)' // (7) closing tag
+        + ')',
+      def: /^ {0,3}\[(label)\]: *\n? *<?([^\s>]+)>?(?:(?: +\n? *| *\n *)(title))? *(?:\n+|$)/,
+      nptable: noop,
+      table: noop,
+      lheading: /^([^\n]+)\n {0,3}(=+|-+) *(?:\n+|$)/,
+      // regex template, placeholders will be replaced according to different paragraph
+      // interruption rules of commonmark and the original markdown spec:
+      _paragraph: /^([^\n]+(?:\n(?!hr|heading|lheading|blockquote|fences|list|html)[^\n]+)*)/,
+      text: /^[^\n]+/
+    };
+
+    block._label = /(?!\s*\])(?:\\[\[\]]|[^\[\]])+/;
+    block._title = /(?:"(?:\\"?|[^"\\])*"|'[^'\n]*(?:\n[^'\n]+)*\n?'|\([^()]*\))/;
+    block.def = edit(block.def)
+      .replace('label', block._label)
+      .replace('title', block._title)
+      .getRegex();
+
+    block.bullet = /(?:[*+-]|\d{1,9}\.)/;
+    block.item = /^( *)(bull) ?[^\n]*(?:\n(?!\1bull ?)[^\n]*)*/;
+    block.item = edit(block.item, 'gm')
+      .replace(/bull/g, block.bullet)
+      .getRegex();
+
+    block.list = edit(block.list)
+      .replace(/bull/g, block.bullet)
+      .replace('hr', '\\n+(?=\\1?(?:(?:- *){3,}|(?:_ *){3,}|(?:\\* *){3,})(?:\\n+|$))')
+      .replace('def', '\\n+(?=' + block.def.source + ')')
+      .getRegex();
+
+    block._tag = 'address|article|aside|base|basefont|blockquote|body|caption'
+      + '|center|col|colgroup|dd|details|dialog|dir|div|dl|dt|fieldset|figcaption'
+      + '|figure|footer|form|frame|frameset|h[1-6]|head|header|hr|html|iframe'
+      + '|legend|li|link|main|menu|menuitem|meta|nav|noframes|ol|optgroup|option'
+      + '|p|param|section|source|summary|table|tbody|td|tfoot|th|thead|title|tr'
+      + '|track|ul';
+    block._comment = /<!--(?!-?>)[\s\S]*?-->/;
+    block.html = edit(block.html, 'i')
+      .replace('comment', block._comment)
+      .replace('tag', block._tag)
+      .replace('attribute', / +[a-zA-Z:_][\w.:-]*(?: *= *"[^"\n]*"| *= *'[^'\n]*'| *= *[^\s"'=<>`]+)?/)
+      .getRegex();
+
+    block.paragraph = edit(block._paragraph)
+      .replace('hr', block.hr)
+      .replace('heading', ' {0,3}#{1,6} +')
+      .replace('|lheading', '') // setex headings don't interrupt commonmark paragraphs
+      .replace('blockquote', ' {0,3}>')
+      .replace('fences', ' {0,3}(?:`{3,}|~{3,})[^`\\n]*\\n')
+      .replace('list', ' {0,3}(?:[*+-]|1[.)]) ') // only lists starting from 1 can interrupt
+      .replace('html', '</?(?:tag)(?: +|\\n|/?>)|<(?:script|pre|style|!--)')
+      .replace('tag', block._tag) // pars can be interrupted by type (6) html blocks
+      .getRegex();
+
+    block.blockquote = edit(block.blockquote)
+      .replace('paragraph', block.paragraph)
+      .getRegex();
+
+    /**
+     * Normal Block Grammar
+     */
+
+    block.normal = merge({}, block);
+
+    /**
+     * GFM Block Grammar
+     */
+
+    block.gfm = merge({}, block.normal, {
+      nptable: /^ *([^|\n ].*\|.*)\n *([-:]+ *\|[-| :]*)(?:\n((?:.*[^>\n ].*(?:\n|$))*)\n*|$)/,
+      table: /^ *\|(.+)\n *\|?( *[-:]+[-| :]*)(?:\n((?: *[^>\n ].*(?:\n|$))*)\n*|$)/
+    });
+
+    /**
+     * Pedantic grammar (original John Gruber's loose markdown specification)
+     */
+
+    block.pedantic = merge({}, block.normal, {
+      html: edit(
+        '^ *(?:comment *(?:\\n|\\s*$)'
+        + '|<(tag)[\\s\\S]+?</\\1> *(?:\\n{2,}|\\s*$)' // closed tag
+        + '|<tag(?:"[^"]*"|\'[^\']*\'|\\s[^\'"/>\\s]*)*?/?> *(?:\\n{2,}|\\s*$))')
+        .replace('comment', block._comment)
+        .replace(/tag/g, '(?!(?:'
+          + 'a|em|strong|small|s|cite|q|dfn|abbr|data|time|code|var|samp|kbd|sub'
+          + '|sup|i|b|u|mark|ruby|rt|rp|bdi|bdo|span|br|wbr|ins|del|img)'
+          + '\\b)\\w+(?!:|[^\\w\\s@]*@)\\b')
+        .getRegex(),
+      def: /^ *\[([^\]]+)\]: *<?([^\s>]+)>?(?: +(["(][^\n]+[")]))? *(?:\n+|$)/,
+      heading: /^ *(#{1,6}) *([^\n]+?) *(?:#+ *)?(?:\n+|$)/,
+      fences: noop, // fences not supported
+      paragraph: edit(block.normal._paragraph)
+        .replace('hr', block.hr)
+        .replace('heading', ' *#{1,6} *[^\n]')
+        .replace('lheading', block.lheading)
+        .replace('blockquote', ' {0,3}>')
+        .replace('|fences', '')
+        .replace('|list', '')
+        .replace('|html', '')
+        .getRegex()
+    });
+
+    /**
+     * Block Lexer
+     */
+
+    function Lexer(options) {
+      this.tokens = [];
+      this.tokens.links = Object.create(null);
+      this.options = options || marked.defaults;
+      this.rules = block.normal;
+
+      if (this.options.pedantic) {
+        this.rules = block.pedantic;
+      } else if (this.options.gfm) {
+        this.rules = block.gfm;
+      }
+    }
+
+    /**
+     * Expose Block Rules
+     */
+
+    Lexer.rules = block;
+
+    /**
+     * Static Lex Method
+     */
+
+    Lexer.lex = function(src, options) {
+      var lexer = new Lexer(options);
+      return lexer.lex(src);
+    };
+
+    /**
+     * Preprocessing
+     */
+
+    Lexer.prototype.lex = function(src) {
+      src = src
+        .replace(/\r\n|\r/g, '\n')
+        .replace(/\t/g, '    ')
+        .replace(/\u00a0/g, ' ')
+        .replace(/\u2424/g, '\n');
+
+      return this.token(src, true);
+    };
+
+    /**
+     * Lexing
+     */
+
+    Lexer.prototype.token = function(src, top) {
+      src = src.replace(/^ +$/gm, '');
+      var next,
+          loose,
+          cap,
+          bull,
+          b,
+          item,
+          listStart,
+          listItems,
+          t,
+          space,
+          i,
+          tag,
+          l,
+          isordered,
+          istask,
+          ischecked;
+
+      while (src) {
+        // newline
+        if (cap = this.rules.newline.exec(src)) {
+          src = src.substring(cap[0].length);
+          if (cap[0].length > 1) {
+            this.tokens.push({
+              type: 'space'
+            });
+          }
+        }
+
+        // code
+        if (cap = this.rules.code.exec(src)) {
+          var lastToken = this.tokens[this.tokens.length - 1];
+          src = src.substring(cap[0].length);
+          // An indented code block cannot interrupt a paragraph.
+          if (lastToken && lastToken.type === 'paragraph') {
+            lastToken.text += '\n' + cap[0].trimRight();
+          } else {
+            cap = cap[0].replace(/^ {4}/gm, '');
+            this.tokens.push({
+              type: 'code',
+              codeBlockStyle: 'indented',
+              text: !this.options.pedantic
+                ? rtrim(cap, '\n')
+                : cap
+            });
+          }
+          continue;
+        }
+
+        // fences
+        if (cap = this.rules.fences.exec(src)) {
+          src = src.substring(cap[0].length);
+          this.tokens.push({
+            type: 'code',
+            lang: cap[2] ? cap[2].trim() : cap[2],
+            text: cap[3] || ''
+          });
+          continue;
+        }
+
+        // heading
+        if (cap = this.rules.heading.exec(src)) {
+          src = src.substring(cap[0].length);
+          this.tokens.push({
+            type: 'heading',
+            depth: cap[1].length,
+            text: cap[2]
+          });
+          continue;
+        }
+
+        // table no leading pipe (gfm)
+        if (cap = this.rules.nptable.exec(src)) {
+          item = {
+            type: 'table',
+            header: splitCells(cap[1].replace(/^ *| *\| *$/g, '')),
+            align: cap[2].replace(/^ *|\| *$/g, '').split(/ *\| */),
+            cells: cap[3] ? cap[3].replace(/\n$/, '').split('\n') : []
+          };
+
+          if (item.header.length === item.align.length) {
+            src = src.substring(cap[0].length);
+
+            for (i = 0; i < item.align.length; i++) {
+              if (/^ *-+: *$/.test(item.align[i])) {
+                item.align[i] = 'right';
+              } else if (/^ *:-+: *$/.test(item.align[i])) {
+                item.align[i] = 'center';
+              } else if (/^ *:-+ *$/.test(item.align[i])) {
+                item.align[i] = 'left';
+              } else {
+                item.align[i] = null;
+              }
+            }
+
+            for (i = 0; i < item.cells.length; i++) {
+              item.cells[i] = splitCells(item.cells[i], item.header.length);
+            }
+
+            this.tokens.push(item);
+
+            continue;
+          }
+        }
+
+        // hr
+        if (cap = this.rules.hr.exec(src)) {
+          src = src.substring(cap[0].length);
+          this.tokens.push({
+            type: 'hr'
+          });
+          continue;
+        }
+
+        // blockquote
+        if (cap = this.rules.blockquote.exec(src)) {
+          src = src.substring(cap[0].length);
+
+          this.tokens.push({
+            type: 'blockquote_start'
+          });
+
+          cap = cap[0].replace(/^ *> ?/gm, '');
+
+          // Pass `top` to keep the current
+          // "toplevel" state. This is exactly
+          // how markdown.pl works.
+          this.token(cap, top);
+
+          this.tokens.push({
+            type: 'blockquote_end'
+          });
+
+          continue;
+        }
+
+        // list
+        if (cap = this.rules.list.exec(src)) {
+          src = src.substring(cap[0].length);
+          bull = cap[2];
+          isordered = bull.length > 1;
+
+          listStart = {
+            type: 'list_start',
+            ordered: isordered,
+            start: isordered ? +bull : '',
+            loose: false
+          };
+
+          this.tokens.push(listStart);
+
+          // Get each top-level item.
+          cap = cap[0].match(this.rules.item);
+
+          listItems = [];
+          next = false;
+          l = cap.length;
+          i = 0;
+
+          for (; i < l; i++) {
+            item = cap[i];
+
+            // Remove the list item's bullet
+            // so it is seen as the next token.
+            space = item.length;
+            item = item.replace(/^ *([*+-]|\d+\.) */, '');
+
+            // Outdent whatever the
+            // list item contains. Hacky.
+            if (~item.indexOf('\n ')) {
+              space -= item.length;
+              item = !this.options.pedantic
+                ? item.replace(new RegExp('^ {1,' + space + '}', 'gm'), '')
+                : item.replace(/^ {1,4}/gm, '');
+            }
+
+            // Determine whether the next list item belongs here.
+            // Backpedal if it does not belong in this list.
+            if (i !== l - 1) {
+              b = block.bullet.exec(cap[i + 1])[0];
+              if (bull.length > 1 ? b.length === 1
+                : (b.length > 1 || (this.options.smartLists && b !== bull))) {
+                src = cap.slice(i + 1).join('\n') + src;
+                i = l - 1;
+              }
+            }
+
+            // Determine whether item is loose or not.
+            // Use: /(^|\n)(?! )[^\n]+\n\n(?!\s*$)/
+            // for discount behavior.
+            loose = next || /\n\n(?!\s*$)/.test(item);
+            if (i !== l - 1) {
+              next = item.charAt(item.length - 1) === '\n';
+              if (!loose) loose = next;
+            }
+
+            if (loose) {
+              listStart.loose = true;
+            }
+
+            // Check for task list items
+            istask = /^\[[ xX]\] /.test(item);
+            ischecked = undefined;
+            if (istask) {
+              ischecked = item[1] !== ' ';
+              item = item.replace(/^\[[ xX]\] +/, '');
+            }
+
+            t = {
+              type: 'list_item_start',
+              task: istask,
+              checked: ischecked,
+              loose: loose
+            };
+
+            listItems.push(t);
+            this.tokens.push(t);
+
+            // Recurse.
+            this.token(item, false);
+
+            this.tokens.push({
+              type: 'list_item_end'
+            });
+          }
+
+          if (listStart.loose) {
+            l = listItems.length;
+            i = 0;
+            for (; i < l; i++) {
+              listItems[i].loose = true;
+            }
+          }
+
+          this.tokens.push({
+            type: 'list_end'
+          });
+
+          continue;
+        }
+
+        // html
+        if (cap = this.rules.html.exec(src)) {
+          src = src.substring(cap[0].length);
+          this.tokens.push({
+            type: this.options.sanitize
+              ? 'paragraph'
+              : 'html',
+            pre: !this.options.sanitizer
+              && (cap[1] === 'pre' || cap[1] === 'script' || cap[1] === 'style'),
+            text: this.options.sanitize ? (this.options.sanitizer ? this.options.sanitizer(cap[0]) : escape(cap[0])) : cap[0]
+          });
+          continue;
+        }
+
+        // def
+        if (top && (cap = this.rules.def.exec(src))) {
+          src = src.substring(cap[0].length);
+          if (cap[3]) cap[3] = cap[3].substring(1, cap[3].length - 1);
+          tag = cap[1].toLowerCase().replace(/\s+/g, ' ');
+          if (!this.tokens.links[tag]) {
+            this.tokens.links[tag] = {
+              href: cap[2],
+              title: cap[3]
+            };
+          }
+          continue;
+        }
+
+        // table (gfm)
+        if (cap = this.rules.table.exec(src)) {
+          item = {
+            type: 'table',
+            header: splitCells(cap[1].replace(/^ *| *\| *$/g, '')),
+            align: cap[2].replace(/^ *|\| *$/g, '').split(/ *\| */),
+            cells: cap[3] ? cap[3].replace(/\n$/, '').split('\n') : []
+          };
+
+          if (item.header.length === item.align.length) {
+            src = src.substring(cap[0].length);
+
+            for (i = 0; i < item.align.length; i++) {
+              if (/^ *-+: *$/.test(item.align[i])) {
+                item.align[i] = 'right';
+              } else if (/^ *:-+: *$/.test(item.align[i])) {
+                item.align[i] = 'center';
+              } else if (/^ *:-+ *$/.test(item.align[i])) {
+                item.align[i] = 'left';
+              } else {
+                item.align[i] = null;
+              }
+            }
+
+            for (i = 0; i < item.cells.length; i++) {
+              item.cells[i] = splitCells(
+                item.cells[i].replace(/^ *\| *| *\| *$/g, ''),
+                item.header.length);
+            }
+
+            this.tokens.push(item);
+
+            continue;
+          }
+        }
+
+        // lheading
+        if (cap = this.rules.lheading.exec(src)) {
+          src = src.substring(cap[0].length);
+          this.tokens.push({
+            type: 'heading',
+            depth: cap[2].charAt(0) === '=' ? 1 : 2,
+            text: cap[1]
+          });
+          continue;
+        }
+
+        // top-level paragraph
+        if (top && (cap = this.rules.paragraph.exec(src))) {
+          src = src.substring(cap[0].length);
+          this.tokens.push({
+            type: 'paragraph',
+            text: cap[1].charAt(cap[1].length - 1) === '\n'
+              ? cap[1].slice(0, -1)
+              : cap[1]
+          });
+          continue;
+        }
+
+        // text
+        if (cap = this.rules.text.exec(src)) {
+          // Top-level should never reach here.
+          src = src.substring(cap[0].length);
+          this.tokens.push({
+            type: 'text',
+            text: cap[0]
+          });
+          continue;
+        }
+
+        if (src) {
+          throw new Error('Infinite loop on byte: ' + src.charCodeAt(0));
+        }
+      }
+
+      return this.tokens;
+    };
+
+    /**
+     * Inline-Level Grammar
+     */
+
+    var inline = {
+      escape: /^\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/,
+      autolink: /^<(scheme:[^\s\x00-\x1f<>]*|email)>/,
+      url: noop,
+      tag: '^comment'
+        + '|^</[a-zA-Z][\\w:-]*\\s*>' // self-closing tag
+        + '|^<[a-zA-Z][\\w-]*(?:attribute)*?\\s*/?>' // open tag
+        + '|^<\\?[\\s\\S]*?\\?>' // processing instruction, e.g. <?php ?>
+        + '|^<![a-zA-Z]+\\s[\\s\\S]*?>' // declaration, e.g. <!DOCTYPE html>
+        + '|^<!\\[CDATA\\[[\\s\\S]*?\\]\\]>', // CDATA section
+      link: /^!?\[(label)\]\(\s*(href)(?:\s+(title))?\s*\)/,
+      reflink: /^!?\[(label)\]\[(?!\s*\])((?:\\[\[\]]?|[^\[\]\\])+)\]/,
+      nolink: /^!?\[(?!\s*\])((?:\[[^\[\]]*\]|\\[\[\]]|[^\[\]])*)\](?:\[\])?/,
+      strong: /^__([^\s_])__(?!_)|^\*\*([^\s*])\*\*(?!\*)|^__([^\s][\s\S]*?[^\s])__(?!_)|^\*\*([^\s][\s\S]*?[^\s])\*\*(?!\*)/,
+      em: /^_([^\s_])_(?!_)|^\*([^\s*<\[])\*(?!\*)|^_([^\s<][\s\S]*?[^\s_])_(?!_|[^\spunctuation])|^_([^\s_<][\s\S]*?[^\s])_(?!_|[^\spunctuation])|^\*([^\s<"][\s\S]*?[^\s\*])\*(?!\*|[^\spunctuation])|^\*([^\s*"<\[][\s\S]*?[^\s])\*(?!\*)/,
+      code: /^(`+)([^`]|[^`][\s\S]*?[^`])\1(?!`)/,
+      br: /^( {2,}|\\)\n(?!\s*$)/,
+      del: noop,
+      text: /^(`+|[^`])(?:[\s\S]*?(?:(?=[\\<!\[`*]|\b_|$)|[^ ](?= {2,}\n))|(?= {2,}\n))/
+    };
+
+    // list of punctuation marks from common mark spec
+    // without ` and ] to workaround Rule 17 (inline code blocks/links)
+    inline._punctuation = '!"#$%&\'()*+,\\-./:;<=>?@\\[^_{|}~';
+    inline.em = edit(inline.em).replace(/punctuation/g, inline._punctuation).getRegex();
+
+    inline._escapes = /\\([!"#$%&'()*+,\-./:;<=>?@\[\]\\^_`{|}~])/g;
+
+    inline._scheme = /[a-zA-Z][a-zA-Z0-9+.-]{1,31}/;
+    inline._email = /[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+(@)[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+(?![-_])/;
+    inline.autolink = edit(inline.autolink)
+      .replace('scheme', inline._scheme)
+      .replace('email', inline._email)
+      .getRegex();
+
+    inline._attribute = /\s+[a-zA-Z:_][\w.:-]*(?:\s*=\s*"[^"]*"|\s*=\s*'[^']*'|\s*=\s*[^\s"'=<>`]+)?/;
+
+    inline.tag = edit(inline.tag)
+      .replace('comment', block._comment)
+      .replace('attribute', inline._attribute)
+      .getRegex();
+
+    inline._label = /(?:\[[^\[\]]*\]|\\.|`[^`]*`|[^\[\]\\`])*?/;
+    inline._href = /<(?:\\[<>]?|[^\s<>\\])*>|[^\s\x00-\x1f]*/;
+    inline._title = /"(?:\\"?|[^"\\])*"|'(?:\\'?|[^'\\])*'|\((?:\\\)?|[^)\\])*\)/;
+
+    inline.link = edit(inline.link)
+      .replace('label', inline._label)
+      .replace('href', inline._href)
+      .replace('title', inline._title)
+      .getRegex();
+
+    inline.reflink = edit(inline.reflink)
+      .replace('label', inline._label)
+      .getRegex();
+
+    /**
+     * Normal Inline Grammar
+     */
+
+    inline.normal = merge({}, inline);
+
+    /**
+     * Pedantic Inline Grammar
+     */
+
+    inline.pedantic = merge({}, inline.normal, {
+      strong: /^__(?=\S)([\s\S]*?\S)__(?!_)|^\*\*(?=\S)([\s\S]*?\S)\*\*(?!\*)/,
+      em: /^_(?=\S)([\s\S]*?\S)_(?!_)|^\*(?=\S)([\s\S]*?\S)\*(?!\*)/,
+      link: edit(/^!?\[(label)\]\((.*?)\)/)
+        .replace('label', inline._label)
+        .getRegex(),
+      reflink: edit(/^!?\[(label)\]\s*\[([^\]]*)\]/)
+        .replace('label', inline._label)
+        .getRegex()
+    });
+
+    /**
+     * GFM Inline Grammar
+     */
+
+    inline.gfm = merge({}, inline.normal, {
+      escape: edit(inline.escape).replace('])', '~|])').getRegex(),
+      _extended_email: /[A-Za-z0-9._+-]+(@)[a-zA-Z0-9-_]+(?:\.[a-zA-Z0-9-_]*[a-zA-Z0-9])+(?![-_])/,
+      url: /^((?:ftp|https?):\/\/|www\.)(?:[a-zA-Z0-9\-]+\.?)+[^\s<]*|^email/,
+      _backpedal: /(?:[^?!.,:;*_~()&]+|\([^)]*\)|&(?![a-zA-Z0-9]+;$)|[?!.,:;*_~)]+(?!$))+/,
+      del: /^~+(?=\S)([\s\S]*?\S)~+/,
+      text: /^(`+|[^`])(?:[\s\S]*?(?:(?=[\\<!\[`*~]|\b_|https?:\/\/|ftp:\/\/|www\.|$)|[^ ](?= {2,}\n)|[^a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-](?=[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@))|(?= {2,}\n|[a-zA-Z0-9.!#$%&'*+\/=?_`{\|}~-]+@))/
+    });
+
+    inline.gfm.url = edit(inline.gfm.url, 'i')
+      .replace('email', inline.gfm._extended_email)
+      .getRegex();
+    /**
+     * GFM + Line Breaks Inline Grammar
+     */
+
+    inline.breaks = merge({}, inline.gfm, {
+      br: edit(inline.br).replace('{2,}', '*').getRegex(),
+      text: edit(inline.gfm.text)
+        .replace('\\b_', '\\b_| {2,}\\n')
+        .replace(/\{2,\}/g, '*')
+        .getRegex()
+    });
+
+    /**
+     * Inline Lexer & Compiler
+     */
+
+    function InlineLexer(links, options) {
+      this.options = options || marked.defaults;
+      this.links = links;
+      this.rules = inline.normal;
+      this.renderer = this.options.renderer || new Renderer();
+      this.renderer.options = this.options;
+
+      if (!this.links) {
+        throw new Error('Tokens array requires a `links` property.');
+      }
+
+      if (this.options.pedantic) {
+        this.rules = inline.pedantic;
+      } else if (this.options.gfm) {
+        if (this.options.breaks) {
+          this.rules = inline.breaks;
+        } else {
+          this.rules = inline.gfm;
+        }
+      }
+    }
+
+    /**
+     * Expose Inline Rules
+     */
+
+    InlineLexer.rules = inline;
+
+    /**
+     * Static Lexing/Compiling Method
+     */
+
+    InlineLexer.output = function(src, links, options) {
+      var inline = new InlineLexer(links, options);
+      return inline.output(src);
+    };
+
+    /**
+     * Lexing/Compiling
+     */
+
+    InlineLexer.prototype.output = function(src) {
+      var out = '',
+          link,
+          text,
+          href,
+          title,
+          cap,
+          prevCapZero;
+
+      while (src) {
+        // escape
+        if (cap = this.rules.escape.exec(src)) {
+          src = src.substring(cap[0].length);
+          out += escape(cap[1]);
+          continue;
+        }
+
+        // tag
+        if (cap = this.rules.tag.exec(src)) {
+          if (!this.inLink && /^<a /i.test(cap[0])) {
+            this.inLink = true;
+          } else if (this.inLink && /^<\/a>/i.test(cap[0])) {
+            this.inLink = false;
+          }
+          if (!this.inRawBlock && /^<(pre|code|kbd|script)(\s|>)/i.test(cap[0])) {
+            this.inRawBlock = true;
+          } else if (this.inRawBlock && /^<\/(pre|code|kbd|script)(\s|>)/i.test(cap[0])) {
+            this.inRawBlock = false;
+          }
+
+          src = src.substring(cap[0].length);
+          out += this.options.sanitize
+            ? this.options.sanitizer
+              ? this.options.sanitizer(cap[0])
+              : escape(cap[0])
+            : cap[0];
+          continue;
+        }
+
+        // link
+        if (cap = this.rules.link.exec(src)) {
+          var lastParenIndex = findClosingBracket(cap[2], '()');
+          if (lastParenIndex > -1) {
+            var linkLen = 4 + cap[1].length + lastParenIndex;
+            cap[2] = cap[2].substring(0, lastParenIndex);
+            cap[0] = cap[0].substring(0, linkLen).trim();
+            cap[3] = '';
+          }
+          src = src.substring(cap[0].length);
+          this.inLink = true;
+          href = cap[2];
+          if (this.options.pedantic) {
+            link = /^([^'"]*[^\s])\s+(['"])(.*)\2/.exec(href);
+
+            if (link) {
+              href = link[1];
+              title = link[3];
+            } else {
+              title = '';
+            }
+          } else {
+            title = cap[3] ? cap[3].slice(1, -1) : '';
+          }
+          href = href.trim().replace(/^<([\s\S]*)>$/, '$1');
+          out += this.outputLink(cap, {
+            href: InlineLexer.escapes(href),
+            title: InlineLexer.escapes(title)
+          });
+          this.inLink = false;
+          continue;
+        }
+
+        // reflink, nolink
+        if ((cap = this.rules.reflink.exec(src))
+            || (cap = this.rules.nolink.exec(src))) {
+          src = src.substring(cap[0].length);
+          link = (cap[2] || cap[1]).replace(/\s+/g, ' ');
+          link = this.links[link.toLowerCase()];
+          if (!link || !link.href) {
+            out += cap[0].charAt(0);
+            src = cap[0].substring(1) + src;
+            continue;
+          }
+          this.inLink = true;
+          out += this.outputLink(cap, link);
+          this.inLink = false;
+          continue;
+        }
+
+        // strong
+        if (cap = this.rules.strong.exec(src)) {
+          src = src.substring(cap[0].length);
+          out += this.renderer.strong(this.output(cap[4] || cap[3] || cap[2] || cap[1]));
+          continue;
+        }
+
+        // em
+        if (cap = this.rules.em.exec(src)) {
+          src = src.substring(cap[0].length);
+          out += this.renderer.em(this.output(cap[6] || cap[5] || cap[4] || cap[3] || cap[2] || cap[1]));
+          continue;
+        }
+
+        // code
+        if (cap = this.rules.code.exec(src)) {
+          src = src.substring(cap[0].length);
+          out += this.renderer.codespan(escape(cap[2].trim(), true));
+          continue;
+        }
+
+        // br
+        if (cap = this.rules.br.exec(src)) {
+          src = src.substring(cap[0].length);
+          out += this.renderer.br();
+          continue;
+        }
+
+        // del (gfm)
+        if (cap = this.rules.del.exec(src)) {
+          src = src.substring(cap[0].length);
+          out += this.renderer.del(this.output(cap[1]));
+          continue;
+        }
+
+        // autolink
+        if (cap = this.rules.autolink.exec(src)) {
+          src = src.substring(cap[0].length);
+          if (cap[2] === '@') {
+            text = escape(this.mangle(cap[1]));
+            href = 'mailto:' + text;
+          } else {
+            text = escape(cap[1]);
+            href = text;
+          }
+          out += this.renderer.link(href, null, text);
+          continue;
+        }
+
+        // url (gfm)
+        if (!this.inLink && (cap = this.rules.url.exec(src))) {
+          if (cap[2] === '@') {
+            text = escape(cap[0]);
+            href = 'mailto:' + text;
+          } else {
+            // do extended autolink path validation
+            do {
+              prevCapZero = cap[0];
+              cap[0] = this.rules._backpedal.exec(cap[0])[0];
+            } while (prevCapZero !== cap[0]);
+            text = escape(cap[0]);
+            if (cap[1] === 'www.') {
+              href = 'http://' + text;
+            } else {
+              href = text;
+            }
+          }
+          src = src.substring(cap[0].length);
+          out += this.renderer.link(href, null, text);
+          continue;
+        }
+
+        // text
+        if (cap = this.rules.text.exec(src)) {
+          src = src.substring(cap[0].length);
+          if (this.inRawBlock) {
+            out += this.renderer.text(this.options.sanitize ? (this.options.sanitizer ? this.options.sanitizer(cap[0]) : escape(cap[0])) : cap[0]);
+          } else {
+            out += this.renderer.text(escape(this.smartypants(cap[0])));
+          }
+          continue;
+        }
+
+        if (src) {
+          throw new Error('Infinite loop on byte: ' + src.charCodeAt(0));
+        }
+      }
+
+      return out;
+    };
+
+    InlineLexer.escapes = function(text) {
+      return text ? text.replace(InlineLexer.rules._escapes, '$1') : text;
+    };
+
+    /**
+     * Compile Link
+     */
+
+    InlineLexer.prototype.outputLink = function(cap, link) {
+      var href = link.href,
+          title = link.title ? escape(link.title) : null;
+
+      return cap[0].charAt(0) !== '!'
+        ? this.renderer.link(href, title, this.output(cap[1]))
+        : this.renderer.image(href, title, escape(cap[1]));
+    };
+
+    /**
+     * Smartypants Transformations
+     */
+
+    InlineLexer.prototype.smartypants = function(text) {
+      if (!this.options.smartypants) return text;
+      return text
+        // em-dashes
+        .replace(/---/g, '\u2014')
+        // en-dashes
+        .replace(/--/g, '\u2013')
+        // opening singles
+        .replace(/(^|[-\u2014/(\[{"\s])'/g, '$1\u2018')
+        // closing singles & apostrophes
+        .replace(/'/g, '\u2019')
+        // opening doubles
+        .replace(/(^|[-\u2014/(\[{\u2018\s])"/g, '$1\u201c')
+        // closing doubles
+        .replace(/"/g, '\u201d')
+        // ellipses
+        .replace(/\.{3}/g, '\u2026');
+    };
+
+    /**
+     * Mangle Links
+     */
+
+    InlineLexer.prototype.mangle = function(text) {
+      if (!this.options.mangle) return text;
+      var out = '',
+          l = text.length,
+          i = 0,
+          ch;
+
+      for (; i < l; i++) {
+        ch = text.charCodeAt(i);
+        if (Math.random() > 0.5) {
+          ch = 'x' + ch.toString(16);
+        }
+        out += '&#' + ch + ';';
+      }
+
+      return out;
+    };
+
+    /**
+     * Renderer
+     */
+
+    function Renderer(options) {
+      this.options = options || marked.defaults;
+    }
+
+    Renderer.prototype.code = function(code, infostring, escaped) {
+      var lang = (infostring || '').match(/\S*/)[0];
+      if (this.options.highlight) {
+        var out = this.options.highlight(code, lang);
+        if (out != null && out !== code) {
+          escaped = true;
+          code = out;
+        }
+      }
+
+      if (!lang) {
+        return '<pre><code>'
+          + (escaped ? code : escape(code, true))
+          + '</code></pre>';
+      }
+
+      return '<pre><code class="'
+        + this.options.langPrefix
+        + escape(lang, true)
+        + '">'
+        + (escaped ? code : escape(code, true))
+        + '</code></pre>\n';
+    };
+
+    Renderer.prototype.blockquote = function(quote) {
+      return '<blockquote>\n' + quote + '</blockquote>\n';
+    };
+
+    Renderer.prototype.html = function(html) {
+      return html;
+    };
+
+    Renderer.prototype.heading = function(text, level, raw, slugger) {
+      if (this.options.headerIds) {
+        return '<h'
+          + level
+          + ' id="'
+          + this.options.headerPrefix
+          + slugger.slug(raw)
+          + '">'
+          + text
+          + '</h'
+          + level
+          + '>\n';
+      }
+      // ignore IDs
+      return '<h' + level + '>' + text + '</h' + level + '>\n';
+    };
+
+    Renderer.prototype.hr = function() {
+      return this.options.xhtml ? '<hr/>\n' : '<hr>\n';
+    };
+
+    Renderer.prototype.list = function(body, ordered, start) {
+      var type = ordered ? 'ol' : 'ul',
+          startatt = (ordered && start !== 1) ? (' start="' + start + '"') : '';
+      return '<' + type + startatt + '>\n' + body + '</' + type + '>\n';
+    };
+
+    Renderer.prototype.listitem = function(text) {
+      return '<li>' + text + '</li>\n';
+    };
+
+    Renderer.prototype.checkbox = function(checked) {
+      return '<input '
+        + (checked ? 'checked="" ' : '')
+        + 'disabled="" type="checkbox"'
+        + (this.options.xhtml ? ' /' : '')
+        + '> ';
+    };
+
+    Renderer.prototype.paragraph = function(text) {
+      return '<p>' + text + '</p>\n';
+    };
+
+    Renderer.prototype.table = function(header, body) {
+      if (body) body = '<tbody>' + body + '</tbody>';
+
+      return '<table>\n'
+        + '<thead>\n'
+        + header
+        + '</thead>\n'
+        + body
+        + '</table>\n';
+    };
+
+    Renderer.prototype.tablerow = function(content) {
+      return '<tr>\n' + content + '</tr>\n';
+    };
+
+    Renderer.prototype.tablecell = function(content, flags) {
+      var type = flags.header ? 'th' : 'td';
+      var tag = flags.align
+        ? '<' + type + ' align="' + flags.align + '">'
+        : '<' + type + '>';
+      return tag + content + '</' + type + '>\n';
+    };
+
+    // span level renderer
+    Renderer.prototype.strong = function(text) {
+      return '<strong>' + text + '</strong>';
+    };
+
+    Renderer.prototype.em = function(text) {
+      return '<em>' + text + '</em>';
+    };
+
+    Renderer.prototype.codespan = function(text) {
+      return '<code>' + text + '</code>';
+    };
+
+    Renderer.prototype.br = function() {
+      return this.options.xhtml ? '<br/>' : '<br>';
+    };
+
+    Renderer.prototype.del = function(text) {
+      return '<del>' + text + '</del>';
+    };
+
+    Renderer.prototype.link = function(href, title, text) {
+      href = cleanUrl(this.options.sanitize, this.options.baseUrl, href);
+      if (href === null) {
+        return text;
+      }
+      var out = '<a href="' + escape(href) + '"';
+      if (title) {
+        out += ' title="' + title + '"';
+      }
+      out += '>' + text + '</a>';
+      return out;
+    };
+
+    Renderer.prototype.image = function(href, title, text) {
+      href = cleanUrl(this.options.sanitize, this.options.baseUrl, href);
+      if (href === null) {
+        return text;
+      }
+
+      var out = '<img src="' + href + '" alt="' + text + '"';
+      if (title) {
+        out += ' title="' + title + '"';
+      }
+      out += this.options.xhtml ? '/>' : '>';
+      return out;
+    };
+
+    Renderer.prototype.text = function(text) {
+      return text;
+    };
+
+    /**
+     * TextRenderer
+     * returns only the textual part of the token
+     */
+
+    function TextRenderer() {}
+
+    // no need for block level renderers
+
+    TextRenderer.prototype.strong =
+    TextRenderer.prototype.em =
+    TextRenderer.prototype.codespan =
+    TextRenderer.prototype.del =
+    TextRenderer.prototype.text = function(text) {
+      return text;
+    };
+
+    TextRenderer.prototype.link =
+    TextRenderer.prototype.image = function(href, title, text) {
+      return '' + text;
+    };
+
+    TextRenderer.prototype.br = function() {
+      return '';
+    };
+
+    /**
+     * Parsing & Compiling
+     */
+
+    function Parser(options) {
+      this.tokens = [];
+      this.token = null;
+      this.options = options || marked.defaults;
+      this.options.renderer = this.options.renderer || new Renderer();
+      this.renderer = this.options.renderer;
+      this.renderer.options = this.options;
+      this.slugger = new Slugger();
+    }
+
+    /**
+     * Static Parse Method
+     */
+
+    Parser.parse = function(src, options) {
+      var parser = new Parser(options);
+      return parser.parse(src);
+    };
+
+    /**
+     * Parse Loop
+     */
+
+    Parser.prototype.parse = function(src) {
+      this.inline = new InlineLexer(src.links, this.options);
+      // use an InlineLexer with a TextRenderer to extract pure text
+      this.inlineText = new InlineLexer(
+        src.links,
+        merge({}, this.options, { renderer: new TextRenderer() })
+      );
+      this.tokens = src.reverse();
+
+      var out = '';
+      while (this.next()) {
+        out += this.tok();
+      }
+
+      return out;
+    };
+
+    /**
+     * Next Token
+     */
+
+    Parser.prototype.next = function() {
+      this.token = this.tokens.pop();
+      return this.token;
+    };
+
+    /**
+     * Preview Next Token
+     */
+
+    Parser.prototype.peek = function() {
+      return this.tokens[this.tokens.length - 1] || 0;
+    };
+
+    /**
+     * Parse Text Tokens
+     */
+
+    Parser.prototype.parseText = function() {
+      var body = this.token.text;
+
+      while (this.peek().type === 'text') {
+        body += '\n' + this.next().text;
+      }
+
+      return this.inline.output(body);
+    };
+
+    /**
+     * Parse Current Token
+     */
+
+    Parser.prototype.tok = function() {
+      switch (this.token.type) {
+        case 'space': {
+          return '';
+        }
+        case 'hr': {
+          return this.renderer.hr();
+        }
+        case 'heading': {
+          return this.renderer.heading(
+            this.inline.output(this.token.text),
+            this.token.depth,
+            unescape(this.inlineText.output(this.token.text)),
+            this.slugger);
+        }
+        case 'code': {
+          return this.renderer.code(this.token.text,
+            this.token.lang,
+            this.token.escaped);
+        }
+        case 'table': {
+          var header = '',
+              body = '',
+              i,
+              row,
+              cell,
+              j;
+
+          // header
+          cell = '';
+          for (i = 0; i < this.token.header.length; i++) {
+            cell += this.renderer.tablecell(
+              this.inline.output(this.token.header[i]),
+              { header: true, align: this.token.align[i] }
+            );
+          }
+          header += this.renderer.tablerow(cell);
+
+          for (i = 0; i < this.token.cells.length; i++) {
+            row = this.token.cells[i];
+
+            cell = '';
+            for (j = 0; j < row.length; j++) {
+              cell += this.renderer.tablecell(
+                this.inline.output(row[j]),
+                { header: false, align: this.token.align[j] }
+              );
+            }
+
+            body += this.renderer.tablerow(cell);
+          }
+          return this.renderer.table(header, body);
+        }
+        case 'blockquote_start': {
+          body = '';
+
+          while (this.next().type !== 'blockquote_end') {
+            body += this.tok();
+          }
+
+          return this.renderer.blockquote(body);
+        }
+        case 'list_start': {
+          body = '';
+          var ordered = this.token.ordered,
+              start = this.token.start;
+
+          while (this.next().type !== 'list_end') {
+            body += this.tok();
+          }
+
+          return this.renderer.list(body, ordered, start);
+        }
+        case 'list_item_start': {
+          body = '';
+          var loose = this.token.loose;
+          var checked = this.token.checked;
+          var task = this.token.task;
+
+          if (this.token.task) {
+            body += this.renderer.checkbox(checked);
+          }
+
+          while (this.next().type !== 'list_item_end') {
+            body += !loose && this.token.type === 'text'
+              ? this.parseText()
+              : this.tok();
+          }
+          return this.renderer.listitem(body, task, checked);
+        }
+        case 'html': {
+          // TODO parse inline content if parameter markdown=1
+          return this.renderer.html(this.token.text);
+        }
+        case 'paragraph': {
+          return this.renderer.paragraph(this.inline.output(this.token.text));
+        }
+        case 'text': {
+          return this.renderer.paragraph(this.parseText());
+        }
+        default: {
+          var errMsg = 'Token with "' + this.token.type + '" type was not found.';
+          if (this.options.silent) {
+            console.log(errMsg);
+          } else {
+            throw new Error(errMsg);
+          }
+        }
+      }
+    };
+
+    /**
+     * Slugger generates header id
+     */
+
+    function Slugger() {
+      this.seen = {};
+    }
+
+    /**
+     * Convert string to unique id
+     */
+
+    Slugger.prototype.slug = function(value) {
+      var slug = value
+        .toLowerCase()
+        .trim()
+        .replace(/[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,./:;<=>?@[\]^`{|}~]/g, '')
+        .replace(/\s/g, '-');
+
+      if (this.seen.hasOwnProperty(slug)) {
+        var originalSlug = slug;
+        do {
+          this.seen[originalSlug]++;
+          slug = originalSlug + '-' + this.seen[originalSlug];
+        } while (this.seen.hasOwnProperty(slug));
+      }
+      this.seen[slug] = 0;
+
+      return slug;
+    };
+
+    /**
+     * Helpers
+     */
+
+    function escape(html, encode) {
+      if (encode) {
+        if (escape.escapeTest.test(html)) {
+          return html.replace(escape.escapeReplace, function(ch) { return escape.replacements[ch]; });
+        }
+      } else {
+        if (escape.escapeTestNoEncode.test(html)) {
+          return html.replace(escape.escapeReplaceNoEncode, function(ch) { return escape.replacements[ch]; });
+        }
+      }
+
+      return html;
+    }
+
+    escape.escapeTest = /[&<>"']/;
+    escape.escapeReplace = /[&<>"']/g;
+    escape.replacements = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    };
+
+    escape.escapeTestNoEncode = /[<>"']|&(?!#?\w+;)/;
+    escape.escapeReplaceNoEncode = /[<>"']|&(?!#?\w+;)/g;
+
+    function unescape(html) {
+      // explicitly match decimal, hex, and named HTML entities
+      return html.replace(/&(#(?:\d+)|(?:#x[0-9A-Fa-f]+)|(?:\w+));?/ig, function(_, n) {
+        n = n.toLowerCase();
+        if (n === 'colon') return ':';
+        if (n.charAt(0) === '#') {
+          return n.charAt(1) === 'x'
+            ? String.fromCharCode(parseInt(n.substring(2), 16))
+            : String.fromCharCode(+n.substring(1));
+        }
+        return '';
+      });
+    }
+
+    function edit(regex, opt) {
+      regex = regex.source || regex;
+      opt = opt || '';
+      return {
+        replace: function(name, val) {
+          val = val.source || val;
+          val = val.replace(/(^|[^\[])\^/g, '$1');
+          regex = regex.replace(name, val);
+          return this;
+        },
+        getRegex: function() {
+          return new RegExp(regex, opt);
+        }
+      };
+    }
+
+    function cleanUrl(sanitize, base, href) {
+      if (sanitize) {
+        try {
+          var prot = decodeURIComponent(unescape(href))
+            .replace(/[^\w:]/g, '')
+            .toLowerCase();
+        } catch (e) {
+          return null;
+        }
+        if (prot.indexOf('javascript:') === 0 || prot.indexOf('vbscript:') === 0 || prot.indexOf('data:') === 0) {
+          return null;
+        }
+      }
+      if (base && !originIndependentUrl.test(href)) {
+        href = resolveUrl(base, href);
+      }
+      try {
+        href = encodeURI(href).replace(/%25/g, '%');
+      } catch (e) {
+        return null;
+      }
+      return href;
+    }
+
+    function resolveUrl(base, href) {
+      if (!baseUrls[' ' + base]) {
+        // we can ignore everything in base after the last slash of its path component,
+        // but we might need to add _that_
+        // https://tools.ietf.org/html/rfc3986#section-3
+        if (/^[^:]+:\/*[^/]*$/.test(base)) {
+          baseUrls[' ' + base] = base + '/';
+        } else {
+          baseUrls[' ' + base] = rtrim(base, '/', true);
+        }
+      }
+      base = baseUrls[' ' + base];
+
+      if (href.slice(0, 2) === '//') {
+        return base.replace(/:[\s\S]*/, ':') + href;
+      } else if (href.charAt(0) === '/') {
+        return base.replace(/(:\/*[^/]*)[\s\S]*/, '$1') + href;
+      } else {
+        return base + href;
+      }
+    }
+    var baseUrls = {};
+    var originIndependentUrl = /^$|^[a-z][a-z0-9+.-]*:|^[?#]/i;
+
+    function noop() {}
+    noop.exec = noop;
+
+    function merge(obj) {
+      var i = 1,
+          target,
+          key;
+
+      for (; i < arguments.length; i++) {
+        target = arguments[i];
+        for (key in target) {
+          if (Object.prototype.hasOwnProperty.call(target, key)) {
+            obj[key] = target[key];
+          }
+        }
+      }
+
+      return obj;
+    }
+
+    function splitCells(tableRow, count) {
+      // ensure that every cell-delimiting pipe has a space
+      // before it to distinguish it from an escaped pipe
+      var row = tableRow.replace(/\|/g, function(match, offset, str) {
+            var escaped = false,
+                curr = offset;
+            while (--curr >= 0 && str[curr] === '\\') escaped = !escaped;
+            if (escaped) {
+              // odd number of slashes means | is escaped
+              // so we leave it alone
+              return '|';
+            } else {
+              // add space before unescaped |
+              return ' |';
+            }
+          }),
+          cells = row.split(/ \|/),
+          i = 0;
+
+      if (cells.length > count) {
+        cells.splice(count);
+      } else {
+        while (cells.length < count) cells.push('');
+      }
+
+      for (; i < cells.length; i++) {
+        // leading or trailing whitespace is ignored per the gfm spec
+        cells[i] = cells[i].trim().replace(/\\\|/g, '|');
+      }
+      return cells;
+    }
+
+    // Remove trailing 'c's. Equivalent to str.replace(/c*$/, '').
+    // /c*$/ is vulnerable to REDOS.
+    // invert: Remove suffix of non-c chars instead. Default falsey.
+    function rtrim(str, c, invert) {
+      if (str.length === 0) {
+        return '';
+      }
+
+      // Length of suffix matching the invert condition.
+      var suffLen = 0;
+
+      // Step left until we fail to match the invert condition.
+      while (suffLen < str.length) {
+        var currChar = str.charAt(str.length - suffLen - 1);
+        if (currChar === c && !invert) {
+          suffLen++;
+        } else if (currChar !== c && invert) {
+          suffLen++;
+        } else {
+          break;
+        }
+      }
+
+      return str.substr(0, str.length - suffLen);
+    }
+
+    function findClosingBracket(str, b) {
+      if (str.indexOf(b[1]) === -1) {
+        return -1;
+      }
+      var level = 0;
+      for (var i = 0; i < str.length; i++) {
+        if (str[i] === '\\') {
+          i++;
+        } else if (str[i] === b[0]) {
+          level++;
+        } else if (str[i] === b[1]) {
+          level--;
+          if (level < 0) {
+            return i;
+          }
+        }
+      }
+      return -1;
+    }
+
+    function checkSanitizeDeprecation(opt) {
+      if (opt && opt.sanitize && !opt.silent) {
+        console.warn('marked(): sanitize and sanitizer parameters are deprecated since version 0.7.0, should not be used and will be removed in the future. Read more here: https://marked.js.org/#/USING_ADVANCED.md#options');
+      }
+    }
+
+    /**
+     * Marked
+     */
+
+    function marked(src, opt, callback) {
+      // throw error in case of non string input
+      if (typeof src === 'undefined' || src === null) {
+        throw new Error('marked(): input parameter is undefined or null');
+      }
+      if (typeof src !== 'string') {
+        throw new Error('marked(): input parameter is of type '
+          + Object.prototype.toString.call(src) + ', string expected');
+      }
+
+      if (callback || typeof opt === 'function') {
+        if (!callback) {
+          callback = opt;
+          opt = null;
+        }
+
+        opt = merge({}, marked.defaults, opt || {});
+        checkSanitizeDeprecation(opt);
+
+        var highlight = opt.highlight,
+            tokens,
+            pending,
+            i = 0;
+
+        try {
+          tokens = Lexer.lex(src, opt);
+        } catch (e) {
+          return callback(e);
+        }
+
+        pending = tokens.length;
+
+        var done = function(err) {
+          if (err) {
+            opt.highlight = highlight;
+            return callback(err);
+          }
+
+          var out;
+
+          try {
+            out = Parser.parse(tokens, opt);
+          } catch (e) {
+            err = e;
+          }
+
+          opt.highlight = highlight;
+
+          return err
+            ? callback(err)
+            : callback(null, out);
+        };
+
+        if (!highlight || highlight.length < 3) {
+          return done();
+        }
+
+        delete opt.highlight;
+
+        if (!pending) return done();
+
+        for (; i < tokens.length; i++) {
+          (function(token) {
+            if (token.type !== 'code') {
+              return --pending || done();
+            }
+            return highlight(token.text, token.lang, function(err, code) {
+              if (err) return done(err);
+              if (code == null || code === token.text) {
+                return --pending || done();
+              }
+              token.text = code;
+              token.escaped = true;
+              --pending || done();
+            });
+          })(tokens[i]);
+        }
+
+        return;
+      }
+      try {
+        if (opt) opt = merge({}, marked.defaults, opt);
+        checkSanitizeDeprecation(opt);
+        return Parser.parse(Lexer.lex(src, opt), opt);
+      } catch (e) {
+        e.message += '\nPlease report this to https://github.com/markedjs/marked.';
+        if ((opt || marked.defaults).silent) {
+          return '<p>An error occurred:</p><pre>'
+            + escape(e.message + '', true)
+            + '</pre>';
+        }
+        throw e;
+      }
+    }
+
+    /**
+     * Options
+     */
+
+    marked.options =
+    marked.setOptions = function(opt) {
+      merge(marked.defaults, opt);
+      return marked;
+    };
+
+    marked.getDefaults = function() {
+      return {
+        baseUrl: null,
+        breaks: false,
+        gfm: true,
+        headerIds: true,
+        headerPrefix: '',
+        highlight: null,
+        langPrefix: 'language-',
+        mangle: true,
+        pedantic: false,
+        renderer: new Renderer(),
+        sanitize: false,
+        sanitizer: null,
+        silent: false,
+        smartLists: false,
+        smartypants: false,
+        xhtml: false
+      };
+    };
+
+    marked.defaults = marked.getDefaults();
+
+    /**
+     * Expose
+     */
+
+    marked.Parser = Parser;
+    marked.parser = Parser.parse;
+
+    marked.Renderer = Renderer;
+    marked.TextRenderer = TextRenderer;
+
+    marked.Lexer = Lexer;
+    marked.lexer = Lexer.lex;
+
+    marked.InlineLexer = InlineLexer;
+    marked.inlineLexer = InlineLexer.output;
+
+    marked.Slugger = Slugger;
+
+    marked.parse = marked;
+
+    {
+      module.exports = marked;
+    }
+    })();
+    });
+
+    /* src/Collection.svelte generated by Svelte v3.12.1 */
+
+    const file$6 = "src/Collection.svelte";
+
+    function get_each_context$1(ctx, list, i) {
+    	const child_ctx = Object.create(ctx);
+    	child_ctx.item = list[i];
+    	return child_ctx;
+    }
+
+    // (176:2) {:else}
+    function create_else_block(ctx) {
+    	var t0, div1, div0, t1, section;
+
+    	var if_block = (ctx.collection !== 'home') && create_if_block_1(ctx);
+
+    	let each_value = ctx.images;
+
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
+    	}
+
+    	let each_1_else = null;
+
+    	if (!each_value.length) {
+    		each_1_else = create_else_block_1(ctx);
+    		each_1_else.c();
+    	}
+
+    	const block = {
+    		c: function create() {
+    			if (if_block) if_block.c();
+    			t0 = space();
+    			div1 = element("div");
+    			div0 = element("div");
+    			t1 = space();
+    			section = element("section");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+    			attr_dev(div0, "class", "collection-inner svelte-1ieab5c");
+    			add_location(div0, file$6, 194, 6, 4241);
+    			attr_dev(section, "class", "g svelte-1ieab5c");
+    			add_location(section, file$6, 195, 6, 4280);
+    			attr_dev(div1, "class", "collection");
+    			add_location(div1, file$6, 193, 4, 4210);
+    		},
+
+    		m: function mount(target, anchor) {
+    			if (if_block) if_block.m(target, anchor);
+    			insert_dev(target, t0, anchor);
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, div0);
+    			append_dev(div1, t1);
+    			append_dev(div1, section);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(section, null);
+    			}
+
+    			if (each_1_else) {
+    				each_1_else.m(section, null);
+    			}
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (ctx.collection !== 'home') {
+    				if (if_block) {
+    					if_block.p(changed, ctx);
+    				} else {
+    					if_block = create_if_block_1(ctx);
+    					if_block.c();
+    					if_block.m(t0.parentNode, t0);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+
+    			if (changed.thumbnailToURL || changed.images || changed.collection) {
+    				each_value = ctx.images;
+
+    				let i;
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context$1(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(changed, child_ctx);
+    					} else {
+    						each_blocks[i] = create_each_block$1(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(section, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+    				each_blocks.length = each_value.length;
+    			}
+
+    			if (!each_value.length && each_1_else) {
+    				each_1_else.p(changed, ctx);
+    			} else if (!each_value.length) {
+    				each_1_else = create_else_block_1(ctx);
+    				each_1_else.c();
+    				each_1_else.m(section, null);
+    			} else if (each_1_else) {
+    				each_1_else.d(1);
+    				each_1_else = null;
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (if_block) if_block.d(detaching);
+
+    			if (detaching) {
+    				detach_dev(t0);
+    				detach_dev(div1);
+    			}
+
+    			destroy_each(each_blocks, detaching);
+
+    			if (each_1_else) each_1_else.d();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block.name, type: "else", source: "(176:2) {:else}", ctx });
+    	return block;
+    }
+
+    // (172:2) {#if images.length == 0}
+    function create_if_block(ctx) {
+    	var div, i;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			i = element("i");
+    			attr_dev(i, "class", "fa fa-spinner fa-spin fa-3x");
+    			add_location(i, file$6, 173, 6, 3599);
+    			attr_dev(div, "class", "loading-wrapper");
+    			add_location(div, file$6, 172, 4, 3563);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, i);
+    		},
+
+    		p: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div);
+    			}
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block.name, type: "if", source: "(172:2) {#if images.length == 0}", ctx });
+    	return block;
+    }
+
+    // (177:4) {#if collection !== 'home'}
+    function create_if_block_1(ctx) {
+    	var div1, h3, t0, t1, div0, t2, p;
+
+    	var if_block = (ctx.collectionThumb) && create_if_block_2(ctx);
+
+    	const block = {
+    		c: function create() {
+    			div1 = element("div");
+    			h3 = element("h3");
+    			t0 = text(ctx.collection);
+    			t1 = space();
+    			div0 = element("div");
+    			if (if_block) if_block.c();
+    			t2 = space();
+    			p = element("p");
+    			attr_dev(h3, "class", "collection-title svelte-1ieab5c");
+    			add_location(h3, file$6, 178, 8, 3740);
+    			attr_dev(p, "class", "collection-description svelte-1ieab5c");
+    			add_location(p, file$6, 187, 10, 4086);
+    			attr_dev(div0, "class", "collection-metadata svelte-1ieab5c");
+    			add_location(div0, file$6, 179, 8, 3795);
+    			attr_dev(div1, "class", "collection-header svelte-1ieab5c");
+    			add_location(div1, file$6, 177, 6, 3700);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, h3);
+    			append_dev(h3, t0);
+    			append_dev(div1, t1);
+    			append_dev(div1, div0);
+    			if (if_block) if_block.m(div0, null);
+    			append_dev(div0, t2);
+    			append_dev(div0, p);
+    			p.innerHTML = ctx.description;
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (changed.collection) {
+    				set_data_dev(t0, ctx.collection);
+    			}
+
+    			if (ctx.collectionThumb) {
+    				if (if_block) {
+    					if_block.p(changed, ctx);
+    				} else {
+    					if_block = create_if_block_2(ctx);
+    					if_block.c();
+    					if_block.m(div0, t2);
+    				}
+    			} else if (if_block) {
+    				if_block.d(1);
+    				if_block = null;
+    			}
+
+    			if (changed.description) {
+    				p.innerHTML = ctx.description;
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div1);
+    			}
+
+    			if (if_block) if_block.d();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1.name, type: "if", source: "(177:4) {#if collection !== 'home'}", ctx });
+    	return block;
+    }
+
+    // (181:10) {#if collectionThumb}
+    function create_if_block_2(ctx) {
+    	var img, img_alt_value, dispose;
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			attr_dev(img, "src", ctx.collectionThumb);
+    			attr_dev(img, "alt", img_alt_value = "photo: " + ctx.collection);
+    			attr_dev(img, "class", "svelte-1ieab5c");
+    			toggle_class(img, "hidden", !ctx.collectionThumb);
+    			add_location(img, file$6, 181, 12, 3873);
+    			dispose = listen_dev(img, "error", ctx.error_handler);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (changed.collectionThumb) {
+    				attr_dev(img, "src", ctx.collectionThumb);
+    			}
+
+    			if ((changed.collection) && img_alt_value !== (img_alt_value = "photo: " + ctx.collection)) {
+    				attr_dev(img, "alt", img_alt_value);
+    			}
+
+    			if (changed.collectionThumb) {
+    				toggle_class(img, "hidden", !ctx.collectionThumb);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(img);
+    			}
+
+    			dispose();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2.name, type: "if", source: "(181:10) {#if collectionThumb}", ctx });
+    	return block;
+    }
+
+    // (203:8) {:else}
+    function create_else_block_1(ctx) {
+    	var p, t0, t1, t2;
+
+    	const block = {
+    		c: function create() {
+    			p = element("p");
+    			t0 = text("Sorry but we couldn't find images related to ");
+    			t1 = text(ctx.collection);
+    			t2 = text(".\n          ");
+    			attr_dev(p, "class", "no-collection svelte-1ieab5c");
+    			add_location(p, file$6, 203, 10, 4568);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, p, anchor);
+    			append_dev(p, t0);
+    			append_dev(p, t1);
+    			append_dev(p, t2);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (changed.collection) {
+    				set_data_dev(t1, ctx.collection);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(p);
+    			}
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block_1.name, type: "else", source: "(203:8) {:else}", ctx });
+    	return block;
+    }
+
+    // (197:8) {#each images as item}
+    function create_each_block$1(ctx) {
+    	var div, figure, img, img_src_value, t, dispose;
+
+    	function click_handler() {
+    		return ctx.click_handler(ctx);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			figure = element("figure");
+    			img = element("img");
+    			t = space();
+    			attr_dev(img, "src", img_src_value = ctx.thumbnailToURL(ctx.item.thumbnail));
+    			attr_dev(img, "alt", "");
+    			attr_dev(img, "class", "svelte-1ieab5c");
+    			add_location(img, file$6, 199, 14, 4451);
+    			attr_dev(figure, "class", "svelte-1ieab5c");
+    			add_location(figure, file$6, 198, 12, 4370);
+    			attr_dev(div, "class", "gi svelte-1ieab5c");
+    			add_location(div, file$6, 197, 10, 4341);
+    			dispose = listen_dev(figure, "click", click_handler);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, figure);
+    			append_dev(figure, img);
+    			append_dev(div, t);
+    		},
+
+    		p: function update(changed, new_ctx) {
+    			ctx = new_ctx;
+    			if ((changed.images) && img_src_value !== (img_src_value = ctx.thumbnailToURL(ctx.item.thumbnail))) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div);
+    			}
+
+    			dispose();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$1.name, type: "each", source: "(197:8) {#each images as item}", ctx });
+    	return block;
+    }
+
+    function create_fragment$6(ctx) {
+    	var div;
+
+    	function select_block_type(changed, ctx) {
+    		if (ctx.images.length == 0) return create_if_block;
+    		return create_else_block;
+    	}
+
+    	var current_block_type = select_block_type(null, ctx);
+    	var if_block = current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			if_block.c();
+    			add_location(div, file$6, 170, 0, 3526);
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			if_block.m(div, null);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (current_block_type === (current_block_type = select_block_type(changed, ctx)) && if_block) {
+    				if_block.p(changed, ctx);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(div, null);
+    				}
+    			}
+    		},
+
+    		i: noop,
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div);
+    			}
+
+    			if_block.d();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$6.name, type: "component", source: "", ctx });
+    	return block;
+    }
+
+    let offset = 0;
+
+    let IMAGE_URL = "//dev.himalayanacademy.com/hamsa-images";
+
+    function instance$3($$self, $$props, $$invalidate) {
+    	
+
+      let description = "";
+      let images = [];
+      let collection = "home";
+      let collectionThumb = false;
+
+      const refreshCollection = data => {
+        let opts = {};
+        $$invalidate('images', images = []);
+        $$invalidate('collectionThumb', collectionThumb = false);
+        $$invalidate('description', description = "");
+
+        if (!data) {
+          return false;
+        }
+
+        opts = { limit: 50, offset };
+
+        if (data.collection && data.collection !== "home") {
+          let keyword = `Collection ${data.collection}`;
+          opts.keyword = keyword;
+          $$invalidate('collection', collection = data.collection);
+          getDescription(keyword);
+          document.title = `HAMSA - collection: ${keyword}`;
+        }
+
+        if (data.keyword) {
+          opts.keyword = data.keyword;
+          $$invalidate('collection', collection = data.keyword);
+          getDescription(data.keyword);
+          document.title = `HAMSA - tag: ${data.keyword}`;
+        }
+
+        if (data.artist) {
+          opts.artist = data.artist;
+          $$invalidate('collection', collection = data.artist);
+          getDescription(data.artist);
+          getCollectionThumb(data.artist);
+          document.title = `HAMSA - Artist: ${data.artist}`;
+        }
+
+        if (data.query) {
+          opts.query = data.query;
+          $$invalidate('collection', collection = data.query);
+          document.title = `HAMSA - Search: ${data.query}`;
+        }
+
+        console.dir("getting collection", opts);
+        getCollection(opts).then(data => {
+          $$invalidate('images', images = data.images);
+        });
+      };
+
+      const getDescription = k => {
+        let key = k
+          .toLowerCase()
+          .replace(/\s+/g, "-")
+          .replace(/\./g, "");
+        let url = `//dev.himalayanacademy.com/hamsa-images/_texts/${key}.txt`;
+
+        fetch(url)
+          .then(d => d.text())
+          .then(d => ($$invalidate('description', description = marked(d))));
+      };
+
+      const getCollectionThumb = k => {
+        let key = k
+          .toLowerCase()
+          .replace(/\s+/g, "-")
+          .replace(/\./g, "");
+        $$invalidate('collectionThumb', collectionThumb = `//dev.himalayanacademy.com/hamsa-images/_artists/${key}.jpg`);
+      };
+
+      const thumbnailToURL = t => {
+        let i = t.replace("/images/", "");
+        return `${IMAGE_URL}/${i}`;
+      };
+
+      
+      const unsub = currentView.subscribe(i => {
+        if (i.view == "Collection") {
+          console.dir("view changed", i);
+          refreshCollection(i.data);
+        }
+      });
+
+      onDestroy(() => unsub());
+
+    	const error_handler = () => ($$invalidate('collectionThumb', collectionThumb = false));
+
+    	const click_handler = ({ item }) => go('Image', { checksum: item.checksum });
+
+    	$$self.$capture_state = () => {
+    		return {};
+    	};
+
+    	$$self.$inject_state = $$props => {
+    		if ('description' in $$props) $$invalidate('description', description = $$props.description);
+    		if ('offset' in $$props) offset = $$props.offset;
+    		if ('IMAGE_URL' in $$props) IMAGE_URL = $$props.IMAGE_URL;
+    		if ('images' in $$props) $$invalidate('images', images = $$props.images);
+    		if ('collection' in $$props) $$invalidate('collection', collection = $$props.collection);
+    		if ('collectionThumb' in $$props) $$invalidate('collectionThumb', collectionThumb = $$props.collectionThumb);
+    	};
+
+    	return {
+    		description,
+    		images,
+    		collection,
+    		collectionThumb,
+    		thumbnailToURL,
+    		error_handler,
+    		click_handler
+    	};
+    }
+
+    class Collection extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$3, create_fragment$6, safe_not_equal, []);
+    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "Collection", options, id: create_fragment$6.name });
+    	}
+    }
+
+    /* src/Image.svelte generated by Svelte v3.12.1 */
+    const { console: console_1$1 } = globals;
+
+    const file$7 = "src/Image.svelte";
+
+    function get_each_context$2(ctx, list, i) {
+    	const child_ctx = Object.create(ctx);
+    	child_ctx.more = list[i];
+    	return child_ctx;
+    }
+
+    function get_each_context_1(ctx, list, i) {
+    	const child_ctx = Object.create(ctx);
+    	child_ctx.tag = list[i];
+    	return child_ctx;
+    }
+
+    // (97:0) {:else}
+    function create_else_block$1(ctx) {
+    	var div7, div6, div0, img, img_src_value, img_alt_value, t0, a, t1, a_href_value, a_download_value, t2, p, t3_value = ctx.image.metadata.description + "", t3, t4, div5, div1, i, t5, h20, t6_value = ctx.image.metadata.artist + "", t6, t7, div2, t8, div3, h21, t10, t11, div4, t12, h3, t14, dispose;
+
+    	let each_value_1 = ctx.image.metadata.keywords;
+
+    	let each_blocks_1 = [];
+
+    	for (let i_1 = 0; i_1 < each_value_1.length; i_1 += 1) {
+    		each_blocks_1[i_1] = create_each_block_1(get_each_context_1(ctx, each_value_1, i_1));
+    	}
+
+    	let each_value = ctx.image.metadata.more;
+
+    	let each_blocks = [];
+
+    	for (let i_1 = 0; i_1 < each_value.length; i_1 += 1) {
+    		each_blocks[i_1] = create_each_block$2(get_each_context$2(ctx, each_value, i_1));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div7 = element("div");
+    			div6 = element("div");
+    			div0 = element("div");
+    			img = element("img");
+    			t0 = space();
+    			a = element("a");
+    			t1 = text("Download this image");
+    			t2 = space();
+    			p = element("p");
+    			t3 = text(t3_value);
+    			t4 = space();
+    			div5 = element("div");
+    			div1 = element("div");
+    			i = element("i");
+    			t5 = space();
+    			h20 = element("h2");
+    			t6 = text(t6_value);
+    			t7 = space();
+    			div2 = element("div");
+    			t8 = space();
+    			div3 = element("div");
+    			h21 = element("h2");
+    			h21.textContent = "Tags";
+    			t10 = space();
+
+    			for (let i_1 = 0; i_1 < each_blocks_1.length; i_1 += 1) {
+    				each_blocks_1[i_1].c();
+    			}
+
+    			t11 = space();
+    			div4 = element("div");
+    			t12 = space();
+    			h3 = element("h3");
+    			h3.textContent = "More by the same artist";
+    			t14 = space();
+
+    			for (let i_1 = 0; i_1 < each_blocks.length; i_1 += 1) {
+    				each_blocks[i_1].c();
+    			}
+    			attr_dev(img, "src", img_src_value = ctx.toImageURL(ctx.image.medpath));
+    			attr_dev(img, "alt", img_alt_value = ctx.image.metadata.description);
+    			add_location(img, file$7, 100, 8, 1971);
+    			attr_dev(a, "href", a_href_value = ctx.toImageURL(ctx.image.path));
+    			attr_dev(a, "target", "_blank");
+    			attr_dev(a, "download", a_download_value = ctx.toFilename(ctx.image.path));
+    			attr_dev(a, "class", "single-image-link svelte-luxg47");
+    			add_location(a, file$7, 101, 8, 2052);
+    			attr_dev(p, "class", "description svelte-luxg47");
+    			add_location(p, file$7, 108, 8, 2253);
+    			attr_dev(div0, "class", "single-image");
+    			add_location(div0, file$7, 99, 6, 1936);
+    			attr_dev(i, "class", "far fa-user fa-lg");
+    			add_location(i, file$7, 112, 10, 2457);
+    			add_location(h20, file$7, 113, 10, 2499);
+    			attr_dev(div1, "class", "author svelte-luxg47");
+    			add_location(div1, file$7, 111, 8, 2359);
+    			attr_dev(div2, "class", "dotted");
+    			add_location(div2, file$7, 115, 8, 2555);
+    			add_location(h21, file$7, 117, 10, 2615);
+    			attr_dev(div3, "class", "tags");
+    			add_location(div3, file$7, 116, 8, 2586);
+    			attr_dev(div4, "class", "dotted");
+    			add_location(div4, file$7, 126, 8, 2870);
+    			add_location(h3, file$7, 127, 8, 2901);
+    			attr_dev(div5, "class", "metadata");
+    			add_location(div5, file$7, 110, 6, 2328);
+    			attr_dev(div6, "class", "single-image-wrapper svelte-luxg47");
+    			add_location(div6, file$7, 98, 4, 1895);
+    			attr_dev(div7, "class", "image-view-container svelte-luxg47");
+    			add_location(div7, file$7, 97, 2, 1856);
+    			dispose = listen_dev(div1, "click", ctx.click_handler);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div7, anchor);
+    			append_dev(div7, div6);
+    			append_dev(div6, div0);
+    			append_dev(div0, img);
+    			append_dev(div0, t0);
+    			append_dev(div0, a);
+    			append_dev(a, t1);
+    			append_dev(div0, t2);
+    			append_dev(div0, p);
+    			append_dev(p, t3);
+    			append_dev(div6, t4);
+    			append_dev(div6, div5);
+    			append_dev(div5, div1);
+    			append_dev(div1, i);
+    			append_dev(div1, t5);
+    			append_dev(div1, h20);
+    			append_dev(h20, t6);
+    			append_dev(div5, t7);
+    			append_dev(div5, div2);
+    			append_dev(div5, t8);
+    			append_dev(div5, div3);
+    			append_dev(div3, h21);
+    			append_dev(div3, t10);
+
+    			for (let i_1 = 0; i_1 < each_blocks_1.length; i_1 += 1) {
+    				each_blocks_1[i_1].m(div3, null);
+    			}
+
+    			append_dev(div5, t11);
+    			append_dev(div5, div4);
+    			append_dev(div5, t12);
+    			append_dev(div5, h3);
+    			append_dev(div5, t14);
+
+    			for (let i_1 = 0; i_1 < each_blocks.length; i_1 += 1) {
+    				each_blocks[i_1].m(div5, null);
+    			}
+    		},
+
+    		p: function update(changed, ctx) {
+    			if ((changed.image) && img_src_value !== (img_src_value = ctx.toImageURL(ctx.image.medpath))) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+
+    			if ((changed.image) && img_alt_value !== (img_alt_value = ctx.image.metadata.description)) {
+    				attr_dev(img, "alt", img_alt_value);
+    			}
+
+    			if ((changed.image) && a_href_value !== (a_href_value = ctx.toImageURL(ctx.image.path))) {
+    				attr_dev(a, "href", a_href_value);
+    			}
+
+    			if ((changed.image) && a_download_value !== (a_download_value = ctx.toFilename(ctx.image.path))) {
+    				attr_dev(a, "download", a_download_value);
+    			}
+
+    			if ((changed.image) && t3_value !== (t3_value = ctx.image.metadata.description + "")) {
+    				set_data_dev(t3, t3_value);
+    			}
+
+    			if ((changed.image) && t6_value !== (t6_value = ctx.image.metadata.artist + "")) {
+    				set_data_dev(t6, t6_value);
+    			}
+
+    			if (changed.image) {
+    				each_value_1 = ctx.image.metadata.keywords;
+
+    				let i_1;
+    				for (i_1 = 0; i_1 < each_value_1.length; i_1 += 1) {
+    					const child_ctx = get_each_context_1(ctx, each_value_1, i_1);
+
+    					if (each_blocks_1[i_1]) {
+    						each_blocks_1[i_1].p(changed, child_ctx);
+    					} else {
+    						each_blocks_1[i_1] = create_each_block_1(child_ctx);
+    						each_blocks_1[i_1].c();
+    						each_blocks_1[i_1].m(div3, null);
+    					}
+    				}
+
+    				for (; i_1 < each_blocks_1.length; i_1 += 1) {
+    					each_blocks_1[i_1].d(1);
+    				}
+    				each_blocks_1.length = each_value_1.length;
+    			}
+
+    			if (changed.toThumbnail || changed.image) {
+    				each_value = ctx.image.metadata.more;
+
+    				let i_1;
+    				for (i_1 = 0; i_1 < each_value.length; i_1 += 1) {
+    					const child_ctx = get_each_context$2(ctx, each_value, i_1);
+
+    					if (each_blocks[i_1]) {
+    						each_blocks[i_1].p(changed, child_ctx);
+    					} else {
+    						each_blocks[i_1] = create_each_block$2(child_ctx);
+    						each_blocks[i_1].c();
+    						each_blocks[i_1].m(div5, null);
+    					}
+    				}
+
+    				for (; i_1 < each_blocks.length; i_1 += 1) {
+    					each_blocks[i_1].d(1);
+    				}
+    				each_blocks.length = each_value.length;
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div7);
+    			}
+
+    			destroy_each(each_blocks_1, detaching);
+
+    			destroy_each(each_blocks, detaching);
+
+    			dispose();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block$1.name, type: "else", source: "(97:0) {:else}", ctx });
+    	return block;
+    }
+
+    // (93:0) {#if loading}
+    function create_if_block$1(ctx) {
+    	var div, i;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			i = element("i");
+    			attr_dev(i, "class", "fa fa-spinner fa-spin fa-3x");
+    			add_location(i, file$7, 94, 4, 1795);
+    			attr_dev(div, "class", "loading-wrapper");
+    			add_location(div, file$7, 93, 2, 1761);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, i);
+    		},
+
+    		p: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div);
+    			}
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$1.name, type: "if", source: "(93:0) {#if loading}", ctx });
+    	return block;
+    }
+
+    // (119:10) {#each image.metadata.keywords as tag}
+    function create_each_block_1(ctx) {
+    	var span, t0_value = ctx.tag + "", t0, t1, dispose;
+
+    	function click_handler_1() {
+    		return ctx.click_handler_1(ctx);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			span = element("span");
+    			t0 = text(t0_value);
+    			t1 = space();
+    			attr_dev(span, "class", "tag svelte-luxg47");
+    			add_location(span, file$7, 119, 12, 2690);
+    			dispose = listen_dev(span, "click", click_handler_1);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, span, anchor);
+    			append_dev(span, t0);
+    			append_dev(span, t1);
+    		},
+
+    		p: function update(changed, new_ctx) {
+    			ctx = new_ctx;
+    			if ((changed.image) && t0_value !== (t0_value = ctx.tag + "")) {
+    				set_data_dev(t0, t0_value);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(span);
+    			}
+
+    			dispose();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1.name, type: "each", source: "(119:10) {#each image.metadata.keywords as tag}", ctx });
+    	return block;
+    }
+
+    // (129:8) {#each image.metadata.more as more}
+    function create_each_block$2(ctx) {
+    	var img, img_src_value, dispose;
+
+    	function click_handler_2() {
+    		return ctx.click_handler_2(ctx);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			img = element("img");
+    			attr_dev(img, "src", img_src_value = ctx.toThumbnail(ctx.more));
+    			attr_dev(img, "alt", "more");
+    			attr_dev(img, "class", "more-images svelte-luxg47");
+    			add_location(img, file$7, 129, 10, 2988);
+    			dispose = listen_dev(img, "click", click_handler_2);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, img, anchor);
+    		},
+
+    		p: function update(changed, new_ctx) {
+    			ctx = new_ctx;
+    			if ((changed.image) && img_src_value !== (img_src_value = ctx.toThumbnail(ctx.more))) {
+    				attr_dev(img, "src", img_src_value);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(img);
+    			}
+
+    			dispose();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$2.name, type: "each", source: "(129:8) {#each image.metadata.more as more}", ctx });
+    	return block;
+    }
+
+    function create_fragment$7(ctx) {
+    	var if_block_anchor;
+
+    	function select_block_type(changed, ctx) {
+    		if (ctx.loading) return create_if_block$1;
+    		return create_else_block$1;
+    	}
+
+    	var current_block_type = select_block_type(null, ctx);
+    	var if_block = current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block.c();
+    			if_block_anchor = empty();
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (current_block_type === (current_block_type = select_block_type(changed, ctx)) && if_block) {
+    				if_block.p(changed, ctx);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			}
+    		},
+
+    		i: noop,
+    		o: noop,
+
+    		d: function destroy(detaching) {
+    			if_block.d(detaching);
+
+    			if (detaching) {
+    				detach_dev(if_block_anchor);
+    			}
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$7.name, type: "component", source: "", ctx });
+    	return block;
+    }
+
+    let IMAGE_URL$1 = "//dev.himalayanacademy.com/hamsa-images";
+
+    function instance$4($$self, $$props, $$invalidate) {
+    	
+
+      let { checksum } = $$props;
+
+      let image = {};
+      let loading = true;
+
+      const refreshImage = data => {
+        let checksum = data.checksum;
+        $$invalidate('loading', loading = true);
+        getImage({ checksum }).then(res => {
+          $$invalidate('image', image = res.image);
+          $$invalidate('loading', loading = false);
+        });
+      };
+
+      const toFilename = path => {
+        return "image.jpg";
+      };
+
+      const toImageURL = url => {
+        let i = url.replace("/images/", "").replace("/home/devhap/public_html/hamsa-images", "");
+        return `${IMAGE_URL$1}/${i}`;
+      };
+
+      const toThumbnail = checksum => {
+        return `${IMAGE_URL$1}/_cache/${checksum}.thumb.jpg`;
+      };
+
+      const unsub = currentView.subscribe(i => {
+        console.dir("view changed", i);
+        if (i.view == "Image") {
+          refreshImage(i.data);
+        }
+      });
+
+      onDestroy(() => unsub());
+
+    	const writable_props = ['checksum'];
+    	Object.keys($$props).forEach(key => {
+    		if (!writable_props.includes(key) && !key.startsWith('$$')) console_1$1.warn(`<Image> was created with unknown prop '${key}'`);
+    	});
+
+    	const click_handler = () => go("Collection", {artist:image.metadata.artist });
+
+    	const click_handler_1 = ({ tag }) => go('Collection', { keyword: tag });
+
+    	const click_handler_2 = ({ more }) => go('Image', { checksum: more });
+
+    	$$self.$set = $$props => {
+    		if ('checksum' in $$props) $$invalidate('checksum', checksum = $$props.checksum);
+    	};
+
+    	$$self.$capture_state = () => {
+    		return { checksum, image, loading, IMAGE_URL: IMAGE_URL$1 };
+    	};
+
+    	$$self.$inject_state = $$props => {
+    		if ('checksum' in $$props) $$invalidate('checksum', checksum = $$props.checksum);
+    		if ('image' in $$props) $$invalidate('image', image = $$props.image);
+    		if ('loading' in $$props) $$invalidate('loading', loading = $$props.loading);
+    		if ('IMAGE_URL' in $$props) IMAGE_URL$1 = $$props.IMAGE_URL;
+    	};
+
+    	return {
+    		checksum,
+    		image,
+    		loading,
+    		toFilename,
+    		toImageURL,
+    		toThumbnail,
+    		click_handler,
+    		click_handler_1,
+    		click_handler_2
+    	};
+    }
+
+    class Image extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$4, create_fragment$7, safe_not_equal, ["checksum"]);
+    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "Image", options, id: create_fragment$7.name });
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+    		if (ctx.checksum === undefined && !('checksum' in props)) {
+    			console_1$1.warn("<Image> was created without expected prop 'checksum'");
+    		}
+    	}
+
+    	get checksum() {
+    		throw new Error("<Image>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set checksum(value) {
+    		throw new Error("<Image>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /* src/App.svelte generated by Svelte v3.12.1 */
+
+    const file$8 = "src/App.svelte";
+
+    function create_fragment$8(ctx) {
+    	var div, t0, t1, t2, current, dispose;
+
+    	var header = new Header({ $$inline: true });
+
+    	var hero = new Hero({ $$inline: true });
+
+    	var selectorcontrols = new SelectorControls({ $$inline: true });
+
+    	var switch_value = ctx.views[ctx.$currentView.view];
+
+    	function switch_props(ctx) {
+    		return { $$inline: true };
+    	}
+
+    	if (switch_value) {
+    		var switch_instance = new switch_value(switch_props());
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			header.$$.fragment.c();
+    			t0 = space();
+    			hero.$$.fragment.c();
+    			t1 = space();
+    			selectorcontrols.$$.fragment.c();
+    			t2 = space();
+    			if (switch_instance) switch_instance.$$.fragment.c();
+    			add_location(div, file$8, 24, 0, 594);
+    			dispose = listen_dev(window, "popstate", ctx.pop);
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			mount_component(header, div, null);
+    			append_dev(div, t0);
+    			mount_component(hero, div, null);
+    			append_dev(div, t1);
+    			mount_component(selectorcontrols, div, null);
+    			append_dev(div, t2);
+
+    			if (switch_instance) {
+    				mount_component(switch_instance, div, null);
+    			}
+
+    			current = true;
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (switch_value !== (switch_value = ctx.views[ctx.$currentView.view])) {
+    				if (switch_instance) {
+    					group_outros();
+    					const old_component = switch_instance;
+    					transition_out(old_component.$$.fragment, 1, 0, () => {
+    						destroy_component(old_component, 1);
+    					});
+    					check_outros();
+    				}
+
+    				if (switch_value) {
+    					switch_instance = new switch_value(switch_props());
+
+    					switch_instance.$$.fragment.c();
+    					transition_in(switch_instance.$$.fragment, 1);
+    					mount_component(switch_instance, div, null);
+    				} else {
+    					switch_instance = null;
+    				}
+    			}
+    		},
+
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(header.$$.fragment, local);
+
+    			transition_in(hero.$$.fragment, local);
+
+    			transition_in(selectorcontrols.$$.fragment, local);
+
+    			if (switch_instance) transition_in(switch_instance.$$.fragment, local);
+
+    			current = true;
+    		},
+
+    		o: function outro(local) {
+    			transition_out(header.$$.fragment, local);
+    			transition_out(hero.$$.fragment, local);
+    			transition_out(selectorcontrols.$$.fragment, local);
+    			if (switch_instance) transition_out(switch_instance.$$.fragment, local);
+    			current = false;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div);
+    			}
+
+    			destroy_component(header);
+
+    			destroy_component(hero);
+
+    			destroy_component(selectorcontrols);
+
+    			if (switch_instance) destroy_component(switch_instance);
+    			dispose();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$8.name, type: "component", source: "", ctx });
+    	return block;
+    }
+
+    function instance$5($$self, $$props, $$invalidate) {
+    	let $currentView;
+
+    	validate_store(currentView, 'currentView');
+    	component_subscribe($$self, currentView, $$value => { $currentView = $$value; $$invalidate('$currentView', $currentView); });
+
+    	
+
+      const views = {
+        InfoPage: InfoPage,
+        Collection: Collection,
+        Image: Image
+      };
+
+      loadFromURL();
+
+      const pop = d => {
+        currentView.set(d.state);
+      };
+
+    	$$self.$capture_state = () => {
+    		return {};
+    	};
+
+    	$$self.$inject_state = $$props => {
+    		if ('$currentView' in $$props) currentView.set($currentView);
+    	};
+
+    	return { views, pop, $currentView };
+    }
+
+    class App extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$5, create_fragment$8, safe_not_equal, []);
+    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "App", options, id: create_fragment$8.name });
+    	}
+    }
+
+    const app = new App({
+    	target: document.body,
+    	props: {
+    		name: 'world'
+    	}
+    });
+
+    return app;
+
+}());
 //# sourceMappingURL=bundle.js.map

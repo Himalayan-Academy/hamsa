@@ -47,11 +47,8 @@ CREATE TABLE artist (
 -- Holds users
 --
 CREATE TABLE account (
-    user_id serial PRIMARY KEY,
-    email varchar(255) NOT NULL,
+    email varchar(255) PRIMARY KEY,
     password varchar(255) NOT NULL,
-    is_active boolean NOT NULL
-
 );
 
 --

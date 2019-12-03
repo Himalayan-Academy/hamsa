@@ -20,7 +20,7 @@ Keyword | count
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::create(__DIR__);
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 // Load database configuration
@@ -28,6 +28,9 @@ require_once __DIR__ . '/src/database.php';
 
 // Load hamsa auxiliary routines
 require_once __DIR__ . '/src/hamsa.php';
+
+// Load EXIF manipulation routines
+require_once __DIR__ . '/src/exif.php';
 
 use GraphQL\Type\Schema;
 use GraphQL\Server\StandardServer;
