@@ -15,7 +15,7 @@ use lsolesen\pel\PelIfd;
 use lsolesen\pel\PelEntryAscii;
 use lsolesen\pel\PelTag;
 
-function setDescription($imagePath, $description)
+function setImageDescription($imagePath, $description)
 {
     
     $data = new PelDataWindow(file_get_contents($imagePath));

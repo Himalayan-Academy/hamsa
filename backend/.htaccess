@@ -1,7 +1,7 @@
 Options +FollowSymLinks +ExecCGI
 
 
-Header always set Access-Control-Allow-Headers  "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range"
+Header always set Access-Control-Allow-Headers  "*"
 Header always set Access-Control-Allow-Origin "*"
 Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
 Header always set Access-Control-Expose-Headers "Content-Security-Policy, Location"

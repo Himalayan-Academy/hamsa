@@ -21,7 +21,7 @@
         "monolog/monolog": "^1.17",
         "miljar/php-exif": "^0.6.3",
         "j4mie/idiorm": "^1.5.3",
-        "webonyx/graphql-php": "^0.10.2",
+        "webonyx/graphql-php": "^0.13.8",
         "gumlet/php-image-resize": "1.8.*",
         "vlucas/phpdotenv": "^4.0.0",
         "symfony/polyfill-ctype": "^1.13",

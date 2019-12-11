@@ -8,15 +8,6 @@ if (PHP_SAPI == 'cli-server') {
         return false;
     }
 }
-/*
-select keyword, count(distinct (image_id, keyword))
-from image, jsonb_array_elements(metadata->'keywords') keyword
-group by keyword
-order by count desc;
-
-Keyword | count
-...     | ...
-*/
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -39,10 +30,14 @@ use GraphQL\Type\Definition\Type;
 use GraphQL\GraphQL;
 
 
+// header("Access-Control-Allow-Origin: *");
+// header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+// header('Access-Control-Allow-Headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range');
+
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    // header("Access-Control-Allow-Origin: *");
-    // header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-    // header('Access-Control-Allow-Headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range');
+    //  header("Access-Control-Allow-Origin: *");
+    //  header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+    //  header('Access-Control-Allow-Headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range');
  
    die('ok');
 } else {
@@ -339,7 +334,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
             ],
         ]);
 
-        $mutationType = NULL;
+        $mutationType = new ObjectType([
+            'name' => 'Mutation',
+            'fields' => [
+                'setImageDescription' => [
+                    'type' => Type::string(),
+                    'description' => 'Set image description',
+                    'args' => [
+                        'email' => Type::string(),
+                        'password' => Type::string(),
+                        'checksum' => Type::string(),
+                        'description' => Type::string()
+                    ],
+                    'resolve' => function ($root, $args) {
+                        return "ok";
+                    }
+                ]
+            ]
+        ]);
 
         // See docs on schema options:
         // http://webonyx.github.io/graphql-php/type-system/schema/#configuration-options
