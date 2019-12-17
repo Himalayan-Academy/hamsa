@@ -347,7 +347,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                         'description' => Type::string()
                     ],
                     'resolve' => function ($root, $args) {
-                        return "ok";
+                        $res = image_set_description($args["checksum"], $args["description"]);
+                        if ($res) {
+                            return "Description set";
+                        } else {
+                            return "Error setting description";
+                        }
                     }
                 ]
             ]
