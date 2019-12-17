@@ -21,6 +21,7 @@ require __DIR__ . '/../src/hamsa.php';
 
 use \Gumlet\ImageResize;
 
+
 function cacheMultipleVersionsOfImage($path, $md5) {
     $thumb_path = "/home/devhap/public_html/hamsa-images/_cache/${md5}.thumb.jpg";
     $image = new ImageResize($path);
@@ -130,11 +131,12 @@ function processImage($path) {
     $thumb_path = "/home/devhap/public_html/hamsa-images/_cache/${md5}.thumb.jpg";
     $med_path = "/home/devhap/public_html/hamsa-images/_cache/${md5}.med.jpg";
 
+    unset($exif);
+    $cmd = exec("exiftool -json \"$path\"", $exif);
 
-    $reader = \PHPExif\Reader\Reader::factory(\PHPExif\Reader\Reader::TYPE_EXIFTOOL);
-
-    $exif = $reader->read($path);
-    $exifData = $exif->getData();
+    $exifData = json_decode(implode($exif), true);
+    // print_r($exifData);
+    $exifData = reset($exifData);
 
     if (isset($exifData["keywords"])) {
         if (!is_array($exifData["keywords"])) {

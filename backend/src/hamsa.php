@@ -123,16 +123,7 @@ function image_set_description($checksum, $description) {
     $image = image_get($checksum);
     $path = str_replace("/var/www/html", "", $image[0]["path"]);
     $res = setImageDescription($path, $description);
-    if ($res) {
-        $reader = \PHPExif\Reader\Reader::factory(\PHPExif\Reader\Reader::TYPE_EXIFTOOL);
-
-        $exif = $reader->read($path);
-        $exifData = $exif->getData();
-        $record = ORM::for_table('image')->where("checksum", $checksum)->find_one();
-        $record->set("metadata", json_encode($exif));
-
-        $record->save();
-    }
+   
     return $res;
 }
 
