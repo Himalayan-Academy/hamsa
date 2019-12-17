@@ -87,6 +87,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
             'artist' => [
                 'type' => Type::string(),
                 'resolve' => function($meta) {
+                    if (isset($meta["Creator"])) {
+                        return $meta["Creator"];
+                    }
+
+                    if (isset($meta["By-line"])) {
+                        return $meta["By-line"];
+                    }
+
                     return isset($meta["author"]) ? $meta["author"] : "";
                 }
             ],
@@ -94,20 +102,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
             'description' => [
                 'type' => Type::string(),
                 'resolve' => function($meta) {
-                    return isset($meta["caption"]) ? $meta["caption"] : "" ;
+                    if (isset($meta["ImageDescription"])) {
+                        return $meta["ImageDescription"];
+                    }
+
+                    if (isset($meta["Description"])) {
+                        return $meta["Description"];
+                    }
+
+                    return isset($meta["Caption-Abstract"]) ? $meta["Caption-Abstract"] : "" ;
                 }
             ],
             'keywords' => [
                 'type' => Type::listOf(Type::string()),
                 'resolve' => function($meta) {
-                    return isset($meta["keywords"]) ? $meta["keywords"] : [] ;
+                    return isset($meta["Keywords"]) ? $meta["Keywords"] : [] ;
                 }
             ],
             'more' => [
                 'type' => Type::listOf(Type::string()),
                 'resolve' => function($meta) {
-                    if (!isset($meta["author"])) return [];
-                    $r = image_get_all_by_artist($meta["author"], 8, 0);
+                    if (isset($meta["Creator"])) {
+                        $author = $meta["Creator"];
+                    } else if (isset($meta["By-line"])) {
+                        $author = $meta["By-line"];
+                    } else {
+                        $author = isset($meta["author"]) ? $meta["author"] : "";
+                    }
+
+                    if (!isset($author)) return [];
+                    $r = image_get_all_by_artist($author, 8, 0);
                     $images = array_map(function ($image) {
                         return $image['checksum'];
                     }, $r);

@@ -72,7 +72,7 @@ function insertRecordForImage($path, $md5, $exif) {
     $record->set("checksum", $md5);
     $record->set_expr("date_modified", 'NOW()');
     $record->set("file_missing", false);
-    $exif["author"] = getAuthor($exif);
+    $exif["Creator"] = getAuthor($exif);
     $record->set("metadata", json_encode($exif));
 
     $record->save();
@@ -85,14 +85,14 @@ function updateRecordForImage($path, $md5, $exif) {
     $record->set("checksum", $md5);
     $record->set_expr("date_modified", 'NOW()');
     $record->set("file_missing", false);
-    $exif["author"] = getAuthor($exif);
+    $exif["Creator"] = getAuthor($exif);
     $record->set("metadata", json_encode($exif));
 
     $record->save();
 }
 
 function getAuthor($exif) {
-    if (isset($exif["author"]) && !is_null($exif["author"])) return $exif["author"];
+    if (isset($exif["Creator"]) && !is_null($exif["Creator"])) return $exif["Creator"];
     
     $reducer = function($acc, $e) {
         if ($acc !== "") return $acc;
@@ -115,6 +115,10 @@ function recordNeedsUpdate($path, $md5) {
     $record = ORM::for_table('image')->where("path", $path)->find_one();
 
     if ($record) {
+        if (!isset($argv[1]) || $argv[1] == "rebuild") {
+            return "update";
+        }
+
         echo "$path ===> {$record->checksum} / $md5\n";
         if ((strcmp($record->checksum, $md5) == 0) && (file_exists($record->path))) {
             return "nothing";
@@ -175,8 +179,10 @@ $Directory = new RecursiveDirectoryIterator('/home/devhap/public_html/hamsa-imag
 $Iterator = new RecursiveIteratorIterator($Directory);
 $allImages = new RegexIterator($Iterator, '/^.+\.jpg$/i', RecursiveRegexIterator::GET_MATCH);
 
+print_r($argv);
+
 // Begin image check
-if (!isset($argc[1]) || $argc[1] !== "fix") { 
+if (!isset($argv[1]) || $argv[1] !== "fix") { 
     foreach($allImages as $image) {
         $imageFile = $image[0];
 
@@ -218,8 +224,8 @@ echo "Total missing files: $total_missing_files\n";
 
 
 // manivelu fix
-ORM::raw_execute("update image set metadata = metadata::jsonb || '{\"author\": \"A. Manivelu\"}' where metadata->>'author' = 'ìA. Maniveluî'");
-ORM::raw_execute("update image set metadata = metadata::jsonb || '{\"author\": \"A. Manivelu\"}' where metadata->>'author' = '“A. Manivelu”'");
+ORM::raw_execute("update image set metadata = metadata::jsonb || '{\"Creator\": \"A. Manivelu\"}' where metadata->>'Creator' = 'ìA. Maniveluî'");
+ORM::raw_execute("update image set metadata = metadata::jsonb || '{\"Creator\": \"A. Manivelu\"}' where metadata->>'Creator' = '“A. Manivelu”'");
 
 // Rajam fix
-ORM::raw_execute("update image set metadata = metadata::jsonb || '{\"author\": \"S. Rajam\"}' where metadata->>'author' = 'Rajam'");
+ORM::raw_execute("update image set metadata = metadata::jsonb || '{\"Creator\": \"S. Rajam\"}' where metadata->>'Creator' = 'Rajam'");

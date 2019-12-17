@@ -82,7 +82,7 @@ function image_get_all_by_artist($artist, $limit, $offset) {
 
     $records = ORM::for_table('image')
         ->where('file_missing', false)
-        ->where_raw("metadata->>'author' = ?", array($artist))
+        ->where_raw("metadata->>'Creator' = ?", array($artist))
         ->limit($limit)
         ->offset($offset)
         ->find_array();
@@ -149,7 +149,7 @@ function artist_get_all() {
     // return array_map($extract_metadata, $records);
 
     $records = ORM::for_table('image')
-        ->raw_query("select distinct metadata->>'author' as author from image where metadata->>'author' IS NOT NULL")
+        ->raw_query("select distinct metadata->>'Creator' as author from image where metadata->>'Creator' IS NOT NULL")
         ->find_array();
 
     return $records;
@@ -203,8 +203,20 @@ function collection_get_all() {
 }
 
 function keywords_get_all() {
+    $query = <<<QUERY
+    select 
+        keyword, count(distinct (image_id, keyword)) 
+    from 
+        image, 
+        jsonb_array_elements(case jsonb_typeof(metadata->'Keywords') when 'array' then metadata->'Keywords'else '[]' end) keyword 
+    group by 
+        keyword 
+    order by 
+        count desc
+QUERY;
+  
     $records = ORM::for_table('image')  
-        ->raw_query("select keyword, count(distinct (image_id, keyword)) from image, jsonb_array_elements(metadata->'keywords') keyword group by keyword order by count desc;")
+        ->raw_query($query)
         ->find_array();
 
     return $records;
@@ -215,13 +227,13 @@ function collection_count_results($keyword, $artist ) {
     
     if ($keyword !== '') {
         $count = ORM::for_table('image')
-            ->raw_query("select count(path) from image where file_missing = false and jsonb_exists(metadata->'keywords',?);", Array($keyword))
+            ->raw_query("select count(path) from image where file_missing = false and jsonb_exists(metadata->'Keywords',?);", Array($keyword))
             ->find_array();
     } 
     
     if ($artist !== '') {
         $count = ORM::for_table('image')
-        ->raw_query("select count(path) from image where file_missing = false and metadata->>'author' = ?;", Array($artist))
+        ->raw_query("select count(path) from image where file_missing = false and metadata->>'Creator' = ?;", Array($artist))
         ->find_array();
     }
 
@@ -242,7 +254,7 @@ function image_get_all_by_keyword($keyword, $limit, $offset) {
     };
 
     $records = ORM::for_table('image')
-        ->raw_query("select * from image where file_missing = false and jsonb_exists(metadata->'keywords',?) LIMIT ? OFFSET ?;", Array($keyword, $limit, $offset))
+        ->raw_query("select * from image where file_missing = false and jsonb_exists(metadata->'Keywords',?) LIMIT ? OFFSET ?;", Array($keyword, $limit, $offset))
         ->find_array();
 
     return array_map($extract_metadata, $records);
