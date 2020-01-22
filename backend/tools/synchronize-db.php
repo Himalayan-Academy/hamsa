@@ -9,168 +9,16 @@ if (PHP_SAPI == 'cli-server') {
     }
 }
 
-require __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . "/../");
 $dotenv->load();
 
 // Load database configuration
-require __DIR__ . '/../src/database.php';
-require __DIR__ . '/../src/hamsa.php';
-
-use \Gumlet\ImageResize;
-
-
-function cacheMultipleVersionsOfImage($path, $md5) {
-    $thumb_path = "/home/devhap/public_html/hamsa-images/_cache/${md5}.thumb.jpg";
-    $image = new ImageResize($path);
-    $image->quality_jpg = 75;
-    $image->resizeToWidth(300);
-    $image->save($thumb_path);
-    echo "Saving thumb to ${thumb_path}\n";
-
-    // cache higher sized version as well.
-    $med_path = "/home/devhap/public_html/hamsa-images/_cache/${md5}.med.jpg";
-    $image = new ImageResize($path);
-    $image->quality_jpg = 75;
-    $image->resizeToWidth(800);
-    $image->save($med_path);
-    echo "Saving medium size to ${med_path}\n";
-}
-
-function insertArtistIfNeeded($exif) {
-    if (!isset($exif["author"])) return false;
-
-    $artist = $exif["author"];
-
-    if (artist_exists($artist)) {
-        return false;
-    }
-
-    $meta = array(
-        "aliases" => array($artist),
-        "description" => "lorem ipsum",
-        "photo" => ""
-    );
-
-    $record = ORM::for_table('artist')->create();
-
-    $record->set("name", $artist);
-    $record->set_expr("date_modified", 'NOW()');
-    $record->set("metadata", json_encode($meta));
-
-    $record->save();
-    echo "Inserted artists ${artist}\n";
-
-}
-
-function insertRecordForImage($path, $md5, $exif) {
-    $record = ORM::for_table('image')->create();
-
-    $record->set("path", $path);
-    $record->set("checksum", $md5);
-    $record->set_expr("date_modified", 'NOW()');
-    $record->set("file_missing", false);
-    $exif["Creator"] = getAuthor($exif);
-    $record->set("metadata", json_encode($exif));
-
-    $record->save();
-}
-
-function updateRecordForImage($path, $md5, $exif) {
-    $record = ORM::for_table('image')->where("path", $path)->find_one();
-
-    $record->set("path", $path);
-    $record->set("checksum", $md5);
-    $record->set_expr("date_modified", 'NOW()');
-    $record->set("file_missing", false);
-    $exif["Creator"] = getAuthor($exif);
-    $record->set("metadata", json_encode($exif));
-
-    $record->save();
-}
-
-function getAuthor($exif) {
-    if (isset($exif["Creator"]) && !is_null($exif["Creator"])) return $exif["Creator"];
-    
-    $reducer = function($acc, $e) {
-        if ($acc !== "") return $acc;
-        
-        if (strpos($e, 'Artist') !== false) {
-            return str_replace("Artist ","", $e);
-        }
-    };
-
-    if (isset($exif["keywords"])) {
-        $v = array_reduce($exif["keywords"], $reducer, "");
-        echo "author from keyword: $v\n";
-        return $v;
-    } else {
-        return "";
-    }
-}
-
-function recordNeedsUpdate($path, $md5) {
-    $record = ORM::for_table('image')->where("path", $path)->find_one();
-
-    if ($record) {
-        if (!isset($argv[1]) || $argv[1] == "rebuild") {
-            return "update";
-        }
-
-        echo "$path ===> {$record->checksum} / $md5\n";
-        if ((strcmp($record->checksum, $md5) == 0) && (file_exists($record->path))) {
-            return "nothing";
-        } else {
-            return "update";
-        }
-    }
-
-    return "insert";
-}
-
-function processImage($path) {
-    $md5 = md5_file($path);
-    $thumb_path = "/home/devhap/public_html/hamsa-images/_cache/${md5}.thumb.jpg";
-    $med_path = "/home/devhap/public_html/hamsa-images/_cache/${md5}.med.jpg";
-
-    unset($exif);
-    $cmd = exec("exiftool -json \"$path\"", $exif);
-
-    $exifData = json_decode(implode($exif), true);
-    // print_r($exifData);
-    $exifData = reset($exifData);
-
-    if (isset($exifData["keywords"])) {
-        if (!is_array($exifData["keywords"])) {
-            // print_r($exifData["keywords"]);
-            $exifData["keywords"] = [$exifData["keywords"]];
-            // die(1);
-        }
-    }
-
-    switch (recordNeedsUpdate($path, $md5)) {
-        case "update":
-            echo "update...\n";
-            updateRecordForImage($path, $md5, $exifData);
-        break;
-        case "insert":
-            echo "insert...\n";
-            insertRecordForImage($path, $md5, $exifData);
-        break;
-        case "nothing":
-            echo "nothing...\n";
-        break;
-    }
-    
-    if (!file_exists($thumb_path) ||!file_exists($med_path) ) {
-        cacheMultipleVersionsOfImage($path, $md5);
-    }
-
-    insertArtistIfNeeded($exifData);
-}
-
+require_once __DIR__ . '/../src/database.php';
+require_once __DIR__ . '/../src/hamsa.php';
+require_once __DIR__ . '/../src/exif.php';
 
 
 // List all images
@@ -191,7 +39,11 @@ if (!isset($argv[1]) || $argv[1] !== "fix") {
             echo "$imageFile\n";
 
             try {
-            processImage($imageFile);
+                if (isset($argv[1]) && $argv[1] == "rebuild") {
+                    processImage($imageFile, true);
+                } else {
+                    processImage($imageFile, false);
+                }
             } catch(Exception $e) {
                 $msg = $e->getMessage();
                 echo "Exception: $msg\n";

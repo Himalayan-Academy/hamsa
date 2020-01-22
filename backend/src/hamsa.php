@@ -8,44 +8,6 @@
 
 require_once __DIR__ . '/exif.php';
 
-/**
- * Account routines
- */
-
-function account_new($email, $password_hash) {
-    $record = ORM::for_table('account')->create();
-
-    $record->set("email", $email);
-    $record->set("password", $password_hash);
-    $record->save();
-}
-
-function account_set_active($email, $active) {
-    $record = ORM::for_table('account')->where('email', $email)->findOne();
-
-    $record->set("is_active", $active);
-    $record->save();
-}
-
-function account_exists($email) {
-    $record = ORM::for_table('account')->where('email', $email)->findOne();
-
-    if ($record) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-function account_get_all() {
-    $records = ORM::for_table('account')->find_array();
-    return $records;
-}
-
-function account_get_by_email($email) {
-    $record = ORM::for_table('account')->where('email', $email)->find_array();
-    return $record;
-}
 
 /**
  * Image routines

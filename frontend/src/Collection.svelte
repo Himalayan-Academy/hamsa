@@ -68,9 +68,21 @@
       .replace(/\./g, "");
     let url = `//dev.himalayanacademy.com/hamsa-images/_texts/${key}.txt`;
 
-    fetch(url)
-      .then(d => d.text())
-      .then(d => (description = marked(d)));
+    description = ""; 
+
+    // fetch(url)
+    //   .then(r => {
+    //     console.log("collection", r)
+    //     if (r.status !== 200) {
+    //       throw "";
+    //     } else {
+    //       return r.text();
+    //     }
+    //   })
+    //   .then(d => (description = marked(d)))
+    //   .catch(e => {
+    //     description = "";
+    //   });
   };
 
   const getCollectionThumb = k => {
@@ -86,7 +98,6 @@
     return `${IMAGE_URL}/${i}`;
   };
 
-  
   const unsub = currentView.subscribe(i => {
     if (i.view == "Collection") {
       console.dir("view changed", i);
