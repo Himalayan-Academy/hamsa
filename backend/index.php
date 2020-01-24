@@ -38,8 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     //  header("Access-Control-Allow-Origin: *");
     //  header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
     //  header('Access-Control-Allow-Headers: DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range');
- 
-   die('ok');
+
+    die('ok');
 } else {
 
     $artistType = new ObjectType([
@@ -48,35 +48,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         'fields' => [
             'name' => [
                 'type' => Type::string(),
-                'resolve' => function($a) {
+                'resolve' => function ($a) {
                     return $a["name"];
                 }
             ],
             'description' => [
                 'type' => Type::string(),
-                'resolve' => function($a) {
+                'resolve' => function ($a) {
                     return $a["metadata"]["description"];
                 }
             ],
             'id' => [
                 'type' => Type::int(),
-                'resolve' => function($a) {
+                'resolve' => function ($a) {
                     return $a["artist_id"];
                 }
             ],
             'aliases' => [
                 'type' => Type::listOf(Type::string()),
-                'resolve' => function($a) {
+                'resolve' => function ($a) {
                     return $a["metadata"]["aliases"];
                 }
             ],
             'photo' => [
                 'type' => Type::listOf(Type::string()),
-                'resolve' => function($a) {
+                'resolve' => function ($a) {
                     return $a["metadata"]["photo"];
                 }
             ]
-            
+
         ]
     ]);
 
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         'fields' => [
             'artist' => [
                 'type' => Type::string(),
-                'resolve' => function($meta) {
+                'resolve' => function ($meta) {
                     if (isset($meta["Creator"])) {
                         return $meta["Creator"];
                     }
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
             'date' => Type::string(),
             'description' => [
                 'type' => Type::string(),
-                'resolve' => function($meta) {
+                'resolve' => function ($meta) {
                     if (isset($meta["ImageDescription"])) {
                         return $meta["ImageDescription"];
                     }
@@ -110,18 +110,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                         return $meta["Description"];
                     }
 
-                    return isset($meta["Caption-Abstract"]) ? $meta["Caption-Abstract"] : "" ;
+                    return isset($meta["Caption-Abstract"]) ? $meta["Caption-Abstract"] : "";
                 }
             ],
             'keywords' => [
                 'type' => Type::listOf(Type::string()),
-                'resolve' => function($meta) {
-                    return isset($meta["Keywords"]) ? $meta["Keywords"] : [] ;
+                'resolve' => function ($meta) {
+                    return isset($meta["Keywords"]) ? $meta["Keywords"] : [];
                 }
             ],
             'more' => [
                 'type' => Type::listOf(Type::string()),
-                'resolve' => function($meta) {
+                'resolve' => function ($meta) {
                     if (isset($meta["Creator"])) {
                         $author = $meta["Creator"];
                     } else if (isset($meta["By-line"])) {
@@ -181,14 +181,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                 'artists' => [
                     'type' => Type::listOf(Type::string()),
                     'description' => 'All artists present on the database',
-                    'resolve' => function($root, $args) {
-                        $filter = function($e) {
+                    'resolve' => function ($root, $args) {
+                        $filter = function ($e) {
                             if ($e["author"] == "") {
                                 return false;
                             }
 
-                            $authors_to_exclude = array( 
-                                "Hinduism Today", 
+                            $authors_to_exclude = array(
+                                "Hinduism Today",
                                 "Krause & Johnasen",
                                 "Krause & Johansen"
                             );
@@ -200,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                             return true;
                         };
 
-                        $mapper = function($e) {
+                        $mapper = function ($e) {
                             return $e["author"];
                         };
 
@@ -212,19 +212,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                 'keywords' => [
                     'type' => Type::listOf(Type::string()),
                     'description' => 'All keywords present on the database',
-                    'resolve' => function($root, $args) {
-                        $stripQuotes = function($e) {
+                    'resolve' => function ($root, $args) {
+                        $stripQuotes = function ($e) {
                             return str_replace('"', "", $e["keyword"]);
                         };
 
-                        $filterCollections = function($e) {
+                        $filterCollections = function ($e) {
                             if (!isset($e['keyword'])) {
                                 return false;
                             }
                             return strpos(strtolower($e["keyword"]), 'collection') == false;
                         };
 
-                        $filterArtists = function($e) {
+                        $filterArtists = function ($e) {
                             if (!isset($e['keyword'])) {
                                 return false;
                             }
@@ -232,12 +232,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                         };
 
                         try {
-                        $records = keywords_get_all();
-                        $records = array_filter($records, $filterCollections);
-                        $records = array_filter($records, $filterArtists);
-                        $records = array_map($stripQuotes, $records);
-                        return $records;
-                        } catch(Exception $e) {
+                            $records = keywords_get_all();
+                            $records = array_filter($records, $filterCollections);
+                            $records = array_filter($records, $filterArtists);
+                            $records = array_map($stripQuotes, $records);
+                            return $records;
+                        } catch (Exception $e) {
                             $msg = $e->getMessage();
                             print_r($msg);
                             die(1);
@@ -247,22 +247,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                 'collections' => [
                     'type' => Type::listOf(Type::string()),
                     'description' => 'All collections present on the database',
-                    'resolve' => function($root, $args) {
-                        $stripQuotesAndPrefix = function($e) {
+                    'resolve' => function ($root, $args) {
+                        $stripQuotesAndPrefix = function ($e) {
                             $r = str_replace('"', "", $e["keyword"]);
                             $r = str_replace('Collection ', "", $r);
                             $r = str_replace('collection ', "", $r);
                             return $r;
                         };
-                    
-                        $filterCollections = function($e) {
+
+                        $filterCollections = function ($e) {
                             if (!isset($e['keyword'])) {
                                 return false;
                             }
 
                             return strpos(strtolower($e['keyword']), 'collection ') == true;
                         };
-                        
+
 
                         $records = keywords_get_all();
                         $records = array_filter($records, $filterCollections);
@@ -285,7 +285,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                             'defaultValue' => ''
                         ]
                     ],
-                    'resolve' => function($root, $args) {
+                    'resolve' => function ($root, $args) {
 
                         $records = collection_count_results($args["keyword"], $args["artist"]);
                         return $records;
@@ -323,12 +323,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
                     ],
                     'resolve' => function ($root, $args) {
-                        if ($args["artist"] !== '' ) { 
+                        if ($args["artist"] !== '') {
                             $images = image_get_all_by_artist($args["artist"], $args["limit"], $args["offset"]);
-                        } else if ($args["keyword"] !== '' ) {
+                        } else if ($args["keyword"] !== '') {
                             $images = image_get_all_by_keyword($args["keyword"], $args["limit"], $args["offset"]);
                         } else if ($args["query"] !== '') {
-                            $images = image_search($args["query"], $args["limit"], $args["offset"]);    
+                            $images = image_search($args["query"], $args["limit"], $args["offset"]);
                         } else {
                             $images = image_get_all($args["limit"], $args["offset"]);
                         }
@@ -363,7 +363,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
             'fields' => [
                 'setImageDescription' => [
                     'type' => Type::string(),
-                    'description' => 'Set image description',
+                    'description' => 'Set image description.',
                     'args' => [
                         'email' => Type::string(),
                         'password' => Type::string(),
@@ -371,11 +371,71 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                         'description' => Type::string()
                     ],
                     'resolve' => function ($root, $args) {
+                        if (!check_credentials($args["email"], $args["password"])) {
+                            return "Error: bad credentials";
+                        }
+
+                        if (empty($args["checksum"]) || empty($args["description"])) {
+                            return "Error: must pass both checksum and description";
+                        }
+
                         $res = image_set_description($args["checksum"], $args["description"]);
                         if ($res) {
-                            return "Description set";
+                            return "Ok: Description set";
                         } else {
-                            return "Error setting description";
+                            return "Error: Can't set description";
+                        }
+                    }
+                ],
+                'addImageTag' => [
+                    'type' => Type::string(),
+                    'description' => 'Add a tag to an image.',
+                    'args' => [
+                        'email' => Type::string(),
+                        'password' => Type::string(),
+                        'checksum' => Type::string(),
+                        'tag' => Type::string()
+                    ],
+                    'resolve' => function ($root, $args) {
+                        if (!check_credentials($args["email"], $args["password"])) {
+                            return "Error: bad credentials";
+                        }
+
+                        if (empty($args["checksum"]) || empty($args["tag"])) {
+                            return "Error: must pass both checksum and tag";
+                        }
+                        
+                        $res = image_add_tag($args["checksum"], $args["tag"]);
+                        if ($res) {
+                            return "Ok: tag added";
+                        } else {
+                            return "Error: Can't add tag";
+                        }
+                    }
+                ],
+                'removeImageTag' => [
+                    'type' => Type::string(),
+                    'description' => 'Remove a tag from an image.',
+                    'args' => [
+                        'email' => Type::string(),
+                        'password' => Type::string(),
+                        'checksum' => Type::string(),
+                        'tag' => Type::string()
+                    ],
+                    'resolve' => function ($root, $args) {
+                        if (!check_credentials($args["email"], $args["password"])) {
+                            return "Error: bad credentials";
+                        }
+
+                        if (empty($args["checksum"]) || empty($args["tag"])) {
+                            return "Error: must pass both checksum and tag";
+                        }
+                        
+                        $res = image_remove_tag($args["checksum"], $args["tag"]);
+                        if ($res) {
+                            return "Ok: tag removed";
+                        } else {
+                            return "Error: Can't remove tag";
                         }
                     }
                 ]
@@ -396,10 +456,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         ]);
 
         $server->handleRequest();
-
     } catch (\Exception $e) {
 
         StandardServer::send500Error($e);
-
     }
 }

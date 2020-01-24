@@ -8,6 +8,13 @@
 
 require_once __DIR__ . '/exif.php';
 
+function check_credentials($email, $password) {
+    if ($email !== "andre@andregarzia.com" && $password !== "alface") {
+        return false;
+    }
+
+    return true;
+}
 
 /**
  * Image routines
@@ -85,6 +92,25 @@ function image_set_description($checksum, $description) {
     $image = image_get($checksum);
     $path = str_replace("/var/www/html", "", $image[0]["path"]);
     $res = setImageDescription($path, $description);
+    processImage($path, true);
+   
+    return $res;
+}
+
+function image_add_tag($checksum, $tag) {
+    $image = image_get($checksum);
+    $path = str_replace("/var/www/html", "", $image[0]["path"]);
+    $res = addImageTag($path, $tag);
+    processImage($path, true);
+   
+    return $res;
+}
+
+function image_remove_tag($checksum, $tag) {
+    $image = image_get($checksum);
+    $path = str_replace("/var/www/html", "", $image[0]["path"]);
+    $res = removeImageTag($path, $tag);
+    processImage($path, true);
    
     return $res;
 }
