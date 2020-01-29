@@ -5,13 +5,15 @@
   import InfoPage from "./InfoPage.svelte";
   import Collection from "./Collection.svelte";
   import Image from "./Image.svelte";
+  import ImageEditor from "./ImageEditor.svelte";
   import queryString from "query-string";
   import { currentView, loadFromURL } from "./navigation.js";
 
   const views = {
     InfoPage: InfoPage,
     Collection: Collection,
-    Image: Image
+    Image: Image,
+    ImageEditor: ImageEditor
   };
 
   loadFromURL();

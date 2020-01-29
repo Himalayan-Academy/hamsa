@@ -23,7 +23,9 @@
   };
 
   const toImageURL = url => {
-    let i = url.replace("/images/", "").replace("/home/devhap/public_html/hamsa-images", "");
+    let i = url
+      .replace("/images/", "")
+      .replace("/home/devhap/public_html/hamsa-images", "");
     return `${IMAGE_URL}/${i}`;
   };
 
@@ -88,6 +90,16 @@
   .author {
     cursor: pointer;
   }
+
+  .aum-glyph {
+    display: block;
+    float: right;
+    color: black;
+  }
+
+  .aum-glyph:hover {
+    cursor: pointer;
+  }
 </style>
 
 {#if loading}
@@ -109,7 +121,9 @@
         <p class="description">{image.metadata.description}</p>
       </div>
       <div class="metadata">
-        <div class="author" on:click={() => go("Collection", {artist:image.metadata.artist })}>
+        <div
+          class="author"
+          on:click={() => go('Collection', { artist: image.metadata.artist })}>
           <i class="far fa-user fa-lg" />
           <h2>{image.metadata.artist}</h2>
         </div>
@@ -135,5 +149,12 @@
         {/each}
       </div>
     </div>
+  </div>
+  <div on:click={() => {
+    console.log("checksum", image.checksum)
+    go('ImageEditor', {checksum: image.checksum})
+    }
+   } class="aum-glyph">
+    <span>ॐ</span>
   </div>
 {/if}
