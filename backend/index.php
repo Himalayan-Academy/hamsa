@@ -177,7 +177,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         $queryType = new ObjectType([
             'name' => 'Query',
             'fields' => [
+                'login' => [
+                    'type' => Type::string(),
+                    'description' => 'Checks login/password.',
+                    'args' => [
+                        'email' => [
+                            'type' => Type::string(),
+                            'description' => 'email of the user',
+                            'defaultValue' => ''
+                        ],
+                        'password' => [
+                            'type' => Type::string(),
+                            'description' => 'password for the user',
+                            'defaultValue' => ''
+                        ]
+                    ],
+                    'resolve' => function ($root, $args) {
+                        if (empty($args["email"] || empty($args["password"]))) {
+                            return "error: please provide email and password.";
+                        }
 
+                        if (check_credentials($args["email"], $args["password"])) {
+                            return "ok";
+                        }
+
+                        return "error: not a valid user.";
+                    }
+                ],
                 'artists' => [
                     'type' => Type::listOf(Type::string()),
                     'description' => 'All artists present on the database',
