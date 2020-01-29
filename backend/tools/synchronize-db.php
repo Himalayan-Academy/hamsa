@@ -40,14 +40,16 @@ if (!isset($argv[1]) || $argv[1] !== "fix") {
 
             try {
                 if (isset($argv[1]) && $argv[1] == "rebuild") {
-                    processImage($imageFile, true);
+                    $md5 = processImage($imageFile, true);
                 } else {
-                    processImage($imageFile, false);
+                    $md5 = processImage($imageFile, false);
                 }
             } catch(Exception $e) {
                 $msg = $e->getMessage();
                 echo "Exception: $msg\n";
             }
+
+            echo "$md5\n\n";
         }
     }
 }

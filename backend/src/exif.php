@@ -184,7 +184,6 @@ function cacheMultipleVersionsOfImage($path, $md5) {
     $image->quality_jpg = 75;
     $image->resizeToWidth(300);
     $image->save($thumb_path);
-    echo "Saving thumb to ${thumb_path}\n";
 
     // cache higher sized version as well.
     $med_path = "/home/devhap/public_html/hamsa-images/_cache/${md5}.med.jpg";
@@ -192,7 +191,6 @@ function cacheMultipleVersionsOfImage($path, $md5) {
     $image->quality_jpg = 75;
     $image->resizeToWidth(800);
     $image->save($med_path);
-    echo "Saving medium size to ${med_path}\n";
 }
 
 function insertArtistIfNeeded($exif) {
@@ -217,8 +215,6 @@ function insertArtistIfNeeded($exif) {
     $record->set("metadata", json_encode($meta));
 
     $record->save();
-    echo "Inserted artists ${artist}\n";
-
 }
 
 function insertRecordForImage($path, $md5, $exif) {
@@ -260,7 +256,6 @@ function getAuthor($exif) {
 
     if (isset($exif["keywords"])) {
         $v = array_reduce($exif["keywords"], $reducer, "");
-        echo "author from keyword: $v\n";
         return $v;
     } else {
         return "";
@@ -275,7 +270,6 @@ function recordNeedsUpdate($path, $md5, $rebuild) {
             return "update";
         }
 
-        echo "$path ===> {$record->checksum} / $md5\n";
         if ((strcmp($record->checksum, $md5) == 0) && (file_exists($record->path))) {
             return "nothing";
         } else {
@@ -287,6 +281,13 @@ function recordNeedsUpdate($path, $md5, $rebuild) {
 }
 
 function processImage($path, $rebuild) {
+    error_log("processImage: $path");
+
+    if (!file_exists($path)) {
+        error_log("tried processing invalid path: $path");
+        return false;
+    }
+
     $md5 = md5_file($path);
     $thumb_path = "/home/devhap/public_html/hamsa-images/_cache/${md5}.thumb.jpg";
     $med_path = "/home/devhap/public_html/hamsa-images/_cache/${md5}.med.jpg";
@@ -308,15 +309,12 @@ function processImage($path, $rebuild) {
 
     switch (recordNeedsUpdate($path, $md5, $rebuild)) {
         case "update":
-            echo "update...\n";
             updateRecordForImage($path, $md5, $exifData);
         break;
         case "insert":
-            echo "insert...\n";
             insertRecordForImage($path, $md5, $exifData);
         break;
         case "nothing":
-            echo "nothing...\n";
         break;
     }
     
@@ -325,4 +323,7 @@ function processImage($path, $rebuild) {
     }
 
     insertArtistIfNeeded($exifData);
+
+    $md5 = md5_file($path);
+    return $md5;
 }

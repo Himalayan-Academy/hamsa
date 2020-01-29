@@ -109,18 +109,18 @@ function image_add_tag($checksum, $tag) {
     $image = image_get($checksum);
     $path = str_replace("/var/www/html", "", $image[0]["path"]);
     $res = addImageTag($path, $tag);
-    processImage($path, true);
+    $md5 = processImage($path, true);
    
-    return $res;
+    return Array("res" => $res, "md5" => $md5);
 }
 
 function image_remove_tag($checksum, $tag) {
     $image = image_get($checksum);
     $path = str_replace("/var/www/html", "", $image[0]["path"]);
     $res = removeImageTag($path, $tag);
-    processImage($path, true);
+    $md5 = processImage($path, true);
    
-    return $res;
+    return Array("res" => $res, "md5" => $md5);
 }
 
 

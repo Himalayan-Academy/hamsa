@@ -414,7 +414,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                     }
                 ],
                 'addImageTag' => [
-                    'type' => Type::string(),
+                    'type' => $imageType,
                     'description' => 'Add a tag to an image.',
                     'args' => [
                         'email' => Type::string(),
@@ -424,23 +424,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                     ],
                     'resolve' => function ($root, $args) {
                         if (!check_credentials($args["email"], $args["password"])) {
-                            return "Error: bad credentials";
+                            throw "Error: bad credentials";
                         }
 
                         if (empty($args["checksum"]) || empty($args["tag"])) {
-                            return "Error: must pass both checksum and tag";
+                            throw "Error: must pass both checksum and tag";
                         }
                         
                         $res = image_add_tag($args["checksum"], $args["tag"]);
-                        if ($res) {
-                            return "Ok: tag added";
+                        if ($res["res"]) {
+                            error_log("GraphQL addImageTag: $res[md5]");
+                            $image = image_get($res["md5"]);
+                            return $image[0];
                         } else {
-                            return "Error: Can't add tag";
+                            throw "Error: Can't add tag";
                         }
                     }
                 ],
                 'removeImageTag' => [
-                    'type' => Type::string(),
+                    'type' => $imageType,
                     'description' => 'Remove a tag from an image.',
                     'args' => [
                         'email' => Type::string(),
@@ -458,10 +460,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                         }
                         
                         $res = image_remove_tag($args["checksum"], $args["tag"]);
-                        if ($res) {
-                            return "Ok: tag removed";
+                        if ($res["res"]) {
+                            error_log("GraphQL removeImageTag: $res[md5]");
+                            $image = image_get($res["md5"]);
+                            return $image[0];
                         } else {
-                            return "Error: Can't remove tag";
+                            throw "Error: Can't remove tag";
                         }
                     }
                 ]
