@@ -8,12 +8,20 @@
 
 require_once __DIR__ . '/exif.php';
 
+const ACLFILE = "/home/devhap/etc/acl.xml";
+
 function check_credentials($email, $password) {
-    if ($email !== "andre@andregarzia.com" && $password !== "alface") {
-        return false;
+    $acl = simplexml_load_file(ACLFILE);
+
+    if ($acl) {
+        $is_admin = !empty($acl->xpath("/acl/users/user[@email='$email'][@password='$password'][@group='admin']"));
+
+        $is_hamsa = !empty($acl->xpath("/acl/users/user[@email='$email'][@password='$password'][@group='hamsa']"));
+
+        return $is_admin || $is_hamsa;
     }
 
-    return true;
+    return false;
 }
 
 /**
