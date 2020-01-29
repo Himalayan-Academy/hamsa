@@ -16,3 +16,4 @@ old/
 # aag auxiliary deploy scripts
 scripts/*.sh
 scripts/*.ps1
+backend/tools/*.jpg
