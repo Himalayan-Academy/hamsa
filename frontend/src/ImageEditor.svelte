@@ -4,7 +4,9 @@
     login,
     addImageTag,
     removeImageTag,
-    getSelectors
+    getSelectors,
+    setImageDescription,
+    setImageCaption
   } from "./api.js";
   import { currentView, go } from "./navigation.js";
   import { onDestroy } from "svelte";
@@ -19,6 +21,7 @@
   let image = {};
   let loading = true;
   let addingTag = false;
+  let updatingText = false;
   let IMAGE_URL = "//dev.himalayanacademy.com/hamsa-images";
   let error = false;
   let email;
@@ -45,6 +48,14 @@
     getImage({ checksum }).then(res => {
       image = res.image;
       activeCollections = collections.map(c => image.metadata.keywords.includes(`Collection ${c}`))
+      if (image.metadata.description.length > 0) {
+        description = image.metadata.description;
+      }
+
+      if (image.metadata.caption.length > 0) {
+        caption = image.metadata.caption;
+      }
+
       loading = false;
     });
   };
@@ -146,6 +157,55 @@
       });
   };
 
+  let description = "";
+  let caption = "";
+  const updateCaptionAndDescription = () => {
+
+    if (image.metadata.description !== description) {
+      updatingText = true;
+      setImageDescription(email, password, checksum, description)
+        .then(res => {
+          console.log(res);
+          image = res.setImageDescription;
+          checksum = image.checksum;
+          console.log("new checksum", checksum);
+          updatingText = false;
+          history.replaceState(
+            { checksum },
+            `Editing Image: ${checksum}`,
+            `${location.pathname}?checksum=${checksum}&view=ImageEditor`
+          );
+        })
+        .catch(n => {
+          console.error(n);
+          error = n.map(e => e.message).join(`. `);
+          updatingText = false;
+        });
+    }
+    if (image.metadata.caption !== caption) {
+      updatingText = true;
+      setImageCaption(email, password, checksum, caption)
+        .then(res => {
+          console.log(res);
+          image = res.setImageCaption;
+          checksum = image.checksum;
+          console.log("new checksum", checksum);
+          updatingText = false;
+          history.replaceState(
+            { checksum },
+            `Editing Image: ${checksum}`,
+            `${location.pathname}?checksum=${checksum}&view=ImageEditor`
+          );
+        })
+        .catch(n => {
+          console.error(n);
+          error = n.map(e => e.message).join(`. `);
+          updatingText = false;
+        });
+    }
+
+  }
+
   loggedIn = savedCredentials();
   let collections;
   let activeCollections;
@@ -187,10 +247,12 @@
     font-size: 12px;
   }
 
-  .description {
+  .description, .caption {
     font-family: sans-serif;
     font-size: 20px;
     color: #333333;
+    display: block;
+    width: 100%
   }
 
   .tag {
@@ -245,14 +307,19 @@
     <div class="single-image-wrapper">
       <div class="single-image">
         <img src={toImageURL(image.medpath)} alt={image.metadata.description} />
-        <a
-          href={toImageURL(image.path)}
-          target="_blank"
-          download={toFilename(image.path)}
-          class="single-image-link">
-          Download this image
-        </a>
-        <p class="description">{image.metadata.description}</p>
+        {#if !updatingText}
+        <form on:submit|preventDefault={updateCaptionAndDescription}>
+          <label for="caption">Caption</label>
+          <textarea name="caption" class="caption" bind:value={caption}></textarea>
+          <label for="description">Description</label>
+          <textarea rows="10" name="description" class="description" bind:value={description}></textarea>
+          <input type="submit" value="Save Caption &amp; Description" />
+        </form>
+        {:else}
+        <div class="loading-wrapper">
+          <i class="fa fa-spinner fa-spin fa-3x" />
+        </div>
+        {/if}
       </div>
       <div class="metadata">
         <div

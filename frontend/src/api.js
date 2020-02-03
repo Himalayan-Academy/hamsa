@@ -46,6 +46,7 @@ export const removeImageTag = async(email, password, checksum, tag) => {
       metadata {
         artist,
         description,
+        caption,
         more,
         keywords
       } 
@@ -73,6 +74,7 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     metadata {
       artist,
       description,
+      caption,
       more,
       keywords
     } 
@@ -80,6 +82,60 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
 }
 `;
     return executeQuery(mutation, { email, password, checksum, tag });
+}
+
+export const setImageDescription = async(email, password, checksum, description) => {
+  let mutation = gql `
+mutation($email: String, $password: String, $checksum: String, $description: String) {
+setImageDescription(
+  email: $email
+  password: $password
+  checksum: $checksum
+  description: $description
+) { 
+  checksum,
+  path, 
+  medpath,
+  width,
+  height,
+  metadata {
+    artist,
+    description,
+    caption,
+    more,
+    keywords
+  } 
+}
+}
+`;
+  return executeQuery(mutation, { email, password, checksum, description });
+}
+
+export const setImageCaption = async(email, password, checksum, caption) => {
+  let mutation = gql `
+mutation($email: String, $password: String, $checksum: String, $caption: String) {
+setImageCaption(
+  email: $email
+  password: $password
+  checksum: $checksum
+  caption: $caption
+) { 
+  checksum,
+  path, 
+  medpath,
+  width,
+  height,
+  metadata {
+    artist,
+    description,
+    caption,
+    more,
+    keywords
+  } 
+}
+}
+`;
+  return executeQuery(mutation, { email, password, checksum, caption: caption });
 }
 
 
@@ -119,6 +175,7 @@ export const getImage = async(payload) => {
         metadata {
           artist,
           description,
+          caption,
           more,
           keywords
         } 

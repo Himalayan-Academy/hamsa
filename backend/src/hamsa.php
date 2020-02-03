@@ -100,9 +100,18 @@ function image_set_description($checksum, $description) {
     $image = image_get($checksum);
     $path = str_replace("/var/www/html", "", $image[0]["path"]);
     $res = setImageDescription($path, $description);
-    processImage($path, true);
+    $md5 = processImage($path, true);
    
-    return $res;
+    return Array("res" => $res, "md5" => $md5);
+}
+
+function image_set_caption($checksum, $caption) {
+    $image = image_get($checksum);
+    $path = str_replace("/var/www/html", "", $image[0]["path"]);
+    $res = setImageCaption($path, $caption);
+    $md5 = processImage($path, true);
+   
+    return Array("res" => $res, "md5" => $md5);
 }
 
 function image_add_tag($checksum, $tag) {

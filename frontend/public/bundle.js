@@ -1394,6 +1394,7 @@ var app = (function () {
       metadata {
         artist,
         description,
+        caption,
         more,
         keywords
       } 
@@ -1421,6 +1422,7 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     metadata {
       artist,
       description,
+      caption,
       more,
       keywords
     } 
@@ -1428,6 +1430,60 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
 }
 `;
         return executeQuery(mutation, { email, password, checksum, tag });
+    };
+
+    const setImageDescription = async(email, password, checksum, description) => {
+      let mutation = nanographql_1 `
+mutation($email: String, $password: String, $checksum: String, $description: String) {
+setImageDescription(
+  email: $email
+  password: $password
+  checksum: $checksum
+  description: $description
+) { 
+  checksum,
+  path, 
+  medpath,
+  width,
+  height,
+  metadata {
+    artist,
+    description,
+    caption,
+    more,
+    keywords
+  } 
+}
+}
+`;
+      return executeQuery(mutation, { email, password, checksum, description });
+    };
+
+    const setImageCaption = async(email, password, checksum, caption) => {
+      let mutation = nanographql_1 `
+mutation($email: String, $password: String, $checksum: String, $caption: String) {
+setImageCaption(
+  email: $email
+  password: $password
+  checksum: $checksum
+  caption: $caption
+) { 
+  checksum,
+  path, 
+  medpath,
+  width,
+  height,
+  metadata {
+    artist,
+    description,
+    caption,
+    more,
+    keywords
+  } 
+}
+}
+`;
+      return executeQuery(mutation, { email, password, checksum, caption: caption });
     };
 
 
@@ -1467,6 +1523,7 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
         metadata {
           artist,
           description,
+          caption,
           more,
           keywords
         } 
@@ -4591,16 +4648,16 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     	return child_ctx;
     }
 
-    // (226:0) {#if error}
-    function create_if_block_3(ctx) {
+    // (288:0) {#if error}
+    function create_if_block_4(ctx) {
     	var p, t;
 
     	const block = {
     		c: function create() {
     			p = element("p");
     			t = text(ctx.error);
-    			attr_dev(p, "class", "error svelte-1arex9o");
-    			add_location(p, file$8, 226, 2, 5261);
+    			attr_dev(p, "class", "error svelte-aqd5t0");
+    			add_location(p, file$8, 288, 2, 7144);
     		},
 
     		m: function mount(target, anchor) {
@@ -4620,13 +4677,21 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_3.name, type: "if", source: "(226:0) {#if error}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_4.name, type: "if", source: "(288:0) {#if error}", ctx });
     	return block;
     }
 
-    // (243:0) {:else}
+    // (305:0) {:else}
     function create_else_block$2(ctx) {
-    	var div6, div5, div0, img, img_src_value, img_alt_value, t0, a, t1, a_href_value, a_download_value, t2, p, t3_value = ctx.image.metadata.description + "", t3, t4, div4, div1, i, t5, h20, t6_value = ctx.image.metadata.artist + "", t6, t7, div2, t8, div3, h21, t10, t11, br0, t12, br1, t13, dispose;
+    	var div6, div5, div0, img, img_src_value, img_alt_value, t0, t1, div4, div1, i, t2, h20, t3_value = ctx.image.metadata.artist + "", t3, t4, div2, t5, div3, h21, t7, t8, br0, t9, br1, t10, dispose;
+
+    	function select_block_type_1(changed, ctx) {
+    		if (!ctx.updatingText) return create_if_block_3;
+    		return create_else_block_2;
+    	}
+
+    	var current_block_type = select_block_type_1(null, ctx);
+    	var if_block0 = current_block_type(ctx);
 
     	let each_value_2 = ctx.image.metadata.keywords;
 
@@ -4636,13 +4701,13 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     		each_blocks[i_1] = create_each_block_2(get_each_context_2(ctx, each_value_2, i_1));
     	}
 
-    	function select_block_type_1(changed, ctx) {
+    	function select_block_type_2(changed, ctx) {
     		if (ctx.addingTag) return create_if_block_2$1;
     		return create_else_block_1$1;
     	}
 
-    	var current_block_type = select_block_type_1(null, ctx);
-    	var if_block = current_block_type(ctx);
+    	var current_block_type_1 = select_block_type_2(null, ctx);
+    	var if_block1 = current_block_type_1(ctx);
 
     	const block = {
     		c: function create() {
@@ -4651,66 +4716,55 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     			div0 = element("div");
     			img = element("img");
     			t0 = space();
-    			a = element("a");
-    			t1 = text("Download this image");
-    			t2 = space();
-    			p = element("p");
-    			t3 = text(t3_value);
-    			t4 = space();
+    			if_block0.c();
+    			t1 = space();
     			div4 = element("div");
     			div1 = element("div");
     			i = element("i");
-    			t5 = space();
+    			t2 = space();
     			h20 = element("h2");
-    			t6 = text(t6_value);
-    			t7 = space();
+    			t3 = text(t3_value);
+    			t4 = space();
     			div2 = element("div");
-    			t8 = space();
+    			t5 = space();
     			div3 = element("div");
     			h21 = element("h2");
     			h21.textContent = "Tags";
-    			t10 = space();
+    			t7 = space();
 
     			for (let i_1 = 0; i_1 < each_blocks.length; i_1 += 1) {
     				each_blocks[i_1].c();
     			}
 
-    			t11 = space();
+    			t8 = space();
     			br0 = element("br");
-    			t12 = space();
+    			t9 = space();
     			br1 = element("br");
-    			t13 = space();
-    			if_block.c();
+    			t10 = space();
+    			if_block1.c();
     			attr_dev(img, "src", img_src_value = ctx.toImageURL(ctx.image.medpath));
     			attr_dev(img, "alt", img_alt_value = ctx.image.metadata.description);
-    			add_location(img, file$8, 246, 8, 5908);
-    			attr_dev(a, "href", a_href_value = ctx.toImageURL(ctx.image.path));
-    			attr_dev(a, "target", "_blank");
-    			attr_dev(a, "download", a_download_value = ctx.toFilename(ctx.image.path));
-    			attr_dev(a, "class", "single-image-link svelte-1arex9o");
-    			add_location(a, file$8, 247, 8, 5990);
-    			attr_dev(p, "class", "description svelte-1arex9o");
-    			add_location(p, file$8, 254, 8, 6198);
+    			add_location(img, file$8, 308, 8, 7791);
     			attr_dev(div0, "class", "single-image");
-    			add_location(div0, file$8, 245, 6, 5872);
+    			add_location(div0, file$8, 307, 6, 7755);
     			attr_dev(i, "class", "far fa-user fa-lg");
-    			add_location(i, file$8, 260, 10, 6430);
-    			add_location(h20, file$8, 261, 10, 6473);
-    			attr_dev(div1, "class", "author svelte-1arex9o");
-    			add_location(div1, file$8, 257, 8, 6307);
+    			add_location(i, file$8, 327, 10, 8667);
+    			add_location(h20, file$8, 328, 10, 8710);
+    			attr_dev(div1, "class", "author svelte-aqd5t0");
+    			add_location(div1, file$8, 324, 8, 8544);
     			attr_dev(div2, "class", "dotted");
-    			add_location(div2, file$8, 263, 8, 6531);
-    			add_location(h21, file$8, 265, 10, 6593);
-    			add_location(br0, file$8, 274, 10, 6868);
-    			add_location(br1, file$8, 275, 10, 6886);
+    			add_location(div2, file$8, 330, 8, 8768);
+    			add_location(h21, file$8, 332, 10, 8830);
+    			add_location(br0, file$8, 341, 10, 9105);
+    			add_location(br1, file$8, 342, 10, 9123);
     			attr_dev(div3, "class", "tags");
-    			add_location(div3, file$8, 264, 8, 6563);
+    			add_location(div3, file$8, 331, 8, 8800);
     			attr_dev(div4, "class", "metadata");
-    			add_location(div4, file$8, 256, 6, 6275);
-    			attr_dev(div5, "class", "single-image-wrapper svelte-1arex9o");
-    			add_location(div5, file$8, 244, 4, 5830);
-    			attr_dev(div6, "class", "image-view-container svelte-1arex9o");
-    			add_location(div6, file$8, 243, 2, 5790);
+    			add_location(div4, file$8, 323, 6, 8512);
+    			attr_dev(div5, "class", "single-image-wrapper svelte-aqd5t0");
+    			add_location(div5, file$8, 306, 4, 7713);
+    			attr_dev(div6, "class", "image-view-container svelte-aqd5t0");
+    			add_location(div6, file$8, 305, 2, 7673);
     			dispose = listen_dev(div1, "click", ctx.click_handler);
     		},
 
@@ -4720,35 +4774,31 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     			append_dev(div5, div0);
     			append_dev(div0, img);
     			append_dev(div0, t0);
-    			append_dev(div0, a);
-    			append_dev(a, t1);
-    			append_dev(div0, t2);
-    			append_dev(div0, p);
-    			append_dev(p, t3);
-    			append_dev(div5, t4);
+    			if_block0.m(div0, null);
+    			append_dev(div5, t1);
     			append_dev(div5, div4);
     			append_dev(div4, div1);
     			append_dev(div1, i);
-    			append_dev(div1, t5);
+    			append_dev(div1, t2);
     			append_dev(div1, h20);
-    			append_dev(h20, t6);
-    			append_dev(div4, t7);
+    			append_dev(h20, t3);
+    			append_dev(div4, t4);
     			append_dev(div4, div2);
-    			append_dev(div4, t8);
+    			append_dev(div4, t5);
     			append_dev(div4, div3);
     			append_dev(div3, h21);
-    			append_dev(div3, t10);
+    			append_dev(div3, t7);
 
     			for (let i_1 = 0; i_1 < each_blocks.length; i_1 += 1) {
     				each_blocks[i_1].m(div3, null);
     			}
 
-    			append_dev(div3, t11);
+    			append_dev(div3, t8);
     			append_dev(div3, br0);
-    			append_dev(div3, t12);
+    			append_dev(div3, t9);
     			append_dev(div3, br1);
-    			append_dev(div3, t13);
-    			if_block.m(div3, null);
+    			append_dev(div3, t10);
+    			if_block1.m(div3, null);
     		},
 
     		p: function update(changed, ctx) {
@@ -4760,20 +4810,19 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     				attr_dev(img, "alt", img_alt_value);
     			}
 
-    			if ((changed.image) && a_href_value !== (a_href_value = ctx.toImageURL(ctx.image.path))) {
-    				attr_dev(a, "href", a_href_value);
+    			if (current_block_type === (current_block_type = select_block_type_1(changed, ctx)) && if_block0) {
+    				if_block0.p(changed, ctx);
+    			} else {
+    				if_block0.d(1);
+    				if_block0 = current_block_type(ctx);
+    				if (if_block0) {
+    					if_block0.c();
+    					if_block0.m(div0, null);
+    				}
     			}
 
-    			if ((changed.image) && a_download_value !== (a_download_value = ctx.toFilename(ctx.image.path))) {
-    				attr_dev(a, "download", a_download_value);
-    			}
-
-    			if ((changed.image) && t3_value !== (t3_value = ctx.image.metadata.description + "")) {
+    			if ((changed.image) && t3_value !== (t3_value = ctx.image.metadata.artist + "")) {
     				set_data_dev(t3, t3_value);
-    			}
-
-    			if ((changed.image) && t6_value !== (t6_value = ctx.image.metadata.artist + "")) {
-    				set_data_dev(t6, t6_value);
     			}
 
     			if (changed.image) {
@@ -4788,7 +4837,7 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     					} else {
     						each_blocks[i_1] = create_each_block_2(child_ctx);
     						each_blocks[i_1].c();
-    						each_blocks[i_1].m(div3, t11);
+    						each_blocks[i_1].m(div3, t8);
     					}
     				}
 
@@ -4798,14 +4847,14 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     				each_blocks.length = each_value_2.length;
     			}
 
-    			if (current_block_type === (current_block_type = select_block_type_1(changed, ctx)) && if_block) {
-    				if_block.p(changed, ctx);
+    			if (current_block_type_1 === (current_block_type_1 = select_block_type_2(changed, ctx)) && if_block1) {
+    				if_block1.p(changed, ctx);
     			} else {
-    				if_block.d(1);
-    				if_block = current_block_type(ctx);
-    				if (if_block) {
-    					if_block.c();
-    					if_block.m(div3, null);
+    				if_block1.d(1);
+    				if_block1 = current_block_type_1(ctx);
+    				if (if_block1) {
+    					if_block1.c();
+    					if_block1.m(div3, null);
     				}
     			}
     		},
@@ -4815,17 +4864,19 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     				detach_dev(div6);
     			}
 
+    			if_block0.d();
+
     			destroy_each(each_blocks, detaching);
 
-    			if_block.d();
+    			if_block1.d();
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block$2.name, type: "else", source: "(243:0) {:else}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block$2.name, type: "else", source: "(305:0) {:else}", ctx });
     	return block;
     }
 
-    // (239:18) 
+    // (301:18) 
     function create_if_block_1$1(ctx) {
     	var div, i;
 
@@ -4834,9 +4885,9 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     			div = element("div");
     			i = element("i");
     			attr_dev(i, "class", "fa fa-spinner fa-spin fa-3x");
-    			add_location(i, file$8, 240, 4, 5726);
+    			add_location(i, file$8, 302, 4, 7609);
     			attr_dev(div, "class", "loading-wrapper");
-    			add_location(div, file$8, 239, 2, 5691);
+    			add_location(div, file$8, 301, 2, 7574);
     		},
 
     		m: function mount(target, anchor) {
@@ -4852,11 +4903,11 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1$1.name, type: "if", source: "(239:18) ", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1$1.name, type: "if", source: "(301:18) ", ctx });
     	return block;
     }
 
-    // (229:0) {#if !loggedIn}
+    // (291:0) {#if !loggedIn}
     function create_if_block$2(ctx) {
     	var p, t1, form, label0, t3, input0, t4, label1, t6, input1, t7, br, t8, input2, dispose;
 
@@ -4879,22 +4930,22 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     			br = element("br");
     			t8 = space();
     			input2 = element("input");
-    			add_location(p, file$8, 229, 2, 5317);
+    			add_location(p, file$8, 291, 2, 7200);
     			attr_dev(label0, "for", "email");
-    			add_location(label0, file$8, 231, 4, 5398);
+    			add_location(label0, file$8, 293, 4, 7281);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "id", "email");
-    			add_location(input0, file$8, 232, 4, 5437);
+    			add_location(input0, file$8, 294, 4, 7320);
     			attr_dev(label1, "for", "password");
-    			add_location(label1, file$8, 233, 4, 5494);
+    			add_location(label1, file$8, 295, 4, 7377);
     			attr_dev(input1, "type", "password");
     			attr_dev(input1, "id", "password");
-    			add_location(input1, file$8, 234, 4, 5539);
-    			add_location(br, file$8, 235, 4, 5606);
+    			add_location(input1, file$8, 296, 4, 7422);
+    			add_location(br, file$8, 297, 4, 7489);
     			attr_dev(input2, "type", "submit");
     			input2.value = "log in";
-    			add_location(input2, file$8, 236, 4, 5618);
-    			add_location(form, file$8, 230, 2, 5342);
+    			add_location(input2, file$8, 298, 4, 7501);
+    			add_location(form, file$8, 292, 2, 7225);
 
     			dispose = [
     				listen_dev(input0, "input", ctx.input0_input_handler),
@@ -4941,11 +4992,119 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     			run_all(dispose);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$2.name, type: "if", source: "(229:0) {#if !loggedIn}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$2.name, type: "if", source: "(291:0) {#if !loggedIn}", ctx });
     	return block;
     }
 
-    // (267:10) {#each image.metadata.keywords as tag}
+    // (318:8) {:else}
+    function create_else_block_2(ctx) {
+    	var div, i;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			i = element("i");
+    			attr_dev(i, "class", "fa fa-spinner fa-spin fa-3x");
+    			add_location(i, file$8, 319, 10, 8418);
+    			attr_dev(div, "class", "loading-wrapper");
+    			add_location(div, file$8, 318, 8, 8377);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, i);
+    		},
+
+    		p: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div);
+    			}
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block_2.name, type: "else", source: "(318:8) {:else}", ctx });
+    	return block;
+    }
+
+    // (310:8) {#if !updatingText}
+    function create_if_block_3(ctx) {
+    	var form, label0, t1, textarea0, t2, label1, t4, textarea1, t5, input, dispose;
+
+    	const block = {
+    		c: function create() {
+    			form = element("form");
+    			label0 = element("label");
+    			label0.textContent = "Caption";
+    			t1 = space();
+    			textarea0 = element("textarea");
+    			t2 = space();
+    			label1 = element("label");
+    			label1.textContent = "Description";
+    			t4 = space();
+    			textarea1 = element("textarea");
+    			t5 = space();
+    			input = element("input");
+    			attr_dev(label0, "for", "caption");
+    			add_location(label0, file$8, 311, 10, 7975);
+    			attr_dev(textarea0, "name", "caption");
+    			attr_dev(textarea0, "class", "caption svelte-aqd5t0");
+    			add_location(textarea0, file$8, 312, 10, 8023);
+    			attr_dev(label1, "for", "description");
+    			add_location(label1, file$8, 313, 10, 8108);
+    			attr_dev(textarea1, "rows", "10");
+    			attr_dev(textarea1, "name", "description");
+    			attr_dev(textarea1, "class", "description svelte-aqd5t0");
+    			add_location(textarea1, file$8, 314, 10, 8164);
+    			attr_dev(input, "type", "submit");
+    			input.value = "Save Caption & Description";
+    			add_location(input, file$8, 315, 10, 8271);
+    			add_location(form, file$8, 310, 8, 7902);
+
+    			dispose = [
+    				listen_dev(textarea0, "input", ctx.textarea0_input_handler),
+    				listen_dev(textarea1, "input", ctx.textarea1_input_handler),
+    				listen_dev(form, "submit", prevent_default(ctx.updateCaptionAndDescription), false, true)
+    			];
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, form, anchor);
+    			append_dev(form, label0);
+    			append_dev(form, t1);
+    			append_dev(form, textarea0);
+
+    			set_input_value(textarea0, ctx.caption);
+
+    			append_dev(form, t2);
+    			append_dev(form, label1);
+    			append_dev(form, t4);
+    			append_dev(form, textarea1);
+
+    			set_input_value(textarea1, ctx.description);
+
+    			append_dev(form, t5);
+    			append_dev(form, input);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (changed.caption) set_input_value(textarea0, ctx.caption);
+    			if (changed.description) set_input_value(textarea1, ctx.description);
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(form);
+    			}
+
+    			run_all(dispose);
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_3.name, type: "if", source: "(310:8) {#if !updatingText}", ctx });
+    	return block;
+    }
+
+    // (334:10) {#each image.metadata.keywords as tag}
     function create_each_block_2(ctx) {
     	var span, t0_value = ctx.tag + "", t0, t1, dispose;
 
@@ -4959,8 +5118,8 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     			t0 = text(t0_value);
     			t1 = text(" | x");
     			attr_dev(span, "tooltip", "click to delete");
-    			attr_dev(span, "class", "tag svelte-1arex9o");
-    			add_location(span, file$8, 267, 12, 6670);
+    			attr_dev(span, "class", "tag svelte-aqd5t0");
+    			add_location(span, file$8, 334, 12, 8907);
     			dispose = listen_dev(span, "click", click_handler_1);
     		},
 
@@ -4985,11 +5144,11 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_2.name, type: "each", source: "(267:10) {#each image.metadata.keywords as tag}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_2.name, type: "each", source: "(334:10) {#each image.metadata.keywords as tag}", ctx });
     	return block;
     }
 
-    // (281:10) {:else}
+    // (348:10) {:else}
     function create_else_block_1$1(ctx) {
     	var form, label, t1, input0, t2, datalist, t3, input1, t4, h2, t6, dispose;
 
@@ -5034,18 +5193,18 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     				each_blocks[i].c();
     			}
     			attr_dev(label, "for", "newtag");
-    			add_location(label, file$8, 282, 14, 7098);
+    			add_location(label, file$8, 349, 14, 9335);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "list", "tag-list");
     			attr_dev(input0, "id", "newtag");
-    			add_location(input0, file$8, 283, 14, 7150);
+    			add_location(input0, file$8, 350, 14, 9387);
     			attr_dev(datalist, "id", "tag-list");
-    			add_location(datalist, file$8, 284, 14, 7235);
+    			add_location(datalist, file$8, 351, 14, 9472);
     			attr_dev(input1, "type", "submit");
     			input1.value = "Add tag";
-    			add_location(input1, file$8, 289, 14, 7398);
-    			add_location(h2, file$8, 290, 14, 7453);
-    			add_location(form, file$8, 281, 12, 7042);
+    			add_location(input1, file$8, 356, 14, 9635);
+    			add_location(h2, file$8, 357, 14, 9690);
+    			add_location(form, file$8, 348, 12, 9279);
 
     			dispose = [
     				listen_dev(input0, "input", ctx.input0_input_handler_1),
@@ -5139,11 +5298,11 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     			run_all(dispose);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block_1$1.name, type: "else", source: "(281:10) {:else}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block_1$1.name, type: "else", source: "(348:10) {:else}", ctx });
     	return block;
     }
 
-    // (277:10) {#if addingTag}
+    // (344:10) {#if addingTag}
     function create_if_block_2$1(ctx) {
     	var div, i;
 
@@ -5152,8 +5311,8 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     			div = element("div");
     			i = element("i");
     			attr_dev(i, "class", "fa fa-spinner fa-spin");
-    			add_location(i, file$8, 278, 14, 6954);
-    			add_location(div, file$8, 277, 12, 6933);
+    			add_location(i, file$8, 345, 14, 9191);
+    			add_location(div, file$8, 344, 12, 9170);
     		},
 
     		m: function mount(target, anchor) {
@@ -5169,11 +5328,11 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2$1.name, type: "if", source: "(277:10) {#if addingTag}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2$1.name, type: "if", source: "(344:10) {#if addingTag}", ctx });
     	return block;
     }
 
-    // (286:14) {#each tags as tag}
+    // (353:14) {#each tags as tag}
     function create_each_block_1$1(ctx) {
     	var option, option_value_value;
 
@@ -5182,7 +5341,7 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     			option = element("option");
     			option.__value = option_value_value = ctx.tag;
     			option.value = option.__value;
-    			add_location(option, file$8, 286, 14, 7310);
+    			add_location(option, file$8, 353, 14, 9547);
     		},
 
     		m: function mount(target, anchor) {
@@ -5203,11 +5362,11 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$1.name, type: "each", source: "(286:14) {#each tags as tag}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$1.name, type: "each", source: "(353:14) {#each tags as tag}", ctx });
     	return block;
     }
 
-    // (292:14) {#each collections as collection, i}
+    // (359:14) {#each collections as collection, i}
     function create_each_block$3(ctx) {
     	var div, input, t0, label, t1_value = ctx.collection + "", t1, t2, dispose;
 
@@ -5229,11 +5388,11 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     			t2 = space();
     			attr_dev(input, "type", "checkbox");
     			attr_dev(input, "name", "collection-" + ctx.i);
-    			add_location(input, file$8, 293, 14, 7562);
-    			attr_dev(label, "class", "collection-label svelte-1arex9o");
+    			add_location(input, file$8, 360, 14, 9799);
+    			attr_dev(label, "class", "collection-label svelte-aqd5t0");
     			attr_dev(label, "for", "collection-" + ctx.i);
-    			add_location(label, file$8, 298, 14, 7777);
-    			add_location(div, file$8, 292, 14, 7541);
+    			add_location(label, file$8, 365, 14, 10014);
+    			add_location(div, file$8, 359, 14, 9778);
 
     			dispose = [
     				listen_dev(input, "change", input_change_handler),
@@ -5270,14 +5429,14 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     			run_all(dispose);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$3.name, type: "each", source: "(292:14) {#each collections as collection, i}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$3.name, type: "each", source: "(359:14) {#each collections as collection, i}", ctx });
     	return block;
     }
 
     function create_fragment$8(ctx) {
     	var h1, t1, t2, if_block1_anchor;
 
-    	var if_block0 = (ctx.error) && create_if_block_3(ctx);
+    	var if_block0 = (ctx.error) && create_if_block_4(ctx);
 
     	function select_block_type(changed, ctx) {
     		if (!ctx.loggedIn) return create_if_block$2;
@@ -5297,7 +5456,7 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     			t2 = space();
     			if_block1.c();
     			if_block1_anchor = empty();
-    			add_location(h1, file$8, 224, 0, 5223);
+    			add_location(h1, file$8, 286, 0, 7106);
     		},
 
     		l: function claim(nodes) {
@@ -5318,7 +5477,7 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     				if (if_block0) {
     					if_block0.p(changed, ctx);
     				} else {
-    					if_block0 = create_if_block_3(ctx);
+    					if_block0 = create_if_block_4(ctx);
     					if_block0.c();
     					if_block0.m(t2.parentNode, t2);
     				}
@@ -5380,6 +5539,7 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
       let image = {};
       let loading = true;
       let addingTag = false;
+      let updatingText = false;
       let error = false;
       let email;
       let password;
@@ -5405,6 +5565,14 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
         getImage({ checksum }).then(res => {
           $$invalidate('image', image = res.image);
           $$invalidate('activeCollections', activeCollections = collections.map(c => image.metadata.keywords.includes(`Collection ${c}`)));
+          if (image.metadata.description.length > 0) {
+            $$invalidate('description', description = image.metadata.description);
+          }
+
+          if (image.metadata.caption.length > 0) {
+            $$invalidate('caption', caption = image.metadata.caption);
+          }
+
           $$invalidate('loading', loading = false);
         });
       };
@@ -5423,10 +5591,6 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
           $$invalidate('error', error = "Not a valid user.");
           $$invalidate('loggedIn', loggedIn = false);
         }
-      };
-
-      const toFilename = path => {
-        return "image.jpg";
       };
 
       const toImageURL = url => {
@@ -5502,6 +5666,55 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
           });
       };
 
+      let description = "";
+      let caption = "";
+      const updateCaptionAndDescription = () => {
+
+        if (image.metadata.description !== description) {
+          $$invalidate('updatingText', updatingText = true);
+          setImageDescription(email, password, checksum, description)
+            .then(res => {
+              console.log(res);
+              $$invalidate('image', image = res.setImageDescription);
+              $$invalidate('checksum', checksum = image.checksum);
+              console.log("new checksum", checksum);
+              $$invalidate('updatingText', updatingText = false);
+              history.replaceState(
+                { checksum },
+                `Editing Image: ${checksum}`,
+                `${location.pathname}?checksum=${checksum}&view=ImageEditor`
+              );
+            })
+            .catch(n => {
+              console.error(n);
+              $$invalidate('error', error = n.map(e => e.message).join(`. `));
+              $$invalidate('updatingText', updatingText = false);
+            });
+        }
+        if (image.metadata.caption !== caption) {
+          $$invalidate('updatingText', updatingText = true);
+          setImageCaption(email, password, checksum, caption)
+            .then(res => {
+              console.log(res);
+              $$invalidate('image', image = res.setImageCaption);
+              $$invalidate('checksum', checksum = image.checksum);
+              console.log("new checksum", checksum);
+              $$invalidate('updatingText', updatingText = false);
+              history.replaceState(
+                { checksum },
+                `Editing Image: ${checksum}`,
+                `${location.pathname}?checksum=${checksum}&view=ImageEditor`
+              );
+            })
+            .catch(n => {
+              console.error(n);
+              $$invalidate('error', error = n.map(e => e.message).join(`. `));
+              $$invalidate('updatingText', updatingText = false);
+            });
+        }
+
+      };
+
       $$invalidate('loggedIn', loggedIn = savedCredentials());
       let collections;
       let activeCollections;
@@ -5535,6 +5748,16 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     		$$invalidate('password', password);
     	}
 
+    	function textarea0_input_handler() {
+    		caption = this.value;
+    		$$invalidate('caption', caption);
+    	}
+
+    	function textarea1_input_handler() {
+    		description = this.value;
+    		$$invalidate('description', description);
+    	}
+
     	const click_handler = () => go('Collection', { artist: image.metadata.artist });
 
     	const click_handler_1 = ({ tag }) => deleteTag(tag);
@@ -5556,7 +5779,7 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     	};
 
     	$$self.$capture_state = () => {
-    		return { checksum, image, loading, addingTag, IMAGE_URL: IMAGE_URL$2, error, email, password, loggedIn, newTag, collections, activeCollections, tags };
+    		return { checksum, image, loading, addingTag, updatingText, IMAGE_URL: IMAGE_URL$2, error, email, password, loggedIn, newTag, description, caption, collections, activeCollections, tags };
     	};
 
     	$$self.$inject_state = $$props => {
@@ -5564,12 +5787,15 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     		if ('image' in $$props) $$invalidate('image', image = $$props.image);
     		if ('loading' in $$props) $$invalidate('loading', loading = $$props.loading);
     		if ('addingTag' in $$props) $$invalidate('addingTag', addingTag = $$props.addingTag);
+    		if ('updatingText' in $$props) $$invalidate('updatingText', updatingText = $$props.updatingText);
     		if ('IMAGE_URL' in $$props) IMAGE_URL$2 = $$props.IMAGE_URL;
     		if ('error' in $$props) $$invalidate('error', error = $$props.error);
     		if ('email' in $$props) $$invalidate('email', email = $$props.email);
     		if ('password' in $$props) $$invalidate('password', password = $$props.password);
     		if ('loggedIn' in $$props) $$invalidate('loggedIn', loggedIn = $$props.loggedIn);
     		if ('newTag' in $$props) $$invalidate('newTag', newTag = $$props.newTag);
+    		if ('description' in $$props) $$invalidate('description', description = $$props.description);
+    		if ('caption' in $$props) $$invalidate('caption', caption = $$props.caption);
     		if ('collections' in $$props) $$invalidate('collections', collections = $$props.collections);
     		if ('activeCollections' in $$props) $$invalidate('activeCollections', activeCollections = $$props.activeCollections);
     		if ('tags' in $$props) $$invalidate('tags', tags = $$props.tags);
@@ -5580,22 +5806,27 @@ mutation($email: String, $password: String, $checksum: String, $tag: String) {
     		image,
     		loading,
     		addingTag,
+    		updatingText,
     		error,
     		email,
     		password,
     		loggedIn,
     		newTag,
     		testAndSaveLogin,
-    		toFilename,
     		toImageURL,
     		updateCollection,
     		deleteTag,
     		addTag,
+    		description,
+    		caption,
+    		updateCaptionAndDescription,
     		collections,
     		activeCollections,
     		tags,
     		input0_input_handler,
     		input1_input_handler,
+    		textarea0_input_handler,
+    		textarea1_input_handler,
     		click_handler,
     		click_handler_1,
     		input0_input_handler_1,

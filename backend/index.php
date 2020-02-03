@@ -99,6 +99,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                 }
             ],
             'date' => Type::string(),
+            'caption' => [
+                'type' => Type::string(),
+                'resolve' => function($meta) {
+                    return isset($meta["Caption-Abstract"]) ? $meta["Caption-Abstract"] : "";
+                }
+            ],
             'description' => [
                 'type' => Type::string(),
                 'resolve' => function ($meta) {
@@ -387,8 +393,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         $mutationType = new ObjectType([
             'name' => 'Mutation',
             'fields' => [
+                'setImageCaption' => [
+                    'type' => $imageType,
+                    'description' => 'Set image caption.',
+                    'args' => [
+                        'email' => Type::string(),
+                        'password' => Type::string(),
+                        'checksum' => Type::string(),
+                        'caption' => Type::string()
+                    ],
+                    'resolve' => function ($root, $args) {
+                        if (!check_credentials($args["email"], $args["password"])) {
+                            return "Error: bad credentials";
+                        }
+
+                        if (empty($args["checksum"]) || empty($args["caption"])) {
+                            return "Error: must pass both checksum and caption";
+                        }
+
+                        $res = image_set_caption($args["checksum"], $args["caption"]);
+                        if ($res["res"]) {
+                            error_log("GraphQL setImageCaption: $res[md5]");
+                            $image = image_get($res["md5"]);
+                            return $image[0];
+                        } else {
+                            throw "Error: Can't set caption";
+                        }
+                    }
+                ],
                 'setImageDescription' => [
-                    'type' => Type::string(),
+                    'type' => $imageType,
                     'description' => 'Set image description.',
                     'args' => [
                         'email' => Type::string(),
@@ -406,10 +440,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                         }
 
                         $res = image_set_description($args["checksum"], $args["description"]);
-                        if ($res) {
-                            return "Ok: Description set";
+                        if ($res["res"]) {
+                            error_log("GraphQL setDescription: $res[md5]");
+                            $image = image_get($res["md5"]);
+                            return $image[0];
                         } else {
-                            return "Error: Can't set description";
+                            throw "Error: Can't set description";
                         }
                     }
                 ],
