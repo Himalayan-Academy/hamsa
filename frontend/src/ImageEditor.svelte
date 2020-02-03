@@ -1,5 +1,11 @@
 <script>
-  import { getImage, login, addImageTag, removeImageTag } from "./api.js";
+  import {
+    getImage,
+    login,
+    addImageTag,
+    removeImageTag,
+    getSelectors
+  } from "./api.js";
   import { currentView, go } from "./navigation.js";
   import { onDestroy } from "svelte";
 
@@ -38,6 +44,7 @@
     loading = true;
     getImage({ checksum }).then(res => {
       image = res.image;
+      activeCollections = collections.map(c => image.metadata.keywords.includes(`Collection ${c}`))
       loading = false;
     });
   };
@@ -72,6 +79,16 @@
   const toThumbnail = checksum => {
     return `${IMAGE_URL}/_cache/${checksum}.thumb.jpg`;
   };
+
+  const updateCollection = (ev, c, i) => {
+    if (ev.target.checked) {
+      newTag = `Collection ${c}`
+      addTag()
+    } else {
+      let tag = `Collection ${c}`
+      deleteTag(tag) 
+    }
+  }
 
   const deleteTag = tag => {
     if (confirm(`Do you want to remove tag: "${tag}" ?`)) {
@@ -130,11 +147,18 @@
   };
 
   loggedIn = savedCredentials();
+  let collections;
+  let activeCollections;
+  let tags;
 
   const unsub = currentView.subscribe(i => {
     console.dir("view changed", i);
     if (i.view == "ImageEditor") {
-      refreshImage(i.data);
+      getSelectors().then(selectors => {
+        tags = selectors.keywords
+        collections = selectors.collections
+        refreshImage(i.data);
+      });
     }
   });
 
@@ -191,6 +215,10 @@
 
   p.error {
     color: red;
+  }
+
+  .collection-label {
+    display: inline-block;
   }
 </style>
 
@@ -253,8 +281,24 @@
           {:else}
             <form on:submit|preventDefault={addTag}>
               <label for="newtag">New Tag:</label>
-              <input type="text" id="newtag" bind:value={newTag} />
+              <input type="text" list="tag-list" id="newtag" bind:value={newTag} />
+              <datalist id="tag-list">
+              {#each tags as tag}
+              <option value="{tag}">
+              {/each}
+              </datalist>
               <input type="submit" value="Add tag" />
+              <h2>Collections</h2>
+              {#each collections as collection, i}
+              <div>
+              <input 
+              type="checkbox" 
+              bind:checked={activeCollections[i]}
+              on:change={(ev) => updateCollection(ev, collection, i)}
+              name="collection-{i}">
+              <label class="collection-label" for="collection-{i}">{collection}</label>
+              </div>
+              {/each}
             </form>
           {/if}
         </div>
