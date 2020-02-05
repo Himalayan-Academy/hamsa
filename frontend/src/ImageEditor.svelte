@@ -143,12 +143,24 @@
         checksum = image.checksum;
         console.log("new checksum", checksum);
         addingTag = false;
+
+        if (newTag.indexOf("Collection") !== -1) {
+          addingTag = true
+           getSelectors().then(selectors => {
+              tags = selectors.keywords
+              collections = selectors.collections
+              refreshImage({checksum})
+              addingTag = false;
+            });
+        }
+
         newTag = "";
         history.replaceState(
           { checksum },
           `Editing Image: ${checksum}`,
           `${location.pathname}?checksum=${checksum}&view=ImageEditor`
         );
+        
       })
       .catch(n => {
         console.error(n);
@@ -282,9 +294,22 @@
   .collection-label {
     display: inline-block;
   }
+
+  .collection-header {
+    text-align: center;
+  }
+
+  .collection-title {
+    color: #a76b73;
+    border-bottom: solid 1px #919191;
+    padding-bottom: 10px;
+    display: inline-block;
+  }
 </style>
 
-<h1>Image Editor</h1>
+<div class="collection-header">
+  <h3 class="collection-title">Image Editor</h3>
+</div>
 {#if error}
   <p class="error">{error}</p>
 {/if}

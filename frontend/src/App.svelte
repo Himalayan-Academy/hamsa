@@ -6,12 +6,14 @@
   import Collection from "./Collection.svelte";
   import Image from "./Image.svelte";
   import ImageEditor from "./ImageEditor.svelte";
+  import CollectionEditor from "./CollectionEditor.svelte";
   import queryString from "query-string";
   import { currentView, loadFromURL } from "./navigation.js";
 
   const views = {
     InfoPage: InfoPage,
     Collection: Collection,
+    CollectionEditor: CollectionEditor,
     Image: Image,
     ImageEditor: ImageEditor
   };

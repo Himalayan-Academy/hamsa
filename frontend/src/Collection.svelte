@@ -1,18 +1,26 @@
 <script>
   import { afterUpdate, onMount, tick } from "svelte";
-  import { getCollection } from "./api.js";
+  import { getCollection, loggedIn } from "./api.js";
   import { currentView, go } from "./navigation.js";
   import { get } from "svelte/store";
   import { onDestroy } from "svelte";
-
   import marked from "marked";
 
   let description = "";
   let offset = 0;
-  let IMAGE_URL = "//dev.himalayanacademy.com/hamsa-images";
   let images = [];
   let collection = "home";
   let collectionThumb = false;
+  let selectedImages = new Set();
+  let IMAGE_URL = "//dev.himalayanacademy.com/hamsa-images";
+
+  const selectImage = checksum => {
+    selectedImages.add(checksum);
+  };
+
+  const unselectImage = checksum => {
+    selectedImages.delete(checksum);
+  };
 
   const refreshCollection = data => {
     let opts = {};
@@ -68,7 +76,7 @@
       .replace(/\./g, "");
     let url = `//dev.himalayanacademy.com/hamsa-images/_texts/${key}.txt`;
 
-    description = ""; 
+    description = "";
 
     // fetch(url)
     //   .then(r => {
@@ -177,6 +185,12 @@
   .hidden {
     display: none;
   }
+
+  .editor-trigger {
+    color: darkblue;
+    font-size: 12px;
+    cursor: pointer;
+  }
 </style>
 
 <div>
@@ -187,7 +201,18 @@
   {:else}
     {#if collection !== 'home'}
       <div class="collection-header">
-        <h3 class="collection-title">{collection}</h3>
+        <h3 class="collection-title">
+          {collection}
+          {#if $loggedIn}
+            <span
+              class="editor-trigger"
+              on:click={() => {
+                go('CollectionEditor', { images: [...selectedImages] });
+              }}>
+              (Edit Selected Images)
+            </span>
+          {/if}
+        </h3>
         <div class="collection-metadata">
           {#if collectionThumb}
             <img
@@ -202,11 +227,24 @@
         </div>
       </div>
     {/if}
+
     <div class="collection">
       <div class="collection-inner" />
       <section class="g">
         {#each images as item}
           <div class="gi">
+            {#if $loggedIn}
+              <input
+                type="checkbox"
+                on:click|stopPropagation={ev => {
+                  if (ev.target.checked) {
+                    selectImage(item.checksum);
+                  } else {
+                    unselectImage(item.checksum);
+                  }
+                  console.log(selectedImages);
+                }} />
+            {/if}
             <figure on:click={() => go('Image', { checksum: item.checksum })}>
               <img src={thumbnailToURL(item.thumbnail)} alt="" />
             </figure>
