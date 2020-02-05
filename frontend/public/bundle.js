@@ -6681,12 +6681,167 @@ var app = (function () {
 
     function get_each_context_1$2(ctx, list, i) {
     	const child_ctx = Object.create(ctx);
+    	child_ctx.tag = list[i];
+    	return child_ctx;
+    }
+
+    function get_each_context_2$1(ctx, list, i) {
+    	const child_ctx = Object.create(ctx);
     	child_ctx.image = list[i];
     	return child_ctx;
     }
 
-    // (99:6) {:else}
+    // (98:0) {:else}
     function create_else_block$5(ctx) {
+    	var div2, div0, t0, div1, t1;
+
+    	let each_value_2 = ctx.images;
+
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value_2.length; i += 1) {
+    		each_blocks[i] = create_each_block_2$1(get_each_context_2$1(ctx, each_value_2, i));
+    	}
+
+    	var if_block0 = (ctx.tags) && create_if_block_2$2(ctx);
+
+    	var if_block1 = (ctx.collections) && create_if_block_1$4(ctx);
+
+    	const block = {
+    		c: function create() {
+    			div2 = element("div");
+    			div0 = element("div");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			t0 = space();
+    			div1 = element("div");
+    			if (if_block0) if_block0.c();
+    			t1 = space();
+    			if (if_block1) if_block1.c();
+    			attr_dev(div0, "class", "images svelte-s1wnto");
+    			add_location(div0, file$a, 99, 4, 1997);
+    			attr_dev(div1, "class", "controls svelte-s1wnto");
+    			add_location(div1, file$a, 112, 4, 2350);
+    			attr_dev(div2, "class", "editor svelte-s1wnto");
+    			add_location(div2, file$a, 98, 2, 1971);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, div0);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div0, null);
+    			}
+
+    			append_dev(div2, t0);
+    			append_dev(div2, div1);
+    			if (if_block0) if_block0.m(div1, null);
+    			append_dev(div1, t1);
+    			if (if_block1) if_block1.m(div1, null);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (changed.images || changed.thumbnailToURL) {
+    				each_value_2 = ctx.images;
+
+    				let i;
+    				for (i = 0; i < each_value_2.length; i += 1) {
+    					const child_ctx = get_each_context_2$1(ctx, each_value_2, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(changed, child_ctx);
+    					} else {
+    						each_blocks[i] = create_each_block_2$1(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(div0, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+    				each_blocks.length = each_value_2.length;
+    			}
+
+    			if (ctx.tags) {
+    				if (if_block0) {
+    					if_block0.p(changed, ctx);
+    				} else {
+    					if_block0 = create_if_block_2$2(ctx);
+    					if_block0.c();
+    					if_block0.m(div1, t1);
+    				}
+    			} else if (if_block0) {
+    				if_block0.d(1);
+    				if_block0 = null;
+    			}
+
+    			if (ctx.collections) {
+    				if (if_block1) {
+    					if_block1.p(changed, ctx);
+    				} else {
+    					if_block1 = create_if_block_1$4(ctx);
+    					if_block1.c();
+    					if_block1.m(div1, null);
+    				}
+    			} else if (if_block1) {
+    				if_block1.d(1);
+    				if_block1 = null;
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div2);
+    			}
+
+    			destroy_each(each_blocks, detaching);
+
+    			if (if_block0) if_block0.d();
+    			if (if_block1) if_block1.d();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block$5.name, type: "else", source: "(98:0) {:else}", ctx });
+    	return block;
+    }
+
+    // (94:0) {#if loadingImages}
+    function create_if_block$5(ctx) {
+    	var div, i;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			i = element("i");
+    			attr_dev(i, "class", "fa fa-spinner fa-spin fa-3x");
+    			add_location(i, file$a, 95, 4, 1907);
+    			attr_dev(div, "class", "loading-wrapper");
+    			add_location(div, file$a, 94, 2, 1872);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, i);
+    		},
+
+    		p: noop,
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div);
+    			}
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$5.name, type: "if", source: "(94:0) {#if loadingImages}", ctx });
+    	return block;
+    }
+
+    // (106:8) {:else}
+    function create_else_block_1$2(ctx) {
     	var figure, img, img_src_value, t;
 
     	const block = {
@@ -6696,10 +6851,10 @@ var app = (function () {
     			t = space();
     			attr_dev(img, "src", img_src_value = ctx.thumbnailToURL(ctx.image.thumbnail));
     			attr_dev(img, "alt", "");
-    			attr_dev(img, "class", "svelte-1ypkhp8");
-    			add_location(img, file$a, 100, 10, 2080);
-    			attr_dev(figure, "class", "svelte-1ypkhp8");
-    			add_location(figure, file$a, 99, 8, 2060);
+    			attr_dev(img, "class", "svelte-s1wnto");
+    			add_location(img, file$a, 107, 12, 2229);
+    			attr_dev(figure, "class", "svelte-s1wnto");
+    			add_location(figure, file$a, 106, 10, 2207);
     		},
 
     		m: function mount(target, anchor) {
@@ -6720,12 +6875,12 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block$5.name, type: "else", source: "(99:6) {:else}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_else_block_1$2.name, type: "else", source: "(106:8) {:else}", ctx });
     	return block;
     }
 
-    // (95:6) {#if typeof image == 'string'}
-    function create_if_block_1$4(ctx) {
+    // (102:8) {#if typeof image == 'string'}
+    function create_if_block_3$2(ctx) {
     	var figure, i, t;
 
     	const block = {
@@ -6734,9 +6889,9 @@ var app = (function () {
     			i = element("i");
     			t = space();
     			attr_dev(i, "class", "fa fa-spinner fa-spin");
-    			add_location(i, file$a, 96, 10, 1981);
-    			attr_dev(figure, "class", "svelte-1ypkhp8");
-    			add_location(figure, file$a, 95, 8, 1961);
+    			add_location(i, file$a, 103, 12, 2122);
+    			attr_dev(figure, "class", "svelte-s1wnto");
+    			add_location(figure, file$a, 102, 10, 2100);
     		},
 
     		m: function mount(target, anchor) {
@@ -6753,16 +6908,368 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1$4.name, type: "if", source: "(95:6) {#if typeof image == 'string'}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_3$2.name, type: "if", source: "(102:8) {#if typeof image == 'string'}", ctx });
     	return block;
     }
 
-    // (94:4) {#each images as image}
+    // (101:6) {#each images as image}
+    function create_each_block_2$1(ctx) {
+    	var if_block_anchor;
+
+    	function select_block_type_1(changed, ctx) {
+    		if (typeof ctx.image == 'string') return create_if_block_3$2;
+    		return create_else_block_1$2;
+    	}
+
+    	var current_block_type = select_block_type_1(null, ctx);
+    	var if_block = current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block.c();
+    			if_block_anchor = empty();
+    		},
+
+    		m: function mount(target, anchor) {
+    			if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (current_block_type === (current_block_type = select_block_type_1(changed, ctx)) && if_block) {
+    				if_block.p(changed, ctx);
+    			} else {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if_block.d(detaching);
+
+    			if (detaching) {
+    				detach_dev(if_block_anchor);
+    			}
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_2$1.name, type: "each", source: "(101:6) {#each images as image}", ctx });
+    	return block;
+    }
+
+    // (114:4) {#if tags}
+    function create_if_block_2$2(ctx) {
+    	var div, h3, t1, p, t3, form, label, t5, input0, t6, datalist, t7, input1, dispose;
+
+    	let each_value_1 = ctx.tags;
+
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value_1.length; i += 1) {
+    		each_blocks[i] = create_each_block_1$2(get_each_context_1$2(ctx, each_value_1, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			h3 = element("h3");
+    			h3.textContent = "Tags";
+    			t1 = space();
+    			p = element("p");
+    			p.textContent = "The tags you add here will be added to the images\r\n            appearing on the left.";
+    			t3 = space();
+    			form = element("form");
+    			label = element("label");
+    			label.textContent = "New Tag:";
+    			t5 = space();
+    			input0 = element("input");
+    			t6 = space();
+    			datalist = element("datalist");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			t7 = space();
+    			input1 = element("input");
+    			attr_dev(h3, "class", "collection-title svelte-s1wnto");
+    			add_location(h3, file$a, 115, 10, 2441);
+    			add_location(p, file$a, 116, 10, 2491);
+    			attr_dev(div, "class", "collection-header svelte-s1wnto");
+    			add_location(div, file$a, 114, 8, 2398);
+    			attr_dev(label, "for", "newtag");
+    			add_location(label, file$a, 122, 14, 2691);
+    			attr_dev(input0, "type", "text");
+    			attr_dev(input0, "list", "tag-list");
+    			attr_dev(input0, "id", "newtag");
+    			add_location(input0, file$a, 123, 14, 2743);
+    			attr_dev(datalist, "id", "tag-list");
+    			add_location(datalist, file$a, 124, 14, 2828);
+    			attr_dev(input1, "type", "submit");
+    			input1.value = "Add tag";
+    			add_location(input1, file$a, 129, 14, 2991);
+    			add_location(form, file$a, 121, 8, 2635);
+
+    			dispose = [
+    				listen_dev(input0, "input", ctx.input0_input_handler),
+    				listen_dev(form, "submit", prevent_default(ctx.addTag), false, true)
+    			];
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, h3);
+    			append_dev(div, t1);
+    			append_dev(div, p);
+    			insert_dev(target, t3, anchor);
+    			insert_dev(target, form, anchor);
+    			append_dev(form, label);
+    			append_dev(form, t5);
+    			append_dev(form, input0);
+
+    			set_input_value(input0, ctx.newTag);
+
+    			append_dev(form, t6);
+    			append_dev(form, datalist);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(datalist, null);
+    			}
+
+    			append_dev(form, t7);
+    			append_dev(form, input1);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (changed.newTag && (input0.value !== ctx.newTag)) set_input_value(input0, ctx.newTag);
+
+    			if (changed.tags) {
+    				each_value_1 = ctx.tags;
+
+    				let i;
+    				for (i = 0; i < each_value_1.length; i += 1) {
+    					const child_ctx = get_each_context_1$2(ctx, each_value_1, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(changed, child_ctx);
+    					} else {
+    						each_blocks[i] = create_each_block_1$2(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(datalist, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+    				each_blocks.length = each_value_1.length;
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div);
+    				detach_dev(t3);
+    				detach_dev(form);
+    			}
+
+    			destroy_each(each_blocks, detaching);
+
+    			run_all(dispose);
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_2$2.name, type: "if", source: "(114:4) {#if tags}", ctx });
+    	return block;
+    }
+
+    // (126:14) {#each tags as tag}
     function create_each_block_1$2(ctx) {
+    	var option, option_value_value;
+
+    	const block = {
+    		c: function create() {
+    			option = element("option");
+    			option.__value = option_value_value = ctx.tag;
+    			option.value = option.__value;
+    			add_location(option, file$a, 126, 14, 2903);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, option, anchor);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if ((changed.tags) && option_value_value !== (option_value_value = ctx.tag)) {
+    				prop_dev(option, "__value", option_value_value);
+    			}
+
+    			option.value = option.__value;
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(option);
+    			}
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$2.name, type: "each", source: "(126:14) {#each tags as tag}", ctx });
+    	return block;
+    }
+
+    // (133:6) {#if collections}
+    function create_if_block_1$4(ctx) {
+    	var div, h3, t1, p, t3, t4, button;
+
+    	let each_value = ctx.collections;
+
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block$4(get_each_context$4(ctx, each_value, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			h3 = element("h3");
+    			h3.textContent = "Collections";
+    			t1 = space();
+    			p = element("p");
+    			p.textContent = "All the collections you select here will be added to the images\r\n            appearing on the left.";
+    			t3 = space();
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			t4 = space();
+    			button = element("button");
+    			button.textContent = "Add images to the selected collections";
+    			attr_dev(h3, "class", "collection-title svelte-s1wnto");
+    			add_location(h3, file$a, 134, 10, 3142);
+    			add_location(p, file$a, 135, 10, 3199);
+    			attr_dev(div, "class", "collection-header svelte-s1wnto");
+    			add_location(div, file$a, 133, 8, 3099);
+    			add_location(button, file$a, 151, 8, 3732);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, h3);
+    			append_dev(div, t1);
+    			append_dev(div, p);
+    			insert_dev(target, t3, anchor);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(target, anchor);
+    			}
+
+    			insert_dev(target, t4, anchor);
+    			insert_dev(target, button, anchor);
+    		},
+
+    		p: function update(changed, ctx) {
+    			if (changed.collections) {
+    				each_value = ctx.collections;
+
+    				let i;
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context$4(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(changed, child_ctx);
+    					} else {
+    						each_blocks[i] = create_each_block$4(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(t4.parentNode, t4);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+    				each_blocks.length = each_value.length;
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div);
+    				detach_dev(t3);
+    			}
+
+    			destroy_each(each_blocks, detaching);
+
+    			if (detaching) {
+    				detach_dev(t4);
+    				detach_dev(button);
+    			}
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block_1$4.name, type: "if", source: "(133:6) {#if collections}", ctx });
+    	return block;
+    }
+
+    // (141:8) {#each collections as collection, i}
+    function create_each_block$4(ctx) {
+    	var div, input, t0, label, t1_value = ctx.collection + "", t1, dispose;
+
+    	function change_handler(...args) {
+    		return ctx.change_handler(ctx, ...args);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			input = element("input");
+    			t0 = space();
+    			label = element("label");
+    			t1 = text(t1_value);
+    			attr_dev(input, "type", "checkbox");
+    			attr_dev(input, "name", "collection-" + ctx.i);
+    			add_location(input, file$a, 142, 12, 3424);
+    			attr_dev(label, "class", "collection-label svelte-s1wnto");
+    			attr_dev(label, "for", "collection-" + ctx.i);
+    			add_location(label, file$a, 146, 12, 3584);
+    			add_location(div, file$a, 141, 10, 3405);
+    			dispose = listen_dev(input, "change", change_handler);
+    		},
+
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, input);
+    			append_dev(div, t0);
+    			append_dev(div, label);
+    			append_dev(label, t1);
+    		},
+
+    		p: function update(changed, new_ctx) {
+    			ctx = new_ctx;
+    			if ((changed.collections) && t1_value !== (t1_value = ctx.collection + "")) {
+    				set_data_dev(t1, t1_value);
+    			}
+    		},
+
+    		d: function destroy(detaching) {
+    			if (detaching) {
+    				detach_dev(div);
+    			}
+
+    			dispose();
+    		}
+    	};
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$4.name, type: "each", source: "(141:8) {#each collections as collection, i}", ctx });
+    	return block;
+    }
+
+    function create_fragment$a(ctx) {
     	var if_block_anchor;
 
     	function select_block_type(changed, ctx) {
-    		if (typeof ctx.image == 'string') return create_if_block_1$4;
+    		if (ctx.loadingImages) return create_if_block$5;
     		return create_else_block$5;
     	}
 
@@ -6773,6 +7280,10 @@ var app = (function () {
     		c: function create() {
     			if_block.c();
     			if_block_anchor = empty();
+    		},
+
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
 
     		m: function mount(target, anchor) {
@@ -6793,261 +7304,15 @@ var app = (function () {
     			}
     		},
 
+    		i: noop,
+    		o: noop,
+
     		d: function destroy(detaching) {
     			if_block.d(detaching);
 
     			if (detaching) {
     				detach_dev(if_block_anchor);
     			}
-    		}
-    	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$2.name, type: "each", source: "(94:4) {#each images as image}", ctx });
-    	return block;
-    }
-
-    // (107:4) {#if collections}
-    function create_if_block$5(ctx) {
-    	var h2, t_1, each_1_anchor;
-
-    	let each_value = ctx.collections;
-
-    	let each_blocks = [];
-
-    	for (let i = 0; i < each_value.length; i += 1) {
-    		each_blocks[i] = create_each_block$4(get_each_context$4(ctx, each_value, i));
-    	}
-
-    	const block = {
-    		c: function create() {
-    			h2 = element("h2");
-    			h2.textContent = "Collections";
-    			t_1 = space();
-
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].c();
-    			}
-
-    			each_1_anchor = empty();
-    			add_location(h2, file$a, 107, 6, 2244);
-    		},
-
-    		m: function mount(target, anchor) {
-    			insert_dev(target, h2, anchor);
-    			insert_dev(target, t_1, anchor);
-
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(target, anchor);
-    			}
-
-    			insert_dev(target, each_1_anchor, anchor);
-    		},
-
-    		p: function update(changed, ctx) {
-    			if (changed.collections) {
-    				each_value = ctx.collections;
-
-    				let i;
-    				for (i = 0; i < each_value.length; i += 1) {
-    					const child_ctx = get_each_context$4(ctx, each_value, i);
-
-    					if (each_blocks[i]) {
-    						each_blocks[i].p(changed, child_ctx);
-    					} else {
-    						each_blocks[i] = create_each_block$4(child_ctx);
-    						each_blocks[i].c();
-    						each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
-    					}
-    				}
-
-    				for (; i < each_blocks.length; i += 1) {
-    					each_blocks[i].d(1);
-    				}
-    				each_blocks.length = each_value.length;
-    			}
-    		},
-
-    		d: function destroy(detaching) {
-    			if (detaching) {
-    				detach_dev(h2);
-    				detach_dev(t_1);
-    			}
-
-    			destroy_each(each_blocks, detaching);
-
-    			if (detaching) {
-    				detach_dev(each_1_anchor);
-    			}
-    		}
-    	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$5.name, type: "if", source: "(107:4) {#if collections}", ctx });
-    	return block;
-    }
-
-    // (109:6) {#each collections as collection, i}
-    function create_each_block$4(ctx) {
-    	var div, input, t0, label, t1_value = ctx.collection + "", t1, t2, dispose;
-
-    	function change_handler(...args) {
-    		return ctx.change_handler(ctx, ...args);
-    	}
-
-    	const block = {
-    		c: function create() {
-    			div = element("div");
-    			input = element("input");
-    			t0 = space();
-    			label = element("label");
-    			t1 = text(t1_value);
-    			t2 = space();
-    			attr_dev(input, "type", "checkbox");
-    			attr_dev(input, "name", "collection-" + ctx.i);
-    			add_location(input, file$a, 110, 10, 2335);
-    			attr_dev(label, "class", "collection-label svelte-1ypkhp8");
-    			attr_dev(label, "for", "collection-" + ctx.i);
-    			add_location(label, file$a, 114, 10, 2487);
-    			add_location(div, file$a, 109, 8, 2318);
-    			dispose = listen_dev(input, "change", change_handler);
-    		},
-
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, input);
-    			append_dev(div, t0);
-    			append_dev(div, label);
-    			append_dev(label, t1);
-    			append_dev(div, t2);
-    		},
-
-    		p: function update(changed, new_ctx) {
-    			ctx = new_ctx;
-    			if ((changed.collections) && t1_value !== (t1_value = ctx.collection + "")) {
-    				set_data_dev(t1, t1_value);
-    			}
-    		},
-
-    		d: function destroy(detaching) {
-    			if (detaching) {
-    				detach_dev(div);
-    			}
-
-    			dispose();
-    		}
-    	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$4.name, type: "each", source: "(109:6) {#each collections as collection, i}", ctx });
-    	return block;
-    }
-
-    function create_fragment$a(ctx) {
-    	var div0, h3, t1, div3, div1, t2, div2;
-
-    	let each_value_1 = ctx.images;
-
-    	let each_blocks = [];
-
-    	for (let i = 0; i < each_value_1.length; i += 1) {
-    		each_blocks[i] = create_each_block_1$2(get_each_context_1$2(ctx, each_value_1, i));
-    	}
-
-    	var if_block = (ctx.collections) && create_if_block$5(ctx);
-
-    	const block = {
-    		c: function create() {
-    			div0 = element("div");
-    			h3 = element("h3");
-    			h3.textContent = "Multiple Images Editor";
-    			t1 = space();
-    			div3 = element("div");
-    			div1 = element("div");
-
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].c();
-    			}
-
-    			t2 = space();
-    			div2 = element("div");
-    			if (if_block) if_block.c();
-    			attr_dev(h3, "class", "collection-title svelte-1ypkhp8");
-    			add_location(h3, file$a, 89, 2, 1774);
-    			attr_dev(div0, "class", "collection-header svelte-1ypkhp8");
-    			add_location(div0, file$a, 88, 0, 1739);
-    			attr_dev(div1, "class", "images svelte-1ypkhp8");
-    			add_location(div1, file$a, 92, 2, 1864);
-    			attr_dev(div2, "class", "controls svelte-1ypkhp8");
-    			add_location(div2, file$a, 105, 2, 2191);
-    			attr_dev(div3, "class", "editor svelte-1ypkhp8");
-    			add_location(div3, file$a, 91, 0, 1840);
-    		},
-
-    		l: function claim(nodes) {
-    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
-    		},
-
-    		m: function mount(target, anchor) {
-    			insert_dev(target, div0, anchor);
-    			append_dev(div0, h3);
-    			insert_dev(target, t1, anchor);
-    			insert_dev(target, div3, anchor);
-    			append_dev(div3, div1);
-
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(div1, null);
-    			}
-
-    			append_dev(div3, t2);
-    			append_dev(div3, div2);
-    			if (if_block) if_block.m(div2, null);
-    		},
-
-    		p: function update(changed, ctx) {
-    			if (changed.images || changed.thumbnailToURL) {
-    				each_value_1 = ctx.images;
-
-    				let i;
-    				for (i = 0; i < each_value_1.length; i += 1) {
-    					const child_ctx = get_each_context_1$2(ctx, each_value_1, i);
-
-    					if (each_blocks[i]) {
-    						each_blocks[i].p(changed, child_ctx);
-    					} else {
-    						each_blocks[i] = create_each_block_1$2(child_ctx);
-    						each_blocks[i].c();
-    						each_blocks[i].m(div1, null);
-    					}
-    				}
-
-    				for (; i < each_blocks.length; i += 1) {
-    					each_blocks[i].d(1);
-    				}
-    				each_blocks.length = each_value_1.length;
-    			}
-
-    			if (ctx.collections) {
-    				if (if_block) {
-    					if_block.p(changed, ctx);
-    				} else {
-    					if_block = create_if_block$5(ctx);
-    					if_block.c();
-    					if_block.m(div2, null);
-    				}
-    			} else if (if_block) {
-    				if_block.d(1);
-    				if_block = null;
-    			}
-    		},
-
-    		i: noop,
-    		o: noop,
-
-    		d: function destroy(detaching) {
-    			if (detaching) {
-    				detach_dev(div0);
-    				detach_dev(t1);
-    				detach_dev(div3);
-    			}
-
-    			destroy_each(each_blocks, detaching);
-
-    			if (if_block) if_block.d();
     		}
     	};
     	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$a.name, type: "component", source: "", ctx });
@@ -7059,9 +7324,13 @@ var app = (function () {
     function instance$8($$self, $$props, $$invalidate) {
     	
 
+      let loadingImages = true;
       let collections;
       let tags;
+      let newTag = "";
       let images = [];
+
+      const addTag = () => {};
 
       const thumbnailToURL = t => {
         let i = t.replace("/images/", "");
@@ -7072,7 +7341,7 @@ var app = (function () {
         console.dir("view changed", i);
         if (i.view == "CollectionEditor") {
           getSelectors().then(selectors => {
-            tags = selectors.keywords;
+            $$invalidate('tags', tags = selectors.keywords);
             $$invalidate('collections', collections = selectors.collections);
             $$invalidate('images', images = i.data.images);
             console.log(images);
@@ -7082,12 +7351,18 @@ var app = (function () {
                 return r[`i${i}`];
               }));
               console.log("images", images);
+              $$invalidate('loadingImages', loadingImages = false);
             });
           });
         }
       });
 
       onDestroy(() => unsub());
+
+    	function input0_input_handler() {
+    		newTag = this.value;
+    		$$invalidate('newTag', newTag);
+    	}
 
     	const change_handler = ({ collection, i }, ev) => updateCollection(ev, collection, i);
 
@@ -7096,16 +7371,23 @@ var app = (function () {
     	};
 
     	$$self.$inject_state = $$props => {
+    		if ('loadingImages' in $$props) $$invalidate('loadingImages', loadingImages = $$props.loadingImages);
     		if ('collections' in $$props) $$invalidate('collections', collections = $$props.collections);
-    		if ('tags' in $$props) tags = $$props.tags;
+    		if ('tags' in $$props) $$invalidate('tags', tags = $$props.tags);
+    		if ('newTag' in $$props) $$invalidate('newTag', newTag = $$props.newTag);
     		if ('images' in $$props) $$invalidate('images', images = $$props.images);
     		if ('IMAGE_URL' in $$props) IMAGE_URL$3 = $$props.IMAGE_URL;
     	};
 
     	return {
+    		loadingImages,
     		collections,
+    		tags,
+    		newTag,
     		images,
+    		addTag,
     		thumbnailToURL,
+    		input0_input_handler,
     		change_handler
     	};
     }

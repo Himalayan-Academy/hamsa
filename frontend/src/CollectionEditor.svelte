@@ -12,10 +12,14 @@
   import { currentView, go } from "./navigation.js";
   import { onDestroy } from "svelte";
 
+  let loadingImages = true;
   let collections;
   let tags;
+  let newTag = "";
   let images = [];
   let IMAGE_URL = "//dev.himalayanacademy.com/hamsa-images";
+
+  const addTag = () => {}
 
   const thumbnailToURL = t => {
     let i = t.replace("/images/", "");
@@ -36,6 +40,7 @@
             return r[`i${i}`];
           });
           console.log("images", images);
+          loadingImages = false;
         });
       });
     }
@@ -63,7 +68,7 @@
   }
 
   .controls {
-      padding: 25px;
+    padding: 25px;
   }
 
   .collection-header {
@@ -86,37 +91,67 @@
   }
 </style>
 
-<div class="collection-header">
-  <h3 class="collection-title">Multiple Images Editor</h3>
-</div>
-<div class="editor">
-  <div class="images">
-    {#each images as image}
-      {#if typeof image == 'string'}
-        <figure>
-          <i class="fa fa-spinner fa-spin" />
-        </figure>
-      {:else}
-        <figure>
-          <img src={thumbnailToURL(image.thumbnail)} alt="" />
-        </figure>
-      {/if}
-    {/each}
+{#if loadingImages}
+  <div class="loading-wrapper">
+    <i class="fa fa-spinner fa-spin fa-3x" />
   </div>
-  <div class="controls">
-    {#if collections}
-      <h2>Collections</h2>
-      {#each collections as collection, i}
-        <div>
-          <input
-            type="checkbox"
-            on:change={ev => updateCollection(ev, collection, i)}
-            name="collection-{i}" />
-          <label class="collection-label" for="collection-{i}">
-            {collection}
-          </label>
-        </div>
+{:else}
+  <div class="editor">
+    <div class="images">
+      {#each images as image}
+        {#if typeof image == 'string'}
+          <figure>
+            <i class="fa fa-spinner fa-spin" />
+          </figure>
+        {:else}
+          <figure>
+            <img src={thumbnailToURL(image.thumbnail)} alt="" />
+          </figure>
+        {/if}
       {/each}
-    {/if}
+    </div>
+    <div class="controls">
+    {#if tags}
+        <div class="collection-header">
+          <h3 class="collection-title">Tags</h3>
+          <p>
+            The tags you add here will be added to the images
+            appearing on the left.
+          </p>
+        </div>
+        <form on:submit|preventDefault={addTag}>
+              <label for="newtag">New Tag:</label>
+              <input type="text" list="tag-list" id="newtag" bind:value={newTag} />
+              <datalist id="tag-list">
+              {#each tags as tag}
+              <option value="{tag}">
+              {/each}
+              </datalist>
+              <input type="submit" value="Add tag" />
+            </form>
+      {/if}
+      {#if collections}
+        <div class="collection-header">
+          <h3 class="collection-title">Collections</h3>
+          <p>
+            All the collections you select here will be added to the images
+            appearing on the left.
+          </p>
+        </div>
+        {#each collections as collection, i}
+          <div>
+            <input
+              type="checkbox"
+              on:change={ev => updateCollection(ev, collection, i)}
+              name="collection-{i}" />
+            <label class="collection-label" for="collection-{i}">
+              {collection}
+            </label>
+          </div>
+        {/each}
+        <button>Add images to the selected collections</button>
+      {/if}
+      
+    </div>
   </div>
-</div>
+{/if}
