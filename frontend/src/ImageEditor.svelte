@@ -334,11 +334,17 @@
         <img src={toImageURL(image.medpath)} alt={image.metadata.description} />
         {#if !updatingText}
         <form on:submit|preventDefault={updateCaptionAndDescription}>
-          <label for="caption">Caption</label>
+          <label for="caption">Caption <i>(IPTC:Caption-Abstract)</i></label>
           <textarea name="caption" class="caption" bind:value={caption}></textarea>
-          <label for="description">Description</label>
+          <label for="description">Description <i>(EXIF:ImageDescription and XMP:Description)</i></label>
           <textarea rows="10" name="description" class="description" bind:value={description}></textarea>
           <input type="submit" value="Save Caption &amp; Description" />
+          <p>
+          Be aware that HAMSA uses only description, it doesn't expose caption to the readers. Caption is editable so that other applications can query for it in the future.
+          </p>
+          <p>
+          The plan is that <i>caption</i> is a short description and <i>description</i> is a longer description.
+          </p>
         </form>
         {:else}
         <div class="loading-wrapper">
