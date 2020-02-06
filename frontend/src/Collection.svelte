@@ -272,13 +272,17 @@
         </div>
       </div>
     {:else if $loggedIn}
-      <span
-        class="editor-trigger"
-        on:click={() => {
-          go('CollectionEditor', { images: [...selectedImages] });
-        }}>
-        (Edit Selected Images)
-      </span>
+      <div class="collection-header">
+        <h3 class="collection-title">
+          <span
+            class="editor-trigger"
+            on:click={() => {
+              go('CollectionEditor', { images: [...selectedImages] });
+            }}>
+            (Edit Selected Images)
+          </span>
+        </h3>
+      </div>
     {/if}
 
     <div class="collection">
