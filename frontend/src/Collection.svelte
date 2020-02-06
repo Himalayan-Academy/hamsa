@@ -191,6 +191,51 @@
     font-size: 12px;
     cursor: pointer;
   }
+
+  .checkbox {
+    display: inline-flex;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .checkbox > span {
+    color: #34495e;
+    padding: 0.5rem 0.25rem;
+  }
+
+  .checkbox > input {
+    height: 25px;
+    width: 25px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    border: 1px solid #34495e;
+    border-radius: 4px;
+    outline: none;
+    transition-duration: 0.3s;
+    background-color: #41b883;
+    cursor: pointer;
+  }
+
+  .checkbox > input:checked {
+    border: 1px solid #41b883;
+    background-color: #34495e;
+  }
+
+  .checkbox > input:checked + span::before {
+    content: "\2713";
+    display: block;
+    text-align: center;
+    color: #41b883;
+    position: absolute;
+    left: 0.5rem;
+    top: 0.1rem;
+  }
+
+  .checkbox > input:active {
+    border: 2px solid #34495e;
+  }
 </style>
 
 <div>
@@ -226,6 +271,14 @@
           </p>
         </div>
       </div>
+    {:else if $loggedIn}
+      <span
+        class="editor-trigger"
+        on:click={() => {
+          go('CollectionEditor', { images: [...selectedImages] });
+        }}>
+        (Edit Selected Images)
+      </span>
     {/if}
 
     <div class="collection">
@@ -234,16 +287,19 @@
         {#each images as item}
           <div class="gi">
             {#if $loggedIn}
-              <input
-                type="checkbox"
-                on:click|stopPropagation={ev => {
-                  if (ev.target.checked) {
-                    selectImage(item.checksum);
-                  } else {
-                    unselectImage(item.checksum);
-                  }
-                  console.log(selectedImages);
-                }} />
+              <label class="checkbox">
+                <input
+                  type="checkbox"
+                  on:click|stopPropagation={ev => {
+                    if (ev.target.checked) {
+                      selectImage(item.checksum);
+                    } else {
+                      unselectImage(item.checksum);
+                    }
+                    console.log(selectedImages);
+                  }} />
+                <span />
+              </label>
             {/if}
             <figure on:click={() => go('Image', { checksum: item.checksum })}>
               <img src={thumbnailToURL(item.thumbnail)} alt="" />
