@@ -70,15 +70,15 @@ function exiftool_add_value($path, $key, $value) {
     return trim($res) == "1 image files updated";
 }
 
-function setImageCaption($path, $caption) {
+function setImageNotes($path, $notes) {
     if (!file_exists($path)) {
         return false;
     }
 
     // needs to set the following groups/properties:
-    // IPTC:Caption-Abstract
+    // IPTC:DocumentNotes
 
-    $res = exiftool_set_value($path, "IPTC:Caption-Abstract", $caption);
+    $res = exiftool_set_value($path, "IPTC:DocumentNotes", $notes);
 
     if ($res) {
         return true;
@@ -96,13 +96,16 @@ function setImageDescription($path, $description) {
     // needs to set the following groups/properties:
     // EXIF:ImageDescription
     // XMP:Description
+    // IPTC:Caption-Abstract
 
     
     $res1 = exiftool_set_value($path, "EXIF:ImageDescription", $description);
     $res2 = exiftool_set_value($path, "XMP:Description", $description);
+    $res3 = exiftool_set_value($path, "IPTC:Caption-Abstract", $description);
 
 
-    if ($res1 && $res2) {
+
+    if ($res1 && $res2 && $res3) {
         return true;
     } else {
         return false;

@@ -99,10 +99,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
                 }
             ],
             'date' => Type::string(),
-            'caption' => [
+            'notes' => [
                 'type' => Type::string(),
                 'resolve' => function($meta) {
-                    return isset($meta["Caption-Abstract"]) ? $meta["Caption-Abstract"] : "";
+                    return isset($meta["DocumentNotes"]) ? $meta["DocumentNotes"] : "";
                 }
             ],
             'description' => [
@@ -393,31 +393,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
         $mutationType = new ObjectType([
             'name' => 'Mutation',
             'fields' => [
-                'setImageCaption' => [
+                'setImageNotes' => [
                     'type' => $imageType,
-                    'description' => 'Set image caption.',
+                    'description' => 'Set image notes.',
                     'args' => [
                         'email' => Type::string(),
                         'password' => Type::string(),
                         'checksum' => Type::string(),
-                        'caption' => Type::string()
+                        'notes' => Type::string()
                     ],
                     'resolve' => function ($root, $args) {
                         if (!check_credentials($args["email"], $args["password"])) {
                             return "Error: bad credentials";
                         }
 
-                        if (empty($args["checksum"]) || empty($args["caption"])) {
-                            return "Error: must pass both checksum and caption";
+                        if (empty($args["checksum"]) || empty($args["notes"])) {
+                            return "Error: must pass both checksum and notes";
                         }
 
-                        $res = image_set_caption($args["checksum"], $args["caption"]);
+                        $res = image_set_notes($args["checksum"], $args["notes"]);
                         if ($res["res"]) {
-                            error_log("GraphQL setImageCaption: $res[md5]");
+                            error_log("GraphQL setImageNotes: $res[md5]");
                             $image = image_get($res["md5"]);
                             return $image[0];
                         } else {
-                            throw "Error: Can't set caption";
+                            throw "Error: Can't set notes";
                         }
                     }
                 ],

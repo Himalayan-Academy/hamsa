@@ -105,10 +105,10 @@ function image_set_description($checksum, $description) {
     return Array("res" => $res, "md5" => $md5);
 }
 
-function image_set_caption($checksum, $caption) {
+function image_set_notes($checksum, $notes) {
     $image = image_get($checksum);
     $path = str_replace("/var/www/html", "", $image[0]["path"]);
-    $res = setImageCaption($path, $caption);
+    $res = setImageNotes($path, $notes);
     $md5 = processImage($path, true);
    
     return Array("res" => $res, "md5" => $md5);
