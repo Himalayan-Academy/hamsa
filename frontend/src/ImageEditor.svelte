@@ -227,7 +227,7 @@
     console.dir("view changed", i);
     if (i.view == "ImageEditor") {
       getSelectors().then(selectors => {
-        tags = selectors.keywords
+        tags = selectors.keywords.sort()
         collections = selectors.collections
         refreshImage(i.data);
       });
@@ -378,14 +378,13 @@
             </div>
           {:else}
             <form on:submit|preventDefault={addTag}>
-              <label for="newtag">New Tag:</label>
-              <input type="text" list="tag-list" id="newtag" bind:value={newTag} />
-              <datalist id="tag-list">
+              <label for="newtag">Add Tag:</label>
+              <select bind:value={newTag}>
               {#each tags as tag}
-              <option value="{tag}">
+              <option value="{tag}">{tag}</option>
               {/each}
-              </datalist>
-              <input type="submit" value="Add tag" />
+              </select>
+              <input type="submit" value="Assign tag" />
               <h2>Collections</h2>
               {#each collections as collection, i}
               <div>

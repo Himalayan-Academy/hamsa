@@ -103,6 +103,19 @@ var app = (function () {
     function set_style(node, key, value, important) {
         node.style.setProperty(key, value, important ? 'important' : '');
     }
+    function select_option(select, value) {
+        for (let i = 0; i < select.options.length; i += 1) {
+            const option = select.options[i];
+            if (option.__value === value) {
+                option.selected = true;
+                return;
+            }
+        }
+    }
+    function select_value(select) {
+        const selected_option = select.querySelector(':checked') || select.options[0];
+        return selected_option && selected_option.__value;
+    }
     function toggle_class(element, name, toggle) {
         element.classList[toggle ? 'add' : 'remove'](name);
     }
@@ -5510,7 +5523,7 @@ var app = (function () {
     			p = element("p");
     			t = text(ctx.error);
     			attr_dev(p, "class", "error svelte-848o4h");
-    			add_location(p, file$9, 313, 2, 7748);
+    			add_location(p, file$9, 313, 2, 7755);
     		},
 
     		m: function mount(target, anchor) {
@@ -5597,27 +5610,27 @@ var app = (function () {
     			if_block1.c();
     			attr_dev(img, "src", img_src_value = ctx.toImageURL(ctx.image.medpath));
     			attr_dev(img, "alt", img_alt_value = ctx.image.metadata.description);
-    			add_location(img, file$9, 333, 8, 8395);
+    			add_location(img, file$9, 333, 8, 8402);
     			attr_dev(div0, "class", "single-image");
-    			add_location(div0, file$9, 332, 6, 8359);
+    			add_location(div0, file$9, 332, 6, 8366);
     			attr_dev(i, "class", "far fa-user fa-lg");
-    			add_location(i, file$9, 358, 10, 9704);
-    			add_location(h20, file$9, 359, 10, 9747);
+    			add_location(i, file$9, 358, 10, 9711);
+    			add_location(h20, file$9, 359, 10, 9754);
     			attr_dev(div1, "class", "author svelte-848o4h");
-    			add_location(div1, file$9, 355, 8, 9581);
+    			add_location(div1, file$9, 355, 8, 9588);
     			attr_dev(div2, "class", "dotted");
-    			add_location(div2, file$9, 361, 8, 9805);
-    			add_location(h21, file$9, 363, 10, 9867);
-    			add_location(br0, file$9, 372, 10, 10142);
-    			add_location(br1, file$9, 373, 10, 10160);
+    			add_location(div2, file$9, 361, 8, 9812);
+    			add_location(h21, file$9, 363, 10, 9874);
+    			add_location(br0, file$9, 372, 10, 10149);
+    			add_location(br1, file$9, 373, 10, 10167);
     			attr_dev(div3, "class", "tags");
-    			add_location(div3, file$9, 362, 8, 9837);
+    			add_location(div3, file$9, 362, 8, 9844);
     			attr_dev(div4, "class", "metadata");
-    			add_location(div4, file$9, 354, 6, 9549);
+    			add_location(div4, file$9, 354, 6, 9556);
     			attr_dev(div5, "class", "single-image-wrapper svelte-848o4h");
-    			add_location(div5, file$9, 331, 4, 8317);
+    			add_location(div5, file$9, 331, 4, 8324);
     			attr_dev(div6, "class", "image-view-container svelte-848o4h");
-    			add_location(div6, file$9, 330, 2, 8277);
+    			add_location(div6, file$9, 330, 2, 8284);
     			dispose = listen_dev(div1, "click", ctx.click_handler);
     		},
 
@@ -5738,9 +5751,9 @@ var app = (function () {
     			div = element("div");
     			i = element("i");
     			attr_dev(i, "class", "fa fa-spinner fa-spin fa-3x");
-    			add_location(i, file$9, 327, 4, 8213);
+    			add_location(i, file$9, 327, 4, 8220);
     			attr_dev(div, "class", "loading-wrapper");
-    			add_location(div, file$9, 326, 2, 8178);
+    			add_location(div, file$9, 326, 2, 8185);
     		},
 
     		m: function mount(target, anchor) {
@@ -5783,22 +5796,22 @@ var app = (function () {
     			br = element("br");
     			t8 = space();
     			input2 = element("input");
-    			add_location(p, file$9, 316, 2, 7804);
+    			add_location(p, file$9, 316, 2, 7811);
     			attr_dev(label0, "for", "email");
-    			add_location(label0, file$9, 318, 4, 7885);
+    			add_location(label0, file$9, 318, 4, 7892);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "id", "email");
-    			add_location(input0, file$9, 319, 4, 7924);
+    			add_location(input0, file$9, 319, 4, 7931);
     			attr_dev(label1, "for", "password");
-    			add_location(label1, file$9, 320, 4, 7981);
+    			add_location(label1, file$9, 320, 4, 7988);
     			attr_dev(input1, "type", "password");
     			attr_dev(input1, "id", "password");
-    			add_location(input1, file$9, 321, 4, 8026);
-    			add_location(br, file$9, 322, 4, 8093);
+    			add_location(input1, file$9, 321, 4, 8033);
+    			add_location(br, file$9, 322, 4, 8100);
     			attr_dev(input2, "type", "submit");
     			input2.value = "log in";
-    			add_location(input2, file$9, 323, 4, 8105);
-    			add_location(form, file$9, 317, 2, 7829);
+    			add_location(input2, file$9, 323, 4, 8112);
+    			add_location(form, file$9, 317, 2, 7836);
 
     			dispose = [
     				listen_dev(input0, "input", ctx.input0_input_handler),
@@ -5858,9 +5871,9 @@ var app = (function () {
     			div = element("div");
     			i = element("i");
     			attr_dev(i, "class", "fa fa-spinner fa-spin fa-3x");
-    			add_location(i, file$9, 350, 10, 9455);
+    			add_location(i, file$9, 350, 10, 9462);
     			attr_dev(div, "class", "loading-wrapper");
-    			add_location(div, file$9, 349, 8, 9414);
+    			add_location(div, file$9, 349, 8, 9421);
     		},
 
     		m: function mount(target, anchor) {
@@ -5914,27 +5927,27 @@ var app = (function () {
     			i3 = element("i");
     			i3.textContent = "description";
     			t15 = text(" is a longer description.");
-    			add_location(i0, file$9, 336, 39, 8608);
+    			add_location(i0, file$9, 336, 39, 8615);
     			attr_dev(label0, "for", "caption");
-    			add_location(label0, file$9, 336, 10, 8579);
+    			add_location(label0, file$9, 336, 10, 8586);
     			attr_dev(textarea0, "name", "caption");
     			attr_dev(textarea0, "class", "caption svelte-848o4h");
-    			add_location(textarea0, file$9, 337, 10, 8658);
-    			add_location(i1, file$9, 338, 47, 8780);
+    			add_location(textarea0, file$9, 337, 10, 8665);
+    			add_location(i1, file$9, 338, 47, 8787);
     			attr_dev(label1, "for", "description");
-    			add_location(label1, file$9, 338, 10, 8743);
+    			add_location(label1, file$9, 338, 10, 8750);
     			attr_dev(textarea1, "rows", "10");
     			attr_dev(textarea1, "name", "description");
     			attr_dev(textarea1, "class", "description svelte-848o4h");
-    			add_location(textarea1, file$9, 339, 10, 8850);
+    			add_location(textarea1, file$9, 339, 10, 8857);
     			attr_dev(input, "type", "submit");
     			input.value = "Save Caption & Description";
-    			add_location(input, file$9, 340, 10, 8957);
-    			add_location(p0, file$9, 341, 10, 9031);
-    			add_location(i2, file$9, 345, 27, 9269);
-    			add_location(i3, file$9, 345, 69, 9311);
-    			add_location(p1, file$9, 344, 10, 9237);
-    			add_location(form, file$9, 335, 8, 8506);
+    			add_location(input, file$9, 340, 10, 8964);
+    			add_location(p0, file$9, 341, 10, 9038);
+    			add_location(i2, file$9, 345, 27, 9276);
+    			add_location(i3, file$9, 345, 69, 9318);
+    			add_location(p1, file$9, 344, 10, 9244);
+    			add_location(form, file$9, 335, 8, 8513);
 
     			dispose = [
     				listen_dev(textarea0, "input", ctx.textarea0_input_handler),
@@ -6007,7 +6020,7 @@ var app = (function () {
     			t1 = text(" | x");
     			attr_dev(span, "tooltip", "click to delete");
     			attr_dev(span, "class", "tag svelte-848o4h");
-    			add_location(span, file$9, 365, 12, 9944);
+    			add_location(span, file$9, 365, 12, 9951);
     			dispose = listen_dev(span, "click", click_handler_1);
     		},
 
@@ -6038,7 +6051,7 @@ var app = (function () {
 
     // (379:10) {:else}
     function create_else_block_1$1(ctx) {
-    	var form, label, t1, input0, t2, datalist, t3, input1, t4, h2, t6, dispose;
+    	var form, label, t1, select, t2, input, t3, h2, t5, dispose;
 
     	let each_value_1 = ctx.tags;
 
@@ -6060,42 +6073,36 @@ var app = (function () {
     		c: function create() {
     			form = element("form");
     			label = element("label");
-    			label.textContent = "New Tag:";
+    			label.textContent = "Add Tag:";
     			t1 = space();
-    			input0 = element("input");
-    			t2 = space();
-    			datalist = element("datalist");
+    			select = element("select");
 
     			for (let i = 0; i < each_blocks_1.length; i += 1) {
     				each_blocks_1[i].c();
     			}
 
+    			t2 = space();
+    			input = element("input");
     			t3 = space();
-    			input1 = element("input");
-    			t4 = space();
     			h2 = element("h2");
     			h2.textContent = "Collections";
-    			t6 = space();
+    			t5 = space();
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
     			attr_dev(label, "for", "newtag");
-    			add_location(label, file$9, 380, 14, 10372);
-    			attr_dev(input0, "type", "text");
-    			attr_dev(input0, "list", "tag-list");
-    			attr_dev(input0, "id", "newtag");
-    			add_location(input0, file$9, 381, 14, 10424);
-    			attr_dev(datalist, "id", "tag-list");
-    			add_location(datalist, file$9, 382, 14, 10509);
-    			attr_dev(input1, "type", "submit");
-    			input1.value = "Add tag";
-    			add_location(input1, file$9, 387, 14, 10672);
-    			add_location(h2, file$9, 388, 14, 10727);
-    			add_location(form, file$9, 379, 12, 10316);
+    			add_location(label, file$9, 380, 14, 10379);
+    			if (ctx.newTag === void 0) add_render_callback(() => ctx.select_change_handler.call(select));
+    			add_location(select, file$9, 381, 14, 10431);
+    			attr_dev(input, "type", "submit");
+    			input.value = "Assign tag";
+    			add_location(input, file$9, 386, 14, 10610);
+    			add_location(h2, file$9, 387, 14, 10668);
+    			add_location(form, file$9, 379, 12, 10323);
 
     			dispose = [
-    				listen_dev(input0, "input", ctx.input0_input_handler_1),
+    				listen_dev(select, "change", ctx.select_change_handler),
     				listen_dev(form, "submit", prevent_default(ctx.addTag), false, true)
     			];
     		},
@@ -6104,22 +6111,19 @@ var app = (function () {
     			insert_dev(target, form, anchor);
     			append_dev(form, label);
     			append_dev(form, t1);
-    			append_dev(form, input0);
-
-    			set_input_value(input0, ctx.newTag);
-
-    			append_dev(form, t2);
-    			append_dev(form, datalist);
+    			append_dev(form, select);
 
     			for (let i = 0; i < each_blocks_1.length; i += 1) {
-    				each_blocks_1[i].m(datalist, null);
+    				each_blocks_1[i].m(select, null);
     			}
 
+    			select_option(select, ctx.newTag);
+
+    			append_dev(form, t2);
+    			append_dev(form, input);
     			append_dev(form, t3);
-    			append_dev(form, input1);
-    			append_dev(form, t4);
     			append_dev(form, h2);
-    			append_dev(form, t6);
+    			append_dev(form, t5);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(form, null);
@@ -6127,8 +6131,6 @@ var app = (function () {
     		},
 
     		p: function update(changed, ctx) {
-    			if (changed.newTag && (input0.value !== ctx.newTag)) set_input_value(input0, ctx.newTag);
-
     			if (changed.tags) {
     				each_value_1 = ctx.tags;
 
@@ -6141,7 +6143,7 @@ var app = (function () {
     					} else {
     						each_blocks_1[i] = create_each_block_1$1(child_ctx);
     						each_blocks_1[i].c();
-    						each_blocks_1[i].m(datalist, null);
+    						each_blocks_1[i].m(select, null);
     					}
     				}
 
@@ -6150,6 +6152,8 @@ var app = (function () {
     				}
     				each_blocks_1.length = each_value_1.length;
     			}
+
+    			if (changed.newTag) select_option(select, ctx.newTag);
 
     			if (changed.collections || changed.activeCollections) {
     				each_value = ctx.collections;
@@ -6199,8 +6203,8 @@ var app = (function () {
     			div = element("div");
     			i = element("i");
     			attr_dev(i, "class", "fa fa-spinner fa-spin");
-    			add_location(i, file$9, 376, 14, 10228);
-    			add_location(div, file$9, 375, 12, 10207);
+    			add_location(i, file$9, 376, 14, 10235);
+    			add_location(div, file$9, 375, 12, 10214);
     		},
 
     		m: function mount(target, anchor) {
@@ -6220,23 +6224,29 @@ var app = (function () {
     	return block;
     }
 
-    // (384:14) {#each tags as tag}
+    // (383:14) {#each tags as tag}
     function create_each_block_1$1(ctx) {
-    	var option, option_value_value;
+    	var option, t_value = ctx.tag + "", t, option_value_value;
 
     	const block = {
     		c: function create() {
     			option = element("option");
+    			t = text(t_value);
     			option.__value = option_value_value = ctx.tag;
     			option.value = option.__value;
-    			add_location(option, file$9, 384, 14, 10584);
+    			add_location(option, file$9, 383, 14, 10510);
     		},
 
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
+    			append_dev(option, t);
     		},
 
     		p: function update(changed, ctx) {
+    			if ((changed.tags) && t_value !== (t_value = ctx.tag + "")) {
+    				set_data_dev(t, t_value);
+    			}
+
     			if ((changed.tags) && option_value_value !== (option_value_value = ctx.tag)) {
     				prop_dev(option, "__value", option_value_value);
     			}
@@ -6250,11 +6260,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$1.name, type: "each", source: "(384:14) {#each tags as tag}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block_1$1.name, type: "each", source: "(383:14) {#each tags as tag}", ctx });
     	return block;
     }
 
-    // (390:14) {#each collections as collection, i}
+    // (389:14) {#each collections as collection, i}
     function create_each_block$3(ctx) {
     	var div, input, t0, label, t1_value = ctx.collection + "", t1, t2, dispose;
 
@@ -6276,11 +6286,11 @@ var app = (function () {
     			t2 = space();
     			attr_dev(input, "type", "checkbox");
     			attr_dev(input, "name", "collection-" + ctx.i);
-    			add_location(input, file$9, 391, 14, 10836);
+    			add_location(input, file$9, 390, 14, 10777);
     			attr_dev(label, "class", "collection-label svelte-848o4h");
     			attr_dev(label, "for", "collection-" + ctx.i);
-    			add_location(label, file$9, 396, 14, 11051);
-    			add_location(div, file$9, 390, 14, 10815);
+    			add_location(label, file$9, 395, 14, 10992);
+    			add_location(div, file$9, 389, 14, 10756);
 
     			dispose = [
     				listen_dev(input, "change", input_change_handler),
@@ -6317,7 +6327,7 @@ var app = (function () {
     			run_all(dispose);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$3.name, type: "each", source: "(390:14) {#each collections as collection, i}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$3.name, type: "each", source: "(389:14) {#each collections as collection, i}", ctx });
     	return block;
     }
 
@@ -6346,9 +6356,9 @@ var app = (function () {
     			if_block1.c();
     			if_block1_anchor = empty();
     			attr_dev(h3, "class", "collection-title svelte-848o4h");
-    			add_location(h3, file$9, 310, 2, 7677);
+    			add_location(h3, file$9, 310, 2, 7684);
     			attr_dev(div, "class", "collection-header svelte-848o4h");
-    			add_location(div, file$9, 309, 0, 7642);
+    			add_location(div, file$9, 309, 0, 7649);
     		},
 
     		l: function claim(nodes) {
@@ -6629,7 +6639,7 @@ var app = (function () {
         console.dir("view changed", i);
         if (i.view == "ImageEditor") {
           getSelectors().then(selectors => {
-            $$invalidate('tags', tags = selectors.keywords);
+            $$invalidate('tags', tags = selectors.keywords.sort());
             $$invalidate('collections', collections = selectors.collections);
             refreshImage(i.data);
           });
@@ -6667,9 +6677,10 @@ var app = (function () {
 
     	const click_handler_1 = ({ tag }) => deleteTag(tag);
 
-    	function input0_input_handler_1() {
-    		newTag = this.value;
+    	function select_change_handler() {
+    		newTag = select_value(this);
     		$$invalidate('newTag', newTag);
+    		$$invalidate('tags', tags);
     	}
 
     	function input_change_handler({ i }) {
@@ -6734,7 +6745,7 @@ var app = (function () {
     		textarea1_input_handler,
     		click_handler,
     		click_handler_1,
-    		input0_input_handler_1,
+    		select_change_handler,
     		input_change_handler,
     		change_handler
     	};
