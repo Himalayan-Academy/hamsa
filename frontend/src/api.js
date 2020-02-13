@@ -85,6 +85,7 @@ export const addImageTag = async (email, password, checksum, tag) => {
         checksum
         path
         medpath
+        thumbnail
         width
         height
         metadata {

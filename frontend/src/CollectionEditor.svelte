@@ -13,13 +13,75 @@
   import { onDestroy } from "svelte";
 
   let loadingImages = true;
+  let addingTag = false;
   let collections;
   let tags;
   let newTag = "";
   let images = [];
   let IMAGE_URL = "//dev.himalayanacademy.com/hamsa-images";
+  let email;
+  let password;
 
-  const addTag = () => {}
+  const savedCredentials = () => {
+    if (
+      sessionStorage.getItem("email") !== null &&
+      sessionStorage.getItem("password") !== null
+    ) {
+      email = sessionStorage.getItem("email");
+      password = sessionStorage.getItem("password");
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const updateCollection = (ev, collection, i) => {
+    if (ev.target.checked) {
+      newTag = collection;
+    } 
+    console.log()
+  };
+
+  const addCollection = () => {
+    if (newTag.length <= 2) {
+      alert("Can't add collections that short.");
+      return false;
+    }
+
+    addingTag = true;
+    newTag = `Collection ${newTag}`;
+
+    let res = images.map(i => addImageTag(email, password, i.checksum, newTag));
+
+    Promise.all(res)
+      .then(res2 => {
+        console.log(res2)
+        console.log("images old", images)
+        images = res2.map(r => r.addImageTag)
+        console.log("images new", images)
+
+        let snip = images.map(i=> `&images=${i.checksum}`).join("")
+
+        history.replaceState(
+            { images },
+            `Editing Images: ${images}`,
+            `${location.pathname}?view=CollectionEditor${snip}`
+          );
+
+        getSelectors().then(selectors => {
+          tags = selectors.keywords;
+          collections = selectors.collections;
+          addingTag = false;
+        });
+
+        newTag = "";
+      })
+      .catch(n => {
+        console.error(n);
+        error = n.map(e => e.message).join(`. `);
+        addingTag = false;
+      });
+  };
 
   const thumbnailToURL = t => {
     let i = t.replace("/images/", "");
@@ -45,6 +107,8 @@
       });
     }
   });
+
+  savedCredentials();
 
   onDestroy(() => unsub());
 </script>
@@ -111,24 +175,23 @@
       {/each}
     </div>
     <div class="controls">
-    {#if tags}
+      {#if tags}
         <div class="collection-header">
-          <h3 class="collection-title">Tags</h3>
+          <h3 class="collection-title">Add new collection</h3>
           <p>
-            The tags you add here will be added to the images
-            appearing on the left.
+            The collections you add here will be added to the images appearing
+            on the left.
           </p>
         </div>
-        <form on:submit|preventDefault={addTag}>
-              <label for="newtag">New Tag:</label>
-              <input type="text" list="tag-list" id="newtag" bind:value={newTag} />
-              <datalist id="tag-list">
-              {#each tags as tag}
-              <option value="{tag}">
-              {/each}
-              </datalist>
-              <input type="submit" value="Add tag" />
-            </form>
+        {#if addingTag}
+          <i class="fa fa-spinner fa-spin" />
+        {:else}
+          <form on:submit|preventDefault={addCollection}>
+            <label for="newtag">Add New Collection:</label>
+            <input type="text" id="newtag" bind:value={newTag} />
+            <input type="submit" value="Assign collection" />
+          </form>
+        {/if}
       {/if}
       {#if collections}
         <div class="collection-header">
@@ -141,17 +204,24 @@
         {#each collections as collection, i}
           <div>
             <input
-              type="checkbox"
+              type="radio"
+              name="collection"
               on:change={ev => updateCollection(ev, collection, i)}
-              name="collection-{i}" />
+              id="collection-{i}" />
             <label class="collection-label" for="collection-{i}">
               {collection}
             </label>
           </div>
         {/each}
-        <button>Add images to the selected collections</button>
+        {#if addingTag}
+          <i class="fa fa-spinner fa-spin" />
+        {:else}
+          <button on:click={addCollection}>
+            Assign the selected collections to the images on the left
+          </button>
+        {/if}
       {/if}
-      
+
     </div>
   </div>
 {/if}
