@@ -1,7 +1,7 @@
 <style>
   .hero {
     position: relative;
-    height: 370px;
+    height: 250px;
     max-height: 370px;
     overflow: hidden;
   }
@@ -9,10 +9,11 @@
   .hero1 {
     position: absolute;
     left: 0px;
+    top: -50px;
     background-color: #000;
     overflow: hidden;
     width: 100%;
-    height: 370px;
+    height: 300px;
     max-width: 100%;
     background-image: url(images/hero2.jpg);
     background-size: fill;
@@ -23,11 +24,12 @@
   .hero2 {
     position: absolute;
     left: 0px;
+    top: -50px;
     background-color: #005aa0;
     overflow: hidden;
     width: 100%;
     max-width: 100%;
-    height: 370px;
+    height: 300px;
     background-size: fill;
     background-repeat: no-repeat;
     background-position: center;

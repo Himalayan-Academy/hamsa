@@ -34,9 +34,20 @@
     padding: 0;
     margin: 0;
   }
+
+  input.search::placeholder {
+    font-size: 1.1em;
+    padding-left: 8px;
+    font-family: sans-serif;
+    color: #783441;
+  }
 </style>
 
 <div class="round-wrapper is-search-box">
-  <input class="search" placeholder="Search" bind:value={query} on:keydown={search} />
+  <input
+    class="search"
+    placeholder="Search"
+    bind:value={query}
+    on:keydown={search} />
   <i class="fa fa-search" />
 </div>

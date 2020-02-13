@@ -129,7 +129,7 @@ header {
 
   @include respond-above(md) {
     img.hamsa-logo {
-      margin-left: 120px;
+      margin-left: 80px;
       z-index: 9999;
       border: solid 2px white;
       border-top: none;
@@ -145,7 +145,7 @@ header {
 
   @include respond-above(md) {
     img.monastery-logo {
-      margin-right: 120px;
+      margin-right: 80px;
       z-index: 9999;
       margin-left: auto;
     }

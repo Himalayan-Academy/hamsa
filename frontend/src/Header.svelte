@@ -53,7 +53,7 @@ let email = false;
     </a>
     <div class="monastery-header-text">
       <h1 class="title">Himalayan Academy</h1>
-      <h2 class="subtitle">Museum of Spiritual Arts</h2>
+      <h2 class="subtitle">Museum of Spiritual Art</h2>
       <div style="flex: auto" />
     </div>
     <a href="/" class="monastery-logo">

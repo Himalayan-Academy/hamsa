@@ -1129,7 +1129,7 @@ var app = (function () {
     			span = element("span");
     			t = text(t_value);
     			attr_dev(span, "class", "svelte-1ahide6");
-    			add_location(span, file$1, 72, 6, 1476);
+    			add_location(span, file$1, 72, 6, 1475);
     		},
 
     		m: function mount(target, anchor) {
@@ -1156,7 +1156,7 @@ var app = (function () {
     			span = element("span");
     			span.textContent = "ॐ";
     			attr_dev(span, "class", "svelte-1ahide6");
-    			add_location(span, file$1, 70, 6, 1439);
+    			add_location(span, file$1, 70, 6, 1438);
     		},
 
     		m: function mount(target, anchor) {
@@ -1236,7 +1236,7 @@ var app = (function () {
     			h1.textContent = "Himalayan Academy";
     			t2 = space();
     			h2 = element("h2");
-    			h2.textContent = "Museum of Spiritual Arts";
+    			h2.textContent = "Museum of Spiritual Art";
     			t4 = space();
     			div0 = element("div");
     			t5 = space();
@@ -1259,18 +1259,18 @@ var app = (function () {
     			attr_dev(h2, "class", "subtitle");
     			add_location(h2, file$1, 55, 6, 1036);
     			set_style(div0, "flex", "auto");
-    			add_location(div0, file$1, 56, 6, 1094);
+    			add_location(div0, file$1, 56, 6, 1093);
     			attr_dev(div1, "class", "monastery-header-text");
     			add_location(div1, file$1, 53, 4, 945);
     			attr_dev(img1, "class", "monastery-logo svelte-1ahide6");
     			attr_dev(img1, "src", "images/monastery-logo.png");
     			attr_dev(img1, "alt", "Monastery Logo");
-    			add_location(img1, file$1, 59, 6, 1181);
+    			add_location(img1, file$1, 59, 6, 1180);
     			attr_dev(a1, "href", "/");
     			attr_dev(a1, "class", "monastery-logo svelte-1ahide6");
-    			add_location(a1, file$1, 58, 4, 1138);
+    			add_location(a1, file$1, 58, 4, 1137);
     			attr_dev(div2, "class", "aum-glyph svelte-1ahide6");
-    			add_location(div2, file$1, 64, 4, 1307);
+    			add_location(div2, file$1, 64, 4, 1306);
     			add_location(header, file$1, 46, 2, 775);
     			add_location(div3, file$1, 45, 0, 766);
     			dispose = listen_dev(div2, "click", ctx.click_handler);
@@ -1423,13 +1423,13 @@ var app = (function () {
     			figure0 = element("figure");
     			t = space();
     			figure1 = element("figure");
-    			attr_dev(figure0, "class", "hero1 svelte-1tjfa35");
-    			add_location(figure0, file$2, 39, 4, 795);
-    			attr_dev(figure1, "class", "hero2 svelte-1tjfa35");
-    			add_location(figure1, file$2, 40, 4, 825);
-    			attr_dev(div0, "class", "hero svelte-1tjfa35");
-    			add_location(div0, file$2, 38, 2, 771);
-    			add_location(div1, file$2, 37, 0, 762);
+    			attr_dev(figure0, "class", "hero1 svelte-x1o1yg");
+    			add_location(figure0, file$2, 41, 4, 829);
+    			attr_dev(figure1, "class", "hero2 svelte-x1o1yg");
+    			add_location(figure1, file$2, 42, 4, 859);
+    			attr_dev(div0, "class", "hero svelte-x1o1yg");
+    			add_location(div0, file$2, 40, 2, 805);
+    			add_location(div1, file$2, 39, 0, 796);
     		},
 
     		l: function claim(nodes) {
@@ -2146,13 +2146,13 @@ var app = (function () {
     			input = element("input");
     			t = space();
     			i = element("i");
-    			attr_dev(input, "class", "search svelte-806y3v");
+    			attr_dev(input, "class", "search svelte-1vljxw1");
     			attr_dev(input, "placeholder", "Search");
-    			add_location(input, file$4, 39, 2, 748);
+    			add_location(input, file$4, 46, 2, 884);
     			attr_dev(i, "class", "fa fa-search");
-    			add_location(i, file$4, 40, 2, 836);
-    			attr_dev(div, "class", "round-wrapper is-search-box svelte-806y3v");
-    			add_location(div, file$4, 38, 0, 703);
+    			add_location(i, file$4, 51, 2, 992);
+    			attr_dev(div, "class", "round-wrapper is-search-box svelte-1vljxw1");
+    			add_location(div, file$4, 45, 0, 839);
 
     			dispose = [
     				listen_dev(input, "input", ctx.input_input_handler),
