@@ -119,6 +119,10 @@
           Download this image
         </a>
         <p class="description">{image.metadata.description}</p>
+        {#if image.metadata.notes.length > 2}
+          <h3>About This Art</h3>
+          <p class="description">{image.metadata.notes}</p>
+        {/if}
       </div>
       <div class="metadata">
         <div
@@ -150,11 +154,12 @@
       </div>
     </div>
   </div>
-  <div on:click={() => {
-    console.log("checksum", image.checksum)
-    go('ImageEditor', {checksum: image.checksum})
-    }
-   } class="aum-glyph">
+  <div
+    on:click={() => {
+      console.log('checksum', image.checksum);
+      go('ImageEditor', { checksum: image.checksum });
+    }}
+    class="aum-glyph">
     <span>ॐ</span>
   </div>
 {/if}
