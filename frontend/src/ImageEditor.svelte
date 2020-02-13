@@ -6,7 +6,7 @@
     removeImageTag,
     getSelectors,
     setImageDescription,
-    setImageCaption
+    setImageNotes
   } from "./api.js";
   import { currentView, go } from "./navigation.js";
   import { onDestroy } from "svelte";
@@ -28,6 +28,8 @@
   let password;
   let loggedIn = false;
   let newTag;
+  let notes = "";
+  let description = "";
 
   const savedCredentials = () => {
     if (
@@ -47,13 +49,15 @@
     loading = true;
     getImage({ checksum }).then(res => {
       image = res.image;
-      activeCollections = collections.map(c => image.metadata.keywords.includes(`Collection ${c}`))
+      activeCollections = collections.map(c =>
+        image.metadata.keywords.includes(`Collection ${c}`)
+      );
       if (image.metadata.description.length > 0) {
         description = image.metadata.description;
       }
 
-      if (image.metadata.caption.length > 0) {
-        caption = image.metadata.caption;
+      if (image.metadata.notes.length > 0) {
+        notes = image.metadata.notes;
       }
 
       loading = false;
@@ -93,13 +97,13 @@
 
   const updateCollection = (ev, c, i) => {
     if (ev.target.checked) {
-      newTag = `Collection ${c}`
-      addTag()
+      newTag = `Collection ${c}`;
+      addTag();
     } else {
-      let tag = `Collection ${c}`
-      deleteTag(tag) 
+      let tag = `Collection ${c}`;
+      deleteTag(tag);
     }
-  }
+  };
 
   const deleteTag = tag => {
     if (confirm(`Do you want to remove tag: "${tag}" ?`)) {
@@ -145,13 +149,13 @@
         addingTag = false;
 
         if (newTag.indexOf("Collection") !== -1) {
-          addingTag = true
-           getSelectors().then(selectors => {
-              tags = selectors.keywords
-              collections = selectors.collections
-              refreshImage({checksum})
-              addingTag = false;
-            });
+          addingTag = true;
+          getSelectors().then(selectors => {
+            tags = selectors.keywords;
+            collections = selectors.collections;
+            refreshImage({ checksum });
+            addingTag = false;
+          });
         }
 
         newTag = "";
@@ -160,7 +164,6 @@
           `Editing Image: ${checksum}`,
           `${location.pathname}?checksum=${checksum}&view=ImageEditor`
         );
-        
       })
       .catch(n => {
         console.error(n);
@@ -169,10 +172,35 @@
       });
   };
 
-  let description = "";
-  let caption = "";
-  const updateCaptionAndDescription = () => {
+  const updateNotes = () => {
+    if (image.metadata.notes !== notes) {
+      updatingText = true;
+      if (notes === "") {
+        notes = " ";
+        // notes can't be mutated to empty, it causes an error down in exiftool.
+      }
+      setImageNotes(email, password, checksum, notes)
+        .then(res => {
+          console.log(res);
+          image = res.setImageNotes;
+          checksum = image.checksum;
+          console.log("new checksum", checksum);
+          updatingText = false;
+          history.replaceState(
+            { checksum },
+            `Editing Image: ${checksum}`,
+            `${location.pathname}?checksum=${checksum}&view=ImageEditor`
+          );
+        })
+        .catch(n => {
+          console.error(n);
+          error = n.map(e => e.message).join(`. `);
+          updatingText = false;
+        });
+    }
+  };
 
+  const updateDescription = () => {
     if (image.metadata.description !== description) {
       updatingText = true;
       setImageDescription(email, password, checksum, description)
@@ -194,29 +222,7 @@
           updatingText = false;
         });
     }
-    if (image.metadata.caption !== caption) {
-      updatingText = true;
-      setImageCaption(email, password, checksum, caption)
-        .then(res => {
-          console.log(res);
-          image = res.setImageCaption;
-          checksum = image.checksum;
-          console.log("new checksum", checksum);
-          updatingText = false;
-          history.replaceState(
-            { checksum },
-            `Editing Image: ${checksum}`,
-            `${location.pathname}?checksum=${checksum}&view=ImageEditor`
-          );
-        })
-        .catch(n => {
-          console.error(n);
-          error = n.map(e => e.message).join(`. `);
-          updatingText = false;
-        });
-    }
-
-  }
+  };
 
   loggedIn = savedCredentials();
   let collections;
@@ -227,8 +233,8 @@
     console.dir("view changed", i);
     if (i.view == "ImageEditor") {
       getSelectors().then(selectors => {
-        tags = selectors.keywords.sort()
-        collections = selectors.collections
+        tags = selectors.keywords.sort();
+        collections = selectors.collections;
         refreshImage(i.data);
       });
     }
@@ -259,12 +265,13 @@
     font-size: 12px;
   }
 
-  .description, .caption {
+  .description,
+  .notes {
     font-family: sans-serif;
     font-size: 20px;
     color: #333333;
     display: block;
-    width: 100%
+    width: 100%;
   }
 
   .tag {
@@ -333,23 +340,31 @@
       <div class="single-image">
         <img src={toImageURL(image.medpath)} alt={image.metadata.description} />
         {#if !updatingText}
-        <form on:submit|preventDefault={updateCaptionAndDescription}>
-          <label for="caption">Caption <i>(IPTC:Caption-Abstract)</i></label>
-          <textarea name="caption" class="caption" bind:value={caption}></textarea>
-          <label for="description">Description <i>(EXIF:ImageDescription and XMP:Description)</i></label>
-          <textarea rows="10" name="description" class="description" bind:value={description}></textarea>
-          <input type="submit" value="Save Caption &amp; Description" />
-          <p>
-          Be aware that HAMSA uses only description, it doesn't expose caption to the readers. Caption is editable so that other applications can query for it in the future.
-          </p>
-          <p>
-          The plan is that <i>caption</i> is a short description and <i>description</i> is a longer description.
-          </p>
-        </form>
+          <form>
+            <label for="description">
+              Description
+              <i>
+                (IPTC:Caption-Abstract, EXIF:ImageDescription and
+                XMP:Description)
+              </i>
+            </label>
+            <textarea
+              rows="10"
+              name="description"
+              class="description"
+              bind:value={description} />
+            <input type="button" value="Save Description" on:click={updateDescription} />
+            <label for="notes">
+              About the image
+              <i>(IPTC:DocumentNotes)</i>
+            </label>
+            <textarea name="notes" class="notes" bind:value={notes} />
+            <input type="button" value="Save Notes" on:click={updateNotes} />
+          </form>
         {:else}
-        <div class="loading-wrapper">
-          <i class="fa fa-spinner fa-spin fa-3x" />
-        </div>
+          <div class="loading-wrapper">
+            <i class="fa fa-spinner fa-spin fa-3x" />
+          </div>
         {/if}
       </div>
       <div class="metadata">
@@ -380,21 +395,23 @@
             <form on:submit|preventDefault={addTag}>
               <label for="newtag">Add Tag:</label>
               <select bind:value={newTag}>
-              {#each tags as tag}
-              <option value="{tag}">{tag}</option>
-              {/each}
+                {#each tags as tag}
+                  <option value={tag}>{tag}</option>
+                {/each}
               </select>
               <input type="submit" value="Assign tag" />
               <h2>Collections</h2>
               {#each collections as collection, i}
-              <div>
-              <input 
-              type="checkbox" 
-              bind:checked={activeCollections[i]}
-              on:change={(ev) => updateCollection(ev, collection, i)}
-              name="collection-{i}">
-              <label class="collection-label" for="collection-{i}">{collection}</label>
-              </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    bind:checked={activeCollections[i]}
+                    on:change={ev => updateCollection(ev, collection, i)}
+                    name="collection-{i}" />
+                  <label class="collection-label" for="collection-{i}">
+                    {collection}
+                  </label>
+                </div>
               {/each}
             </form>
           {/if}

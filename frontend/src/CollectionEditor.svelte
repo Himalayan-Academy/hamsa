@@ -6,7 +6,6 @@
     removeImageTag,
     getSelectors,
     setImageDescription,
-    setImageCaption,
     getImagesForCollectionEditor
   } from "./api.js";
   import { currentView, go } from "./navigation.js";

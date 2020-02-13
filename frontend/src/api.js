@@ -58,7 +58,7 @@ export const removeImageTag = async (email, password, checksum, tag) => {
         metadata {
           artist
           description
-          caption
+          notes
           more
           keywords
         }
@@ -91,7 +91,7 @@ export const addImageTag = async (email, password, checksum, tag) => {
         metadata {
           artist
           description
-          caption
+          notes
           more
           keywords
         }
@@ -128,7 +128,7 @@ export const setImageDescription = async (
         metadata {
           artist
           description
-          caption
+          notes
           more
           keywords
         }
@@ -138,19 +138,19 @@ export const setImageDescription = async (
   return executeQuery(mutation, { email, password, checksum, description });
 };
 
-export const setImageCaption = async (email, password, checksum, caption) => {
+export const setImageNotes = async (email, password, checksum, notes) => {
   let mutation = gql`
     mutation(
       $email: String
       $password: String
       $checksum: String
-      $caption: String
+      $notes: String
     ) {
-      setImageCaption(
+      setImageNotes(
         email: $email
         password: $password
         checksum: $checksum
-        caption: $caption
+        notes: $notes
       ) {
         checksum
         path
@@ -160,7 +160,7 @@ export const setImageCaption = async (email, password, checksum, caption) => {
         metadata {
           artist
           description
-          caption
+          notes
           more
           keywords
         }
@@ -171,7 +171,7 @@ export const setImageCaption = async (email, password, checksum, caption) => {
     email,
     password,
     checksum,
-    caption: caption
+    notes: notes
   });
 };
 
@@ -225,7 +225,7 @@ export const getImage = async payload => {
         metadata {
           artist
           description
-          caption
+          notes
           more
           keywords
         }
@@ -248,7 +248,7 @@ export const getImagesForCollectionEditor = async images => {
         metadata {
           artist
           description
-          caption
+          notes
           more
           keywords
         }
