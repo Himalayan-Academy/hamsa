@@ -37,8 +37,8 @@
   const updateCollection = (ev, collection, i) => {
     if (ev.target.checked) {
       newTag = collection;
-    } 
-    console.log()
+    }
+    console.log();
   };
 
   const addCollection = () => {
@@ -54,18 +54,18 @@
 
     Promise.all(res)
       .then(res2 => {
-        console.log(res2)
-        console.log("images old", images)
-        images = res2.map(r => r.addImageTag)
-        console.log("images new", images)
+        console.log(res2);
+        console.log("images old", images);
+        images = res2.map(r => r.addImageTag);
+        console.log("images new", images);
 
-        let snip = images.map(i=> `&images=${i.checksum}`).join("")
+        let snip = images.map(i => `&images=${i.checksum}`).join("");
 
         history.replaceState(
-            { images },
-            `Editing Images: ${images}`,
-            `${location.pathname}?view=CollectionEditor${snip}`
-          );
+          { images },
+          `Editing Images: ${images}`,
+          `${location.pathname}?view=CollectionEditor${snip}`
+        );
 
         getSelectors().then(selectors => {
           tags = selectors.keywords;
@@ -152,6 +152,18 @@
   .collection-label {
     display: inline-block;
   }
+
+  .button {
+    border-radius: 30px;
+    display: inline-block;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #d8b36c;
+    color: #783441;
+    font-weight: 600;
+    cursor: pointer;
+  }
 </style>
 
 {#if loadingImages}
@@ -174,24 +186,6 @@
       {/each}
     </div>
     <div class="controls">
-      {#if tags}
-        <div class="collection-header">
-          <h3 class="collection-title">Add new collection</h3>
-          <p>
-            The collections you add here will be added to the images appearing
-            on the left.
-          </p>
-        </div>
-        {#if addingTag}
-          <i class="fa fa-spinner fa-spin" />
-        {:else}
-          <form on:submit|preventDefault={addCollection}>
-            <label for="newtag">Add New Collection:</label>
-            <input type="text" id="newtag" bind:value={newTag} />
-            <input type="submit" value="Assign collection" />
-          </form>
-        {/if}
-      {/if}
       {#if collections}
         <div class="collection-header">
           <h3 class="collection-title">Collections</h3>
@@ -215,12 +209,29 @@
         {#if addingTag}
           <i class="fa fa-spinner fa-spin" />
         {:else}
-          <button on:click={addCollection}>
+        <br>
+          <button class="button" on:click={addCollection}>
             Assign the selected collections to the images on the left
           </button>
         {/if}
       {/if}
-
+      {#if tags}
+        <div class="collection-header">
+          <h3 class="collection-title">Add new collection</h3>
+          <p>
+            The collections you add here will be added to the images appearing
+            on the left.
+          </p>
+        </div>
+        {#if addingTag}
+          <i class="fa fa-spinner fa-spin" />
+        {:else}
+          <form on:submit|preventDefault={addCollection}>
+            <input type="text" id="newtag" bind:value={newTag} />
+            <input type="submit" class="button" value="Assign collection" />
+          </form>
+        {/if}
+      {/if}
     </div>
   </div>
 {/if}
